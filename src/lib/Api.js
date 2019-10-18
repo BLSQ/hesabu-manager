@@ -1,4 +1,4 @@
-import { getInstance, getManifest, init } from "d2/lib/d2";
+import { getInstance, getManifest, init } from "d2/d2";
 
 class Api {
   /**
