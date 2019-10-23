@@ -23,6 +23,16 @@ import store from "./store";
 import registerServiceWorker from "./registerServiceWorker";
 import { CookiesProvider } from "react-cookie";
 
+const LoadableSetsContainer = Loadable({
+  loader: () => import("./containers/SetsContainer"),
+  loading: RouteLoading,
+});
+
+const LoadableSimulationsContainer = Loadable({
+  loader: () => import("./containers/SimulationsContainer"),
+  loading: RouteLoading,
+});
+
 const LoadableHomepageContainer = Loadable({
   loader: () => import("./containers/HomepageContainer"),
   loading: RouteLoading,
@@ -95,11 +105,30 @@ class App extends Component {
                         handleDrawerToggle={() => this.props.toggleDrawer()}
                         open={this.props.drawerOpen}
                       />
-                      {pathname === "/" && <Redirect to="/homepage" />}
+                      {pathname === "/" && <Redirect to="/sets" />}
+                      { /* AB: Make this relate to drawer items? */}
                       <Switch>
                         <Route
-                          path="/homepage"
-                          component={LoadableHomepageContainer}
+                          path="/sets"
+                          component={LoadableSetsContainer}
+                        />
+                      </Switch>
+                      <Switch>
+                        <Route
+                          path="/sets_groups"
+                          component={LoadableSetsContainer}
+                        />
+                      </Switch>
+                      <Switch>
+                        <Route
+                          path="/simulations"
+                          component={LoadableSimulationsContainer}
+                        />
+                      </Switch>
+                      <Switch>
+                        <Route
+                          path="/help"
+                          component={LoadableSetsContainer}
                         />
                       </Switch>
                     </div>
