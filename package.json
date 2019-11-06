@@ -22,11 +22,13 @@
     "enzyme-adapter-react-16": "^1.15.1",
     "es6-shim": "^0.35.5",
     "formik": "^1.5.8",
+    "humanize-duration": "^3.21.0",
     "i18n-iso-countries": "^4.3.1",
     "i18next": "^17.2.0",
     "i18next-browser-languagedetector": "^4.0.0",
     "lodash": "^4.17.15",
     "logrocket": "^1.0.3",
+    "manager-ui": "https://github.com/BLSQ/manager-ui.git",
     "material-ui-pickers": "^2.2.4",
     "notistack": "^0.9.5",
     "react": "^16.10.2",
@@ -44,8 +46,10 @@
     "react-rte": "^0.16.1",
     "react-scripts": "3.2.0",
     "react-select": "^3.0.8",
+    "react-time-ago": "^5.0.7",
     "redux": "^4.0.4",
     "redux-thunk": "^2.3.0",
+    "string-humanize": "^1.0.1",
     "wretch": "^1.5.5"
   },
   "homepage": ".",
@@ -59,8 +63,7 @@
     "test:debug": "node --inspect node_modules/.bin/jest --runInBand"
   },
   "husky": {
-    "hooks": {
-    }
+    "hooks": {}
   },
   "lint-staged": {
     "*.{js,json,css,md}": [

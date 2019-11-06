@@ -23,6 +23,8 @@ import store from "./store";
 import registerServiceWorker from "./registerServiceWorker";
 import { CookiesProvider } from "react-cookie";
 
+
+
 const LoadableSetsContainer = Loadable({
   loader: () => import("./containers/SetsContainer"),
   loading: RouteLoading,
@@ -112,20 +114,14 @@ class App extends Component {
                           path="/sets"
                           component={LoadableSetsContainer}
                         />
-                      </Switch>
-                      <Switch>
                         <Route
                           path="/sets_groups"
                           component={LoadableSetsContainer}
                         />
-                      </Switch>
-                      <Switch>
                         <Route
                           path="/simulations"
                           component={LoadableSimulationsContainer}
                         />
-                      </Switch>
-                      <Switch>
                         <Route
                           path="/help"
                           component={LoadableSetsContainer}

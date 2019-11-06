@@ -40,13 +40,13 @@ const useStyles = makeStyles(theme => ({
 function DrawerItems() {
   const classes = useStyles();
   const { t } = useTranslation();
-  // AB: Can I make this into constants?
+  // TODO: Move this to separate file, and use them into the props here.
   const items = [
     {
       title: t("drawerItems.sets"),
       route: "/sets",
       icon: <ListIcon />,
-      class: "menu-sets"
+      class: "menu-sets",
     },
     {
       title: t("drawerItems.sets_groups"),

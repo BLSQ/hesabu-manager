@@ -16,7 +16,9 @@ import { connect } from "react-redux";
 import { withTranslation } from "react-i18next";
 import TopBar from "../components/Shared/TopBar";
 import InfoBox from "../components/Shared/InfoBox";
-
+import SimulationList from "../components/Simulations/SimulationList";
+import SimulationForm from "../components/Simulations/SimulationForm";
+import classNames from "classnames";
 import { useTranslation } from "react-i18next";
 
 const styles = theme => ({
@@ -33,14 +35,41 @@ const styles = theme => ({
   drawerPaper: {
     zIndex: 100,
     width: '200px',
+    paddingLeft: theme.spacing(2)
   },
   content: {
     flexGrow: 1,
     padding: theme.spacing(3),
   },
+  toolbarExtra: {
+    marginBottom: theme.spacing(3)
+  },
   toolbar: theme.mixins.toolbar,
 });
 
+const simulations = [
+  {
+    name: "SIGL BCZ FOSA Coherence, COSPRO - A.3 - Bureaux Administratifs",
+    groupNames: ["BCZs"],
+    createdAt: "2019-11-02T18:25:43.511Z",
+    buildDuration: 240,
+    period: "Q3 - 2019"
+  },
+  {
+    name: "SIGL BCZ FOSA Coherence",
+    groupNames: ["BCZs", "FOSAs"],
+    createdAt: "2019-10-02T18:25:43.511Z",
+    buildDuration: 108,
+    period: "Q2 - 2019"
+  },
+  {
+    name: "SIGL BCZ FOSA Coherence",
+    groupNames: ["BCZs", "FOSAs"],
+    createdAt: "2019-10-06T18:25:43.511Z",
+    buildDuration: 53,
+    period: "Q1 - 2018"
+  },
+];
 
 const SimulationsContainer = props => {
   const { classes } = props;
@@ -57,15 +86,13 @@ const SimulationsContainer = props => {
     <Fragment>
       <TopBar>
         <Typography variant="h6" color="inherit">
-          {t("drawerItems.sets")}
+          {t("drawerItems.simulations")}
         </Typography>
       </TopBar>
       <PageContent>
-        <Grid container spacing={4} justify="center">
+        <Grid container spacing={4}>
           <Grid item xs={12} lg={8}>
-            <InfoBox>
-SIMULATIONS
-            </InfoBox>
+            <SimulationList simulations={simulations} />
             <Drawer
               className={classes.drawer}
               variant="permanent"
@@ -74,8 +101,8 @@ SIMULATIONS
                 paper: classes.drawerPaper,
               }}
             >
-              <div className={classes.toolbar} />
-              <p>O HAI</p>
+              <div className={classNames(classes.toolbar, classes.toolbarExtra)} />
+              <SimulationForm simulation={simulations[0]} />
             </Drawer>
           </Grid>
         </Grid>
