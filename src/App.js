@@ -35,11 +35,6 @@ const LoadableSimulationsContainer = Loadable({
   loading: RouteLoading,
 });
 
-const LoadableHomepageContainer = Loadable({
-  loader: () => import("./containers/HomepageContainer"),
-  loading: RouteLoading,
-});
-
 const styles = () => ({
   root: {
     flexGrow: 1,
@@ -78,12 +73,7 @@ class App extends Component {
   }
 
   render() {
-    const {
-      classes,
-      project,
-      token,
-      location: { pathname },
-    } = this.props;
+    const { classes, location: { pathname } } = this.props;
 
     return (
       <I18nextProvider i18n={i18n}>
