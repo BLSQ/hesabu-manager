@@ -52,19 +52,19 @@ function DrawerItems() {
       title: t("drawerItems.sets_groups"),
       route: "/sets_groups",
       icon: <FunctionsIcon />,
-      class: "menu-sets-groups"
+      class: "menu-sets-groups",
     },
     {
       title: t("drawerItems.simulations"),
       route: "/simulations",
       icon: <SyncIcon />,
-      class: "menu-simulations"
+      class: "menu-simulations",
     },
     {
       title: t("drawerItems.help"),
       route: "/help",
       icon: <HelpIcon />,
-      class: "menu-help"
+      class: "menu-help",
     },
   ];
   return (
@@ -76,12 +76,14 @@ function DrawerItems() {
         aria-label="Hesabu logo"
       />
       <List>
-        {items.map( (object,i) => (
-          <DrawerItem to={object.route} className={object.class}>
-            <ListItemIcon>
-              {object.icon}
-            </ListItemIcon>
-            <ListItemText primary={object.title} />
+        {items.map((item, i) => (
+          <DrawerItem
+            key={`${i}-drawer-item`}
+            to={item.route}
+            className={item.class}
+          >
+            <ListItemIcon>{item.icon}</ListItemIcon>
+            <ListItemText primary={item.title} />
           </DrawerItem>
         ))}
       </List>
