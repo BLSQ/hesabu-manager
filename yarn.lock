@@ -995,6 +995,13 @@
     lodash "^4.17.13"
     to-fast-properties "^2.0.0"
 
+"@blsq/manager-ui@^1.5.0":
+  version "1.5.0"
+  resolved "https://registry.yarnpkg.com/@blsq/manager-ui/-/manager-ui-1.5.0.tgz#7fca1ba6309451693c68ded4a457036cf540ae5f"
+  integrity sha512-JZtp5QmyBBwJuAwt3qVaUpQKocfiTazNLKTDVQxe/2/48dus+ZTFpjVkMtuwaCYGQM8eS6D57SVMu5hfa7zyfA==
+  dependencies:
+    classnames "^2.2.6"
+
 "@cnakazawa/watch@^1.0.3":
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/@cnakazawa/watch/-/watch-1.0.3.tgz#099139eaec7ebf07a27c1786a3ff64f39464d2ef"
@@ -7847,12 +7854,6 @@ mamacro@^0.0.3:
   version "0.0.3"
   resolved "https://registry.yarnpkg.com/mamacro/-/mamacro-0.0.3.tgz#ad2c9576197c9f1abf308d0787865bd975a3f3e4"
   integrity sha512-qMEwh+UujcQ+kbz3T6V+wAmO2U8veoq2w+3wY8MquqwVA3jChfwY+Tk52GZKDfACEPjuZ7r2oJLejwpt8jtwTA==
-
-"manager-ui@https://github.com/BLSQ/manager-ui.git":
-  version "1.0.0"
-  resolved "https://github.com/BLSQ/manager-ui.git#9afb090410fec983f7dfc08e6cc3b251b7445773"
-  dependencies:
-    classnames "^2.2.6"
 
 map-age-cleaner@^0.1.1:
   version "0.1.3"
