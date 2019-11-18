@@ -30,6 +30,11 @@ const LoadableSetsContainer = Loadable({
   loading: RouteLoading,
 });
 
+const LoadableSimulationContainer = Loadable({
+  loader: () => import("./containers/SimulationContainer"),
+  loading: RouteLoading,
+});
+
 const LoadableSimulationsContainer = Loadable({
   loader: () => import("./containers/SimulationsContainer"),
   loading: RouteLoading,
@@ -111,6 +116,10 @@ class App extends Component {
                         <Route
                           path="/simulations"
                           component={LoadableSimulationsContainer}
+                        />
+                        <Route
+                          path="/simulation"
+                          component={LoadableSimulationContainer}
                         />
                         <Route
                           path="/help"
