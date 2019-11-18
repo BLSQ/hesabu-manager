@@ -19,6 +19,7 @@ const drawerWidth = DRAWER_WIDTH;
 const styles = theme => ({
   root: {
     marginLeft: drawerWidth,
+    zIndex: 999,
     [theme.breakpoints.up("md")]: {
       width: `calc(100% - ${drawerWidth}px)`,
     },

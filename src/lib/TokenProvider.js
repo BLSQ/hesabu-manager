@@ -1,5 +1,5 @@
 import { Component } from "react";
-import connect from "react-redux/lib/connect/connect";
+import { connect } from "react-redux";
 import { receiveToken, receiveTokenError } from "../actions/api";
 
 import Api from "./Api";

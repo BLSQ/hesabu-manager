@@ -45,7 +45,10 @@ class HomepageContainer extends Component {
         </TopBar>
         <PageContent>
           <Grid container spacing={4} justify="center">
-            <Grid item xs={12} lg={8}></Grid>
+            <Grid item xs={12} lg={8}>
+              <InfoBox>
+              </InfoBox>
+            </Grid>
           </Grid>
         </PageContent>
       </Fragment>

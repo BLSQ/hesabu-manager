@@ -1,5 +1,5 @@
 import Api from "../../lib/Api";
-import AsyncSelect from "react-select/lib/Async";
+import AsyncSelect from 'react-select/async';
 import React from "react";
 import isArray from "lodash/isArray";
 import isEmpty from "lodash/isEmpty";
