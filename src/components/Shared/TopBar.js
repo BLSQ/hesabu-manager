@@ -7,7 +7,6 @@ import {
 } from "@material-ui/core";
 
 import MenuIcon from "@material-ui/icons/Menu";
-import PreviewIcon from "@material-ui/icons/RemoveRedEye";
 import React from "react";
 import { connect } from "react-redux";
 import { withTranslation } from "react-i18next";
@@ -52,17 +51,6 @@ function TopBar(props) {
           <MenuIcon />
         </IconButton>
         <div className={classes.branding}>{props.children || project.name}</div>
-
-        <Tooltip title={t("tooltips.viewPortal")}>
-          <IconButton
-            className="view-portal-button"
-            color="inherit"
-            aria-label={t("tooltips.viewPortal")}
-            onClick={() => window.open(`http://${project.domain}`)}
-          >
-            <PreviewIcon />
-          </IconButton>
-        </Tooltip>
       </Toolbar>
       {props.tabs && <SectionTabs activeTab={activeTab} />}
     </AppBar>
