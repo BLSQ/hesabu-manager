@@ -12,16 +12,14 @@ import ExitIcon from "@material-ui/icons/ExitToApp";
 import HelpIcon from "@material-ui/icons/HelpOutline";
 import SyncIcon from "@material-ui/icons/Sync";
 import { useTranslation } from "react-i18next";
-import logoUrl from "../../images/logo-hesabu.svg";
+import { HesabuLogo } from "@blsq/manager-ui";
 import DrawerItem from "./DrawerItem";
 
 const useStyles = makeStyles(theme => ({
   logo: {
-    padding: `${theme.spacing(3)}px 0`,
-    display: "flex",
+    height: 40,
+    margin: theme.spacing(2),
     alignSelf: "flex-start",
-    marginLeft: theme.spacing(3),
-    height: 50,
   },
   exitBtn: {
     display: "flex",
@@ -62,12 +60,7 @@ function DrawerItems() {
   ];
   return (
     <Fragment>
-      <object
-        type="image/svg+xml"
-        data={logoUrl}
-        className={classes.logo}
-        aria-label="Hesabu logo"
-      />
+      <HesabuLogo className={classes.logo} />
       <List>
         {items.map((item, i) => (
           <DrawerItem
