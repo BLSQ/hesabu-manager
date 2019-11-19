@@ -1,5 +1,4 @@
 import {
-  Divider,
   List,
   ListItemIcon,
   ListItemText,
@@ -11,13 +10,7 @@ import ListIcon from "@material-ui/icons/List";
 import FunctionsIcon from "@material-ui/icons/Functions";
 import ExitIcon from "@material-ui/icons/ExitToApp";
 import HelpIcon from "@material-ui/icons/HelpOutline";
-import HomeIcon from "@material-ui/icons/Home";
 import SyncIcon from "@material-ui/icons/Sync";
-import MaintenanceIcon from "@material-ui/icons/Settings";
-import ThemeIcon from "@material-ui/icons/Palette";
-import ProjectIcon from "@material-ui/icons/SettingsInputComponent";
-import PublicationsIcon from "@material-ui/icons/SpeakerNotes";
-import SectionIcon from "@material-ui/icons/ViewDay";
 import { useTranslation } from "react-i18next";
 import logoUrl from "../../images/logo-hesabu.svg";
 import DrawerItem from "./DrawerItem";
@@ -49,7 +42,7 @@ function DrawerItems() {
       class: "menu-sets",
     },
     {
-      title: t("drawerItems.sets_groups"),
+      title: t("drawerItems.setsGroups"),
       route: "/sets_groups",
       icon: <FunctionsIcon />,
       class: "menu-sets-groups",

@@ -3,29 +3,31 @@ export default {
   en: {
     translations: {
       drawerItems: {
-        homepage: "Homepage",
         sets: "Sets",
-        sets_groups: "Sets groups",
+        setsGroups: "Sets groups",
         simulations: "Simulations",
-        help: "Help"
+        help: "Help",
       },
-      simulation_form: {
-        project_version: {
+      simulationForm: {
+        projectVersion: {
           legend: "Project Version",
           draft: "Draft",
           v1: "V1",
-          v2: "V2"
+          v2: "V2",
         },
         data_source: {
           legend: "Data Source",
           dhis: "DHIS2 Values",
-          mocked: "Fake Values"
+          mocked: "Fake Values",
         },
-        org_unit: {
+        orgUnit: {
           legend: "Organisation Unit",
           label: "Organisation Unit",
-          help: "Select an organisation you want to see the simulation for"
-        }
+          help: "Select an organisation you want to see the simulation for",
+        },
+      },
+      tooltips: {
+        backToDhis2: "Back to Dhis2",
       },
     },
   },
