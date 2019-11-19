@@ -8,7 +8,7 @@ import PropTypes from "prop-types";
 import PageContent from "../../components/Shared/PageContent";
 import TopBar from "../../components/Shared/TopBar";
 import SetList from "../../components/Sets/SetList";
-import SideSheet from "../../components/SideSeet";
+import SideSheet from "../../components/SideSheet";
 import FiltersToggleBtn from "../../components/FiltersToggleBtn";
 
 const useStyles = makeStyles(theme => ({
