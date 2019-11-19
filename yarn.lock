@@ -996,9 +996,9 @@
     to-fast-properties "^2.0.0"
 
 "@blsq/manager-ui@^1.5.0":
-  version "1.5.0"
-  resolved "https://registry.yarnpkg.com/@blsq/manager-ui/-/manager-ui-1.5.0.tgz#7fca1ba6309451693c68ded4a457036cf540ae5f"
-  integrity sha512-JZtp5QmyBBwJuAwt3qVaUpQKocfiTazNLKTDVQxe/2/48dus+ZTFpjVkMtuwaCYGQM8eS6D57SVMu5hfa7zyfA==
+  version "1.6.1"
+  resolved "https://registry.yarnpkg.com/@blsq/manager-ui/-/manager-ui-1.6.1.tgz#1ab575251e7cad0983f611feac5c21bcc900ccc1"
+  integrity sha512-a3LJBFc37F29kfdUycdIrvLNzHJs3fJD8zwfl792No/qycqEkVCAP0J9Und1YT7QlVSlkazbFc29ozF0yZ18Sg==
   dependencies:
     classnames "^2.2.6"
 
