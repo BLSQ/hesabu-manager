@@ -1,7 +1,7 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 import FilterIcon from "@material-ui/icons/FilterList";
-import SearcIcon from "@material-ui/icons/Search";
+import SearchIcon from "@material-ui/icons/Search";
 import { Tooltip, IconButton } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
 import PropTypes from "prop-types";
@@ -34,7 +34,7 @@ const FiltersToggleBtn = props => {
         className={classNames(classes.root, props.className)}
         onClick={props.onClick}
       >
-        {isSearch ? <SearcIcon /> : <FilterIcon />}
+        {isSearch ? <SearchIcon /> : <FilterIcon />}
       </IconButton>
     </Tooltip>
   );
