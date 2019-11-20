@@ -30,7 +30,7 @@ const SetsContainer = props => {
   const { t } = useTranslation();
   const [sideSheetOpen, setSideSheetOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
-  const [query, setQuery] = useState(undefined);
+  const [query, setQuery] = useState("");
 
   const handleToggleSideSheet = () => setSideSheetOpen(!sideSheetOpen);
   const handleToggleSearch = () => setSearchOpen(!searchOpen);
