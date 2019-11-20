@@ -6,11 +6,18 @@ export default {
         search: "Search",
         back: "Back",
       },
+      emptySection: {
+        title: "You don’t have any {{resourceName}}",
+        body: "Create some and they will appear here.",
+      },
       drawerItems: {
         sets: "Sets",
         setsGroups: "Sets groups",
         simulations: "Simulations",
         help: "Help",
+      },
+      resources: {
+        set: "set",
       },
       sets: {
         index: {
