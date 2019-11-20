@@ -996,10 +996,11 @@
     to-fast-properties "^2.0.0"
 
 "@blsq/manager-ui@^1.5.0":
-  version "1.6.1"
-  resolved "https://registry.yarnpkg.com/@blsq/manager-ui/-/manager-ui-1.6.1.tgz#1ab575251e7cad0983f611feac5c21bcc900ccc1"
-  integrity sha512-a3LJBFc37F29kfdUycdIrvLNzHJs3fJD8zwfl792No/qycqEkVCAP0J9Und1YT7QlVSlkazbFc29ozF0yZ18Sg==
+  version "1.6.2"
+  resolved "https://registry.yarnpkg.com/@blsq/manager-ui/-/manager-ui-1.6.2.tgz#4d0bda9738551b5a3ead8fb7ebb7114817e937ef"
+  integrity sha512-bvoBEovQ95OP1dK1mCada49a7n0e485Cw0hR+PXP5tpB2ch+wEhwatAPc5Zu/v1eRxXOe+dfxA9RzlEHye50gw==
   dependencies:
+    "@use-hook/use-cookie" "^0.1.4"
     classnames "^2.2.6"
 
 "@cnakazawa/watch@^1.0.3":
@@ -1809,6 +1810,15 @@
     is-glob "^4.0.1"
     lodash.unescape "4.0.1"
     semver "^6.3.0"
+
+"@use-hook/use-cookie@^0.1.4":
+  version "0.1.4"
+  resolved "https://registry.yarnpkg.com/@use-hook/use-cookie/-/use-cookie-0.1.4.tgz#9a506996174b634385fc2dc1f15fec3c97bb2c7d"
+  integrity sha512-JewDdt4m0K++qv++Ihk0vLjbkWqxEfervpaNY1n2JCxJY5QunZ59lNV0pXwQS1VAx/ipKjLarPLLHV7+RboIkw==
+  dependencies:
+    js-cookie "2.2.0"
+    react "^16.8.0"
+    react-dom "^16.8.0"
 
 "@webassemblyjs/ast@1.8.5":
   version "1.8.5"
@@ -7193,6 +7203,11 @@ jest@24.9.0:
     import-local "^2.0.0"
     jest-cli "^24.9.0"
 
+js-cookie@2.2.0:
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/js-cookie/-/js-cookie-2.2.0.tgz#1b2c279a6eece380a12168b92485265b35b1effb"
+  integrity sha1-Gywnmm7s44ChIWi5JIUmWzWx7/s=
+
 js-levenshtein@^1.1.3:
   version "1.1.6"
   resolved "https://registry.yarnpkg.com/js-levenshtein/-/js-levenshtein-1.1.6.tgz#c6cee58eb3550372df8deb85fad5ce66ce01d59d"
@@ -10295,6 +10310,16 @@ react-dom@^16.10.2:
     prop-types "^15.6.2"
     scheduler "^0.16.2"
 
+react-dom@^16.8.0:
+  version "16.12.0"
+  resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-16.12.0.tgz#0da4b714b8d13c2038c9396b54a92baea633fe11"
+  integrity sha512-LMxFfAGrcS3kETtQaCkTKjMiifahaMySFDn71fZUNpPHZQEzmk/GiAeIT8JSOrHB23fnuCOMruL2a8NYlw+8Gw==
+  dependencies:
+    loose-envify "^1.1.0"
+    object-assign "^4.1.1"
+    prop-types "^15.6.2"
+    scheduler "^0.18.0"
+
 react-error-overlay@^6.0.3:
   version "6.0.3"
   resolved "https://registry.yarnpkg.com/react-error-overlay/-/react-error-overlay-6.0.3.tgz#c378c4b0a21e88b2e159a3e62b2f531fd63bf60d"
@@ -10599,6 +10624,15 @@ react@^16.10.2:
   version "16.10.2"
   resolved "https://registry.yarnpkg.com/react/-/react-16.10.2.tgz#a5ede5cdd5c536f745173c8da47bda64797a4cf0"
   integrity sha512-MFVIq0DpIhrHFyqLU0S3+4dIcBhhOvBE8bJ/5kHPVOVaGdo0KuiQzpcjCPsf585WvhypqtrMILyoE2th6dT+Lw==
+  dependencies:
+    loose-envify "^1.1.0"
+    object-assign "^4.1.1"
+    prop-types "^15.6.2"
+
+react@^16.8.0:
+  version "16.12.0"
+  resolved "https://registry.yarnpkg.com/react/-/react-16.12.0.tgz#0c0a9c6a142429e3614834d5a778e18aa78a0b83"
+  integrity sha512-fglqy3k5E+81pA8s+7K0/T3DBCF0ZDOher1elBFzF7O6arXJgzyu/FW+COxFvAWXJoJN9KIZbT2LXlukwphYTA==
   dependencies:
     loose-envify "^1.1.0"
     object-assign "^4.1.1"
@@ -11179,6 +11213,14 @@ scheduler@^0.16.2:
   version "0.16.2"
   resolved "https://registry.yarnpkg.com/scheduler/-/scheduler-0.16.2.tgz#f74cd9d33eff6fc554edfb79864868e4819132c1"
   integrity sha512-BqYVWqwz6s1wZMhjFvLfVR5WXP7ZY32M/wYPo04CcuPM7XZEbV2TBNW7Z0UkguPTl0dWMA59VbNXxK6q+pHItg==
+  dependencies:
+    loose-envify "^1.1.0"
+    object-assign "^4.1.1"
+
+scheduler@^0.18.0:
+  version "0.18.0"
+  resolved "https://registry.yarnpkg.com/scheduler/-/scheduler-0.18.0.tgz#5901ad6659bc1d8f3fdaf36eb7a67b0d6746b1c4"
+  integrity sha512-agTSHR1Nbfi6ulI0kYNK0203joW2Y5W4po4l+v03tOoiJKpTBbxpNhWDvqc/4IcOw+KLmSiQLTasZ4cab2/UWQ==
   dependencies:
     loose-envify "^1.1.0"
     object-assign "^4.1.1"
