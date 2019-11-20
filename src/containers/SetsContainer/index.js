@@ -1,4 +1,5 @@
 import React, { Fragment, useState } from "react";
+import matchSorter from "match-sorter";
 import { Typography } from "@material-ui/core";
 import { connect } from "react-redux";
 import { useTranslation } from "react-i18next";
@@ -10,10 +11,17 @@ import TopBar from "../../components/Shared/TopBar";
 import SetList from "../../components/Sets/SetList";
 import SideSheet from "../../components/SideSheet";
 import FiltersToggleBtn from "../../components/FiltersToggleBtn";
+import AppBarSearch from "../../components/AppBarSearch";
 
 const useStyles = makeStyles(theme => ({
   infoBox: {
     marginBottom: theme.spacing(4),
+  },
+  appBarHeader: {
+    flex: 1,
+  },
+  filtersBtn: {
+    marginLeft: theme.spacing(1),
   },
 }));
 
@@ -21,25 +29,43 @@ const SetsContainer = props => {
   const classes = useStyles(props);
   const { t } = useTranslation();
   const [sideSheetOpen, setSideSheetOpen] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
+  const [query, setQuery] = useState("");
+
   const handleToggleSideSheet = () => setSideSheetOpen(!sideSheetOpen);
+  const handleToggleSearch = () => setSearchOpen(!searchOpen);
+
+  const filteredSets = matchSorter(props.sets, query, {
+    keys: ["name", "displayName"],
+  });
+
   return (
     <Fragment>
       <TopBar>
-        <Typography variant="h6" color="inherit">
-          {t("drawerItems.sets")}
-        </Typography>
-        <FiltersToggleBtn onClick={handleToggleSideSheet} />
+        {searchOpen ? (
+          <AppBarSearch onClose={handleToggleSearch} onChange={setQuery} />
+        ) : (
+          <Typography
+            variant="h6"
+            color="inherit"
+            className={classes.appBarHeader}
+          >
+            {t("drawerItems.sets")} {searchOpen && "open"}
+          </Typography>
+        )}
+        <FiltersToggleBtn
+          className={classes.filtersBtn}
+          onClick={handleToggleSearch}
+          variant="search"
+        />
+        <FiltersToggleBtn
+          className={classes.filtersBtn}
+          onClick={handleToggleSideSheet}
+        />
       </TopBar>
       <PageContent>
-        <InfoBox className={classes.infoBox}>
-          Sets are the blocks of your final report. Each set will output{" "}
-          <strong>one or two tables</strong> depending on the type. If you want
-          to make computations with data from multiple sets, create project
-          formulas and they will appear at the end of your report. At any
-          moment, you can see a representation of the report in the{" "}
-          <strong>simulations page</strong>.
-        </InfoBox>
-        <SetList sets={props.sets} />
+        <InfoBox className={classes.infoBox}>{t("sets.index.infoBox")}</InfoBox>
+        <SetList sets={filteredSets} />
       </PageContent>
       <SideSheet
         title={t("filtersSheet.title")}

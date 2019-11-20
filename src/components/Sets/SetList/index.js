@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import SetListItem from "../SetListItem";
 
 const SetList = props => {
+  if (!props.sets.length) return <p>No sets</p>;
   return (
     <div>
       {props.sets.map((set, index) => (
