@@ -1,0 +1,56 @@
+import { withRouter } from "react-router-dom";
+import React, { useState } from "react";
+import { Chip, Typography, IconButton } from "@material-ui/core";
+import classNames from "classnames";
+import PropTypes from "prop-types";
+import ExpandMore from "@material-ui/icons/ExpandMore";
+import ExpandLess from "@material-ui/icons/ExpandLess";
+import styles from "./styles";
+
+const SetListItem = props => {
+  const classes = styles();
+  const [expanded, setExpanded] = useState(false);
+  const { title, description, groups } = props;
+  return (
+    <div className={classes.root}>
+      <div className={classes.header}>
+        <Typography variant="h6" className={classNames(classes.sectionTitle)}>
+          {title}
+        </Typography>
+        <IconButton
+          className={classes.expandBtn}
+          onClick={() => setExpanded(!expanded)}
+        >
+          {expanded ? <ExpandLess /> : <ExpandMore />}
+        </IconButton>
+      </div>
+      {groups.map((group, index) => (
+        <Chip
+          key={`${index}-group`}
+          label={group}
+          className={classNames(classes.groupChip)}
+        />
+      ))}
+      {expanded && (
+        <Typography
+          variant="subtitle1"
+          className={classNames(classes.description)}
+        >
+          {description}
+        </Typography>
+      )}
+    </div>
+  );
+};
+
+SetListItem.propTypes = {
+  description: PropTypes.string,
+  groups: PropTypes.array,
+  title: PropTypes.string,
+};
+
+SetListItem.defaultProps = {
+  groups: [],
+};
+
+export default withRouter(SetListItem);
