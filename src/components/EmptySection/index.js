@@ -30,7 +30,7 @@ const EmptySection = props => {
           <HelpAvatar />
         </div>
         <Typography variant="h6">
-          {t("emptySection.title", { resourceName: t("resources.set") })}
+          {t("emptySection.title", { resourceName: props.resourceName })}
         </Typography>
         <Typography variant="body2">{t("emptySection.body")}</Typography>
       </div>
@@ -41,6 +41,7 @@ const EmptySection = props => {
 EmptySection.propTypes = {
   onClick: PropTypes.func,
   variant: PropTypes.string,
+  resourceName: PropTypes.string,
 };
 
 export default EmptySection;
