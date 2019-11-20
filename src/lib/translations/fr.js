@@ -28,6 +28,11 @@ export default {
       },
       tooltips: {
         backToDhis2: "Retour à Dhis2",
+        toggleFilters: "Montrez/Cachez les filtres",
+      },
+      filtersSheet: {
+        title: "Filtres",
+        label: "Liste des filtres",
       },
     },
   },
