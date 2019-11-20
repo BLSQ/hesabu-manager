@@ -1,6 +1,10 @@
 # myapp.rb
 require 'sinatra'
 
+before do
+  response.headers['Access-Control-Allow-Origin'] = '*'
+end
+
 get '/' do
   'Hello world!'
 end
