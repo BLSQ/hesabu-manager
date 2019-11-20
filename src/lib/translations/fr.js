@@ -1,11 +1,21 @@
 export default {
   fr: {
     translations: {
+      buttons: {
+        search: "Rechercher",
+        back: "Retour",
+      },
       drawerItems: {
         sets: "Ensembles",
         setsGroups: "Groupe d’ensembles",
         simulations: "Simulations",
         help: "Aide",
+      },
+      sets: {
+        index: {
+          infoBox:
+            "Les sets sont les blocs de votre rapport final. Chaque ensemble produira un ou deux tableaux en fonction du type. Si vous souhaitez effectuer des calculs avec des données provenant de plusieurs ensembles, créez des formules de projet qui apparaîtront à la fin de votre rapport. A tout moment, vous pouvez voir une représentation du rapport dans la page de simulation.",
+        },
       },
       simulationForm: {
         projectVersion: {
@@ -28,7 +38,8 @@ export default {
       },
       tooltips: {
         backToDhis2: "Retour à Dhis2",
-        toggleFilters: "Montrez/Cachez les filtres",
+        toggleFilters: "Montrez / cachez les filtres",
+        toggleSearch: "Afficher / masquer la recherche",
       },
       filtersSheet: {
         title: "Filtres",

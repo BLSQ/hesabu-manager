@@ -2,11 +2,21 @@
 export default {
   en: {
     translations: {
+      buttons: {
+        search: "Search",
+        back: "Back",
+      },
       drawerItems: {
         sets: "Sets",
         setsGroups: "Sets groups",
         simulations: "Simulations",
         help: "Help",
+      },
+      sets: {
+        index: {
+          infoBox:
+            "Sets are the blocks of your final report. Each set will output one or two tables depending on the type. If you want to make computations with data from multiple sets, create project formulas and they will appear at the end of your report. At any moment, you can see a representation of the report in the simulations page.",
+        },
       },
       simulationForm: {
         projectVersion: {
@@ -29,6 +39,7 @@ export default {
       tooltips: {
         backToDhis2: "Back to Dhis2",
         toggleFilters: "Show/Hide filters",
+        toggleSearch: "Show/Hide search",
       },
       filtersSheet: {
         title: "Filters",
