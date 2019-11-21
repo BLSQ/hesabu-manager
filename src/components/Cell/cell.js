@@ -1,7 +1,7 @@
 import { withStyles } from "@material-ui/core/styles";
 import classNames from "classnames";
 import React from "react";
-import Solution from "./solution";
+import Solution from "../Simulation/Solution";
 
 const selectedColor = "rgb(254, 213, 149)";
 

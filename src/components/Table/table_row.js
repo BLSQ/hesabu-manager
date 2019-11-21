@@ -1,6 +1,6 @@
 import React from "react";
-import Cell from "./cell";
-import ExplanationRow from "./explanation_row";
+import Cell from "../Cell/cell";
+import ExplanationRow from "../Simulation/ExplanationRow";
 
 class TableRow extends React.Component {
   constructor(props) {

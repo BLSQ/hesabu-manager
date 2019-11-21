@@ -2,7 +2,7 @@ import humanize from "string-humanize";
 import React from "react";
 import { withStyles } from "@material-ui/core/styles";
 import classNames from "classnames";
-import ExplanationSteps from "./explanation_steps";
+import ExplanationSteps from "./ExplanationSteps";
 
 const selectedColor = "rgb(254, 213, 149)";
 

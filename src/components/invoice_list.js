@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import some from "lodash/some";
 import uniqWith from "lodash/uniqWith";
 import Grid from "@material-ui/core/Grid";
-import MultiSelectDropdown from "./multi_select_dropdown";
+import MultiSelectDropdown from "./Shared/MultiSelectDropdown";
 import { Invoice } from "./invoice";
 
 const mapPeriods = invoices => {

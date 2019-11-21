@@ -1,6 +1,6 @@
 import humanize from "string-humanize";
 import React from "react";
-import ExplanationSteps from "./explanation_steps";
+import ExplanationSteps from "./ExplanationSteps";
 
 const backgroundColor = "rgb(253, 250, 249)";
 

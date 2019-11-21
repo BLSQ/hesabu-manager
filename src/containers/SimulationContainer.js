@@ -1,6 +1,6 @@
 import LinearProgress from "@material-ui/core/LinearProgress";
 import Fade from "@material-ui/core/Fade";
-import React from "react";
+import React, { Component, Fragment } from "react";
 import Snackbar from "@material-ui/core/Snackbar";
 import SimulationList from "../components/Simulation/list";
 
@@ -93,7 +93,7 @@ class Loader extends React.Component {
     const isSuccess = isLoaded && !hasError;
 
     return (
-      <>
+      <Fragment>
         <Fade in={loading} unmountOnExit>
           <LinearProgress variant="query" />
         </Fade>
@@ -104,9 +104,9 @@ class Loader extends React.Component {
           message={<span id="message-id">Error: {errorMessage}</span>}
         />
         {isSuccess && (
-          <SimulationList key="list" invoices={jsonPayload.invoices} />
+          <SimulationList key="list" simulations={jsonPayload.invoices} />
         )}
-      </>
+      </Fragment>
     );
   }
 }

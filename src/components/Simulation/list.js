@@ -1,11 +1,23 @@
-import React from "react";
+import {
+  Drawer,
+  List,
+  ListItem,
+  ListItemText,
+  Divider,
+  Grid,
+  makeStyles,
+  withStyles,
+  Typography,
+} from "@material-ui/core";
+import React, { Fragment } from "react";
 import humanize from "string-humanize";
 import PropTypes from "prop-types";
 import some from "lodash/some";
 import uniqWith from "lodash/uniqWith";
-import Grid from "@material-ui/core/Grid";
-import MultiSelectDropdown from "./multi_select_dropdown";
+import MultiSelectDropdown from "../Shared/MultiSelectDropdown";
 import { Simulation } from "./index";
+import TopBar from "../Shared/TopBar";
+import PageContent from "../Shared/PageContent";
 
 const mapPeriods = invoices => {
   const all = invoices.map(invoice => ({
@@ -81,7 +93,9 @@ class SimulationList extends React.Component {
     } = this.state;
 
     const { simulations } = this.props;
-
+    const name = simulations[0].code;
+    const formatted_date = simulations[0].period;
+    const nameWithDate = `${name}-${formatted_date}`;
     const filteredSimulations = simulations.filter(simulation => {
       return (
         some(periods, ["key", simulation.period]) &&
@@ -89,43 +103,52 @@ class SimulationList extends React.Component {
         some(orgUnits, ["key", simulation.orgunit_ext_id])
       );
     });
-    return [
-      <Grid
-        container
-        key="selection-grid"
-        direction="row"
-        justify="space-between"
-        alignItems="flex-start"
-      >
-        <MultiSelectDropdown
-          name="Periods"
-          items={allPeriods}
-          selected={periods}
-          optionsChanged={this.periodsChanged}
-          key="periods"
-        />
-        <MultiSelectDropdown
-          name="Org Units"
-          items={allOrgUnits}
-          selected={orgUnits}
-          optionsChanged={this.orgUnitsChanged}
-          key="orgUnits"
-        />
-        <MultiSelectDropdown
-          name="Packages"
-          items={allPackages}
-          selected={packages}
-          optionsChanged={this.packagesChanged}
-          key="packages"
-        />
-      </Grid>,
-      filteredSimulations.map((simulation, i) => {
-        const key = [simulation.orgunit_ext_id, simulation.period, simulation.code].join(
-          "-",
-        );
-        return <Simulation key={key} simulation={simulation} />;
-      }),
-    ];
+    return (
+      <Fragment>
+        <TopBar>
+          <Typography variant="h6" color="inherit">
+            {nameWithDate}
+          </Typography>
+        </TopBar>
+        <PageContent>
+          <Grid container spacing={4}>
+            <Grid item xs={12} lg={8}>
+              <Grid container key="selection-grid"
+                    direction="row"
+                    justify="space-between"
+                    alignItems="flex-start"
+              >
+                <MultiSelectDropdown
+                  name="Periods"
+                  items={allPeriods}
+                  selected={periods}
+                  optionsChanged={this.periodsChanged}
+                  key="periods"
+                />
+                <MultiSelectDropdown
+                  name="Org Units"
+                  items={allOrgUnits}
+                  selected={orgUnits}
+                  optionsChanged={this.orgUnitsChanged}
+                  key="orgUnits"
+                />
+                <MultiSelectDropdown
+                  name="Packages"
+                  items={allPackages}
+                  selected={packages}
+                  optionsChanged={this.packagesChanged}
+                  key="packages"
+                />
+              </Grid>
+              {filteredSimulations.map((simulation, i) => {
+                const key = [simulation.orgunit_ext_id, simulation.period, simulation.code].join("-");
+                return <Simulation key={key} simulation={simulation} />;
+              })}
+            </Grid>
+          </Grid>
+        </PageContent>
+      </Fragment>
+    );
   }
 }
 
