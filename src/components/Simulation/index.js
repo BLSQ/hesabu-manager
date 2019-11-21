@@ -51,7 +51,6 @@ export const Simulation = props => {
         })}
       </Grid>
       <Table key="invoice" invoice={props.simulation} />
-      <TotalItems key="total-items" items={props.simulation.total_items} />
     </Fragment>
   );
 };
