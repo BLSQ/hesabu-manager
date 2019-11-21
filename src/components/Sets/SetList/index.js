@@ -1,9 +1,13 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { useTranslation } from "react-i18next";
 import SetListItem from "../SetListItem";
+import EmptySection from "../../EmptySection";
 
 const SetList = props => {
-  if (!props.sets.length) return <p>No sets</p>;
+  const { t } = useTranslation();
+  if (props.noItems) return <EmptySection resourceName={t("resources.set")} />;
+  if (!props.sets.length) return <p>No sets found</p>;
   return (
     <div>
       {props.sets.map((set, index) => (
@@ -20,6 +24,7 @@ const SetList = props => {
 
 SetList.propTypes = {
   sets: PropTypes.arrayOf(PropTypes.object),
+  noItems: PropTypes.bool,
 };
 
 export default SetList;

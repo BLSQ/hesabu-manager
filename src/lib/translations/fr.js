@@ -5,11 +5,18 @@ export default {
         search: "Rechercher",
         back: "Retour",
       },
+      emptySection: {
+        title: "Vous n'avez aucun {{resourceName}}",
+        body: "Créez-en et ils apparaîtront ici.",
+      },
       drawerItems: {
         sets: "Ensembles",
         setsGroups: "Groupe d’ensembles",
         simulations: "Simulations",
         help: "Aide",
+      },
+      resources: {
+        set: "ensemble",
       },
       sets: {
         index: {

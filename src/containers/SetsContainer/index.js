@@ -64,8 +64,10 @@ const SetsContainer = props => {
         />
       </TopBar>
       <PageContent>
-        <InfoBox className={classes.infoBox}>{t("sets.index.infoBox")}</InfoBox>
-        <SetList sets={filteredSets} />
+        <InfoBox name="hesabu-sets-infobox" className={classes.infoBox}>
+          {t("sets.index.infoBox")}
+        </InfoBox>
+        <SetList sets={filteredSets} noItems={!props.sets.length} />
       </PageContent>
       <SideSheet
         title={t("filtersSheet.title")}
