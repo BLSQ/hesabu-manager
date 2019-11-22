@@ -1,17 +1,14 @@
 import React, { Component, Fragment } from "react";
 import { withTranslation } from "react-i18next";
 import classNames from "classnames";
-import {
-  Divider,
-  withStyles
-} from "@material-ui/core";
+import { Divider, withStyles } from "@material-ui/core";
 import SimulationListItem from "./SimulationListItem";
 
 const styles = theme => ({
   divider: {
     marginTop: theme.spacing(2),
     marginBottom: theme.spacing(3),
-  }
+  },
 });
 
 class SimulationList extends Component {
@@ -19,18 +16,17 @@ class SimulationList extends Component {
     const { classes, simulations } = this.props;
     return (
       <Fragment>
-        {simulations.map((simulation, index) => (
-          [
-            <SimulationListItem title={simulation.name}
-                                key={index}
-                                groups={simulation.groupNames}
-                                createdAt={simulation.createdAt}
-                                buildDuration={simulation.buildDuration}
-                                period={simulation.period}
-            />,
-            <Divider className={classNames(classes.divider)}/>
-            ]
-        ))}
+        {simulations.map((simulation, index) => [
+          <SimulationListItem
+            title={simulation.name}
+            key={index}
+            groups={simulation.groupNames}
+            createdAt={simulation.createdAt}
+            buildDuration={simulation.buildDuration}
+            period={simulation.period}
+          />,
+          <Divider className={classNames(classes.divider)} />,
+        ])}
       </Fragment>
     );
   }

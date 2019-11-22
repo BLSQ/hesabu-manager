@@ -23,26 +23,26 @@ import { useTranslation } from "react-i18next";
 
 const styles = theme => ({
   root: {
-    display: 'flex',
+    display: "flex",
   },
   appBar: {
     zIndex: 999,
   },
   drawer: {
-    width: '200px',
+    width: "200px",
     flexShrink: 0,
   },
   drawerPaper: {
     zIndex: 100,
-    width: '200px',
-    paddingLeft: theme.spacing(2)
+    width: "200px",
+    paddingLeft: theme.spacing(2),
   },
   content: {
     flexGrow: 1,
     padding: theme.spacing(3),
   },
   toolbarExtra: {
-    marginBottom: theme.spacing(3)
+    marginBottom: theme.spacing(3),
   },
   toolbar: theme.mixins.toolbar,
 });
@@ -53,21 +53,21 @@ const simulations = [
     groupNames: ["BCZs"],
     createdAt: "2019-11-02T18:25:43.511Z",
     buildDuration: 240,
-    period: "Q3 - 2019"
+    period: "Q3 - 2019",
   },
   {
     name: "SIGL BCZ FOSA Coherence",
     groupNames: ["BCZs", "FOSAs"],
     createdAt: "2019-10-02T18:25:43.511Z",
     buildDuration: 108,
-    period: "Q2 - 2019"
+    period: "Q2 - 2019",
   },
   {
     name: "SIGL BCZ FOSA Coherence",
     groupNames: ["BCZs", "FOSAs"],
     createdAt: "2019-10-06T18:25:43.511Z",
     buildDuration: 53,
-    period: "Q1 - 2018"
+    period: "Q1 - 2018",
   },
 ];
 
@@ -76,10 +76,12 @@ const SimulationsContainer = props => {
   const { t } = useTranslation();
 
   const toggleDrawer = (side, open) => event => {
-    if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
+    if (
+      event.type === "keydown" &&
+      (event.key === "Tab" || event.key === "Shift")
+    ) {
       return;
     }
-
   };
 
   return (
@@ -101,7 +103,9 @@ const SimulationsContainer = props => {
                 paper: classes.drawerPaper,
               }}
             >
-              <div className={classNames(classes.toolbar, classes.toolbarExtra)} />
+              <div
+                className={classNames(classes.toolbar, classes.toolbarExtra)}
+              />
               <SimulationForm simulation={simulations[0]} />
             </Drawer>
           </Grid>
@@ -111,11 +115,8 @@ const SimulationsContainer = props => {
   );
 };
 
-
 const mapStateToProps = state => ({});
 
 export default withTranslation("translations")(
-  withStyles(styles)(
-    connect(mapStateToProps)(SimulationsContainer)
-  )
+  withStyles(styles)(connect(mapStateToProps)(SimulationsContainer)),
 );

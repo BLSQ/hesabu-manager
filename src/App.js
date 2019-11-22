@@ -22,8 +22,6 @@ import store from "./store";
 import registerServiceWorker from "./registerServiceWorker";
 import { CookiesProvider } from "react-cookie";
 
-
-
 const LoadableSetsContainer = Loadable({
   loader: () => import("./containers/SetsContainer"),
   loading: RouteLoading,
@@ -77,7 +75,10 @@ class App extends Component {
   }
 
   render() {
-    const { classes, location: { pathname } } = this.props;
+    const {
+      classes,
+      location: { pathname },
+    } = this.props;
 
     return (
       <I18nextProvider i18n={i18n}>
@@ -102,12 +103,9 @@ class App extends Component {
                         open={this.props.drawerOpen}
                       />
                       {pathname === "/" && <Redirect to="/sets" />}
-                      { /* AB: Make this relate to drawer items? */}
+                      {/* AB: Make this relate to drawer items? */}
                       <Switch>
-                        <Route
-                          path="/sets"
-                          component={LoadableSetsContainer}
-                        />
+                        <Route path="/sets" component={LoadableSetsContainer} />
                         <Route
                           path="/sets_groups"
                           component={LoadableSetsContainer}
@@ -120,10 +118,7 @@ class App extends Component {
                           path="/simulation"
                           component={LoadableSimulationContainer}
                         />
-                        <Route
-                          path="/help"
-                          component={LoadableSetsContainer}
-                        />
+                        <Route path="/help" component={LoadableSetsContainer} />
                       </Switch>
                     </div>
                   </Fade>

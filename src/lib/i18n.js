@@ -2,8 +2,8 @@ import LanguageDetector from "i18next-browser-languagedetector";
 import i18n from "i18next";
 import enTranslations from "./translations/en";
 import frTranslations from "./translations/fr";
-import en from 'javascript-time-ago/locale/en';
-import JavascriptTimeAgo from 'javascript-time-ago';
+import en from "javascript-time-ago/locale/en";
+import JavascriptTimeAgo from "javascript-time-ago";
 
 JavascriptTimeAgo.locale(en);
 

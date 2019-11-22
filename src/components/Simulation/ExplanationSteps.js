@@ -9,9 +9,9 @@ const ExplanationStep = props => {
     return <span />;
   }
   return (
-    <pre style={{ whiteSpace: "pre-wrap" }}>{`${props.variable} = ${
-      props.expression
-    }`}</pre>
+    <pre
+      style={{ whiteSpace: "pre-wrap" }}
+    >{`${props.variable} = ${props.expression}`}</pre>
   );
 };
 

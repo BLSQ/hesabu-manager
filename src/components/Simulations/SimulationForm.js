@@ -11,7 +11,7 @@ import {
   RadioGroup,
   Radio,
   FormControlLabel,
-  FormHelperText
+  FormHelperText,
 } from "@material-ui/core";
 import { Field, Formik, getIn } from "formik";
 import React, { Component, Fragment } from "react";
@@ -23,12 +23,10 @@ import { withTranslation } from "react-i18next";
 import { errorsForAttr } from "../../lib/formErrors";
 import MultiSelectDropdown from "../../components/Shared/MultiSelectDropdown";
 
-const styles = theme => ({
-});
+const styles = theme => ({});
 
 class SimulationForm extends Component {
-  state = {
-  };
+  state = {};
 
   createSimulation(values) {
     console.log(values);
@@ -42,8 +40,8 @@ class SimulationForm extends Component {
 
   periodsChanged = values => {
     console.log(values);
-    this.setState({ selectedPeriods: [{key: 'a', human: 'A'}] });
-  }
+    this.setState({ selectedPeriods: [{ key: "a", human: "A" }] });
+  };
 
   render() {
     const { t, classes, simulation } = this.props;
@@ -70,30 +68,81 @@ class SimulationForm extends Component {
             setFieldValue,
           }) => (
             <form onSubmit={handleSubmit}>
-            <FormControl component="fieldset" className={classes.formControl}>
-              <FormLabel component="legend">{t("simulation_form.project_version.legend")}</FormLabel>
-              <RadioGroup aria-label="gender" name="gender1" value={"draft"} onChange={handleChange}>
-                <FormControlLabel value="draft" control={<Radio />} label={t("simulation_form.project_version.draft")} />
-                <FormControlLabel value="v1" control={<Radio />} label={t("simulation_form.project_version.v2")} />
-                <FormControlLabel value="v2" control={<Radio />} label={t("simulation_form.project_version.v1")} />
-              </RadioGroup>
-            </FormControl>
-            <FormControl component="fieldset" className={classes.formControl}>
-              <FormLabel component="legend">{t("simulation_form.data_source.legend")}</FormLabel>
-              <RadioGroup aria-label="data-source" name="data-source" value={"dhis"} onChange={handleChange}>
-                <FormControlLabel value="dhis" control={<Radio />} label={t("simulation_form.data_source.dhis")} />
-                <FormControlLabel value="v1" control={<Radio />} label={t("simulation_form.data_source.mocked")} />
-              </RadioGroup>
-            </FormControl>
-            <FormControl component="fieldset" className={classes.formControl}>
-              <FormLabel component="legend">{t("simulation_form.data_source.legend")}</FormLabel>
-              <RadioGroup aria-label="data-source" name="data-source" value={"dhis"} onChange={handleChange}>
-                <FormControlLabel value="dhis" control={<Radio />} label={t("simulation_form.data_source.dhis")} />
-                <FormControlLabel value="v1" control={<Radio />} label={t("simulation_form.data_source.mocked")} />
-              </RadioGroup>
-            </FormControl>
+              <FormControl component="fieldset" className={classes.formControl}>
+                <FormLabel component="legend">
+                  {t("simulation_form.project_version.legend")}
+                </FormLabel>
+                <RadioGroup
+                  aria-label="gender"
+                  name="gender1"
+                  value={"draft"}
+                  onChange={handleChange}
+                >
+                  <FormControlLabel
+                    value="draft"
+                    control={<Radio />}
+                    label={t("simulation_form.project_version.draft")}
+                  />
+                  <FormControlLabel
+                    value="v1"
+                    control={<Radio />}
+                    label={t("simulation_form.project_version.v2")}
+                  />
+                  <FormControlLabel
+                    value="v2"
+                    control={<Radio />}
+                    label={t("simulation_form.project_version.v1")}
+                  />
+                </RadioGroup>
+              </FormControl>
+              <FormControl component="fieldset" className={classes.formControl}>
+                <FormLabel component="legend">
+                  {t("simulation_form.data_source.legend")}
+                </FormLabel>
+                <RadioGroup
+                  aria-label="data-source"
+                  name="data-source"
+                  value={"dhis"}
+                  onChange={handleChange}
+                >
+                  <FormControlLabel
+                    value="dhis"
+                    control={<Radio />}
+                    label={t("simulation_form.data_source.dhis")}
+                  />
+                  <FormControlLabel
+                    value="v1"
+                    control={<Radio />}
+                    label={t("simulation_form.data_source.mocked")}
+                  />
+                </RadioGroup>
+              </FormControl>
+              <FormControl component="fieldset" className={classes.formControl}>
+                <FormLabel component="legend">
+                  {t("simulation_form.data_source.legend")}
+                </FormLabel>
+                <RadioGroup
+                  aria-label="data-source"
+                  name="data-source"
+                  value={"dhis"}
+                  onChange={handleChange}
+                >
+                  <FormControlLabel
+                    value="dhis"
+                    control={<Radio />}
+                    label={t("simulation_form.data_source.dhis")}
+                  />
+                  <FormControlLabel
+                    value="v1"
+                    control={<Radio />}
+                    label={t("simulation_form.data_source.mocked")}
+                  />
+                </RadioGroup>
+              </FormControl>
               <FormControl className={classes.formControl}>
-                <FormLabel component="legend">{t("simulation_form.org_unit.legend")}</FormLabel>
+                <FormLabel component="legend">
+                  {t("simulation_form.org_unit.legend")}
+                </FormLabel>
                 <Field
                   name="simulation.orgUnitId"
                   render={({ field, _form }) => {
@@ -105,8 +154,8 @@ class SimulationForm extends Component {
                         dhis2Url={(this.props.project || {}).dhis2_url}
                         autocompleteResourceType="organisationUnits"
                         onChange={value =>
-                                  setFieldValue("simulation.orgUnitId", value)
-                                 }
+                          setFieldValue("simulation.orgUnitId", value)
+                        }
                         textFieldProps={{
                           fullWidth: true,
                           margin: "normal",
@@ -124,11 +173,13 @@ class SimulationForm extends Component {
                     );
                   }}
                 />
-                <FormHelperText>{t("simulation_form.org_unit.help")}</FormHelperText>
+                <FormHelperText>
+                  {t("simulation_form.org_unit.help")}
+                </FormHelperText>
               </FormControl>
               <MultiSelectDropdown
                 name="Periods"
-                items={[{key: 'Q12019', human: 'Q1 - 2019'}]}
+                items={[{ key: "Q12019", human: "Q1 - 2019" }]}
                 selected={this.state.selectedPeriods || []}
                 optionsChanged={this.periodsChanged}
                 key="periods"
@@ -152,8 +203,7 @@ class SimulationForm extends Component {
   }
 }
 
-const mapStateToProps = (state, props) => ({
-});
+const mapStateToProps = (state, props) => ({});
 
 export default withStyles(styles)(
   withRouter(

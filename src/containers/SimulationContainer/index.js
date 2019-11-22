@@ -5,7 +5,6 @@ import Snackbar from "@material-ui/core/Snackbar";
 import SimulationList from "../../components/Simulation/list";
 
 class Loader extends React.Component {
-
   state = {
     loading: true,
     error: null,

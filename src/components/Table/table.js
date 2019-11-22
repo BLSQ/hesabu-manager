@@ -1,13 +1,18 @@
 import humanize from "string-humanize";
 import React from "react";
 import { sortCollator } from "../../lib/formatters";
-import {Table as MaterialTable, TableRow as MaterialRow, TableHead, TableCell, TableBody, Paper} from '@material-ui/core';
+import {
+  Table as MaterialTable,
+  TableRow as MaterialRow,
+  TableHead,
+  TableCell,
+  TableBody,
+  Paper,
+} from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
 import Solution from "../Simulation/Solution";
 
-const useStyles = makeStyles(theme => ({
-
-}));
+const useStyles = makeStyles(theme => ({}));
 
 const Table = function(props) {
   const { invoice } = props;
@@ -27,7 +32,7 @@ const Table = function(props) {
     sortCollator.compare(a.activity.code, b.activity.code),
   );
   return (
-   <Paper className={classes.root}>
+    <Paper className={classes.root}>
       <MaterialTable className={classes.table} aria-label="simple table">
         <TableHead>
           <MaterialRow>

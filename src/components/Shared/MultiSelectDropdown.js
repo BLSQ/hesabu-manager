@@ -43,7 +43,6 @@ const styles = theme => ({
 // Will render a multi-select dropdown which after select will render
 // (deleteable) pills of the currently selected options.
 class MultiSelectDropdown extends React.Component {
-
   handleChange = event => {
     this.props.optionsChanged(event.target.value);
   };

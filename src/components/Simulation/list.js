@@ -1,8 +1,4 @@
-import {
-  Grid,
-  withStyles,
-  Typography,
-} from "@material-ui/core";
+import { Grid, withStyles, Typography } from "@material-ui/core";
 import React, { Fragment } from "react";
 import { connect } from "react-redux";
 import { withTranslation } from "react-i18next";
@@ -15,8 +11,7 @@ import { Simulation } from "./index";
 import TopBar from "../Shared/TopBar";
 import PageContent from "../Shared/PageContent";
 
-const styles = theme => ({
-});
+const styles = theme => ({});
 
 const mapPeriods = invoices => {
   const all = invoices.map(invoice => ({
@@ -112,10 +107,12 @@ class SimulationList extends React.Component {
         <PageContent>
           <Grid container spacing={4}>
             <Grid item xs={12} lg={8}>
-              <Grid container key="selection-grid"
-                    direction="row"
-                    justify="space-between"
-                    alignItems="flex-start"
+              <Grid
+                container
+                key="selection-grid"
+                direction="row"
+                justify="space-between"
+                alignItems="flex-start"
               >
                 <MultiSelectDropdown
                   name="Periods"
@@ -140,7 +137,11 @@ class SimulationList extends React.Component {
                 />
               </Grid>
               {filteredSimulations.map((simulation, i) => {
-                const key = [simulation.orgunit_ext_id, simulation.period, simulation.code].join("-");
+                const key = [
+                  simulation.orgunit_ext_id,
+                  simulation.period,
+                  simulation.code,
+                ].join("-");
                 return <Simulation key={key} simulation={simulation} />;
               })}
             </Grid>
@@ -153,11 +154,9 @@ class SimulationList extends React.Component {
 
 const mapStateToProps = state => ({});
 SimulationList.propTypes = {
-  simulations: PropTypes.array
+  simulations: PropTypes.array,
 };
 
 export default withTranslation("translations")(
-  withStyles(styles)(
-    connect(mapStateToProps)(SimulationList)
-  )
+  withStyles(styles)(connect(mapStateToProps)(SimulationList)),
 );
