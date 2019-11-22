@@ -21,6 +21,7 @@ import SimulationForm from "../components/Simulations/SimulationForm";
 import classNames from "classnames";
 import { useTranslation } from "react-i18next";
 import SideSheet from "../components/SideSheet";
+import FiltersToggleBtn from "../components/FiltersToggleBtn";
 
 const styles = theme => ({
   root: {
@@ -48,44 +49,11 @@ const styles = theme => ({
   toolbar: theme.mixins.toolbar,
 });
 
-const simulations = [
-  {
-    name: "SIGL BCZ FOSA Coherence, COSPRO - A.3 - Bureaux Administratifs",
-    groupNames: ["BCZs"],
-    createdAt: "2019-11-02T18:25:43.511Z",
-    buildDuration: 240,
-    period: "Q3 - 2019",
-  },
-  {
-    name: "SIGL BCZ FOSA Coherence",
-    groupNames: ["BCZs", "FOSAs"],
-    createdAt: "2019-10-02T18:25:43.511Z",
-    buildDuration: 108,
-    period: "Q2 - 2019",
-  },
-  {
-    name: "SIGL BCZ FOSA Coherence",
-    groupNames: ["BCZs", "FOSAs"],
-    createdAt: "2019-10-06T18:25:43.511Z",
-    buildDuration: 53,
-    period: "Q1 - 2018",
-  },
-];
-
 const SimulationsContainer = props => {
-  const { classes } = props;
+  const { classes, simulations } = props;
   const { t } = useTranslation();
-  const [sideSheetOpen, setSideSheetOpen] = useState(true);
+  const [sideSheetOpen, setSideSheetOpen] = useState(false);
   const handleToggleSideSheet = () => setSideSheetOpen(!sideSheetOpen);
-
-  const toggleDrawer = (side, open) => event => {
-    if (
-      event.type === "keydown" &&
-      (event.key === "Tab" || event.key === "Shift")
-    ) {
-      return;
-    }
-  };
 
   return (
     <Fragment>
@@ -93,6 +61,11 @@ const SimulationsContainer = props => {
         <Typography variant="h6" color="inherit">
           {t("drawerItems.simulations")}
         </Typography>
+        <FiltersToggleBtn
+          variant="filters"
+          className={classes.filtersBtn}
+          onClick={handleToggleSideSheet}
+        />
       </TopBar>
       <PageContent>
         <SimulationList simulations={simulations} />
@@ -102,13 +75,37 @@ const SimulationsContainer = props => {
         open={sideSheetOpen}
         onClose={handleToggleSideSheet}
       >
-        <SimulationForm simulation={simulations[0]} />
+        <p>Here will be content to filter the left side of the screen. Similar to sets.</p>
       </SideSheet>
     </Fragment>
   );
 };
 
-const mapStateToProps = state => ({});
+const mapStateToProps = state => ({
+  simulations: [
+      {
+      name: "SIGL BCZ FOSA Coherence, COSPRO - A.3 - Bureaux Administratifs",
+      groupNames: ["BCZs"],
+      createdAt: "2019-11-02T18:25:43.511Z",
+      buildDuration: 240,
+      period: "Q3 - 2019",
+    },
+    {
+      name: "SIGL BCZ FOSA Coherence",
+      groupNames: ["BCZs", "FOSAs"],
+      createdAt: "2019-10-02T18:25:43.511Z",
+      buildDuration: 108,
+      period: "Q2 - 2019",
+    },
+    {
+      name: "SIGL BCZ FOSA Coherence",
+      groupNames: ["BCZs", "FOSAs"],
+      createdAt: "2019-10-06T18:25:43.511Z",
+      buildDuration: 53,
+      period: "Q1 - 2018",
+    },
+  ]
+});
 
 export default withTranslation("translations")(
   withStyles(styles)(connect(mapStateToProps)(SimulationsContainer)),
