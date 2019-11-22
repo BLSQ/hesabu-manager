@@ -19,6 +19,16 @@ export default {
       resources: {
         set: "set",
       },
+      set: {
+        tabs: {
+          currentLevel: "Current level",
+          children: "Children",
+          setFormulas: "Set formulas",
+        },
+        sidesheet: {
+          title: "Information",
+        },
+      },
       sets: {
         index: {
           infoBox:
@@ -47,6 +57,7 @@ export default {
         backToDhis2: "Back to Dhis2",
         toggleFilters: "Show/Hide filters",
         toggleSearch: "Show/Hide search",
+        toggleInfo: "Show / hide info",
       },
       filtersSheet: {
         title: "Filters",

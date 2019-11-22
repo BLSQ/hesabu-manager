@@ -11,12 +11,7 @@ const SetList = props => {
   return (
     <div>
       {props.sets.map((set, index) => (
-        <SetListItem
-          title={set.name}
-          key={index}
-          groups={set.groupNames}
-          description={set.description}
-        />
+        <SetListItem key={index} {...set} />
       ))}
     </div>
   );

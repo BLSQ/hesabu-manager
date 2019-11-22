@@ -4,7 +4,6 @@ import { Typography } from "@material-ui/core";
 import { connect } from "react-redux";
 import { useTranslation } from "react-i18next";
 import { InfoBox } from "@blsq/manager-ui";
-import { makeStyles } from "@material-ui/styles";
 import PropTypes from "prop-types";
 import PageContent from "../../components/Shared/PageContent";
 import TopBar from "../../components/Shared/TopBar";
@@ -12,18 +11,8 @@ import SetList from "../../components/Sets/SetList";
 import SideSheet from "../../components/SideSheet";
 import FiltersToggleBtn from "../../components/FiltersToggleBtn";
 import AppBarSearch from "../../components/AppBarSearch";
-
-const useStyles = makeStyles(theme => ({
-  infoBox: {
-    marginBottom: theme.spacing(4),
-  },
-  appBarHeader: {
-    flex: 1,
-  },
-  filtersBtn: {
-    marginLeft: theme.spacing(1),
-  },
-}));
+import SetContainer from "../SetContainer";
+import useStyles from "./styles";
 
 const SetsContainer = props => {
   const classes = useStyles(props);
@@ -50,7 +39,7 @@ const SetsContainer = props => {
             color="inherit"
             className={classes.appBarHeader}
           >
-            {t("drawerItems.sets")} {searchOpen && "open"}
+            {t("drawerItems.sets")}
           </Typography>
         )}
         <FiltersToggleBtn
@@ -59,6 +48,7 @@ const SetsContainer = props => {
           variant="search"
         />
         <FiltersToggleBtn
+          variant="filters"
           className={classes.filtersBtn}
           onClick={handleToggleSideSheet}
         />
@@ -68,6 +58,7 @@ const SetsContainer = props => {
           {t("sets.index.infoBox")}
         </InfoBox>
         <SetList sets={filteredSets} noItems={!props.sets.length} />
+        <SetContainer />
       </PageContent>
       <SideSheet
         title={t("filtersSheet.title")}
@@ -92,18 +83,21 @@ SetsContainer.propTypes = {
 const mapStateToProps = () => ({
   sets: [
     {
+      id: "12334",
       name: "SIGL BCZ FOSA Coherence",
       groupNames: ["BCZs", "FOSAs"],
       description:
         "Quantity consumed FOSA BCZ, Quantity lost adjusted FOSA Bcz",
     },
     {
+      id: "12334",
       name: "SIGL BCZ FOSA Coherence",
       groupNames: ["BCZs", "FOSAs"],
       description:
         "Quantity consumed FOSA BCZ, Quantity lost adjusted FOSA Bcz",
     },
     {
+      id: "12334",
       name: "SIGL BCZ FOSA Coherence",
       groupNames: ["FOSAs"],
       description:
