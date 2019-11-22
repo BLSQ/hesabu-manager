@@ -6,10 +6,11 @@ import classNames from "classnames";
 import LinkIcon from "@material-ui/icons/Link";
 import ReactTimeAgo from "react-time-ago";
 import humanizeDuration from "humanize-duration";
+import {DuoToneChip, HorizontalBulletList} from '@blsq/manager-ui'; 
 
-const styles = theme => ({
-  simulationTitle: {
-    marginBottom: theme.spacing(1 / 2),
+const styles = theme => ({ 
+  subtitle: {
+    marginTop: 0,
   },
   caption: {
     marginBottom: theme.spacing(2),
@@ -47,31 +48,21 @@ class SimulationListItem extends Component {
 
     return (
       <Fragment>
-        <Typography
-          variant="h6"
-          className={classNames(classes.simulationTitle)}
-        >
+        <Typography variant="h6">
           {title}
         </Typography>
-        <Typography
-          variant="caption"
-          display="block"
-          gutterBottom
-          className={classNames(classes.caption)}
-        >
-          <span className={classNames(classes.createdAt)}>
+        <HorizontalBulletList className={classes.subtitle}>
+          <Typography component="li" variant="body2">
             <ReactTimeAgo date={createdAt} />
-          </span>
-          <span className={classNames(classes.interPunct)}>&#183;</span>
-          <span className={classNames(classes.buildDuration)}>
+          </Typography>
+          <Typography component="li" variant="body2">
             {humanDuration(buildDuration)}
-          </span>
-        </Typography>
-        <Chip
+          </Typography>
+        </HorizontalBulletList>
+        <DuoToneChip
           label={groups.join(", ")}
-          color="secondary"
-          size="small"
-          icon={<LinkIcon />}
+          color="primary"
+          avatar={<LinkIcon />}
           className={classNames(classes.groupChip, classes.chips)}
         />
         <Chip
