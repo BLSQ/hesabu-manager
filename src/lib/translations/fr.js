@@ -10,18 +10,28 @@ export default {
         body: "Créez-en et ils apparaîtront ici.",
       },
       drawerItems: {
-        sets: "Ensembles",
-        setsGroups: "Groupe d’ensembles",
+        sets: "Sets",
+        setsGroups: "Groupe de set",
         simulations: "Simulations",
         help: "Aide",
       },
       resources: {
-        set: "ensemble",
+        set: "set",
+      },
+      set: {
+        tabs: {
+          currentLevel: "Niveau actuel",
+          children: " Enfants",
+          setFormulas: "Formules du set",
+        },
+        sidesheet: {
+          title: "Information",
+        },
       },
       sets: {
         index: {
           infoBox:
-            "Les sets sont les blocs de votre rapport final. Chaque ensemble produira un ou deux tableaux en fonction du type. Si vous souhaitez effectuer des calculs avec des données provenant de plusieurs ensembles, créez des formules de projet qui apparaîtront à la fin de votre rapport. A tout moment, vous pouvez voir une représentation du rapport dans la page de simulation.",
+            "Les sets sont les blocs de votre rapport final. Chaque ensemble produira un ou deux tableaux en fonction du type. Si vous souhaitez effectuer des calculs avec des données provenant de plusieurs sets, créez des formules de projet qui apparaîtront à la fin de votre rapport. A tout moment, vous pouvez voir une représentation du rapport dans la page de simulation.",
         },
       },
       simulationForm: {
@@ -47,6 +57,7 @@ export default {
         backToDhis2: "Retour à Dhis2",
         toggleFilters: "Montrez / cachez les filtres",
         toggleSearch: "Afficher / masquer la recherche",
+        toggleInfo: "Afficher / masquer les infos",
       },
       filtersSheet: {
         title: "Filtres",

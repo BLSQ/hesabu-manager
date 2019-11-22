@@ -2,6 +2,7 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import FilterIcon from "@material-ui/icons/FilterList";
 import SearchIcon from "@material-ui/icons/Search";
+import InfoIcon from "@material-ui/icons/Info";
 import { Tooltip, IconButton } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
 import PropTypes from "prop-types";
@@ -17,24 +18,32 @@ const useStyles = makeStyles(() => ({
 const FiltersToggleBtn = props => {
   const { t } = useTranslation();
   const classes = useStyles(props);
-  const isSearch = props.variant === "search";
+  const config = {
+    search: {
+      label: t("tooltips.toggleSearch"),
+      icon: <SearchIcon />,
+    },
+    filters: {
+      label: t("tooltips.toggleFilters"),
+      icon: <FilterIcon />,
+    },
+    info: {
+      label: t("tooltips.toggleInfo"),
+      icon: <InfoIcon />,
+    },
+  };
+  const currentConfig = config[props.variant];
 
   return (
-    <Tooltip
-      title={
-        isSearch ? t("tooltips.toggleSearch") : t("tooltips.toggleFilters")
-      }
-    >
+    <Tooltip title={currentConfig.label}>
       <IconButton
         size="small"
         color="inherit"
-        aria-label={
-          isSearch ? t("tooltips.toggleSearch") : t("tooltips.toggleFilters")
-        }
+        aria-label={currentConfig.label}
         className={classNames(classes.root, props.className)}
         onClick={props.onClick}
       >
-        {isSearch ? <SearchIcon /> : <FilterIcon />}
+        {currentConfig.icon}
       </IconButton>
     </Tooltip>
   );

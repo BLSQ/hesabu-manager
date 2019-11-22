@@ -1,4 +1,4 @@
-import { withRouter } from "react-router-dom";
+import { withRouter, Link } from "react-router-dom";
 import React, { useState } from "react";
 import { Chip, Typography, IconButton } from "@material-ui/core";
 import classNames from "classnames";
@@ -10,12 +10,18 @@ import styles from "./styles";
 const SetListItem = props => {
   const classes = styles();
   const [expanded, setExpanded] = useState(false);
-  const { title, description, groups } = props;
+  const { name, description, groupNames: groups, id } = props;
   return (
     <div className={classes.root}>
       <div className={classes.header}>
-        <Typography variant="h6" className={classNames(classes.sectionTitle)}>
-          {title}
+        <Typography
+          component={Link}
+          to={`/sets/${id}/current_level`}
+          variant="h6"
+          className={classNames(classes.sectionTitle)}
+        >
+          {name}
+          {id}
         </Typography>
         <IconButton
           className={classes.expandBtn}
@@ -44,9 +50,10 @@ const SetListItem = props => {
 };
 
 SetListItem.propTypes = {
+  id: PropTypes.string,
   description: PropTypes.string,
-  groups: PropTypes.array,
-  title: PropTypes.string,
+  groupNames: PropTypes.array,
+  name: PropTypes.string,
 };
 
 SetListItem.defaultProps = {
