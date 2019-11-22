@@ -1,10 +1,21 @@
 import LinearProgress from "@material-ui/core/LinearProgress";
 import Fade from "@material-ui/core/Fade";
-import React, { Fragment } from "react";
+import {connect} from 'react-redux';
+import React, { Component } from "react";
 import Snackbar from "@material-ui/core/Snackbar";
 import SimulationList from "../../components/Simulation/list";
+import { Dialog, Typography, Slide } from "@material-ui/core";
+import {withRouter, matchPath} from "react-router-dom";
+import TopBar from "../../components/Shared/TopBar";
+import FiltersToggleBtn from "../../components/FiltersToggleBtn";
+import { withStyles } from "@material-ui/styles";
+import styles from './styles';
 
-class Loader extends React.Component {
+const Transition = React.forwardRef(function Transition(props, ref) {
+  return <Slide direction="up" ref={ref} {...props} />;
+});
+
+class SimulationContainer extends Component {
   state = {
     loading: true,
     error: null,
@@ -80,10 +91,40 @@ class Loader extends React.Component {
     const { loading, errorMessage, jsonPayload } = this.state;
     const isLoaded = !loading;
     const hasError = !!errorMessage;
-    const isSuccess = isLoaded && !hasError;
+    const isSuccess = isLoaded && !hasError;  
+    const { classes, history, set, location} = this.props;
+    const routeMatch = matchPath(location.pathname, {
+      path: "/simulations/:simulationId",
+      exact: true,
+      strict: false
+    });
+    const simulationId = routeMatch && (routeMatch.params || {}).simulationId;
+    const open = !!simulationId;
 
     return (
-      <Fragment>
+      <Dialog
+        fullScreen
+        open={open}
+        className={classes.root}
+        onClose={() => history.push("/simulations")}
+        TransitionComponent={Transition}
+      >
+        <TopBar
+          fullscreen
+          backLinkPath="/simulations"
+        >
+          <Typography
+            variant="h6"
+            color="inherit"
+            className={classes.appBarHeader}
+          >
+            {set.name}
+          </Typography>
+          <FiltersToggleBtn
+            variant="info"
+            className={classes.filtersBtn}
+          />
+        </TopBar>
         <Fade in={loading} unmountOnExit>
           <LinearProgress variant="query" />
         </Fade>
@@ -96,9 +137,20 @@ class Loader extends React.Component {
         {isSuccess && (
           <SimulationList key="list" simulations={jsonPayload.invoices} />
         )}
-      </Fragment>
+      </Dialog>
     );
   }
 }
 
-export default Loader;
+const mapStateToProps = () => ({
+  set: {
+    id: "1234",
+    name: "SIGL BCZ FOSA Coherence, COSPRO - A.3 - Bureaux Administratifs",
+    groupNames: ["BCZs"],
+    createdAt: "2019-11-02T18:25:43.511Z",
+    buildDuration: 240,
+    period: "Q3 - 2019",
+  },
+})
+
+export default withStyles(styles)(withRouter(connect(mapStateToProps)(SimulationContainer)));

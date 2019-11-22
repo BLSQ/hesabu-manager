@@ -1,9 +1,5 @@
 import React from "react";
-import { useTranslation } from "react-i18next";
-import FilterIcon from "@material-ui/icons/FilterList";
 import { makeStyles } from "@material-ui/styles";
-import PropTypes from "prop-types";
-import classNames from "classnames";
 import { APPBAR_WITH_TABS_HEIGHT } from "../../constants/ui";
 
 const useStyles = makeStyles(theme => ({
@@ -14,7 +10,6 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const SetChildrenContainer = props => {
-  const { t } = useTranslation();
   const classes = useStyles(props);
 
   return <div className={classes.root}>CurrentChildrenContainer</div>;

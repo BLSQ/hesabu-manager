@@ -1,7 +1,6 @@
 import { withRouter, Link } from "react-router-dom";
 import React, { useState } from "react";
 import { Chip, Typography, IconButton } from "@material-ui/core";
-import classNames from "classnames";
 import PropTypes from "prop-types";
 import ExpandMore from "@material-ui/icons/ExpandMore";
 import ExpandLess from "@material-ui/icons/ExpandLess";
@@ -18,7 +17,7 @@ const SetListItem = props => {
           component={Link}
           to={`/sets/${id}/current_level`}
           variant="h6"
-          className={classNames(classes.sectionTitle)}
+          className={classes.sectionTitle}
         >
           {name}
           {id}
@@ -34,14 +33,11 @@ const SetListItem = props => {
         <Chip
           key={`${index}-group`}
           label={group}
-          className={classNames(classes.groupChip)}
+          className={classes.groupChip}
         />
       ))}
       {expanded && (
-        <Typography
-          variant="subtitle1"
-          className={classNames(classes.description)}
-        >
+        <Typography variant="subtitle1" className={classes.description}>
           {description}
         </Typography>
       )}
