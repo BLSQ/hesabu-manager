@@ -10,7 +10,7 @@ import {
   Typography,
 } from "@material-ui/core";
 
-import React, { Fragment } from "react";
+import React, { Fragment, useState } from "react";
 import PageContent from "../components/Shared/PageContent";
 import { connect } from "react-redux";
 import { withTranslation } from "react-i18next";
@@ -20,6 +20,7 @@ import SimulationList from "../components/Simulations/SimulationList";
 import SimulationForm from "../components/Simulations/SimulationForm";
 import classNames from "classnames";
 import { useTranslation } from "react-i18next";
+import SideSheet from "../components/SideSheet";
 
 const styles = theme => ({
   root: {
@@ -74,6 +75,8 @@ const simulations = [
 const SimulationsContainer = props => {
   const { classes } = props;
   const { t } = useTranslation();
+  const [sideSheetOpen, setSideSheetOpen] = useState(true);
+  const handleToggleSideSheet = () => setSideSheetOpen(!sideSheetOpen);
 
   const toggleDrawer = (side, open) => event => {
     if (
@@ -92,25 +95,15 @@ const SimulationsContainer = props => {
         </Typography>
       </TopBar>
       <PageContent>
-        <Grid container spacing={4}>
-          <Grid item xs={12} lg={8}>
-            <SimulationList simulations={simulations} />
-            <Drawer
-              className={classes.drawer}
-              variant="permanent"
-              anchor="right"
-              classes={{
-                paper: classes.drawerPaper,
-              }}
-            >
-              <div
-                className={classNames(classes.toolbar, classes.toolbarExtra)}
-              />
-              <SimulationForm simulation={simulations[0]} />
-            </Drawer>
-          </Grid>
-        </Grid>
+        <SimulationList simulations={simulations} />
       </PageContent>
+      <SideSheet
+        title={t("filtersSheet.title")}
+        open={sideSheetOpen}
+        onClose={handleToggleSideSheet}
+      >
+        <SimulationForm simulation={simulations[0]} />
+      </SideSheet>
     </Fragment>
   );
 };

@@ -22,6 +22,7 @@ import { connect } from "react-redux";
 import { withTranslation } from "react-i18next";
 import { errorsForAttr } from "../../lib/formErrors";
 import MultiSelectDropdown from "../../components/Shared/MultiSelectDropdown";
+import { formattedName } from "../../utils/textUtils";
 
 const styles = theme => ({});
 
@@ -70,7 +71,7 @@ class SimulationForm extends Component {
             <form onSubmit={handleSubmit}>
               <FormControl component="fieldset" className={classes.formControl}>
                 <FormLabel component="legend">
-                  {t("simulation_form.project_version.legend")}
+                  {t("simulationForm.projectVersion.legend")}
                 </FormLabel>
                 <RadioGroup
                   aria-label="gender"
@@ -81,23 +82,23 @@ class SimulationForm extends Component {
                   <FormControlLabel
                     value="draft"
                     control={<Radio />}
-                    label={t("simulation_form.project_version.draft")}
+                    label={t("simulationForm.projectVersion.draft")}
                   />
                   <FormControlLabel
                     value="v1"
                     control={<Radio />}
-                    label={t("simulation_form.project_version.v2")}
+                    label={t("simulationForm.projectVersion.v2")}
                   />
                   <FormControlLabel
                     value="v2"
                     control={<Radio />}
-                    label={t("simulation_form.project_version.v1")}
+                    label={t("simulationForm.projectVersion.v1")}
                   />
                 </RadioGroup>
               </FormControl>
               <FormControl component="fieldset" className={classes.formControl}>
                 <FormLabel component="legend">
-                  {t("simulation_form.data_source.legend")}
+                  {t("simulationForm.dataSource.legend")}
                 </FormLabel>
                 <RadioGroup
                   aria-label="data-source"
@@ -108,18 +109,18 @@ class SimulationForm extends Component {
                   <FormControlLabel
                     value="dhis"
                     control={<Radio />}
-                    label={t("simulation_form.data_source.dhis")}
+                    label={t("simulationForm.dataSource.dhis")}
                   />
                   <FormControlLabel
                     value="v1"
                     control={<Radio />}
-                    label={t("simulation_form.data_source.mocked")}
+                    label={t("simulationForm.dataSource.mocked")}
                   />
                 </RadioGroup>
               </FormControl>
               <FormControl component="fieldset" className={classes.formControl}>
                 <FormLabel component="legend">
-                  {t("simulation_form.data_source.legend")}
+                  {t("simulationForm.dataSource.legend")}
                 </FormLabel>
                 <RadioGroup
                   aria-label="data-source"
@@ -130,18 +131,18 @@ class SimulationForm extends Component {
                   <FormControlLabel
                     value="dhis"
                     control={<Radio />}
-                    label={t("simulation_form.data_source.dhis")}
+                    label={t("simulationForm.dataSource.dhis")}
                   />
                   <FormControlLabel
                     value="v1"
                     control={<Radio />}
-                    label={t("simulation_form.data_source.mocked")}
+                    label={t("simulationForm.dataSource.mocked")}
                   />
                 </RadioGroup>
               </FormControl>
               <FormControl className={classes.formControl}>
                 <FormLabel component="legend">
-                  {t("simulation_form.org_unit.legend")}
+                  {formattedName(t("resources.orgUnit"))}
                 </FormLabel>
                 <Field
                   name="simulation.orgUnitId"
@@ -162,7 +163,7 @@ class SimulationForm extends Component {
                           onChange: handleChange,
                           onBlur: handleBlur,
                           error: !!errorsForAttr(errors.pyramid, "orgUnitId"),
-                          label: "simulation_form.org_unit.label",
+                          label: t("simulationForm.orgUnit.label"),
                           helperText: errorsForAttr(
                             errors.pyramid,
                             "orgUnitId",
@@ -174,7 +175,7 @@ class SimulationForm extends Component {
                   }}
                 />
                 <FormHelperText>
-                  {t("simulation_form.org_unit.help")}
+                  {t("simulationForm.orgUnit.help")}
                 </FormHelperText>
               </FormControl>
               <MultiSelectDropdown
