@@ -3,7 +3,6 @@ import { numberFormatter } from "../../lib/formatters";
 
 const Solution = function(props) {
   const safeData = props.rowData || {};
-  console.log(safeData)
   let formattedSolution;
   let rounded;
 
@@ -12,7 +11,7 @@ const Solution = function(props) {
     rounded = false;
   } else {
     formattedSolution = numberFormatter.format(safeData.solution);
-    rounded = parseFloat(formattedSolution) != parseFloat(safeData.solution);
+    rounded = parseFloat(formattedSolution) !== parseFloat(safeData.solution);
   }
 
   return (

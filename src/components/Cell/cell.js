@@ -21,10 +21,7 @@ const cellStyles = theme => ({
 const Cell = function(props) {
   const isInput = rowData => (rowData || {}).is_input;
   const isOutput = rowData => (rowData || {}).is_output;
-  const isFormula = function(rowData) {
-    const safeData = rowData || {};
-    return !!safeData.expression && !!safeData.dhis2_data_element;
-  };
+
   const { classes } = props;
   const classForRowData = function(rowData) {
     if (isInput(rowData)) return "formula-input";

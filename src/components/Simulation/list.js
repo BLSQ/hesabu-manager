@@ -1,15 +1,11 @@
 import {
-  Drawer,
-  List,
-  ListItem,
-  ListItemText,
-  Divider,
   Grid,
-  makeStyles,
   withStyles,
   Typography,
 } from "@material-ui/core";
 import React, { Fragment } from "react";
+import { connect } from "react-redux";
+import { withTranslation } from "react-i18next";
 import humanize from "string-humanize";
 import PropTypes from "prop-types";
 import some from "lodash/some";
@@ -18,6 +14,9 @@ import MultiSelectDropdown from "../Shared/MultiSelectDropdown";
 import { Simulation } from "./index";
 import TopBar from "../Shared/TopBar";
 import PageContent from "../Shared/PageContent";
+
+const styles = theme => ({
+});
 
 const mapPeriods = invoices => {
   const all = invoices.map(invoice => ({
@@ -152,5 +151,13 @@ class SimulationList extends React.Component {
   }
 }
 
+const mapStateToProps = state => ({});
+SimulationList.propTypes = {
+  simulations: PropTypes.array
+};
 
-export default SimulationList;
+export default withTranslation("translations")(
+  withStyles(styles)(
+    connect(mapStateToProps)(SimulationList)
+  )
+);

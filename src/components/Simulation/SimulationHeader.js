@@ -8,9 +8,6 @@ const useStyles = makeStyles(theme => ({
 
 const SimulationHeader = function(props) {
   const name = props.invoice.code;
-  const formatted_date = props.invoice.period;
-  const nameWithDate = `${name}-${formatted_date}`;
-  const { code } = props.invoice;
   const classes = useStyles(props);
   return (
     <Fragment data-period={props.invoice.period}

@@ -1,54 +1,34 @@
 import {
-  Card,
-  CardActions,
-  CardContent,
-  Drawer,
-  List,
-  ListItem,
-  ListItemText,
-  Divider,
   Grid,
-  makeStyles,
   withStyles,
-  Typography,
 } from "@material-ui/core";
 import React, { Fragment } from "react";
 import { connect } from "react-redux";
 import { withTranslation } from "react-i18next";
 import Table from "../Table/table";
 import SimulationHeader from "./SimulationHeader";
-import TotalItems from "./TotalItems";
-import { useTranslation } from "react-i18next";
+import { KeyNumberBlock } from "@blsq/manager-ui";
+import humanize from "string-humanize";
 
 const styles = theme => ({
+  header: {},
 });
 
 export const Simulation = props => {
   const { classes } = props;
-  const { t } = useTranslation();
-  const name = props.simulation.code;
-  const formatted_date = props.simulation.period;
-  const nameWithDate = `${name}-${formatted_date}`;
 
-  // TODO: Fix paddings
   return (
     <Fragment>
-      <SimulationHeader key="header" invoice={props.simulation} />
+      <SimulationHeader key="header" invoice={props.simulation} className={classes.header} />
       <Grid container item xs={12} spacing={3}>
-        {props.simulation.total_items.map(item => {
-          return (<Card>
-                    <CardContent>
-                      <Typography variant="h4" color="inherit">
-                        {item.solution}
-                      </Typography>
-                    </CardContent>
-                    <CardActions>
-                      <Typography variant="subtitle1" color="inherit">
-                        {item.formula}
-                      </Typography>
-                    </CardActions>
-                  </Card>);
-        })}
+        {props.simulation.total_items.map(item => (
+          <Grid item xs={3}>
+          <KeyNumberBlock
+            text={humanize(item.formula)}
+            value={item.solution}
+            />
+          </Grid>
+        ))}
       </Grid>
       <Table key="invoice" invoice={props.simulation} />
     </Fragment>

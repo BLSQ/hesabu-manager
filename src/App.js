@@ -7,7 +7,6 @@ import DateFnsUtils from "@date-io/date-fns";
 import Fade from "@material-ui/core/Fade";
 import { I18nextProvider } from "react-i18next";
 import Loadable from "react-loadable";
-import LoadingScreen from "./components/LoadingScreen";
 import SnackBarContainer from "./components/SnackBar/SnackBarContainer";
 import { MuiPickersUtilsProvider } from "material-ui-pickers";
 import ResponsiveDrawers from "./components/Drawers/ResponsiveDrawers";

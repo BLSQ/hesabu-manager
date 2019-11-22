@@ -16,7 +16,7 @@ const styles = theme => ({
 
 class SimulationList extends Component {
   render() {
-    const { classes, simulations, t } = this.props;
+    const { classes, simulations } = this.props;
     return (
       <Fragment>
         {simulations.map((simulation, index) => (
