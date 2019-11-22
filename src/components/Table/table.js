@@ -1,7 +1,6 @@
 import humanize from "string-humanize";
 import React from "react";
 import { sortCollator } from "../../lib/formatters";
-import TableRow from "./table_row";
 import {Table as MaterialTable, TableRow as MaterialRow, TableHead, TableCell, TableBody, Paper} from '@material-ui/core';
 import { makeStyles } from "@material-ui/styles";
 import Solution from "../Simulation/Solution";
@@ -39,7 +38,7 @@ const Table = function(props) {
           </MaterialRow>
         </TableHead>
         <TableBody>
-          {invoice.activity_items.map(function(row, i) {
+          {rows.map(function(row, i) {
             return (
               <MaterialRow key={[row.activity.code, i].join("-")}>
                 {headers.map((key, index) => {

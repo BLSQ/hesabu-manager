@@ -11,17 +11,19 @@ import { KeyNumberBlock } from "@blsq/manager-ui";
 import humanize from "string-humanize";
 
 const styles = theme => ({
-  header: {},
+  header: {
+    padding: "5px"
+  },
 });
 
 export const Simulation = props => {
-  const { classes } = props;
-
+  const { simulation } = props;
+  console.log(props);
   return (
     <Fragment>
-      <SimulationHeader key="header" invoice={props.simulation} className={classes.header} />
+      <SimulationHeader key="header" invoice={simulation} />
       <Grid container item xs={12} spacing={3}>
-        {props.simulation.total_items.map(item => (
+        {simulation.total_items.map(item => (
           <Grid item xs={3}>
           <KeyNumberBlock
             text={humanize(item.formula)}
@@ -30,7 +32,7 @@ export const Simulation = props => {
           </Grid>
         ))}
       </Grid>
-      <Table key="invoice" invoice={props.simulation} />
+      <Table key="invoice" invoice={simulation} />
     </Fragment>
   );
 };

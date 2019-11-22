@@ -5,7 +5,7 @@ function onlyUnique(value, index, self) {
 }
 
 const ExplanationStep = props => {
-  if (props.expression == undefined) {
+  if (props.expression === undefined) {
     return <span />;
   }
   return (

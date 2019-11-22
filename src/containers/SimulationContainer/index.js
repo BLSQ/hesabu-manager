@@ -1,19 +1,10 @@
 import LinearProgress from "@material-ui/core/LinearProgress";
 import Fade from "@material-ui/core/Fade";
-import React, { Component, Fragment } from "react";
+import React, { Fragment } from "react";
 import Snackbar from "@material-ui/core/Snackbar";
-import SimulationList from "../components/Simulation/list";
-
-const getJSON = async function(url) {
-  const response = await fetch(url);
-  const json = await response.json();
-  return json;
-};
+import SimulationList from "../../components/Simulation/list";
 
 class Loader extends React.Component {
-  constructor(props) {
-    super(props);
-  }
 
   state = {
     loading: true,

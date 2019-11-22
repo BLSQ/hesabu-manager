@@ -3,10 +3,8 @@ import i18n from "i18next";
 import enTranslations from "./translations/en";
 import frTranslations from "./translations/fr";
 import en from 'javascript-time-ago/locale/en';
-import fr from 'javascript-time-ago/locale/en';
 import JavascriptTimeAgo from 'javascript-time-ago';
 
-// AB: Ask about the languageChanged hook from i18next
 JavascriptTimeAgo.locale(en);
 
 i18n.use(LanguageDetector).init({
