@@ -1,53 +1,18 @@
 import {
-  Drawer,
-  List,
-  ListItem,
-  ListItemText,
-  Divider,
-  Grid,
-  makeStyles,
   withStyles,
   Typography,
 } from "@material-ui/core";
 
 import React, { Fragment, useState } from "react";
-import PageContent from "../components/Shared/PageContent";
+import PageContent from "../../components/Shared/PageContent";
 import { connect } from "react-redux";
 import { withTranslation } from "react-i18next";
-import TopBar from "../components/Shared/TopBar";
-import InfoBox from "../components/Shared/InfoBox";
-import SimulationList from "../components/Simulations/SimulationList";
-import SimulationForm from "../components/Simulations/SimulationForm";
-import classNames from "classnames";
+import TopBar from "../../components/Shared/TopBar";
+import SimulationList from "../../components/Simulations/SimulationList";
 import { useTranslation } from "react-i18next";
-import SideSheet from "../components/SideSheet";
-import FiltersToggleBtn from "../components/FiltersToggleBtn";
-
-const styles = theme => ({
-  root: {
-    display: "flex",
-  },
-  appBar: {
-    zIndex: 999,
-  },
-  drawer: {
-    width: "200px",
-    flexShrink: 0,
-  },
-  drawerPaper: {
-    zIndex: 100,
-    width: "200px",
-    paddingLeft: theme.spacing(2),
-  },
-  content: {
-    flexGrow: 1,
-    padding: theme.spacing(3),
-  },
-  toolbarExtra: {
-    marginBottom: theme.spacing(3),
-  },
-  toolbar: theme.mixins.toolbar,
-});
+import SideSheet from "../../components/SideSheet";
+import FiltersToggleBtn from "../../components/FiltersToggleBtn";
+import useStyles from "./styles";
 
 const SimulationsContainer = props => {
   const { classes, simulations } = props;
@@ -108,5 +73,5 @@ const mapStateToProps = state => ({
 });
 
 export default withTranslation("translations")(
-  withStyles(styles)(connect(mapStateToProps)(SimulationsContainer)),
+  withStyles(useStyles)(connect(mapStateToProps)(SimulationsContainer)),
 );
