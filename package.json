@@ -62,6 +62,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "test:coverage": "react-scripts test --coverage",
+    "format": "prettier-eslint \"src/**/*.js*\" --trailing-comma all --eslint-config-path ./.eslintrc --write",
     "test:debug": "node --inspect node_modules/.bin/jest --runInBand"
   },
   "husky": {

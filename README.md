@@ -19,6 +19,10 @@ Run the app. This a [CRA](https://github.com/facebook/create-react-app) app, so 
 yarn start
 ```
 
+## Handy utils
+
+- `yarn format` (Lints and changes files(!) to use preferred formatting rules)
+
 # Deploy
 
 TODO
