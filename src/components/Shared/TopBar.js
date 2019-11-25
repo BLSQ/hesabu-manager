@@ -65,9 +65,7 @@ function TopBar(props) {
             <MenuIcon />
           </IconButton>
         )}
-        <div className={classes.branding}>
-          {props.children || project.name}
-        </div>
+        <div className={classes.branding}>{props.children || project.name}</div>
       </Toolbar>
       {props.tabs && <SectionTabs activeTab={activeTab} />}
     </AppBar>

@@ -1,15 +1,15 @@
 import LinearProgress from "@material-ui/core/LinearProgress";
 import Fade from "@material-ui/core/Fade";
-import {connect} from 'react-redux';
+import { connect } from "react-redux";
 import React, { Component } from "react";
 import Snackbar from "@material-ui/core/Snackbar";
 import SimulationList from "../../components/Simulation/list";
 import { Dialog, Typography, Slide } from "@material-ui/core";
-import {withRouter, matchPath} from "react-router-dom";
+import { withRouter, matchPath } from "react-router-dom";
 import TopBar from "../../components/Shared/TopBar";
 import FiltersToggleBtn from "../../components/FiltersToggleBtn";
 import { withStyles } from "@material-ui/styles";
-import styles from './styles';
+import styles from "./styles";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -91,12 +91,12 @@ class SimulationContainer extends Component {
     const { loading, errorMessage, jsonPayload } = this.state;
     const isLoaded = !loading;
     const hasError = !!errorMessage;
-    const isSuccess = isLoaded && !hasError;  
-    const { classes, history, set, location} = this.props;
+    const isSuccess = isLoaded && !hasError;
+    const { classes, history, set, location } = this.props;
     const routeMatch = matchPath(location.pathname, {
       path: "/simulations/:simulationId",
       exact: true,
-      strict: false
+      strict: false,
     });
     const simulationId = routeMatch && (routeMatch.params || {}).simulationId;
     const open = !!simulationId;
@@ -109,10 +109,7 @@ class SimulationContainer extends Component {
         onClose={() => history.push("/simulations")}
         TransitionComponent={Transition}
       >
-        <TopBar
-          fullscreen
-          backLinkPath="/simulations"
-        >
+        <TopBar fullscreen backLinkPath="/simulations">
           <Typography
             variant="h6"
             color="inherit"
@@ -120,10 +117,7 @@ class SimulationContainer extends Component {
           >
             {set.name}
           </Typography>
-          <FiltersToggleBtn
-            variant="info"
-            className={classes.filtersBtn}
-          />
+          <FiltersToggleBtn variant="info" className={classes.filtersBtn} />
         </TopBar>
         <Fade in={loading} unmountOnExit>
           <LinearProgress variant="query" />
@@ -151,6 +145,8 @@ const mapStateToProps = () => ({
     buildDuration: 240,
     period: "Q3 - 2019",
   },
-})
+});
 
-export default withStyles(styles)(withRouter(connect(mapStateToProps)(SimulationContainer)));
+export default withStyles(styles)(
+  withRouter(connect(mapStateToProps)(SimulationContainer)),
+);

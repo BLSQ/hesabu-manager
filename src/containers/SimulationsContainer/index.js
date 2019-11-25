@@ -3,7 +3,7 @@ import { Typography } from "@material-ui/core";
 import React, { Fragment, useState } from "react";
 import { connect } from "react-redux";
 import PageContent from "../../components/Shared/PageContent";
-import { withTranslation , useTranslation } from "react-i18next";
+import { withTranslation, useTranslation } from "react-i18next";
 import TopBar from "../../components/Shared/TopBar";
 import SimulationList from "../../components/Simulations/SimulationList";
 
