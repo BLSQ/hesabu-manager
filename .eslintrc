@@ -16,5 +16,10 @@
     "import/first": "off",
     "no-debugger": "off"
   },
+  "settings": {
+    "react": {
+      "version": "detect", // React version. "detect" automatically picks the version you have installed.
+    }
+  },
   "extends": ["airbnb-base", "prettier", "plugin:react/recommended"]
 }
