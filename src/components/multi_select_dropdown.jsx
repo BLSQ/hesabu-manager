@@ -1,11 +1,16 @@
 import React from "react";
+import ReactDOM from "react-dom";
 import PropTypes from "prop-types";
+import classNames from "classnames";
+import humanize from "string-humanize";
 import { withStyles } from "@material-ui/core/styles";
 import Input from "@material-ui/core/Input";
 import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
+import ListItemText from "@material-ui/core/ListItemText";
 import Select from "@material-ui/core/Select";
+import Checkbox from "@material-ui/core/Checkbox";
 import Chip from "@material-ui/core/Chip";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
@@ -43,6 +48,10 @@ const styles = theme => ({
 // Will render a multi-select dropdown which after select will render
 // (deleteable) pills of the currently selected options.
 class MultiSelectDropdown extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
   handleChange = event => {
     this.props.optionsChanged(event.target.value);
   };
@@ -50,7 +59,7 @@ class MultiSelectDropdown extends React.Component {
   handleDelete = deletedKey => () => {
     this.props.optionsChanged(
       this.props.selected
-        .filter(item => item.key !== deletedKey)
+        .filter(item => item.key != deletedKey)
         .map(item => item.key),
     );
   };

@@ -7,7 +7,6 @@ import DateFnsUtils from "@date-io/date-fns";
 import Fade from "@material-ui/core/Fade";
 import { I18nextProvider } from "react-i18next";
 import Loadable from "react-loadable";
-import LoadingScreen from "./components/LoadingScreen";
 import SnackBarContainer from "./components/SnackBar/SnackBarContainer";
 import { MuiPickersUtilsProvider } from "material-ui-pickers";
 import ResponsiveDrawers from "./components/Drawers/ResponsiveDrawers";
@@ -23,10 +22,13 @@ import store from "./store";
 import registerServiceWorker from "./registerServiceWorker";
 import { CookiesProvider } from "react-cookie";
 
-
-
 const LoadableSetsContainer = Loadable({
   loader: () => import("./containers/SetsContainer"),
+  loading: RouteLoading,
+});
+
+const LoadableSimulationContainer = Loadable({
+  loader: () => import("./containers/SimulationContainer"),
   loading: RouteLoading,
 });
 
@@ -73,7 +75,10 @@ class App extends Component {
   }
 
   render() {
-    const { classes, location: { pathname } } = this.props;
+    const {
+      classes,
+      location: { pathname },
+    } = this.props;
 
     return (
       <I18nextProvider i18n={i18n}>
@@ -98,12 +103,9 @@ class App extends Component {
                         open={this.props.drawerOpen}
                       />
                       {pathname === "/" && <Redirect to="/sets" />}
-                      { /* AB: Make this relate to drawer items? */}
+                      {/* AB: Make this relate to drawer items? */}
                       <Switch>
-                        <Route
-                          path="/sets"
-                          component={LoadableSetsContainer}
-                        />
+                        <Route path="/sets" component={LoadableSetsContainer} />
                         <Route
                           path="/sets_groups"
                           component={LoadableSetsContainer}
@@ -113,9 +115,10 @@ class App extends Component {
                           component={LoadableSimulationsContainer}
                         />
                         <Route
-                          path="/help"
-                          component={LoadableSetsContainer}
+                          path="/simulation"
+                          component={LoadableSimulationContainer}
                         />
+                        <Route path="/help" component={LoadableSetsContainer} />
                       </Switch>
                     </div>
                   </Fade>

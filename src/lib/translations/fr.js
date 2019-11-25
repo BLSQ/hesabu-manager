@@ -4,6 +4,7 @@ export default {
       buttons: {
         search: "Rechercher",
         back: "Retour",
+        save: "Sauver",
       },
       emptySection: {
         title: "Vous n'avez aucun {{resourceName}}",
@@ -17,6 +18,8 @@ export default {
       },
       resources: {
         set: "set",
+        simulation: "simulation",
+        orgUnit: "organisation unit",
       },
       set: {
         tabs: {
@@ -41,7 +44,7 @@ export default {
           v1: "V1",
           v2: "V2",
         },
-        data_source: {
+        dataSource: {
           legend: "Source de données",
           dhis: "Valeurs DHIS2",
           mocked: "Valeurs Fake",
