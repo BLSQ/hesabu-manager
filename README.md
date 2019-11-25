@@ -19,9 +19,11 @@ Run the app. This a [CRA](https://github.com/facebook/create-react-app) app, so 
 yarn start
 ```
 
-## Handy utils
+## Formatting/linting
 
-- `yarn format` (Lints and changes files(!) to use preferred formatting rules)
+By default there is a pre-commit hook (provided by [husky](https://github.com/typicode/husky#readme)) that will run `prettifier-eslint`.
+
+If you want to avoid this hook, run with `HUSKY_SKIP_HOOKS=1`, and run `yarn format` yourself.
 
 # Deploy
 
