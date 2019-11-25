@@ -15,7 +15,9 @@ class SimulationList extends Component {
     const { simulations } = this.props;
     return (
       <Fragment>
-        {simulations.map((simulation, index) => <SimulationListItem key={index} {...simulation} />)}
+        {simulations.map((simulation, index) => (
+          <SimulationListItem key={index} {...simulation} />
+        ))}
       </Fragment>
     );
   }
