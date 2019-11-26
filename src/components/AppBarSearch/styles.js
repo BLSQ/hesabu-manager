@@ -8,6 +8,8 @@ const useStyles = makeStyles(theme => ({
     flex: 1,
   },
   search: {
+    display: "flex",
+    alignItems: "center",
     position: "relative",
     borderRadius: theme.shape.borderRadius,
     backgroundColor: fade(theme.palette.common.white, 0.15),
@@ -18,6 +20,7 @@ const useStyles = makeStyles(theme => ({
     width: "100%",
     maxWidth: 200,
     marginLeft: theme.spacing(3),
+    paddingRight: 50,
   },
   inputRoot: {
     color: "inherit",
