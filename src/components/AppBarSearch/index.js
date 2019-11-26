@@ -38,16 +38,18 @@ const AppBarSearch = props => {
             "aria-label": t("buttons.search"),
           }}
         />
-        <IconButton
-          onClick={() => {
-            props.onChange("");
-          }}
-          color="inherit"
-          size="small"
-          aria-label={t("buttons.back")}
-        >
-          <CloseIcon />
-        </IconButton>
+        {props.query && (
+          <IconButton
+            onClick={() => {
+              props.onChange("");
+            }}
+            color="inherit"
+            size="small"
+            aria-label={t("buttons.back")}
+          >
+            <CloseIcon />
+          </IconButton>
+        )}
       </div>
     </div>
   );
