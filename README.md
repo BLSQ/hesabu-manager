@@ -1,5 +1,7 @@
 # Bluesquare hesabu manager
 
+[![Codeship Status for BLSQ/hesabu-manager](https://app.codeship.com/projects/26ac2980-f254-0137-7e72-028602bdcca6/status?branch=master)](https://app.codeship.com/projects/375752)
+
 Is a dhis2 (react) app to manage a blsq hesabu project. It connects to the Hesabu api and allows you to manage your Hesabu from within DHIS2.
 
 It will become the new frontend to the existing [Hesabu API](https://github.com/blsq/orbf2) project. While the [Hesabu API](https://github.com/blsq/orbf2) rails views are not going away, this will serve as more user friendly way to configure a Hesabu project.
