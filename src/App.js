@@ -27,6 +27,11 @@ const LoadableSetsContainer = Loadable({
   loading: RouteLoading,
 });
 
+const LoadableSetsGroupsContainer = Loadable({
+  loader: () => import("./containers/SetsGroupsContainer"),
+  loading: RouteLoading,
+});
+
 const LoadableSimulationContainer = Loadable({
   loader: () => import("./containers/SimulationContainer"),
   loading: RouteLoading,
@@ -108,7 +113,7 @@ class App extends Component {
                         <Route path="/sets" component={LoadableSetsContainer} />
                         <Route
                           path="/sets_groups"
-                          component={LoadableSetsContainer}
+                          component={LoadableSetsGroupsContainer}
                         />
                         <Route
                           path="/simulations"
