@@ -3,7 +3,6 @@ import { Typography, Dialog, Slide } from "@material-ui/core";
 import {
   useHistory,
   useLocation,
-  useRouteMatch,
   withRouter,
   Route,
   Switch,
@@ -33,10 +32,6 @@ const useStyles = makeStyles(() => ({
 }));
 
 const SetContainer = props => {
-  const routeMatch = useRouteMatch("/sets/:setId");
-  const setId = routeMatch && (routeMatch.params || {}).setId;
-  const open = !!setId;
-
   const classes = useStyles(props);
   const history = useHistory();
   const location = useLocation();
@@ -44,6 +39,8 @@ const SetContainer = props => {
   const [sideSheetOpen, setSideSheetOpen] = useState(false);
 
   const {
+    setId,
+    open,
     set: { name },
     match,
   } = props;
@@ -80,15 +77,15 @@ const SetContainer = props => {
       </TopBar>
       <Switch>
         <Route
-          path={`${match.url}/${setId}/current_level`}
+          path={`${match.url}/current_level`}
           component={SetCurrentLevelContainer}
         />
         <Route
-          path={`${match.url}/${setId}/children`}
+          path={`${match.url}/children`}
           component={SetChildrenContainer}
         />
         <Route
-          path={`${match.url}/${setId}/set_formulas`}
+          path={`${match.url}/set_formulas`}
           component={SetFormulasContainer}
         />
       </Switch>
