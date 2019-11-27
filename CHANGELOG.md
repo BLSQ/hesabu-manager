@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/BLSQ/hesabu-manager/compare/v1.1.0...v1.2.0) (2019-11-27)
+
+
+### Features
+
+* Add sets group items ([#9](https://github.com/BLSQ/hesabu-manager/issues/9)) ([e4912a7](https://github.com/BLSQ/hesabu-manager/commit/e4912a7b782da03a694b4a434c4d16bc7c5663f0))
+
 # [1.1.0](https://github.com/BLSQ/hesabu-manager/compare/v1.0.0...v1.1.0) (2019-11-27)
 
 
