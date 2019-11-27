@@ -56,11 +56,6 @@ const SimulationList = props => {
   if (periods.length < 1 && allPeriods.length > 0) setPeriods(allPeriods);
   if (packages.length < 1 && allPackages.length > 0) setPackages(allPackages);
 
-
-  const name = (simulations[0] || {code: ""}).code;
-  const formatted_date = (simulations[0] || {period: ""}).period;
-  const nameWithDate = `${name}-${formatted_date}`;
-
   const filteredSimulations = simulations.filter(simulation => {
     return (
       some(periods, ["key", simulation.period]) &&
@@ -92,11 +87,6 @@ const SimulationList = props => {
 
   return (
       <Fragment>
-        <TopBar>
-          <Typography variant="h6" color="inherit">
-            {nameWithDate}
-          </Typography>
-        </TopBar>
         <PageContent>
           <Grid container spacing={4}>
             <Grid item xs={12} lg={8}>

@@ -33,6 +33,10 @@ const SimulationContainer = props => {
   const simulationId = routeMatch && (routeMatch.params || {}).simulationId;
   const open = !!simulationId;
 
+  const name = props.simulation.name;
+  const formattedDate = props.simulation.period;
+  const nameWithDate = `${name}-${formattedDate}`;
+
   useEffect(() => {
     const url = "http://localhost:4567/api/simulations/1234";
     if (!timer.current) {
@@ -109,7 +113,7 @@ const SimulationContainer = props => {
           color="inherit"
           className={classes.appBarHeader}
         >
-          {set.name}
+          {nameWithDate}
         </Typography>
         <FiltersToggleBtn variant="info" className={classes.filtersBtn} />
       </TopBar>
@@ -130,7 +134,7 @@ const SimulationContainer = props => {
 };
 
 const mapStateToProps = () => ({
-  set: {
+  simulation: {
     id: "1234",
     name: "SIGL BCZ FOSA Coherence, COSPRO - A.3 - Bureaux Administratifs",
     groupNames: ["BCZs"],
