@@ -32,7 +32,11 @@ const SetsContainer = props => {
     <Fragment>
       <TopBar>
         {searchOpen ? (
-          <AppBarSearch onClose={handleToggleSearch} onChange={setQuery} />
+          <AppBarSearch
+            query={query}
+            onClose={handleToggleSearch}
+            onChange={setQuery}
+          />
         ) : (
           <Typography
             variant="h6"
