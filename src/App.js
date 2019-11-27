@@ -110,7 +110,15 @@ class App extends Component {
                       {pathname === "/" && <Redirect to="/sets" />}
                       {/* AB: Make this relate to drawer items? */}
                       <Switch>
-                        <Route path="/sets" component={LoadableSetsContainer} />
+                        <Route
+                          exact
+                          path="/sets"
+                          component={LoadableSetsContainer}
+                        />
+                        <Route
+                          path="/sets/:setId"
+                          component={LoadableSetsContainer}
+                        />
                         <Route
                           path="/sets_groups"
                           component={LoadableSetsGroupsContainer}
