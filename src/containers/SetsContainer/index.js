@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import { useTranslation } from "react-i18next";
 import { InfoBox } from "@blsq/manager-ui";
 import PropTypes from "prop-types";
+import { useParams } from "react-router-dom";
 import PageContent from "../../components/Shared/PageContent";
 import TopBar from "../../components/Shared/TopBar";
 import SetList from "../../components/Sets/SetList";
@@ -20,7 +21,8 @@ const SetsContainer = props => {
   const [sideSheetOpen, setSideSheetOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [query, setQuery] = useState("");
-
+  const { setId } = useParams();
+  const modalOpen = !!setId;
   const handleToggleSideSheet = () => setSideSheetOpen(!sideSheetOpen);
   const handleToggleSearch = () => setSearchOpen(!searchOpen);
 
@@ -62,7 +64,7 @@ const SetsContainer = props => {
           {t("sets.index.infoBox")}
         </InfoBox>
         <SetList sets={filteredSets} noItems={!props.sets.length} />
-        <SetContainer />
+        <SetContainer open={modalOpen} setId={setId} />
       </PageContent>
       <SideSheet
         title={t("filtersSheet.title")}

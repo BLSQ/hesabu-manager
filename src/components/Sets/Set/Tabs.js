@@ -1,6 +1,5 @@
-import { Link, withRouter, useRouteMatch } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import { Tab, Tabs } from "@material-ui/core";
-
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { makeStyles } from "@material-ui/styles";
@@ -16,8 +15,6 @@ const useStyles = makeStyles(theme => ({
 
 function SetTabs(props) {
   const { activeTab, match } = props;
-  const routeMatch = useRouteMatch("/sets/:setId");
-  const setId = routeMatch && (routeMatch.params || {}).setId;
   const classes = useStyles();
   const { t } = useTranslation();
 
@@ -32,17 +29,17 @@ function SetTabs(props) {
       <Tab
         label={t("set.tabs.currentLevel")}
         component={Link}
-        to={`${match.url}/${setId}/current_level`}
+        to={`${match.url}/current_level`}
       />
       <Tab
         label={t("set.tabs.children")}
         component={Link}
-        to={`${match.url}/${setId}/children`}
+        to={`${match.url}/children`}
       />
       <Tab
         label={t("set.tabs.setFormulas")}
         component={Link}
-        to={`${match.url}/${setId}/set_formulas`}
+        to={`${match.url}/set_formulas`}
       />
     </Tabs>
   );
