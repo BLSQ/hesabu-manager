@@ -2,7 +2,7 @@ import { Grid, withStyles } from "@material-ui/core";
 import React, { Fragment } from "react";
 import { connect } from "react-redux";
 import { withTranslation } from "react-i18next";
-import Table from "../Table/table";
+import Table from "./Table/table";
 import SimulationHeader from "./SimulationHeader";
 import { KeyNumberBlock } from "@blsq/manager-ui";
 import humanize from "string-humanize";
