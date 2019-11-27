@@ -1,5 +1,5 @@
 import { Grid, withStyles, Typography } from "@material-ui/core";
-import React, { Fragment } from "react";
+import React, { useState, Fragment } from "react";
 import { connect } from "react-redux";
 import { withTranslation } from "react-i18next";
 import humanize from "string-humanize";
@@ -39,65 +39,58 @@ const mapOrgunits = invoices => {
   return uniqWith(all, (a, b) => a.key === b.key);
 };
 
-class SimulationList extends React.Component {
-  constructor(props) {
-    super(props);
-    const periods = mapPeriods(props.simulations);
-    const packages = mapPackages(props.simulations);
-    const orgunits = mapOrgunits(props.simulations);
-    this.state = {
-      periods,
-      allPeriods: periods,
-      packages,
-      allPackages: packages,
-      orgUnits: [orgunits[0]],
-      allOrgUnits: orgunits,
-    };
+const SimulationList = props => {
+  const { simulations } = props;
+  const allPeriods = mapPeriods(simulations);
+  const allPackages = mapPackages(simulations);
+  const allOrgUnits = mapOrgunits(simulations);
+
+  const [periods, setPeriods] = useState([]);
+  const [packages, setPackages] = useState([]);
+  const [orgUnits, setOrgUnits] = useState([]);
+
+  // Set default selection
+  if (orgUnits.length < 1 && allOrgUnits.length > 0) {
+    setOrgUnits([allOrgUnits[0]]);
   }
+  if (periods.length < 1 && allPeriods.length > 0) setPeriods(allPeriods);
+  if (packages.length < 1 && allPackages.length > 0) setPackages(allPackages);
 
-  periodsChanged = periodKeys => {
-    const selectedPeriods = this.state.allPeriods.filter(item =>
-      periodKeys.includes(item.key),
-    );
-    this.setState({ periods: selectedPeriods });
-  };
 
-  packagesChanged = packageKeys => {
-    const selectedPackages = this.state.allPackages.filter(item =>
-      packageKeys.includes(item.key),
-    );
-    this.setState({ packages: selectedPackages });
-  };
+  const name = (simulations[0] || {code: ""}).code;
+  const formatted_date = (simulations[0] || {period: ""}).period;
+  const nameWithDate = `${name}-${formatted_date}`;
 
-  orgUnitsChanged = orgUnitKeys => {
-    const selectedOrgUnits = this.state.allOrgUnits.filter(item =>
-      orgUnitKeys.includes(item.key),
-    );
-    this.setState({ orgUnits: selectedOrgUnits });
-  };
-
-  render() {
-    const {
-      allPeriods,
-      periods,
-      allPackages,
-      packages,
-      allOrgUnits,
-      orgUnits,
-    } = this.state;
-
-    const { simulations } = this.props;
-    const name = simulations[0].code;
-    const formatted_date = simulations[0].period;
-    const nameWithDate = `${name}-${formatted_date}`;
-    const filteredSimulations = simulations.filter(simulation => {
-      return (
-        some(periods, ["key", simulation.period]) &&
+  const filteredSimulations = simulations.filter(simulation => {
+    return (
+      some(periods, ["key", simulation.period]) &&
         some(packages, ["key", simulation.code]) &&
         some(orgUnits, ["key", simulation.orgunit_ext_id])
-      );
-    });
-    return (
+    );
+  });
+
+  const periodsChanged = periodKeys => {
+    const selectedPeriods = allPeriods.filter(item =>
+      periodKeys.includes(item.key),
+    );
+    setPeriods(selectedPeriods);
+  };
+
+  const packagesChanged = packageKeys => {
+    const selectedPackages = allPackages.filter(item =>
+      packageKeys.includes(item.key),
+    );
+    setPackages(selectedPackages);
+  };
+
+  const orgUnitsChanged = orgUnitKeys => {
+    const selectedOrgUnits = allOrgUnits.filter(item =>
+      orgUnitKeys.includes(item.key),
+    );
+    setOrgUnits(selectedOrgUnits);
+  };
+
+  return (
       <Fragment>
         <TopBar>
           <Typography variant="h6" color="inherit">
@@ -118,21 +111,21 @@ class SimulationList extends React.Component {
                   name="Periods"
                   items={allPeriods}
                   selected={periods}
-                  optionsChanged={this.periodsChanged}
+                  optionsChanged={periodsChanged}
                   key="periods"
                 />
                 <MultiSelectDropdown
                   name="Org Units"
                   items={allOrgUnits}
                   selected={orgUnits}
-                  optionsChanged={this.orgUnitsChanged}
+                  optionsChanged={orgUnitsChanged}
                   key="orgUnits"
                 />
                 <MultiSelectDropdown
                   name="Packages"
                   items={allPackages}
                   selected={packages}
-                  optionsChanged={this.packagesChanged}
+                  optionsChanged={packagesChanged}
                   key="packages"
                 />
               </Grid>
@@ -148,9 +141,8 @@ class SimulationList extends React.Component {
           </Grid>
         </PageContent>
       </Fragment>
-    );
-  }
-}
+  );
+};
 
 const mapStateToProps = state => ({});
 SimulationList.propTypes = {
