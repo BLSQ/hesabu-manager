@@ -1,6 +1,6 @@
 import humanize from "string-humanize";
 import React from "react";
-import { sortCollator } from "../../lib/formatters";
+import { sortCollator } from "../../../lib/formatters";
 import {
   Table as MaterialTable,
   TableRow as MaterialRow,
@@ -10,7 +10,7 @@ import {
   Paper,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
-import Solution from "../Simulation/Solution";
+import Solution from "./Solution";
 
 const useStyles = makeStyles(theme => ({}));
 

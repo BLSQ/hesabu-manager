@@ -1,5 +1,5 @@
 import React from "react";
-import { numberFormatter } from "../../lib/formatters";
+import { numberFormatter } from "../../../lib/formatters";
 
 const Solution = function(props) {
   const safeData = props.rowData || {};
