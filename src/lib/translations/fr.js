@@ -20,6 +20,8 @@ export default {
         set: "set",
         simulation: "simulation",
         orgUnit: "organisation unit",
+        formula: "formule",
+        formula_plural: "formules",
       },
       set: {
         tabs: {

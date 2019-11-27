@@ -4,11 +4,14 @@ import { Typography } from "@material-ui/core";
 import PropTypes from "prop-types";
 import { HorizontalBulletList } from "@blsq/manager-ui";
 import ReactTimeAgo from "react-time-ago/commonjs/ReactTimeAgo";
+import { useTranslation } from "react-i18next";
 import styles from "./styles";
 
 const SetsGroupsListItem = props => {
   const classes = styles();
-  const { name, id, createdAt, setsCount } = props;
+  const { name, id, createdAt, formulasCount } = props;
+  const { t } = useTranslation();
+
   return (
     <div className={classes.root}>
       <Typography
@@ -21,10 +24,10 @@ const SetsGroupsListItem = props => {
       </Typography>
       <HorizontalBulletList className={classes.subheader}>
         <Typography component="li" variant="body2">
-          <ReactTimeAgo date={new Date(createdAt)} />
+          {formulasCount} {t("resources.formula", { count: formulasCount })}
         </Typography>
         <Typography component="li" variant="body2">
-          {setsCount} Sets
+          <ReactTimeAgo date={new Date(createdAt)} />
         </Typography>
       </HorizontalBulletList>
     </div>
@@ -35,7 +38,7 @@ SetsGroupsListItem.propTypes = {
   createdAt: PropTypes.string,
   id: PropTypes.string,
   name: PropTypes.string,
-  setsCount: PropTypes.number,
+  formulasCount: PropTypes.number,
 };
 
 export default withRouter(SetsGroupsListItem);
