@@ -1,7 +1,7 @@
 import LinearProgress from "@material-ui/core/LinearProgress";
 import Fade from "@material-ui/core/Fade";
 import { connect } from "react-redux";
-import React, { Component } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Snackbar from "@material-ui/core/Snackbar";
 import SimulationList from "../../components/Simulation/list";
 import { Dialog, Typography, Slide } from "@material-ui/core";
@@ -15,24 +15,36 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-class SimulationContainer extends Component {
-  state = {
-    loading: true,
-    error: null,
-    jsonPayload: { invoices: [] },
-  };
+const SimulationContainer = props => {
+  const [loading, setLoading] = useState(true);
+  const [errorMessage, setErrorMessage] = useState(null);
+  const [jsonPayload, setJsonPayload] = useState({ invoices: [] });
+  const timer = useRef(null);
 
-  async componentDidMount() {
+  const isLoaded = !loading;
+  const hasError = !!errorMessage;
+  const isSuccess = isLoaded && !hasError;
+  const { classes, history, set, location } = props;
+  const routeMatch = matchPath(location.pathname, {
+    path: "/simulations/:simulationId",
+    exact: true,
+    strict: false,
+  });
+  const simulationId = routeMatch && (routeMatch.params || {}).simulationId;
+  const open = !!simulationId;
+
+  useEffect(() => {
     const url = "http://localhost:4567/api/simulations/1234";
-    this.timer = setInterval(() => this.apiFetch(url), 1000);
-  }
+    if (!timer.current) {
+      timer.current = setInterval(() => apiFetch(url), 1000);
+    }
 
-  componentWillUnmount() {
-    clearInterval(this.timer);
-    this.timer = null;
-  }
+    return function cleanup() {
+      clearInterval(timer.current);
+    };
+  });
 
-  async fetchJSON(url) {
+  const fetchJSON = async (url) => {
     try {
       const response = await fetch(url, {});
       const json = await response.json();
@@ -40,10 +52,10 @@ class SimulationContainer extends Component {
     } catch (error) {
       return { success: false, payload: error };
     }
-  }
+  };
 
-  async apiFetch(url) {
-    const response = await this.fetchJSON(url);
+  const apiFetch = async (url) =>  {
+    const response = await fetchJSON(url);
     if (response.success) {
       const {
         isAlive,
@@ -55,86 +67,67 @@ class SimulationContainer extends Component {
         // I'm still alive, keep polling.
       } else {
         // I finished processing
-        clearInterval(this.timer);
+        clearInterval(timer.current);
         if (status === "processed") {
-          this.fetchSimulationResult(resultUrl);
+          fetchSimulationResult(resultUrl);
         } else {
-          this.showError({ message: lastError });
+          showError({ message: lastError });
         }
       }
     } else {
-      clearInterval(this.timer);
-      this.showError(response.payload);
+      clearInterval(timer.current);
+      showError(response.payload);
     }
-  }
+  };
 
-  async fetchSimulationResult(url) {
-    const response = await this.fetchJSON(url);
+  const fetchSimulationResult = async (url) => {
+    const response = await fetchJSON(url);
     if (response.success) {
-      this.setState({
-        loading: false,
-        jsonPayload: response.payload,
-      });
+      setLoading(false);
+      setJsonPayload(response.payload);
     } else {
-      this.showError(response.payload);
+      showError(response.payload);
     }
-  }
+  };
 
-  showError(error) {
-    this.setState({
-      loading: false,
-      errorMessage: error.message,
-    });
-  }
+  const showError = error => {
+    setLoading(false);
+    setErrorMessage(error.message);
+  };
 
-  render() {
-    const { loading, errorMessage, jsonPayload } = this.state;
-    const isLoaded = !loading;
-    const hasError = !!errorMessage;
-    const isSuccess = isLoaded && !hasError;
-    const { classes, history, set, location } = this.props;
-    const routeMatch = matchPath(location.pathname, {
-      path: "/simulations/:simulationId",
-      exact: true,
-      strict: false,
-    });
-    const simulationId = routeMatch && (routeMatch.params || {}).simulationId;
-    const open = !!simulationId;
-
-    return (
-      <Dialog
-        fullScreen
-        open={open}
-        className={classes.root}
-        onClose={() => history.push("/simulations")}
-        TransitionComponent={Transition}
-      >
-        <TopBar fullscreen backLinkPath="/simulations">
-          <Typography
-            variant="h6"
-            color="inherit"
-            className={classes.appBarHeader}
-          >
-            {set.name}
-          </Typography>
-          <FiltersToggleBtn variant="info" className={classes.filtersBtn} />
-        </TopBar>
-        <Fade in={loading} unmountOnExit>
-          <LinearProgress variant="query" />
-        </Fade>
-        <Snackbar
-          anchorOrigin={{ vertical: "top", horizontal: "right" }}
-          open={isLoaded && hasError}
-          autoHideDuration={6000}
-          message={<span id="message-id">Error: {errorMessage}</span>}
-        />
-        {isSuccess && (
-          <SimulationList key="list" simulations={jsonPayload.invoices} />
-        )}
-      </Dialog>
-    );
-  }
-}
+  return (
+    <Dialog
+      fullScreen
+      open={open}
+      className={classes.root}
+      onClose={() => history.push("/simulations")}
+      TransitionComponent={Transition}
+    >
+      <TopBar fullscreen backLinkPath="/simulations">
+        <Typography
+          variant="h6"
+          color="inherit"
+          className={classes.appBarHeader}
+        >
+          {set.name}
+        </Typography>
+        <FiltersToggleBtn variant="info" className={classes.filtersBtn} />
+      </TopBar>
+      <Fade in={loading} unmountOnExit>
+        <LinearProgress variant="query" />
+      </Fade>
+      <Snackbar
+        anchorOrigin={{ vertical: "top", horizontal: "right" }}
+        open={isLoaded && hasError}
+        autoHideDuration={6000}
+        message={<span id="message-id">Error: {errorMessage}</span>}
+      />
+      {isSuccess && (
+        <SimulationList key="list" simulations={jsonPayload.invoices} />
+      )}
+    </Dialog>
+  );
+};
 
 const mapStateToProps = () => ({
   set: {
