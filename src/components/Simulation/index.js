@@ -2,8 +2,9 @@ import { Grid, withStyles } from "@material-ui/core";
 import React, { Fragment } from "react";
 import { connect } from "react-redux";
 import { withTranslation } from "react-i18next";
-import Table from "../Table/table";
-import SimulationHeader from "./SimulationHeader";
+import Table from "./Table/table";
+import PropTypes from "prop-types";
+import Header from "./Header";
 import { KeyNumberBlock } from "@blsq/manager-ui";
 import humanize from "string-humanize";
 
@@ -15,10 +16,9 @@ const styles = theme => ({
 
 export const Simulation = props => {
   const { simulation } = props;
-  console.log(props);
   return (
     <Fragment>
-      <SimulationHeader key="header" invoice={simulation} />
+      <Header key="header" invoice={simulation} />
       <Grid container item xs={12} spacing={3}>
         {simulation.total_items.map(item => (
           <Grid item xs={3}>
@@ -32,6 +32,10 @@ export const Simulation = props => {
       <Table key="invoice" invoice={simulation} />
     </Fragment>
   );
+};
+
+Simulation.propTypes = {
+  simulation: PropTypes.any,
 };
 
 const mapStateToProps = state => ({});
