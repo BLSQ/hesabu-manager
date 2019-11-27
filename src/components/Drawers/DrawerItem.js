@@ -1,6 +1,6 @@
 import { ListItem, withStyles } from "@material-ui/core";
 import { NavLink, withRouter } from "react-router-dom";
-
+import PropTypes from "prop-types";
 import React from "react";
 import classNames from "classnames";
 
@@ -12,7 +12,7 @@ const styles = () => ({
 
 function DrawerItem(props) {
   const { classes } = props;
-  const active = props.to.match(props.location.pathname.split("/")[1]);
+  const active = props.to === `/${props.location.pathname.split("/")[1]}`;
   const CustomLink = React.forwardRef((props, _ref) => <NavLink {...props} />);
   return (
     <ListItem
@@ -27,5 +27,12 @@ function DrawerItem(props) {
     </ListItem>
   );
 }
+
+DrawerItem.propTypes = {
+  children: PropTypes.array,
+  classes: PropTypes.object,
+  location: PropTypes.object,
+  to: PropTypes.string,
+};
 
 export default withStyles(styles)(withRouter(DrawerItem));
