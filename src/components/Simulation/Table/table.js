@@ -10,7 +10,7 @@ import {
   Paper,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
-import Solution from "../Solution";
+import Solution from "./Solution";
 
 const useStyles = makeStyles(theme => ({}));
 
