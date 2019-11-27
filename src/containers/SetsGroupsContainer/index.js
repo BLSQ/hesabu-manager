@@ -38,7 +38,7 @@ const mapStateToProps = () => ({
     {
       id: "12334",
       name: "PBF payments CPA for NSHIP",
-      setsCount: 3,
+      formulasCount: 3,
       createdAt: "2019-11-02T18:25:43.511Z",
     },
   ],
