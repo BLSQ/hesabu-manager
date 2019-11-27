@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/BLSQ/hesabu-manager/compare/v1.0.0...v1.1.0) (2019-11-27)
+
+
+### Features
+
+* Add search clear btn ([#10](https://github.com/BLSQ/hesabu-manager/issues/10)) ([267eb43](https://github.com/BLSQ/hesabu-manager/commit/267eb43434d594ff4098951f79b26a3ff0107aac))
+
 # 1.0.0 (2019-11-26)
 
 
