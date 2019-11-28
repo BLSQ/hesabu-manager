@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React from "react";
 import humanize from "string-humanize";
 import { Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
@@ -10,7 +10,7 @@ const Header = function(props) {
   const name = props.invoice.code;
   const classes = useStyles(props);
   return (
-    <Fragment
+    <div
       data-period={props.invoice.period}
       data-orgunit={props.invoice.orgunit_ext_id}
       data-code={props.invoice.code}
@@ -23,7 +23,7 @@ const Header = function(props) {
       >
         {humanize(name)}
       </Typography>
-    </Fragment>
+    </div>
   );
 };
 

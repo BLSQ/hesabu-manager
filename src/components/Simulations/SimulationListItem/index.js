@@ -57,7 +57,7 @@ const SimulationListItem = props => {
 };
 
 SimulationListItem.propTypes = {
-  buildDuration: PropTypes.string,
+  buildDuration: PropTypes.number,
   createdAt: PropTypes.string,
   groups: PropTypes.array,
   id: PropTypes.string,
