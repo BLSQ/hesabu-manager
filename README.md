@@ -15,13 +15,31 @@ It will become the new frontend to the existing [Hesabu API](https://github.com/
 
 # Development
 
+## Getting started
+
 Run the app. This a [CRA](https://github.com/facebook/create-react-app) app, so all standard commands works as expected.
 
 ```bash
 yarn start
 ```
 
-## Formatting/linting
+## Committing
+
+This project uses automated semantic versionning based on commit messages or PR titles.
+Everything you want to appear in the CHANGELOG.md file please consider using this commit message formatting:
+
+```
+feat: A new feature
+fix: A bug fix
+docs: Documentation only changes
+style: Changes that do not affect the meaning of the code (white-space, formatting, missing semi-colons, etc)
+refactor: A code change that neither fixes a bug nor adds a feature
+perf: A code change that improves performance
+test: Adding missing or correcting existing tests
+chore: Changes to the build process or auxiliary tools and libraries such as documentation generation
+```
+
+### Formatting/linting
 
 By default there is a pre-commit hook (provided by [husky](https://github.com/typicode/husky#readme)) that will run `prettifier-eslint`.
 
