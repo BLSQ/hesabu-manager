@@ -11,6 +11,7 @@ import SideSheet from "../../components/SideSheet";
 import FiltersToggleBtn from "../../components/FiltersToggleBtn";
 import useStyles from "./styles";
 import SimulationContainer from "../SimulationContainer";
+import { formattedName } from "../../utils/textUtils";
 
 const SimulationsContainer = props => {
   const { simulations } = props;
@@ -23,7 +24,7 @@ const SimulationsContainer = props => {
     <Fragment>
       <TopBar>
         <Typography variant="h6" color="inherit">
-          {t("drawerItems.simulations")}
+          {formattedName(t("resources.simulation_plural"))}
         </Typography>
         <FiltersToggleBtn
           variant="filters"
