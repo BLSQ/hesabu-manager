@@ -22,6 +22,9 @@ export default {
         simulation: "simulation",
         simulation_plural: "simulations",
         orgUnit: "organisation unit",
+        orgUnit_plural: "organisation units",
+        period: "period",
+        period_plural: "periods",
         formula: "formula",
         formula_plural: "formulas",
       },
@@ -39,6 +42,11 @@ export default {
         index: {
           infoBox:
             "Sets are the blocks of your final report. Each set will output one or two tables depending on the type. If you want to make computations with data from multiple sets, create project formulas and they will appear at the end of your report. At any moment, you can see a representation of the report in the simulations page.",
+        },
+      },
+      simulation: {
+        sidesheet: {
+          title: "Filters",
         },
       },
       simulationForm: {

@@ -1,4 +1,11 @@
-import { Grid, Dialog, Typography, Slide, Fade, makeStyles } from "@material-ui/core";
+import {
+  Grid,
+  Dialog,
+  Typography,
+  Slide,
+  Fade,
+  makeStyles,
+} from "@material-ui/core";
 import Snackbar from "@material-ui/core/Snackbar";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import React, { useState } from "react";
@@ -10,6 +17,8 @@ import SideSheet from "../SideSheet";
 import uniqWith from "lodash/uniqWith";
 import some from "lodash/some";
 import humanize from "string-humanize";
+import { withTranslation } from "react-i18next";
+import SimulationFilters from "./Filters";
 
 const styles = makeStyles(theme => ({
   infoBox: {
@@ -23,7 +32,7 @@ const styles = makeStyles(theme => ({
   },
   spinner: {
     marginTop: theme.spacing(20),
-  }
+  },
 }));
 
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -63,7 +72,7 @@ export const Simulation = props => {
   const [packages, setPackages] = useState([]);
   const [orgUnits, setOrgUnits] = useState([]);
 
-  const { errorMessage, loading, payload, history, simulationData } = props;
+  const { errorMessage, loading, payload, history, simulationData, t } = props;
 
   const simulations = payload.invoices;
   const isLoaded = !loading;
@@ -143,7 +152,6 @@ export const Simulation = props => {
         <Grid container alignItems="center" justify="center">
           <CircularProgress className={classes.spinner} />
         </Grid>
-
       </Fade>
       <Snackbar
         anchorOrigin={{ vertical: "top", horizontal: "right" }}
@@ -155,16 +163,23 @@ export const Simulation = props => {
         <>
           <SimulationParts key="parts" simulations={filteredSimulations} />
           <SideSheet
-            title={"Sheeeet"}
+            title={t("simulations.sidesheet.title")}
             open={sideSheetOpen}
             onClose={handleToggleSideSheet}
           >
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
-              Consequuntur velit et exercitationem ut ex eveniet in sit aperiam,
-              voluptatum laboriosam quam voluptate officiis ullam perspiciatis
-              at sint deserunt architecto illo!
-            </p>
+            <p>SimulationForm will go here!</p>
+
+            <SimulationFilters
+              allPeriods={allPeriods}
+              periods={periods}
+              allOrgUnits={allOrgUnits}
+              orgUnits={orgUnits}
+              allPackages={allPackages}
+              packages={packages}
+              periodsChanged={periodsChanged}
+              packagesChanged={packagesChanged}
+              orgUnitsChanged={orgUnitsChanged}
+            />
           </SideSheet>
         </>
       )}
@@ -185,4 +200,4 @@ Simulation.propTypes = {
   }),
 };
 
-export default Simulation;
+export default withTranslation("translations")(Simulation);
