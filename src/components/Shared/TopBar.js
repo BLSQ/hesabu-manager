@@ -50,7 +50,7 @@ function TopBar(props) {
             component={Link}
             to={props.backLinkPath}
             color="inherit"
-            aria-label={t("button.back")}
+            aria-label={t("buttons.back")}
           >
             <BackIcon />
           </IconButton>
