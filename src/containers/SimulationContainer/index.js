@@ -1,19 +1,10 @@
-import LinearProgress from "@material-ui/core/LinearProgress";
 import Fade from "@material-ui/core/Fade";
 import { connect } from "react-redux";
 import React, { useState, useEffect, useRef } from "react";
-import Snackbar from "@material-ui/core/Snackbar";
-import SimulationList from "../../components/Simulation/list";
-import { Dialog, Typography, Slide } from "@material-ui/core";
 import { withRouter, matchPath } from "react-router-dom";
-import TopBar from "../../components/Shared/TopBar";
-import FiltersToggleBtn from "../../components/FiltersToggleBtn";
 import { withStyles } from "@material-ui/styles";
 import styles from "./styles";
-
-const Transition = React.forwardRef(function Transition(props, ref) {
-  return <Slide direction="up" ref={ref} {...props} />;
-});
+import Simulation from "../../components/Simulation";
 
 const SimulationContainer = props => {
   const [loading, setLoading] = useState(true);
@@ -21,9 +12,6 @@ const SimulationContainer = props => {
   const [jsonPayload, setJsonPayload] = useState({ invoices: [] });
   const timer = useRef(null);
 
-  const isLoaded = !loading;
-  const hasError = !!errorMessage;
-  const isSuccess = isLoaded && !hasError;
   const { classes, history, set, location } = props;
   const routeMatch = matchPath(location.pathname, {
     path: "/simulations/:simulationId",
@@ -32,10 +20,11 @@ const SimulationContainer = props => {
   });
   const simulationId = routeMatch && (routeMatch.params || {}).simulationId;
   const open = !!simulationId;
-
-  const name = props.simulation.name;
-  const formattedDate = props.simulation.period;
-  const nameWithDate = `${name}-${formattedDate}`;
+  const simulationData = {
+    id: simulationId,
+    name: props.simulation.name,
+    period: props.simulation.period,
+  };
 
   useEffect(() => {
     const url = "http://localhost:4567/api/simulations/1234";
@@ -48,7 +37,7 @@ const SimulationContainer = props => {
     };
   });
 
-  const fetchJSON = async (url) => {
+  const fetchJSON = async url => {
     try {
       const response = await fetch(url, {});
       const json = await response.json();
@@ -58,7 +47,7 @@ const SimulationContainer = props => {
     }
   };
 
-  const apiFetch = async (url) =>  {
+  const apiFetch = async url => {
     const response = await fetchJSON(url);
     if (response.success) {
       const {
@@ -84,7 +73,7 @@ const SimulationContainer = props => {
     }
   };
 
-  const fetchSimulationResult = async (url) => {
+  const fetchSimulationResult = async url => {
     const response = await fetchJSON(url);
     if (response.success) {
       setLoading(false);
@@ -100,39 +89,14 @@ const SimulationContainer = props => {
   };
 
   return (
-    <Dialog
-      fullScreen
-      open={open}
-      className={classes.root}
-      onClose={() => history.push("/simulations")}
-      TransitionComponent={Transition}
-    >
-      <TopBar fullscreen backLinkPath="/simulations">
-        <Typography
-          variant="h6"
-          color="inherit"
-          className={classes.appBarHeader}
-        >
-          {nameWithDate}
-        </Typography>
-        <FiltersToggleBtn variant="info" className={classes.filtersBtn} />
-      </TopBar>
-      <Fade in={loading} unmountOnExit>
-        <LinearProgress variant="query" />
-      </Fade>
-      <Snackbar
-        anchorOrigin={{ vertical: "top", horizontal: "right" }}
-        open={isLoaded && hasError}
-        autoHideDuration={6000}
-        message={<span id="message-id">Error: {errorMessage}</span>}
-      />
-      {isSuccess && (
-        <SimulationList key="list" simulations={jsonPayload.invoices} />
-      )}
-    </Dialog>
+    <Simulation
+      errorMessage={errorMessage}
+      loading={loading}
+      payload={jsonPayload}
+      simulationData={simulationData}
+    />
   );
 };
-
 const mapStateToProps = () => ({
   simulation: {
     id: "1234",

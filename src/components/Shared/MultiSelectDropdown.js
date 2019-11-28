@@ -33,7 +33,7 @@ const styles = theme => ({
   },
   chip: {
     fontSize: 12,
-    margin: theme.spacing(1/10),
+    margin: theme.spacing(1 / 10),
   },
   noLabel: {
     marginTop: theme.spacing(3),
