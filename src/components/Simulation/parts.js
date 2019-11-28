@@ -11,7 +11,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const SimulationList = props => {
+const SimulationParts = props => {
   const classes = useStyles(props);
   const { simulations } = props;
 
@@ -31,8 +31,8 @@ const SimulationList = props => {
 
 const mapStateToProps = state => ({});
 
-SimulationList.propTypes = {
+SimulationParts.propTypes = {
   simulations: PropTypes.array,
 };
 
-export default SimulationList;
+export default SimulationParts;
