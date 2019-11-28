@@ -1,28 +1,14 @@
-import React, { Fragment, useState } from "react";
+import React, { useState } from "react";
 import matchSorter from "match-sorter";
-import { Typography } from "@material-ui/core";
 import { connect } from "react-redux";
-import { useTranslation } from "react-i18next";
-import { InfoBox } from "@blsq/manager-ui";
 import PropTypes from "prop-types";
-import { useParams } from "react-router-dom";
-import PageContent from "../../components/Shared/PageContent";
-import TopBar from "../../components/Shared/TopBar";
-import SetList from "../../components/Sets/SetList";
-import SideSheet from "../../components/SideSheet";
-import FiltersToggleBtn from "../../components/FiltersToggleBtn";
-import AppBarSearch from "../../components/AppBarSearch";
-import SetContainer from "../SetContainer";
-import useStyles from "./styles";
+import Sets from "../../components/Sets";
 
 const SetsContainer = props => {
-  const classes = useStyles(props);
-  const { t } = useTranslation();
   const [sideSheetOpen, setSideSheetOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [query, setQuery] = useState("");
-  const { setId } = useParams();
-  const modalOpen = !!setId;
+
   const handleToggleSideSheet = () => setSideSheetOpen(!sideSheetOpen);
   const handleToggleSearch = () => setSearchOpen(!searchOpen);
 
@@ -31,54 +17,16 @@ const SetsContainer = props => {
   });
 
   return (
-    <Fragment>
-      <TopBar>
-        {searchOpen ? (
-          <AppBarSearch
-            query={query}
-            onClose={handleToggleSearch}
-            onChange={setQuery}
-          />
-        ) : (
-          <Typography
-            variant="h6"
-            color="inherit"
-            className={classes.appBarHeader}
-          >
-            {t("drawerItems.sets")}
-          </Typography>
-        )}
-        <FiltersToggleBtn
-          className={classes.filtersBtn}
-          onClick={handleToggleSearch}
-          variant="search"
-        />
-        <FiltersToggleBtn
-          variant="filters"
-          className={classes.filtersBtn}
-          onClick={handleToggleSideSheet}
-        />
-      </TopBar>
-      <PageContent>
-        <InfoBox name="hesabu-sets-infobox" className={classes.infoBox}>
-          {t("sets.index.infoBox")}
-        </InfoBox>
-        <SetList sets={filteredSets} noItems={!props.sets.length} />
-        <SetContainer open={modalOpen} setId={setId} />
-      </PageContent>
-      <SideSheet
-        title={t("filtersSheet.title")}
-        open={sideSheetOpen}
-        onClose={handleToggleSideSheet}
-      >
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequuntur
-          velit et exercitationem ut ex eveniet in sit aperiam, voluptatum
-          laboriosam quam voluptate officiis ullam perspiciatis at sint deserunt
-          architecto illo!
-        </p>
-      </SideSheet>
-    </Fragment>
+    <Sets
+      filteredSets={filteredSets}
+      sets={props.sets}
+      query={query}
+      setQuery={setQuery}
+      searchOpen={searchOpen}
+      handleToggleSearch={handleToggleSearch}
+      sideSheetOpen={sideSheetOpen}
+      handleToggleSideSheet={handleToggleSideSheet}
+    />
   );
 };
 
