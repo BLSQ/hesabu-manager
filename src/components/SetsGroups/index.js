@@ -3,6 +3,7 @@ import { Typography } from "@material-ui/core";
 import { useTranslation } from "react-i18next";
 import { InfoBox } from "@blsq/manager-ui";
 import PropTypes from "prop-types";
+import { useParams } from "react-router-dom";
 import PageContent from "../Shared/PageContent";
 import TopBar from "../Shared/TopBar";
 import SideSheet from "../SideSheet";
@@ -11,10 +12,15 @@ import AppBarSearch from "../AppBarSearch";
 import useStyles from "./styles";
 import SetsGroupsList from "./SetsGroupsList";
 import { formattedName } from "../../utils/textUtils";
+import SetsGroupContainer from "../../containers/SetsGroupContainer";
 
 const SetsGroups = props => {
   const classes = useStyles(props);
   const { t } = useTranslation();
+
+  const { setsGroupId } = useParams();
+  const modalOpen = !!setsGroupId;
+
   const {
     searchOpen,
     handleToggleSearch,
@@ -54,6 +60,7 @@ const SetsGroups = props => {
           setsGroups={filteredSetsGroups}
           noItems={!setsGroups.length}
         />
+        <SetsGroupContainer open={modalOpen} setsGroupId={setsGroupId} />
       </PageContent>
       <SideSheet
         title={t("filtersSheet.title")}
