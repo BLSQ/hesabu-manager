@@ -59,8 +59,8 @@ const SimulationList = props => {
   const filteredSimulations = simulations.filter(simulation => {
     return (
       some(periods, ["key", simulation.period]) &&
-        some(packages, ["key", simulation.code]) &&
-        some(orgUnits, ["key", simulation.orgunit_ext_id])
+      some(packages, ["key", simulation.code]) &&
+      some(orgUnits, ["key", simulation.orgunit_ext_id])
     );
   });
 
@@ -86,51 +86,51 @@ const SimulationList = props => {
   };
 
   return (
-      <Fragment>
-        <PageContent>
-          <Grid container spacing={4}>
-            <Grid item xs={12} lg={8}>
-              <Grid
-                container
-                key="selection-grid"
-                direction="row"
-                justify="space-between"
-                alignItems="flex-start"
-              >
-                <MultiSelectDropdown
-                  name="Periods"
-                  items={allPeriods}
-                  selected={periods}
-                  optionsChanged={periodsChanged}
-                  key="periods"
-                />
-                <MultiSelectDropdown
-                  name="Org Units"
-                  items={allOrgUnits}
-                  selected={orgUnits}
-                  optionsChanged={orgUnitsChanged}
-                  key="orgUnits"
-                />
-                <MultiSelectDropdown
-                  name="Packages"
-                  items={allPackages}
-                  selected={packages}
-                  optionsChanged={packagesChanged}
-                  key="packages"
-                />
-              </Grid>
-              {filteredSimulations.map((simulation, i) => {
-                const key = [
-                  simulation.orgunit_ext_id,
-                  simulation.period,
-                  simulation.code,
-                ].join("-");
-                return <SimulationPart key={key} simulation={simulation} />;
-              })}
+    <Fragment>
+      <PageContent>
+        <Grid container spacing={4}>
+          <Grid item xs={12} lg={8}>
+            <Grid
+              container
+              key="selection-grid"
+              direction="row"
+              justify="space-between"
+              alignItems="flex-start"
+            >
+              <MultiSelectDropdown
+                name="Periods"
+                items={allPeriods}
+                selected={periods}
+                optionsChanged={periodsChanged}
+                key="periods"
+              />
+              <MultiSelectDropdown
+                name="Org Units"
+                items={allOrgUnits}
+                selected={orgUnits}
+                optionsChanged={orgUnitsChanged}
+                key="orgUnits"
+              />
+              <MultiSelectDropdown
+                name="Packages"
+                items={allPackages}
+                selected={packages}
+                optionsChanged={packagesChanged}
+                key="packages"
+              />
             </Grid>
+            {filteredSimulations.map((simulation, i) => {
+              const key = [
+                simulation.orgunit_ext_id,
+                simulation.period,
+                simulation.code,
+              ].join("-");
+              return <SimulationPart key={key} simulation={simulation} />;
+            })}
           </Grid>
-        </PageContent>
-      </Fragment>
+        </Grid>
+      </PageContent>
+    </Fragment>
   );
 };
 
