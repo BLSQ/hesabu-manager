@@ -120,7 +120,12 @@ class App extends Component {
                           component={LoadableSetsContainer}
                         />
                         <Route
+                          exact
                           path="/sets_groups"
+                          component={LoadableSetsGroupsContainer}
+                        />
+                        <Route
+                          path="/sets_groups/:setsGroupId"
                           component={LoadableSetsGroupsContainer}
                         />
                         <Route
