@@ -27,7 +27,6 @@ const mapStateToProps = state => ({
   errored: !!state.api.error,
 });
 
-export default connect(
-  mapStateToProps,
-  { receiveToken, receiveTokenError },
-)(TokenProvider);
+export default connect(mapStateToProps, { receiveToken, receiveTokenError })(
+  TokenProvider,
+);

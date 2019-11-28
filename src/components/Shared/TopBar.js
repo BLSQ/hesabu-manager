@@ -76,7 +76,4 @@ const mapStateToProps = state => ({
   project: state.project && state.project.project,
 });
 
-export default connect(
-  mapStateToProps,
-  { toggleDrawer },
-)(TopBar);
+export default connect(mapStateToProps, { toggleDrawer })(TopBar);

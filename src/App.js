@@ -153,9 +153,8 @@ const mapStateToProps = state => ({
 
 export default withRouter(
   withStyles(styles)(
-    connect(
-      mapStateToProps,
-      { toggleDrawer, requestProject, receiveProject },
-    )(App),
+    connect(mapStateToProps, { toggleDrawer, requestProject, receiveProject })(
+      App,
+    ),
   ),
 );
