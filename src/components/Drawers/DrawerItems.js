@@ -15,6 +15,7 @@ import { useTranslation } from "react-i18next";
 import { HesabuLogo, NestedAccordionMenu } from "@blsq/manager-ui";
 import { Link, withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
+import { formattedName } from "../../utils/textUtils";
 
 const useStyles = makeStyles(theme => ({
   logo: {
@@ -35,22 +36,22 @@ function DrawerItems(props) {
   // TODO: Move this to separate file, and use them into the props here.
   const items = [
     {
-      name: t("drawerItems.sets"),
+      name: formattedName(t("resources.set_plural")),
       to: "/sets",
       Icon: ListIcon,
     },
     {
-      name: t("drawerItems.setsGroups"),
+      name: formattedName(t("resources.setsGroup_plural")),
       to: "/sets_groups",
       Icon: FunctionsIcon,
     },
     {
-      name: t("drawerItems.simulations"),
+      name: formattedName(t("resources.simulation_plural")),
       to: "/simulations",
       Icon: SyncIcon,
     },
     {
-      name: t("drawerItems.help"),
+      name: formattedName(t("drawerItems.help")),
       to: "/help",
       Icon: HelpIcon,
     },

@@ -7,7 +7,7 @@ import EmptySection from "../../EmptySection";
 const SetsGroupsList = props => {
   const { t } = useTranslation();
   if (props.noItems)
-    return <EmptySection resourceName={t("resources.setGroup")} />;
+    return <EmptySection resourceName={t("resources.setsGroup")} />;
   if (!props.setsGroups.length) return <p>No sets groups found</p>;
   return (
     <div>

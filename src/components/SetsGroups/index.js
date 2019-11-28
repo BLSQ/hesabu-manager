@@ -10,6 +10,7 @@ import FiltersToggleBtn from "../FiltersToggleBtn";
 import AppBarSearch from "../AppBarSearch";
 import useStyles from "./styles";
 import SetsGroupsList from "./SetsGroupsList";
+import { formattedName } from "../../utils/textUtils";
 
 const SetsGroups = props => {
   const classes = useStyles(props);
@@ -35,7 +36,7 @@ const SetsGroups = props => {
             color="inherit"
             className={classes.appBarHeader}
           >
-            {t("drawerItems.sets")}
+            {formattedName(t("resources.setsGroup_plural"))}
           </Typography>
         )}
         <FiltersToggleBtn onClick={handleToggleSearch} variant="search" />
