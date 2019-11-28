@@ -1,12 +1,12 @@
 import { Dialog, Typography, Slide, Fade, makeStyles } from "@material-ui/core";
 import Snackbar from "@material-ui/core/Snackbar";
 import LinearProgress from "@material-ui/core/LinearProgress";
-
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import TopBar from "../Shared/TopBar";
 import FiltersToggleBtn from "../FiltersToggleBtn";
 import SimulationList from "./list";
+import SideSheet from "../SideSheet";
 
 const styles = makeStyles(theme => ({
   infoBox: {
@@ -26,6 +26,8 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 export const Simulation = props => {
   const classes = styles();
+  const [sideSheetOpen, setSideSheetOpen] = useState(false);
+
   const { errorMessage, loading, payload, history, simulationData } = props;
 
   const isLoaded = !loading;
@@ -36,6 +38,8 @@ export const Simulation = props => {
   const name = simulationData && simulationData.name;
   const formattedDate = simulationData && simulationData.period;
   const nameWithDate = `${name}-${formattedDate}`;
+
+  const handleToggleSideSheet = () => setSideSheetOpen(!sideSheetOpen);
 
   return (
     <Dialog
@@ -53,7 +57,11 @@ export const Simulation = props => {
         >
           {nameWithDate}
         </Typography>
-        <FiltersToggleBtn variant="info" className={classes.filtersBtn} />
+        <FiltersToggleBtn
+          variant="info"
+          className={classes.filtersBtn}
+          onClick={handleToggleSideSheet}
+        />
       </TopBar>
       <Fade in={loading} unmountOnExit>
         <LinearProgress variant="query" />
@@ -65,7 +73,21 @@ export const Simulation = props => {
         message={<span id="message-id">Error: {errorMessage}</span>}
       />
       {isSuccess && (
-        <SimulationList key="list" simulations={payload.invoices} />
+        <>
+          <SimulationList key="list" simulations={payload.invoices} />
+          <SideSheet
+            title={"Sheeeet"}
+            open={sideSheetOpen}
+            onClose={handleToggleSideSheet}
+          >
+            <p>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit.
+              Consequuntur velit et exercitationem ut ex eveniet in sit aperiam,
+              voluptatum laboriosam quam voluptate officiis ullam perspiciatis
+              at sint deserunt architecto illo!
+            </p>
+          </SideSheet>
+        </>
       )}
     </Dialog>
   );
