@@ -12,14 +12,15 @@ export default {
         body: "Create some and they will appear here.",
       },
       drawerItems: {
-        sets: "Sets",
-        setsGroups: "Sets groups",
-        simulations: "Simulations",
         help: "Help",
       },
       resources: {
         set: "set",
+        set_plural: "sets",
+        setGroup: "sets group",
+        setGroup_plural: "sets groups",
         simulation: "simulation",
+        simulation_plural: "simulations",
         orgUnit: "organisation unit",
         formula: "formula",
         formula_plural: "formulas",
