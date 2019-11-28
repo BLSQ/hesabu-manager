@@ -1,15 +1,15 @@
 import React from "react";
 import classNames from "classnames";
-import { withStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import { DRAWER_WIDTH } from "../../constants/ui";
 
 const drawerWidth = DRAWER_WIDTH;
 
-const styles = theme => ({
+const useStyles = makeStyles(theme => ({
   hide: {
     left: -drawerWidth,
   },
-  content: {
+  content: props => ({
     transition: theme.transitions.create(["margin"], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
@@ -21,24 +21,30 @@ const styles = theme => ({
     marginLeft: 0, // So the Typography noWrap works
     marginTop: 64 + theme.spacing(3),
     [theme.breakpoints.up("md")]: {
-      marginLeft: drawerWidth,
+      marginLeft: props.fullscreen ? 0 : drawerWidth,
     },
     paddingBottom: theme.spacing(30),
-  },
+  }),
   tabsMargin: {
     marginTop: 112 + theme.spacing(3),
   },
-});
+}));
 
 function PageContent(props) {
-  const { classes, tabs } = props;
+  const { tabs } = props;
+  const classes = useStyles(props);
   return (
     <main
-      className={classNames(classes.content, { [classes.tabsMargin]: tabs })}
+      className={classNames(classes.content, {
+        [classes.tabsMargin]: tabs,
+      })}
     >
       {props.children}
     </main>
   );
 }
 
-export default withStyles(styles)(PageContent);
+PageContent.defaultProps = {
+  fullscreen: false,
+};
+export default PageContent;
