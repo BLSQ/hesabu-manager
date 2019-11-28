@@ -7,6 +7,9 @@ import TopBar from "../Shared/TopBar";
 import FiltersToggleBtn from "../FiltersToggleBtn";
 import SimulationList from "./list";
 import SideSheet from "../SideSheet";
+import uniqWith from "lodash/uniqWith";
+import some from "lodash/some";
+import humanize from "string-humanize";
 
 const styles = makeStyles(theme => ({
   infoBox: {
@@ -24,12 +27,42 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
+const mapPeriods = invoices => {
+  const all = invoices.map(invoice => ({
+    key: invoice.period,
+    human: humanize(invoice.period),
+  }));
+  return uniqWith(all, (a, b) => a.key === b.key);
+};
+
+const mapPackages = invoices => {
+  const all = invoices.map(invoice => ({
+    key: invoice.code,
+    human: humanize(invoice.code),
+  }));
+
+  return uniqWith(all, (a, b) => a.key === b.key);
+};
+
+const mapOrgunits = invoices => {
+  const all = invoices.map(invoice => ({
+    key: invoice.orgunit_ext_id,
+    human: invoice.orgunit_name,
+  }));
+
+  return uniqWith(all, (a, b) => a.key === b.key);
+};
+
 export const Simulation = props => {
   const classes = styles();
   const [sideSheetOpen, setSideSheetOpen] = useState(false);
+  const [periods, setPeriods] = useState([]);
+  const [packages, setPackages] = useState([]);
+  const [orgUnits, setOrgUnits] = useState([]);
 
   const { errorMessage, loading, payload, history, simulationData } = props;
 
+  const simulations = payload.invoices;
   const isLoaded = !loading;
   const hasError = !!errorMessage;
   const isSuccess = isLoaded && !hasError;
@@ -40,6 +73,46 @@ export const Simulation = props => {
   const nameWithDate = `${name}-${formattedDate}`;
 
   const handleToggleSideSheet = () => setSideSheetOpen(!sideSheetOpen);
+
+  const allPeriods = mapPeriods(simulations);
+  const allPackages = mapPackages(simulations);
+  const allOrgUnits = mapOrgunits(simulations);
+
+  // Set default selection
+  if (orgUnits.length < 1 && allOrgUnits.length > 0) {
+    setOrgUnits([allOrgUnits[0]]);
+  }
+  if (periods.length < 1 && allPeriods.length > 0) setPeriods(allPeriods);
+  if (packages.length < 1 && allPackages.length > 0) setPackages(allPackages);
+
+  const filteredSimulations = simulations.filter(simulation => {
+    return (
+      some(periods, ["key", simulation.period]) &&
+      some(packages, ["key", simulation.code]) &&
+      some(orgUnits, ["key", simulation.orgunit_ext_id])
+    );
+  });
+
+  const periodsChanged = periodKeys => {
+    const selectedPeriods = allPeriods.filter(item =>
+      periodKeys.includes(item.key),
+    );
+    setPeriods(selectedPeriods);
+  };
+
+  const packagesChanged = packageKeys => {
+    const selectedPackages = allPackages.filter(item =>
+      packageKeys.includes(item.key),
+    );
+    setPackages(selectedPackages);
+  };
+
+  const orgUnitsChanged = orgUnitKeys => {
+    const selectedOrgUnits = allOrgUnits.filter(item =>
+      orgUnitKeys.includes(item.key),
+    );
+    setOrgUnits(selectedOrgUnits);
+  };
 
   return (
     <Dialog
@@ -74,7 +147,7 @@ export const Simulation = props => {
       />
       {isSuccess && (
         <>
-          <SimulationList key="list" simulations={payload.invoices} />
+          <SimulationList key="list" simulations={filteredSimulations} />
           <SideSheet
             title={"Sheeeet"}
             open={sideSheetOpen}
