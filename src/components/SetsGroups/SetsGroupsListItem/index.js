@@ -16,7 +16,7 @@ const SetsGroupsListItem = props => {
     <div className={classes.root}>
       <Typography
         component={Link}
-        to={`/sets_groups/${id}/edit`}
+        to={`/sets_groups/${id}`}
         variant="h6"
         className={classes.sectionTitle}
       >
