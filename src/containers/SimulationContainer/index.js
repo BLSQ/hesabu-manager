@@ -1,4 +1,3 @@
-import Fade from "@material-ui/core/Fade";
 import { connect } from "react-redux";
 import React, { useState, useEffect, useRef } from "react";
 import { withRouter, matchPath } from "react-router-dom";
@@ -12,14 +11,13 @@ const SimulationContainer = props => {
   const [jsonPayload, setJsonPayload] = useState({ invoices: [] });
   const timer = useRef(null);
 
-  const { classes, history, set, location } = props;
+  const { location } = props;
   const routeMatch = matchPath(location.pathname, {
     path: "/simulations/:simulationId",
     exact: true,
     strict: false,
   });
   const simulationId = routeMatch && (routeMatch.params || {}).simulationId;
-  const open = !!simulationId;
   const simulationData = {
     id: simulationId,
     name: props.simulation.name,

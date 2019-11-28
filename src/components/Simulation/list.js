@@ -1,4 +1,4 @@
-import { Grid, withStyles, Typography } from "@material-ui/core";
+import { Grid, withStyles } from "@material-ui/core";
 import React, { useState, Fragment } from "react";
 import { connect } from "react-redux";
 import { withTranslation } from "react-i18next";
@@ -8,7 +8,6 @@ import some from "lodash/some";
 import uniqWith from "lodash/uniqWith";
 import MultiSelectDropdown from "../Shared/MultiSelectDropdown";
 import { SimulationPart } from "./SimulationPart";
-import TopBar from "../Shared/TopBar";
 import PageContent from "../Shared/PageContent";
 
 const styles = theme => ({});

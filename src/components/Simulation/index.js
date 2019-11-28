@@ -1,10 +1,4 @@
-import {
-  Dialog,
-  Typography,
-  Slide,
-  Fade,
-  makeStyles,
-} from "@material-ui/core";
+import { Dialog, Typography, Slide, Fade, makeStyles } from "@material-ui/core";
 import Snackbar from "@material-ui/core/Snackbar";
 import LinearProgress from "@material-ui/core/LinearProgress";
 
