@@ -7,7 +7,7 @@ import PropTypes from "prop-types";
 import some from "lodash/some";
 import uniqWith from "lodash/uniqWith";
 import MultiSelectDropdown from "../Shared/MultiSelectDropdown";
-import { Simulation } from "./index";
+import { SimulationPart } from "./SimulationPart";
 import TopBar from "../Shared/TopBar";
 import PageContent from "../Shared/PageContent";
 
@@ -125,7 +125,7 @@ const SimulationList = props => {
                   simulation.period,
                   simulation.code,
                 ].join("-");
-                return <Simulation key={key} simulation={simulation} />;
+                return <SimulationPart key={key} simulation={simulation} />;
               })}
             </Grid>
           </Grid>
