@@ -996,9 +996,9 @@
     to-fast-properties "^2.0.0"
 
 "@blsq/manager-ui@^1.5.0":
-  version "1.7.1"
-  resolved "https://registry.yarnpkg.com/@blsq/manager-ui/-/manager-ui-1.7.1.tgz#4baaaf806e8d51e1725bf8154b9456baf8306841"
-  integrity sha512-QnmIKOzmZGRVb82xVKWMLRzFeLBas7uAVGfMhBiDmK9Ip985rmugbwrszfjJWy5wizwXZaPzw18SbEuq6yscPw==
+  version "1.7.2"
+  resolved "https://registry.yarnpkg.com/@blsq/manager-ui/-/manager-ui-1.7.2.tgz#0603e009537e5023216e3d130da60030d342676b"
+  integrity sha512-P2Wy2md2L28r54Yxr/R4czQFwqdO3BbpflC2eiLyS5p7mSg+ZPUtVZ26XTIBHWweufr7BJbT9Kp0sq+K1QByRA==
   dependencies:
     classnames "^2.2.6"
     react-cookie "^4.0.1"

@@ -12,8 +12,9 @@ import ExitIcon from "@material-ui/icons/ExitToApp";
 import HelpIcon from "@material-ui/icons/HelpOutline";
 import SyncIcon from "@material-ui/icons/Sync";
 import { useTranslation } from "react-i18next";
-import { HesabuLogo } from "@blsq/manager-ui";
-import DrawerItem from "./DrawerItem";
+import { HesabuLogo, NestedAccordionMenu } from "@blsq/manager-ui";
+import { Link, withRouter } from "react-router-dom";
+import PropTypes from "prop-types";
 
 const useStyles = makeStyles(theme => ({
   logo: {
@@ -28,51 +29,40 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-function DrawerItems() {
+function DrawerItems(props) {
   const classes = useStyles();
   const { t } = useTranslation();
   // TODO: Move this to separate file, and use them into the props here.
   const items = [
     {
-      title: t("drawerItems.sets"),
-      route: "/sets",
-      icon: <ListIcon />,
-      class: "menu-sets",
+      name: t("drawerItems.sets"),
+      to: "/sets",
+      Icon: ListIcon,
     },
     {
-      title: t("drawerItems.setsGroups"),
-      route: "/sets_groups",
-      icon: <FunctionsIcon />,
-      class: "menu-sets-groups",
+      name: t("drawerItems.setsGroups"),
+      to: "/sets_groups",
+      Icon: FunctionsIcon,
     },
     {
-      title: t("drawerItems.simulations"),
-      route: "/simulations",
-      icon: <SyncIcon />,
-      class: "menu-simulations",
+      name: t("drawerItems.simulations"),
+      to: "/simulations",
+      Icon: SyncIcon,
     },
     {
-      title: t("drawerItems.help"),
-      route: "/help",
-      icon: <HelpIcon />,
-      class: "menu-help",
+      name: t("drawerItems.help"),
+      to: "/help",
+      Icon: HelpIcon,
     },
   ];
   return (
     <Fragment>
       <HesabuLogo className={classes.logo} />
-      <List>
-        {items.map((item, i) => (
-          <DrawerItem
-            key={`${i}-drawer-item`}
-            to={item.route}
-            className={item.class}
-          >
-            <ListItemIcon>{item.icon}</ListItemIcon>
-            <ListItemText primary={item.title} />
-          </DrawerItem>
-        ))}
-      </List>
+      <NestedAccordionMenu
+        items={items}
+        currentPath={props.location.pathname}
+        link={Link}
+      />
       <List className={classes.exitBtn}>
         <ListItem
           className="back-to-dhis2"
@@ -84,6 +74,7 @@ function DrawerItems() {
           <ListItemIcon>
             <ExitIcon />
           </ListItemIcon>
+
           <ListItemText primary={t("tooltips.backToDhis2")} />
         </ListItem>
       </List>
@@ -91,4 +82,8 @@ function DrawerItems() {
   );
 }
 
-export default DrawerItems;
+DrawerItems.propTypes = {
+  location: PropTypes.object,
+};
+
+export default withRouter(DrawerItems);
