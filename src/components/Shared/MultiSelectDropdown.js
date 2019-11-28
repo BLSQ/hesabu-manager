@@ -21,7 +21,7 @@ const styles = theme => ({
   formControl: {
     display: "flex",
     flexWrap: "wrap",
-    margin: theme.spacing.unit,
+    margin: theme.spacing(1),
     minWidth: 250,
     maxWidth: 320,
   },
@@ -33,10 +33,10 @@ const styles = theme => ({
   },
   chip: {
     fontSize: 12,
-    margin: theme.spacing.unit / 10,
+    margin: theme.spacing(1 / 10),
   },
   noLabel: {
-    marginTop: theme.spacing.unit * 3,
+    marginTop: theme.spacing(3),
   },
 });
 

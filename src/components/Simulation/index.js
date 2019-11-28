@@ -1,45 +1,87 @@
-import { Grid, withStyles } from "@material-ui/core";
-import React, { Fragment } from "react";
-import { connect } from "react-redux";
-import { withTranslation } from "react-i18next";
-import Table from "./Table/table";
-import PropTypes from "prop-types";
-import Header from "./Header";
-import { KeyNumberBlock } from "@blsq/manager-ui";
-import humanize from "string-humanize";
+import { Dialog, Typography, Slide, Fade, makeStyles } from "@material-ui/core";
+import Snackbar from "@material-ui/core/Snackbar";
+import LinearProgress from "@material-ui/core/LinearProgress";
 
-const styles = theme => ({
-  header: {
-    padding: "5px",
+import React from "react";
+import PropTypes from "prop-types";
+import TopBar from "../Shared/TopBar";
+import FiltersToggleBtn from "../FiltersToggleBtn";
+import SimulationList from "./list";
+
+const styles = makeStyles(theme => ({
+  infoBox: {
+    marginBottom: theme.spacing(4),
   },
+  appBarHeader: {
+    flex: 1,
+  },
+  filtersBtn: {
+    marginLeft: theme.spacing(1),
+  },
+}));
+
+const Transition = React.forwardRef(function Transition(props, ref) {
+  return <Slide direction="up" ref={ref} {...props} />;
 });
 
 export const Simulation = props => {
-  const { simulation } = props;
+  const classes = styles();
+  const { errorMessage, loading, payload, history, simulationData } = props;
+
+  const isLoaded = !loading;
+  const hasError = !!errorMessage;
+  const isSuccess = isLoaded && !hasError;
+  const open = simulationData && !!simulationData.id;
+
+  const name = simulationData && simulationData.name;
+  const formattedDate = simulationData && simulationData.period;
+  const nameWithDate = `${name}-${formattedDate}`;
+
   return (
-    <Fragment>
-      <Header key="header" invoice={simulation} />
-      <Grid container item xs={12} spacing={3}>
-        {simulation.total_items.map(item => (
-          <Grid item xs={3}>
-            <KeyNumberBlock
-              text={humanize(item.formula)}
-              value={item.solution}
-            />
-          </Grid>
-        ))}
-      </Grid>
-      <Table key="invoice" invoice={simulation} />
-    </Fragment>
+    <Dialog
+      fullScreen
+      open={open}
+      className={classes.root}
+      onClose={() => history.push("/simulations")}
+      TransitionComponent={Transition}
+    >
+      <TopBar fullscreen backLinkPath="/simulations">
+        <Typography
+          variant="h6"
+          color="inherit"
+          className={classes.appBarHeader}
+        >
+          {nameWithDate}
+        </Typography>
+        <FiltersToggleBtn variant="info" className={classes.filtersBtn} />
+      </TopBar>
+      <Fade in={loading} unmountOnExit>
+        <LinearProgress variant="query" />
+      </Fade>
+      <Snackbar
+        anchorOrigin={{ vertical: "top", horizontal: "right" }}
+        open={isLoaded && hasError}
+        autoHideDuration={6000}
+        message={<span id="message-id">Error: {errorMessage}</span>}
+      />
+      {isSuccess && (
+        <SimulationList key="list" simulations={payload.invoices} />
+      )}
+    </Dialog>
   );
 };
 
 Simulation.propTypes = {
-  simulation: PropTypes.any,
+  errorMessage: PropTypes.string,
+  loading: PropTypes.bool,
+  payload: PropTypes.shape({
+    invoices: PropTypes.array,
+  }),
+  simulation: PropTypes.shape({
+    id: PropTypes.string,
+    name: PropTypes.string,
+    period: PropTypes.string,
+  }),
 };
 
-const mapStateToProps = state => ({});
-
-export default withTranslation("translations")(
-  withStyles(styles)(connect(mapStateToProps)(Simulation)),
-);
+export default Simulation;
