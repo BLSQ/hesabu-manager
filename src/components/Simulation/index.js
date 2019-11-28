@@ -1,11 +1,11 @@
-import { Dialog, Typography, Slide, Fade, makeStyles } from "@material-ui/core";
+import { Grid, Dialog, Typography, Slide, Fade, makeStyles } from "@material-ui/core";
 import Snackbar from "@material-ui/core/Snackbar";
-import LinearProgress from "@material-ui/core/LinearProgress";
+import CircularProgress from "@material-ui/core/CircularProgress";
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import TopBar from "../Shared/TopBar";
 import FiltersToggleBtn from "../FiltersToggleBtn";
-import SimulationList from "./list";
+import SimulationParts from "./parts";
 import SideSheet from "../SideSheet";
 import uniqWith from "lodash/uniqWith";
 import some from "lodash/some";
@@ -21,6 +21,9 @@ const styles = makeStyles(theme => ({
   filtersBtn: {
     marginLeft: theme.spacing(1),
   },
+  spinner: {
+    marginTop: theme.spacing(20),
+  }
 }));
 
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -137,7 +140,10 @@ export const Simulation = props => {
         />
       </TopBar>
       <Fade in={loading} unmountOnExit>
-        <LinearProgress variant="query" />
+        <Grid container alignItems="center" justify="center">
+          <CircularProgress className={classes.spinner} />
+        </Grid>
+
       </Fade>
       <Snackbar
         anchorOrigin={{ vertical: "top", horizontal: "right" }}
