@@ -8,7 +8,7 @@ import {
 } from "@material-ui/core";
 import Snackbar from "@material-ui/core/Snackbar";
 import CircularProgress from "@material-ui/core/CircularProgress";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import uniqWith from "lodash/uniqWith";
 import some from "lodash/some";
@@ -91,12 +91,14 @@ export const Simulation = props => {
   const allPackages = mapPackages(simulations);
   const allOrgUnits = mapOrgunits(simulations);
 
-  // Set default selection
-  if (orgUnits.length < 1 && allOrgUnits.length > 0) {
-    setOrgUnits([allOrgUnits[0]]);
-  }
-  if (periods.length < 1 && allPeriods.length > 0) setPeriods(allPeriods);
-  if (packages.length < 1 && allPackages.length > 0) setPackages(allPackages);
+  useEffect(() => {}, [
+    orgUnits,
+    allOrgUnits,
+    periods,
+    allPeriods,
+    allPackages,
+    packages,
+  ]);
 
   const filteredSimulations = simulations.filter(simulation => {
     return (
@@ -156,9 +158,9 @@ export const Simulation = props => {
               orgUnits={orgUnits}
               allPackages={allPackages}
               packages={packages}
-              onPeriodsChanged={periodKeys =>
-                setPeriods(handleFilterChange(allPeriods, periodKeys))
-              }
+              onPeriodsChanged={periodKeys => {
+                setPeriods(handleFilterChange(allPeriods, periodKeys));
+              }}
               onPackagesChanged={packageKeys =>
                 setPackages(handleFilterChange(allPackages, packageKeys))
               }
