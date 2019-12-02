@@ -105,25 +105,23 @@ export const Simulation = props => {
     );
   });
 
-  const periodsChanged = periodKeys => {
-    const selectedPeriods = allPeriods.filter(item =>
-      periodKeys.includes(item.key),
+  const handleFilterChange = (collection, selected, setter) => {
+    const selectedItems = collection.filter(item =>
+      selected.includes(item.key),
     );
-    setPeriods(selectedPeriods);
+    setter(selectedItems);
+  };
+
+  const periodsChanged = periodKeys => {
+    handleFilterChange(allPeriods, periodKeys, setPeriods);
   };
 
   const packagesChanged = packageKeys => {
-    const selectedPackages = allPackages.filter(item =>
-      packageKeys.includes(item.key),
-    );
-    setPackages(selectedPackages);
+    handleFilterChange(allPackages, packageKeys, setPackages);
   };
 
   const orgUnitsChanged = orgUnitKeys => {
-    const selectedOrgUnits = allOrgUnits.filter(item =>
-      orgUnitKeys.includes(item.key),
-    );
-    setOrgUnits(selectedOrgUnits);
+    handleFilterChange(allOrgUnits, orgUnitKeys, setOrgUnits);
   };
 
   return (
@@ -176,9 +174,9 @@ export const Simulation = props => {
               orgUnits={orgUnits}
               allPackages={allPackages}
               packages={packages}
-              periodsChanged={periodsChanged}
-              packagesChanged={packagesChanged}
-              orgUnitsChanged={orgUnitsChanged}
+              onPeriodsChanged={periodsChanged}
+              onPackagesChanged={packagesChanged}
+              onOrgUnitsChanged={orgUnitsChanged}
             />
           </SideSheet>
         </>

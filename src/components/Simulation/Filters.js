@@ -19,13 +19,13 @@ export const SimulationFilters = props => {
   const {
     allPeriods,
     periods,
-    periodsChanged,
+    onPeriodsChanged,
     allOrgUnits,
     orgUnits,
-    orgUnitsChanged,
+    onOrgUnitsChanged,
     allPackages,
     packages,
-    packagesChanged,
+    onPackagesChanged,
     t,
   } = props;
 
@@ -35,21 +35,21 @@ export const SimulationFilters = props => {
         name={formattedName(t("resources.period", { count: 2 }))}
         items={allPeriods}
         selected={periods}
-        optionsChanged={periodsChanged}
+        optionsChanged={onPeriodsChanged}
         key="periods"
       />
       <MultiSelectDropdown
         name={formattedName(t("resources.orgUnit", { count: 2 }))}
         items={allOrgUnits}
         selected={orgUnits}
-        optionsChanged={orgUnitsChanged}
+        optionsChanged={onOrgUnitsChanged}
         key="orgUnits"
       />
       <MultiSelectDropdown
         name={formattedName(t("resources.set", { count: 2 }))}
         items={allPackages}
         selected={packages}
-        optionsChanged={packagesChanged}
+        optionsChanged={onPackagesChanged}
         key="packages"
       />
     </>
@@ -63,9 +63,9 @@ SimulationFilters.propTypes = {
   periods: PropTypes.array.isRequired,
   orgUnits: PropTypes.array.isRequired,
   packages: PropTypes.array.isRequired,
-  periodsChanged: PropTypes.func.isRequired,
-  orgUnitsChanged: PropTypes.func.isRequired,
-  packagesChanged: PropTypes.func.isRequired,
+  onPeriodsChanged: PropTypes.func.isRequired,
+  onOrgUnitsChanged: PropTypes.func.isRequired,
+  onPackagesChanged: PropTypes.func.isRequired,
 };
 
 export default withTranslation("translations")(SimulationFilters);
