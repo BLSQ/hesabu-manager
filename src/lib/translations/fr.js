@@ -21,6 +21,9 @@ export default {
         simulation: "simulation",
         simulation_plural: "simulations",
         orgUnit: "organisation unit",
+        orgUnit_plural: "organisation units",
+        period: "period",
+        period_plural: "periods",
         formula: "formule",
         formula_plural: "formules",
       },
@@ -38,6 +41,11 @@ export default {
         index: {
           infoBox:
             "Les sets sont les blocs de votre rapport final. Chaque ensemble produira un ou deux tableaux en fonction du type. Si vous souhaitez effectuer des calculs avec des données provenant de plusieurs sets, créez des formules de projet qui apparaîtront à la fin de votre rapport. A tout moment, vous pouvez voir une représentation du rapport dans la page de simulation.",
+        },
+      },
+      simulation: {
+        sidesheet: {
+          title: "Filters",
         },
       },
       simulationForm: {
