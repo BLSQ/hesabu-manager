@@ -1,5 +1,5 @@
-import { Grid, withStyles } from "@material-ui/core";
-import React, { Fragment } from "react";
+import { withStyles } from "@material-ui/core";
+import React from "react";
 import { connect } from "react-redux";
 import { withTranslation } from "react-i18next";
 import Table from "./Table/table";
@@ -24,15 +24,16 @@ export const SimulationPart = props => {
     <div className={classes.root}>
       <SimulationHeader invoice={simulation} />
       <div className={classes.keyNumbersContainer}>
-        {simulation.total_items.map(item => (
+        {simulation.total_items.map((item, index) => (
           <KeyNumberBlock
+            key={`key-number-${item.solution}-index`}
             text={humanize(item.formula)}
             value={item.solution}
             className={classes.keyNumbers}
           />
         ))}
       </div>
-      <Table key="invoice" invoice={simulation} />
+      <Table invoice={simulation} />
     </div>
   );
 };
