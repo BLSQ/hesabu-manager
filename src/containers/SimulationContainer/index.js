@@ -12,7 +12,34 @@ const SimulationContainer = props => {
   const { simulationId } = props;
 
   useEffect(() => {
-    const url = `http://localhost:4567/api/simulations/${props.simulationId}`;
+    const apiFetch = async url => {
+      const response = await fetchJSON(url);
+      if (response.success) {
+        const {
+          isAlive,
+          status,
+          lastError,
+          resultUrl,
+        } = response.payload.data.attributes;
+        if (isAlive) {
+          // I'm still alive, keep polling.
+        } else {
+          // I finished processing
+          clearInterval(timer.current);
+          if (status === "processed") {
+            fetchSimulationResult(resultUrl);
+          } else {
+            showError({ message: lastError });
+          }
+        }
+      } else {
+        clearInterval(timer.current);
+        showError(response.payload);
+      }
+    };
+
+    const url = `http://localhost:4567/api/simulations/${simulationId}`;
+
     if (!timer.current) {
       timer.current = setInterval(() => apiFetch(url), 1000);
     }
@@ -29,32 +56,6 @@ const SimulationContainer = props => {
       return { success: true, payload: json };
     } catch (error) {
       return { success: false, payload: error };
-    }
-  };
-
-  const apiFetch = async url => {
-    const response = await fetchJSON(url);
-    if (response.success) {
-      const {
-        isAlive,
-        status,
-        lastError,
-        resultUrl,
-      } = response.payload.data.attributes;
-      if (isAlive) {
-        // I'm still alive, keep polling.
-      } else {
-        // I finished processing
-        clearInterval(timer.current);
-        if (status === "processed") {
-          fetchSimulationResult(resultUrl);
-        } else {
-          showError({ message: lastError });
-        }
-      }
-    } else {
-      clearInterval(timer.current);
-      showError(response.payload);
     }
   };
 
