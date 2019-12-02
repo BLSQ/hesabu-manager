@@ -9,6 +9,7 @@ import Select from "@material-ui/core/Select";
 import Chip from "@material-ui/core/Chip";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
+import { differenceWith, isEqual } from "lodash";
 
 const styles = theme => ({
   root: {
@@ -57,6 +58,7 @@ class MultiSelectDropdown extends React.Component {
 
   render() {
     const { classes, name, items, selected } = this.props;
+    const itemsWithoutSelected = differenceWith(items, selected, isEqual);
 
     return (
       <FormControl className={classes.formControl}>
@@ -69,7 +71,7 @@ class MultiSelectDropdown extends React.Component {
           onChange={this.handleChange}
           input={<Input id="select-periods" />}
         >
-          {items.map(item => (
+          {itemsWithoutSelected.map(item => (
             <MenuItem key={item.key} value={item.key}>
               {item.human}
             </MenuItem>
