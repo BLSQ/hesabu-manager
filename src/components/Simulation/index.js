@@ -7,9 +7,10 @@ import uniqWith from "lodash/uniqWith";
 import some from "lodash/some";
 import humanize from "string-humanize";
 import { withTranslation } from "react-i18next";
+import groupBy from "lodash/groupBy";
 import TopBar from "../Shared/TopBar";
 import FiltersToggleBtn from "../FiltersToggleBtn";
-import SimulationParts from "./parts";
+import SimulationSets from "./SimulationSets";
 import SideSheet from "../SideSheet";
 import SimulationFilters from "./Filters";
 import { handleFilterChange } from "../../lib/formUtils";
@@ -88,6 +89,9 @@ export const Simulation = props => {
       })
     : [];
 
+  const setsByCode = groupBy(filteredSimulations, "code");
+  console.log("groupedSimulationsByCode", setsByCode);
+
   return (
     <Dialog
       fullScreen
@@ -122,7 +126,7 @@ export const Simulation = props => {
           autoHideDuration={6000}
           message={<span id="message-id">Error: {errorMessage}</span>}
         />
-        {isSuccess && <SimulationParts simulations={filteredSimulations} />}
+        {isSuccess && <SimulationSets setsByCode={setsByCode} />}
       </PageContent>
       {isSuccess && (
         <SideSheet
