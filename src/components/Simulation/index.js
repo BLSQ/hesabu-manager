@@ -21,38 +21,29 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 });
 
 const mapPeriods = invoices => {
-  if (invoices) {
-    const all = invoices.map(set => ({
-      key: set.period,
-      human: humanize(set.period),
-    }));
-    return uniqWith(all, (a, b) => a.key === b.key);
-  }
-  return [];
+  const all = invoices.map(set => ({
+    key: set.period,
+    human: humanize(set.period),
+  }));
+  return uniqWith(all, (a, b) => a.key === b.key);
 };
 
 const mapPackages = invoices => {
-  if (invoices) {
-    const all = invoices.map(set => ({
-      key: set.code,
-      human: humanize(set.code),
-    }));
+  const all = invoices.map(set => ({
+    key: set.code,
+    human: humanize(set.code),
+  }));
 
-    return uniqWith(all, (a, b) => a.key === b.key);
-  }
-  return [];
+  return uniqWith(all, (a, b) => a.key === b.key);
 };
 
 const mapOrgunits = invoices => {
-  if (invoices) {
-    const all = invoices.map(set => ({
-      key: set.orgunit_ext_id,
-      human: set.orgunit_name,
-    }));
+  const all = invoices.map(set => ({
+    key: set.orgunit_ext_id,
+    human: set.orgunit_name,
+  }));
 
-    return uniqWith(all, (a, b) => a.key === b.key);
-  }
-  return [];
+  return uniqWith(all, (a, b) => a.key === b.key);
 };
 
 export const Simulation = props => {
@@ -67,15 +58,20 @@ export const Simulation = props => {
   const isLoaded = !loading;
   const hasError = !!errorMessage;
   const isSuccess = isLoaded && !hasError;
-  const nameWithDate = !request
-    ? "…"
-    : `${request.organisation_unit.name}-${request.period}`;
 
   const handleToggleSideSheet = () => setSideSheetOpen(!sideSheetOpen);
 
-  const allPeriods = mapPeriods(invoices);
-  const allPackages = mapPackages(invoices);
-  const allOrgUnits = mapOrgunits(invoices);
+  let nameWithDate = "…";
+  let allPeriods = [];
+  let allPackages = [];
+  let allOrgUnits = [];
+
+  if (request) {
+    nameWithDate = `${request.organisation_unit.name}-${request.period}`;
+    allPeriods = mapPeriods(invoices);
+    allPackages = mapPackages(invoices);
+    allOrgUnits = mapOrgunits(invoices);
+  }
 
   useEffect(() => {
     if (allPeriods.length && !periods.length) {
@@ -177,6 +173,7 @@ Simulation.propTypes = {
     invoices: PropTypes.array,
   }),
   period: PropTypes.string,
+  request: PropTypes.object,
   simulation: PropTypes.shape({
     id: PropTypes.string,
     name: PropTypes.string,
