@@ -7,7 +7,6 @@ import {
   TableHead,
   TableCell,
   TableBody,
-  Paper,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
 import Solution from "./Solution";
@@ -31,13 +30,14 @@ const Table = function(props) {
   rows = rows.sort((a, b) =>
     sortCollator.compare(a.activity.code, b.activity.code),
   );
+
   return (
-    <Paper className={classes.root}>
+    <div className={classes.root}>
       <MaterialTable className={classes.table} aria-label="simple table">
         <TableHead>
           <MaterialRow>
             {headers.map(key => (
-              <TableCell>{humanize(key)}</TableCell>
+              <TableCell key={key}>{humanize(key)}</TableCell>
             ))}
             <TableCell>Activity</TableCell>
           </MaterialRow>
@@ -59,7 +59,7 @@ const Table = function(props) {
           })}
         </TableBody>
       </MaterialTable>
-    </Paper>
+    </div>
   );
 };
 

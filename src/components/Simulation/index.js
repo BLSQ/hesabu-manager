@@ -62,21 +62,14 @@ export const Simulation = props => {
   const [packages, setPackages] = useState([]);
   const [orgUnits, setOrgUnits] = useState([]);
 
-  const {
-    errorMessage,
-    loading,
-    invoices,
-    name,
-    period,
-    history,
-    t,
-    open,
-  } = props;
+  const { errorMessage, loading, invoices, request, history, t, open } = props;
 
   const isLoaded = !loading;
   const hasError = !!errorMessage;
   const isSuccess = isLoaded && !hasError;
-  const nameWithDate = `${name}-${period}`;
+  const nameWithDate = !request
+    ? "…"
+    : `${request.organisation_unit.name}-${request.period}`;
 
   const handleToggleSideSheet = () => setSideSheetOpen(!sideSheetOpen);
 
