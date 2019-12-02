@@ -6,7 +6,7 @@ import PageContent from "../../components/Shared/PageContent";
 import { withTranslation, useTranslation } from "react-i18next";
 import TopBar from "../../components/Shared/TopBar";
 import SimulationList from "../../components/Simulations/SimulationList";
-
+import { useParams } from "react-router-dom";
 import SideSheet from "../../components/SideSheet";
 import FiltersToggleBtn from "../../components/FiltersToggleBtn";
 import useStyles from "./styles";
@@ -19,6 +19,9 @@ const SimulationsContainer = props => {
   const { t } = useTranslation();
   const [sideSheetOpen, setSideSheetOpen] = useState(false);
   const handleToggleSideSheet = () => setSideSheetOpen(!sideSheetOpen);
+
+  const { simulationId } = useParams();
+  const open = !!simulationId;
 
   return (
     <Fragment>
@@ -34,7 +37,7 @@ const SimulationsContainer = props => {
       </TopBar>
       <PageContent>
         <SimulationList simulations={simulations} />
-        <SimulationContainer />
+        <SimulationContainer simulationId={simulationId} open={open} />
       </PageContent>
       <SideSheet
         title={t("filtersSheet.title")}

@@ -129,7 +129,12 @@ class App extends Component {
                           component={LoadableSetsGroupsContainer}
                         />
                         <Route
+                          exact
                           path="/simulations"
+                          component={LoadableSimulationsContainer}
+                        />
+                        <Route
+                          path="/simulations/:simulationId"
                           component={LoadableSimulationsContainer}
                         />
                         <Route

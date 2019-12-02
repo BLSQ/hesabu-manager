@@ -20,29 +20,11 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-const mapPeriods = invoices => {
-  const all = invoices.map(invoice => ({
-    key: invoice.period,
-    human: humanize(invoice.period),
+const mapSimulationResources = (resources, attr) => {
+  const all = resources.map(resource => ({
+    key: resource[attr.key],
+    human: humanize(resource[attr.name || attr.key]),
   }));
-  return uniqWith(all, (a, b) => a.key === b.key);
-};
-
-const mapPackages = invoices => {
-  const all = invoices.map(invoice => ({
-    key: invoice.code,
-    human: humanize(invoice.code),
-  }));
-
-  return uniqWith(all, (a, b) => a.key === b.key);
-};
-
-const mapOrgunits = invoices => {
-  const all = invoices.map(invoice => ({
-    key: invoice.orgunit_ext_id,
-    human: invoice.orgunit_name,
-  }));
-
   return uniqWith(all, (a, b) => a.key === b.key);
 };
 
@@ -53,23 +35,36 @@ export const Simulation = props => {
   const [packages, setPackages] = useState([]);
   const [orgUnits, setOrgUnits] = useState([]);
 
-  const { errorMessage, loading, payload, history, simulationData, t } = props;
+  const {
+    errorMessage,
+    loading,
+    invoices: sets,
+    request,
+    history,
+    t,
+    open,
+  } = props;
 
-  const simulations = payload.invoices;
   const isLoaded = !loading;
   const hasError = !!errorMessage;
   const isSuccess = isLoaded && !hasError;
-  const open = simulationData && !!simulationData.id;
-
-  const name = simulationData && simulationData.name;
-  const formattedDate = simulationData && simulationData.period;
-  const nameWithDate = `${name}-${formattedDate}`;
 
   const handleToggleSideSheet = () => setSideSheetOpen(!sideSheetOpen);
 
-  const allPeriods = mapPeriods(simulations);
-  const allPackages = mapPackages(simulations);
-  const allOrgUnits = mapOrgunits(simulations);
+  let nameWithDate = "…";
+  let allPeriods = [];
+  let allPackages = [];
+  let allOrgUnits = [];
+
+  if (request) {
+    nameWithDate = `${request.organisation_unit.name}-${request.period}`;
+    allPeriods = mapSimulationResources(sets, { key: "period" });
+    allPackages = mapSimulationResources(sets, { key: "code" });
+    allOrgUnits = mapSimulationResources(sets, {
+      key: "orgunit_ext_id",
+      name: "orgunit_name",
+    });
+  }
 
   useEffect(() => {
     if (allPeriods.length && !periods.length) {
@@ -83,13 +78,15 @@ export const Simulation = props => {
     }
   }, [allPeriods, periods, allPackages, packages, allOrgUnits, orgUnits]);
 
-  const filteredSimulations = simulations.filter(simulation => {
-    return (
-      some(periods, ["key", simulation.period]) &&
-      some(packages, ["key", simulation.code]) &&
-      some(orgUnits, ["key", simulation.orgunit_ext_id])
-    );
-  });
+  const filteredSimulations = sets
+    ? sets.filter(simulation => {
+        return (
+          some(periods, ["key", simulation.period]) &&
+          some(packages, ["key", simulation.code]) &&
+          some(orgUnits, ["key", simulation.orgunit_ext_id])
+        );
+      })
+    : [];
 
   return (
     <Dialog
@@ -159,15 +156,23 @@ export const Simulation = props => {
 
 Simulation.propTypes = {
   errorMessage: PropTypes.string,
+  history: PropTypes.object,
+  id: PropTypes.string,
+  sets: PropTypes.array,
   loading: PropTypes.bool,
+  name: PropTypes.string,
+  open: PropTypes.bool,
   payload: PropTypes.shape({
-    invoices: PropTypes.array,
+    sets: PropTypes.array,
   }),
+  period: PropTypes.string,
+  request: PropTypes.object,
   simulation: PropTypes.shape({
     id: PropTypes.string,
     name: PropTypes.string,
     period: PropTypes.string,
   }),
+  t: PropTypes.func,
 };
 
 export default withTranslation("translations")(Simulation);
