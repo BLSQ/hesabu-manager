@@ -149,8 +149,6 @@ export const Simulation = props => {
             open={sideSheetOpen}
             onClose={handleToggleSideSheet}
           >
-            <p>SimulationForm will go here!</p>
-
             <SimulationFilters
               allPeriods={allPeriods}
               periods={periods}

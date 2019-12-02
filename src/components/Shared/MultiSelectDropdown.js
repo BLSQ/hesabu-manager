@@ -9,7 +9,7 @@ import Select from "@material-ui/core/Select";
 import Chip from "@material-ui/core/Chip";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
-import { differenceWith, isEqual } from "lodash";
+import differenceBy from "lodash/differenceBy";
 
 const styles = theme => ({
   root: {
@@ -58,25 +58,13 @@ class MultiSelectDropdown extends React.Component {
 
   render() {
     const { classes, name, items, selected } = this.props;
-    const itemsWithoutSelected = differenceWith(items, selected, isEqual);
+    const itemsWithoutSelected = differenceBy(items, selected, "key");
 
     return (
       <FormControl className={classes.formControl}>
         <InputLabel className={classes.label} htmlFor="select-periods">
           {name}
         </InputLabel>
-        <Select
-          multiple
-          value={selected.map(item => item.key)}
-          onChange={this.handleChange}
-          input={<Input id="select-periods" />}
-        >
-          {itemsWithoutSelected.map(item => (
-            <MenuItem key={item.key} value={item.key}>
-              {item.human}
-            </MenuItem>
-          ))}
-        </Select>
         <List>
           {selected.map(item => (
             <ListItem key={item.key} className={classes.chips}>
@@ -88,6 +76,23 @@ class MultiSelectDropdown extends React.Component {
             </ListItem>
           ))}
         </List>
+        <Select
+          multiple
+          value={selected.map(item => item.key)}
+          onChange={this.handleChange}
+          input={<Input id="select-periods" />}
+        >
+          {itemsWithoutSelected.length < 1 && (
+            <MenuItem>Don't click me!</MenuItem>
+          )}
+          {itemsWithoutSelected.length > 1 &&
+            itemsWithoutSelected.map(item => (
+              <MenuItem key={item.key} value={item.key}>
+                {item.human}
+              </MenuItem>
+            ))}
+          }
+        </Select>
       </FormControl>
     );
   }
