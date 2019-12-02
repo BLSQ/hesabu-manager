@@ -10,15 +10,16 @@ import Snackbar from "@material-ui/core/Snackbar";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import TopBar from "../Shared/TopBar";
-import FiltersToggleBtn from "../FiltersToggleBtn";
-import SimulationParts from "./parts";
-import SideSheet from "../SideSheet";
 import uniqWith from "lodash/uniqWith";
 import some from "lodash/some";
 import humanize from "string-humanize";
 import { withTranslation } from "react-i18next";
+import TopBar from "../Shared/TopBar";
+import FiltersToggleBtn from "../FiltersToggleBtn";
+import SimulationParts from "./parts";
+import SideSheet from "../SideSheet";
 import SimulationFilters from "./Filters";
+import { handleFilterChange } from "../../lib/formUtils";
 
 const styles = makeStyles(theme => ({
   infoBox: {
@@ -105,13 +106,6 @@ export const Simulation = props => {
     );
   });
 
-  const handleFilterChange = (collection, selected, setter) => {
-    const selectedItems = collection.filter(item =>
-      selected.includes(item.key),
-    );
-    setter(selectedItems);
-  };
-
   return (
     <Dialog
       fullScreen
@@ -163,13 +157,13 @@ export const Simulation = props => {
               allPackages={allPackages}
               packages={packages}
               onPeriodsChanged={periodKeys =>
-                handleFilterChange(allPeriods, periodKeys, setPeriods)
+                setPeriods(handleFilterChange(allPeriods, periodKeys))
               }
               onPackagesChanged={packageKeys =>
-                handleFilterChange(allPackages, packageKeys, setPackages)
+                setPackages(handleFilterChange(allPackages, packageKeys))
               }
               onOrgUnitsChanged={orgUnitKeys =>
-                handleFilterChange(allOrgUnits, orgUnitKeys, setOrgUnits)
+                setOrgUnits(handleFilterChange(allOrgUnits, orgUnitKeys))
               }
             />
           </SideSheet>
