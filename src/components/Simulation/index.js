@@ -1,14 +1,7 @@
-import {
-  Grid,
-  Dialog,
-  Typography,
-  Slide,
-  Fade,
-  makeStyles,
-} from "@material-ui/core";
+import { Grid, Dialog, Typography, Slide, Fade } from "@material-ui/core";
 import Snackbar from "@material-ui/core/Snackbar";
 import CircularProgress from "@material-ui/core/CircularProgress";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import uniqWith from "lodash/uniqWith";
 import some from "lodash/some";
@@ -21,21 +14,7 @@ import SideSheet from "../SideSheet";
 import SimulationFilters from "./Filters";
 import { handleFilterChange } from "../../lib/formUtils";
 import PageContent from "../Shared/PageContent";
-
-const styles = makeStyles(theme => ({
-  infoBox: {
-    marginBottom: theme.spacing(4),
-  },
-  appBarHeader: {
-    flex: 1,
-  },
-  filtersBtn: {
-    marginLeft: theme.spacing(1),
-  },
-  spinner: {
-    marginTop: theme.spacing(20),
-  },
-}));
+import useStyles from "./styles";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -68,7 +47,7 @@ const mapOrgunits = invoices => {
 };
 
 export const Simulation = props => {
-  const classes = styles();
+  const classes = useStyles();
   const [sideSheetOpen, setSideSheetOpen] = useState(false);
   const [periods, setPeriods] = useState([]);
   const [packages, setPackages] = useState([]);
@@ -91,7 +70,7 @@ export const Simulation = props => {
   const allPeriods = mapPeriods(simulations);
   const allPackages = mapPackages(simulations);
   const allOrgUnits = mapOrgunits(simulations);
-  
+
   const filteredSimulations = simulations.filter(simulation => {
     return (
       some(periods, ["key", simulation.period]) &&
@@ -117,7 +96,7 @@ export const Simulation = props => {
           {nameWithDate}
         </Typography>
         <FiltersToggleBtn
-          variant="info"
+          variant="filters"
           className={classes.filtersBtn}
           onClick={handleToggleSideSheet}
         />
@@ -141,6 +120,7 @@ export const Simulation = props => {
           title={t("simulations.sidesheet.title")}
           open={sideSheetOpen}
           onClose={handleToggleSideSheet}
+          variant="big"
         >
           <SimulationFilters
             allPeriods={allPeriods}
