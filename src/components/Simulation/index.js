@@ -1,7 +1,7 @@
 import { Grid, Dialog, Typography, Slide, Fade } from "@material-ui/core";
 import Snackbar from "@material-ui/core/Snackbar";
 import CircularProgress from "@material-ui/core/CircularProgress";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import uniqWith from "lodash/uniqWith";
 import some from "lodash/some";
@@ -70,6 +70,18 @@ export const Simulation = props => {
   const allPeriods = mapPeriods(simulations);
   const allPackages = mapPackages(simulations);
   const allOrgUnits = mapOrgunits(simulations);
+
+  useEffect(() => {
+    if (allPeriods.length && !periods.length) {
+      setPeriods([allPeriods[0]]);
+    }
+    if (allPackages.length && !packages.length) {
+      setPackages([allPackages[0]]);
+    }
+    if (allOrgUnits.length && !orgUnits.length) {
+      setOrgUnits([allOrgUnits[0]]);
+    }
+  }, [allPeriods, periods, allPackages, packages, allOrgUnits, orgUnits]);
 
   const filteredSimulations = simulations.filter(simulation => {
     return (
