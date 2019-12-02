@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import Input from "@material-ui/core/Input";
@@ -16,15 +16,10 @@ const styles = theme => ({
     display: "flex",
     flexWrap: "wrap",
   },
-  label: {
-    fontSize: 16,
-  },
   formControl: {
     display: "flex",
     flexWrap: "wrap",
-    margin: theme.spacing(1),
-    minWidth: 250,
-    maxWidth: 320,
+    width: "100%",
   },
   chips: {
     display: "flex",
@@ -61,10 +56,7 @@ class MultiSelectDropdown extends React.Component {
     const itemsWithoutSelected = differenceBy(items, selected, "key");
 
     return (
-      <FormControl className={classes.formControl}>
-        <InputLabel className={classes.label} htmlFor="select-periods">
-          {name}
-        </InputLabel>
+      <Fragment>
         <List>
           {selected.map(item => (
             <ListItem key={item.key} className={classes.chips}>
@@ -76,24 +68,28 @@ class MultiSelectDropdown extends React.Component {
             </ListItem>
           ))}
         </List>
-        <Select
-          multiple
-          value={selected.map(item => item.key)}
-          onChange={this.handleChange}
-          input={<Input id="select-periods" />}
-        >
-          {itemsWithoutSelected.length < 1 && (
-            <MenuItem>Don't click me!</MenuItem>
-          )}
-          {itemsWithoutSelected.length > 1 &&
-            itemsWithoutSelected.map(item => (
-              <MenuItem key={item.key} value={item.key}>
-                {item.human}
-              </MenuItem>
-            ))}
-          }
-        </Select>
-      </FormControl>
+        <FormControl className={classes.formControl} variant="outlined">
+          <InputLabel className={classes.label} htmlFor="select-periods">
+            {name}
+          </InputLabel>
+          <Select
+            multiple
+            disabled={!!!itemsWithoutSelected.length}
+            value={selected.map(item => item.key)}
+            onChange={this.handleChange}
+            labelWidth={100}
+            input={<Input id="select-periods" />}
+          >
+            {itemsWithoutSelected.length &&
+              itemsWithoutSelected.map(item => (
+                <MenuItem key={item.key} value={item.key}>
+                  {item.human}
+                </MenuItem>
+              ))}
+            }
+          </Select>
+        </FormControl>
+      </Fragment>
     );
   }
 }
