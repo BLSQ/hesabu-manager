@@ -12,6 +12,16 @@ const SimulationContainer = props => {
   const { simulationId } = props;
 
   useEffect(() => {
+    const fetchSimulationResult = async url => {
+      const response = await fetchJSON(url);
+      if (response.success) {
+        setLoading(false);
+        setSimulation(response.payload);
+      } else {
+        showError(response.payload);
+      }
+    };
+
     const apiFetch = async url => {
       const response = await fetchJSON(url);
       if (response.success) {
@@ -56,16 +66,6 @@ const SimulationContainer = props => {
       return { success: true, payload: json };
     } catch (error) {
       return { success: false, payload: error };
-    }
-  };
-
-  const fetchSimulationResult = async url => {
-    const response = await fetchJSON(url);
-    if (response.success) {
-      setLoading(false);
-      setSimulation(response.payload);
-    } else {
-      showError(response.payload);
     }
   };
 

@@ -20,29 +20,11 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-const mapPeriods = invoices => {
-  const all = invoices.map(set => ({
-    key: set.period,
-    human: humanize(set.period),
+const mapSimulationResources = (resources, attr) => {
+  const all = resources.map(resource => ({
+    key: resource[attr.key],
+    human: humanize(resource[attr.name || attr.key]),
   }));
-  return uniqWith(all, (a, b) => a.key === b.key);
-};
-
-const mapPackages = invoices => {
-  const all = invoices.map(set => ({
-    key: set.code,
-    human: humanize(set.code),
-  }));
-
-  return uniqWith(all, (a, b) => a.key === b.key);
-};
-
-const mapOrgunits = invoices => {
-  const all = invoices.map(set => ({
-    key: set.orgunit_ext_id,
-    human: set.orgunit_name,
-  }));
-
   return uniqWith(all, (a, b) => a.key === b.key);
 };
 
@@ -53,7 +35,15 @@ export const Simulation = props => {
   const [packages, setPackages] = useState([]);
   const [orgUnits, setOrgUnits] = useState([]);
 
-  const { errorMessage, loading, invoices, request, history, t, open } = props;
+  const {
+    errorMessage,
+    loading,
+    invoices: sets,
+    request,
+    history,
+    t,
+    open,
+  } = props;
 
   const isLoaded = !loading;
   const hasError = !!errorMessage;
@@ -68,9 +58,12 @@ export const Simulation = props => {
 
   if (request) {
     nameWithDate = `${request.organisation_unit.name}-${request.period}`;
-    allPeriods = mapPeriods(invoices);
-    allPackages = mapPackages(invoices);
-    allOrgUnits = mapOrgunits(invoices);
+    allPeriods = mapSimulationResources(sets, { key: "period" });
+    allPackages = mapSimulationResources(sets, { key: "code" });
+    allOrgUnits = mapSimulationResources(sets, {
+      key: "orgunit_ext_id",
+      name: "orgunit_name",
+    });
   }
 
   useEffect(() => {
@@ -85,8 +78,8 @@ export const Simulation = props => {
     }
   }, [allPeriods, periods, allPackages, packages, allOrgUnits, orgUnits]);
 
-  const filteredSimulations = invoices
-    ? invoices.filter(simulation => {
+  const filteredSimulations = sets
+    ? sets.filter(simulation => {
         return (
           some(periods, ["key", simulation.period]) &&
           some(packages, ["key", simulation.code]) &&
@@ -165,12 +158,12 @@ Simulation.propTypes = {
   errorMessage: PropTypes.string,
   history: PropTypes.object,
   id: PropTypes.string,
-  invoices: PropTypes.array,
+  sets: PropTypes.array,
   loading: PropTypes.bool,
   name: PropTypes.string,
   open: PropTypes.bool,
   payload: PropTypes.shape({
-    invoices: PropTypes.array,
+    sets: PropTypes.array,
   }),
   period: PropTypes.string,
   request: PropTypes.object,
