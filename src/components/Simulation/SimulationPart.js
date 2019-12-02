@@ -6,31 +6,34 @@ import Table from "./Table/table";
 import SimulationHeader from "./Header";
 import { KeyNumberBlock } from "@blsq/manager-ui";
 import humanize from "string-humanize";
+import { makeStyles } from "@material-ui/styles";
 
-const styles = theme => ({
-  header: {
-    padding: "5px",
+const styles = makeStyles(theme => ({
+  root: {
+    marginBottom: theme.spacing(6),
   },
-});
+  keyNumbers: {
+    margin: theme.spacing(0, 2, 2, 0),
+  },
+}));
 
 export const SimulationPart = props => {
   const { simulation } = props;
-
+  const classes = styles();
   return (
-    <Fragment>
-      <SimulationHeader key="header" invoice={simulation} />
-      <Grid container item xs={12} spacing={3}>
+    <div className={classes.root}>
+      <SimulationHeader invoice={simulation} />
+      <div className={classes.keyNumbersContainer}>
         {simulation.total_items.map(item => (
-          <Grid item xs={3}>
-            <KeyNumberBlock
-              text={humanize(item.formula)}
-              value={item.solution}
-            />
-          </Grid>
+          <KeyNumberBlock
+            text={humanize(item.formula)}
+            value={item.solution}
+            className={classes.keyNumbers}
+          />
         ))}
-      </Grid>
+      </div>
       <Table key="invoice" invoice={simulation} />
-    </Fragment>
+    </div>
   );
 };
 

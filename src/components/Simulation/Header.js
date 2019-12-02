@@ -4,26 +4,25 @@ import { Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
 import PropTypes from "prop-types";
 
-const useStyles = makeStyles(theme => ({}));
+const useStyles = makeStyles(theme => ({
+  root: {
+    marginBottom: theme.spacing(2),
+  },
+}));
 
 const Header = function(props) {
   const name = props.invoice.code;
   const classes = useStyles(props);
   return (
-    <div
+    <Typography
+      variant="h6"
       data-period={props.invoice.period}
       data-orgunit={props.invoice.orgunit_ext_id}
       data-code={props.invoice.code}
+      className={classes.root}
     >
-      <Typography
-        variant="body2"
-        component="div"
-        color="primary"
-        className={classes.content}
-      >
-        {humanize(name)}
-      </Typography>
-    </div>
+      {humanize(name)}
+    </Typography>
   );
 };
 

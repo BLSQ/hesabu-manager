@@ -12,12 +12,15 @@ const SimulationContainer = props => {
   const timer = useRef(null);
 
   const { location } = props;
+
   const routeMatch = matchPath(location.pathname, {
     path: "/simulations/:simulationId",
     exact: true,
     strict: false,
   });
+
   const simulationId = routeMatch && (routeMatch.params || {}).simulationId;
+
   const simulationData = {
     id: simulationId,
     name: props.simulation.name,
