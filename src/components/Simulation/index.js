@@ -112,18 +112,6 @@ export const Simulation = props => {
     setter(selectedItems);
   };
 
-  const periodsChanged = periodKeys => {
-    handleFilterChange(allPeriods, periodKeys, setPeriods);
-  };
-
-  const packagesChanged = packageKeys => {
-    handleFilterChange(allPackages, packageKeys, setPackages);
-  };
-
-  const orgUnitsChanged = orgUnitKeys => {
-    handleFilterChange(allOrgUnits, orgUnitKeys, setOrgUnits);
-  };
-
   return (
     <Dialog
       fullScreen
@@ -174,9 +162,15 @@ export const Simulation = props => {
               orgUnits={orgUnits}
               allPackages={allPackages}
               packages={packages}
-              onPeriodsChanged={periodsChanged}
-              onPackagesChanged={packagesChanged}
-              onOrgUnitsChanged={orgUnitsChanged}
+              onPeriodsChanged={periodKeys =>
+                handleFilterChange(allPeriods, periodKeys, setPeriods)
+              }
+              onPackagesChanged={packageKeys =>
+                handleFilterChange(allPackages, packageKeys, setPackages)
+              }
+              onOrgUnitsChanged={orgUnitKeys =>
+                handleFilterChange(allOrgUnits, orgUnitKeys, setOrgUnits)
+              }
             />
           </SideSheet>
         </>
