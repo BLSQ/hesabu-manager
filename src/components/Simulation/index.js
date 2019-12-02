@@ -20,6 +20,7 @@ import SimulationParts from "./parts";
 import SideSheet from "../SideSheet";
 import SimulationFilters from "./Filters";
 import { handleFilterChange } from "../../lib/formUtils";
+import PageContent from "../Shared/PageContent";
 
 const styles = makeStyles(theme => ({
   infoBox: {
@@ -130,44 +131,44 @@ export const Simulation = props => {
           onClick={handleToggleSideSheet}
         />
       </TopBar>
-      <Fade in={loading} unmountOnExit>
-        <Grid container alignItems="center" justify="center">
-          <CircularProgress className={classes.spinner} />
-        </Grid>
-      </Fade>
-      <Snackbar
-        anchorOrigin={{ vertical: "top", horizontal: "right" }}
-        open={isLoaded && hasError}
-        autoHideDuration={6000}
-        message={<span id="message-id">Error: {errorMessage}</span>}
-      />
+      <PageContent fullscreen>
+        <Fade in={loading} unmountOnExit>
+          <Grid container alignItems="center" justify="center">
+            <CircularProgress className={classes.spinner} />
+          </Grid>
+        </Fade>
+        <Snackbar
+          anchorOrigin={{ vertical: "top", horizontal: "right" }}
+          open={isLoaded && hasError}
+          autoHideDuration={6000}
+          message={<span id="message-id">Error: {errorMessage}</span>}
+        />
+        {isSuccess && <SimulationParts simulations={filteredSimulations} />}
+      </PageContent>
       {isSuccess && (
-        <>
-          <SimulationParts simulations={filteredSimulations} />
-          <SideSheet
-            title={t("simulations.sidesheet.title")}
-            open={sideSheetOpen}
-            onClose={handleToggleSideSheet}
-          >
-            <SimulationFilters
-              allPeriods={allPeriods}
-              periods={periods}
-              allOrgUnits={allOrgUnits}
-              orgUnits={orgUnits}
-              allPackages={allPackages}
-              packages={packages}
-              onPeriodsChanged={periodKeys => {
-                setPeriods(handleFilterChange(allPeriods, periodKeys));
-              }}
-              onPackagesChanged={packageKeys =>
-                setPackages(handleFilterChange(allPackages, packageKeys))
-              }
-              onOrgUnitsChanged={orgUnitKeys =>
-                setOrgUnits(handleFilterChange(allOrgUnits, orgUnitKeys))
-              }
-            />
-          </SideSheet>
-        </>
+        <SideSheet
+          title={t("simulations.sidesheet.title")}
+          open={sideSheetOpen}
+          onClose={handleToggleSideSheet}
+        >
+          <SimulationFilters
+            allPeriods={allPeriods}
+            periods={periods}
+            allOrgUnits={allOrgUnits}
+            orgUnits={orgUnits}
+            allPackages={allPackages}
+            packages={packages}
+            onPeriodsChanged={periodKeys => {
+              setPeriods(handleFilterChange(allPeriods, periodKeys));
+            }}
+            onPackagesChanged={packageKeys =>
+              setPackages(handleFilterChange(allPackages, packageKeys))
+            }
+            onOrgUnitsChanged={orgUnitKeys =>
+              setOrgUnits(handleFilterChange(allOrgUnits, orgUnitKeys))
+            }
+          />
+        </SideSheet>
       )}
     </Dialog>
   );
