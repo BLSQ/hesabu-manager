@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { withTranslation } from "react-i18next";
+import { useTranslation } from "react-i18next";
 import MultiSelectDropdown from "../Shared/MultiSelectDropdown";
 import { formattedName } from "../../utils/textUtils";
 
@@ -15,41 +15,29 @@ export const SimulationFilters = props => {
   //
   // It accepts callbacks for the `change` event, so the actual
   // hiding/showing is handled in a higher component.
-
-  const {
-    allPeriods,
-    periods,
-    onPeriodsChanged,
-    allOrgUnits,
-    orgUnits,
-    onOrgUnitsChanged,
-    allPackages,
-    packages,
-    onPackagesChanged,
-    t,
-  } = props;
+  const { t } = useTranslation();
 
   return (
     <>
       <MultiSelectDropdown
         name={formattedName(t("resources.period", { count: 2 }))}
-        items={allPeriods}
-        selected={periods}
-        optionsChanged={onPeriodsChanged}
+        items={props.allPeriods}
+        selected={props.periods}
+        optionsChanged={props.onPeriodsChanged}
         key="periods"
       />
       <MultiSelectDropdown
         name={formattedName(t("resources.orgUnit", { count: 2 }))}
-        items={allOrgUnits}
-        selected={orgUnits}
-        optionsChanged={onOrgUnitsChanged}
+        items={props.allOrgUnits}
+        selected={props.orgUnits}
+        optionsChanged={props.onOrgUnitsChanged}
         key="orgUnits"
       />
       <MultiSelectDropdown
         name={formattedName(t("resources.set", { count: 2 }))}
-        items={allPackages}
-        selected={packages}
-        optionsChanged={onPackagesChanged}
+        items={props.allPackages}
+        selected={props.packages}
+        optionsChanged={props.onPackagesChanged}
         key="packages"
       />
     </>
@@ -68,4 +56,4 @@ SimulationFilters.propTypes = {
   onPackagesChanged: PropTypes.func.isRequired,
 };
 
-export default withTranslation("translations")(SimulationFilters);
+export default SimulationFilters;
