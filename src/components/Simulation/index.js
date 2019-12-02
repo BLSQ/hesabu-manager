@@ -143,7 +143,7 @@ export const Simulation = props => {
       />
       {isSuccess && (
         <>
-          <SimulationParts key="parts" simulations={filteredSimulations} />
+          <SimulationParts simulations={filteredSimulations} />
           <SideSheet
             title={t("simulations.sidesheet.title")}
             open={sideSheetOpen}
