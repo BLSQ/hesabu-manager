@@ -91,16 +91,7 @@ export const Simulation = props => {
   const allPeriods = mapPeriods(simulations);
   const allPackages = mapPackages(simulations);
   const allOrgUnits = mapOrgunits(simulations);
-
-  useEffect(() => {}, [
-    orgUnits,
-    allOrgUnits,
-    periods,
-    allPeriods,
-    allPackages,
-    packages,
-  ]);
-
+  
   const filteredSimulations = simulations.filter(simulation => {
     return (
       some(periods, ["key", simulation.period]) &&
