@@ -1771,7 +1771,7 @@
           "not_exported": false,
           "expression": "MAX(%{act_available_budget_values})",
           "instantiated_expression": "MAX(cospro__c_5__gestion_financiere_cospro_c_5_1_act_available_budget_for_AOsKyLAjVWH_and_2019q1,\n\tcospro__c_5__gestion_financiere_cospro_c_5_2_act_available_budget_for_AOsKyLAjVWH_and_2019q1,\n\tcospro__c_5__gestion_financiere_cospro_c_5_3_1_act_available_budget_for_AOsKyLAjVWH_and_2019q1,\n\tcospro__c_5__gestion_financiere_cospro_c_5_3_2_act_available_budget_for_AOsKyLAjVWH_and_2019q1,\n\tcospro__c_5__gestion_financiere_cospro_c_5_3_3_act_available_budget_for_AOsKyLAjVWH_and_2019q1,\n\tcospro__c_5__gestion_financiere_cospro_c_5_3_4_act_available_budget_for_AOsKyLAjVWH_and_2019q1,\n\tcospro__c_5__gestion_financiere_cospro_c_5_4_act_available_budget_for_AOsKyLAjVWH_and_2019q1,\n\tcospro__c_5__gestion_financiere_cospro_c_5_5_act_available_budget_for_AOsKyLAjVWH_and_2019q1,\n\tcospro__c_5__gestion_financiere_cospro_c_5_6_act_available_budget_for_AOsKyLAjVWH_and_2019q1)\n\t",
-          "solution": "200",
+          "solution": "220",
           "substituted": "MAX(200, 0, 0, 0, 0, 0, 0, 0, 0)",
           "is_output": null
         },
@@ -1780,7 +1780,7 @@
           "not_exported": false,
           "expression": "SUM(%{subsidies_obtained_values})",
           "instantiated_expression": "SUM(cospro__c_5__gestion_financiere_cospro_c_5_1_subsidies_obtained_for_AOsKyLAjVWH_and_2019q1,\n\tcospro__c_5__gestion_financiere_cospro_c_5_2_subsidies_obtained_for_AOsKyLAjVWH_and_2019q1,\n\tcospro__c_5__gestion_financiere_cospro_c_5_3_1_subsidies_obtained_for_AOsKyLAjVWH_and_2019q1,\n\tcospro__c_5__gestion_financiere_cospro_c_5_3_2_subsidies_obtained_for_AOsKyLAjVWH_and_2019q1,\n\tcospro__c_5__gestion_financiere_cospro_c_5_3_3_subsidies_obtained_for_AOsKyLAjVWH_and_2019q1,\n\tcospro__c_5__gestion_financiere_cospro_c_5_3_4_subsidies_obtained_for_AOsKyLAjVWH_and_2019q1,\n\tcospro__c_5__gestion_financiere_cospro_c_5_4_subsidies_obtained_for_AOsKyLAjVWH_and_2019q1,\n\tcospro__c_5__gestion_financiere_cospro_c_5_5_subsidies_obtained_for_AOsKyLAjVWH_and_2019q1,\n\tcospro__c_5__gestion_financiere_cospro_c_5_6_subsidies_obtained_for_AOsKyLAjVWH_and_2019q1)\n\t",
-          "solution": "140",
+          "solution": "1230",
           "substituted": "SUM(0, 40, 10, 10, 10, 10, 20, 0, 40)",
           "is_output": "AuSHtyXcy2b"
         },
@@ -1789,7 +1789,7 @@
           "not_exported": false,
           "expression": "SUM(%{act_max_points_values})",
           "instantiated_expression": "SUM(cospro__c_5__gestion_financiere_cospro_c_5_1_act_max_points_for_AOsKyLAjVWH_and_2019q1,\n\tcospro__c_5__gestion_financiere_cospro_c_5_2_act_max_points_for_AOsKyLAjVWH_and_2019q1,\n\tcospro__c_5__gestion_financiere_cospro_c_5_3_1_act_max_points_for_AOsKyLAjVWH_and_2019q1,\n\tcospro__c_5__gestion_financiere_cospro_c_5_3_2_act_max_points_for_AOsKyLAjVWH_and_2019q1,\n\tcospro__c_5__gestion_financiere_cospro_c_5_3_3_act_max_points_for_AOsKyLAjVWH_and_2019q1,\n\tcospro__c_5__gestion_financiere_cospro_c_5_3_4_act_max_points_for_AOsKyLAjVWH_and_2019q1,\n\tcospro__c_5__gestion_financiere_cospro_c_5_4_act_max_points_for_AOsKyLAjVWH_and_2019q1,\n\tcospro__c_5__gestion_financiere_cospro_c_5_5_act_max_points_for_AOsKyLAjVWH_and_2019q1,\n\tcospro__c_5__gestion_financiere_cospro_c_5_6_act_max_points_for_AOsKyLAjVWH_and_2019q1)\n\t",
-          "solution": "10",
+          "solution": "1000",
           "substituted": "SUM(2, 2, 0.5, 0.5, 0.5, 0.5, 1, 1, 2)",
           "is_output": null
         }
