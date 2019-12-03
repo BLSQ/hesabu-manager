@@ -1,6 +1,7 @@
 import { Grid, Dialog, Typography, Slide, Fade } from "@material-ui/core";
 import Snackbar from "@material-ui/core/Snackbar";
 import CircularProgress from "@material-ui/core/CircularProgress";
+import { ExpandableBottomSheet } from "@blsq/manager-ui";
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import uniqWith from "lodash/uniqWith";
@@ -37,6 +38,7 @@ export const Simulation = props => {
   const [periods, setPeriods] = useState([]);
   const [packages, setPackages] = useState([]);
   const [orgUnits, setOrgUnits] = useState([]);
+  const [bottomSheetOpen, setBottomSheetOpen] = useState(false);
 
   const { errorMessage, loading, invoices: sets, request, t, open } = props;
 
@@ -45,6 +47,8 @@ export const Simulation = props => {
   const isSuccess = isLoaded && !hasError;
 
   const handleToggleSideSheet = () => setSideSheetOpen(!sideSheetOpen);
+  const openBottomSheet = () => setBottomSheetOpen(true);
+  const closeBottomSheet = () => setBottomSheetOpen(false);
 
   let nameWithDate = "…";
   let allPeriods = [];
@@ -123,6 +127,13 @@ export const Simulation = props => {
           message={<span id="message-id">Error: {errorMessage}</span>}
         />
         {isSuccess && <SimulationSets setsByCode={setsByCode} />}
+        <ExpandableBottomSheet
+          open={bottomSheetOpen}
+          onOpen={openBottomSheet}
+          onClose={closeBottomSheet}
+        >
+          <p>Hello</p>
+        </ExpandableBottomSheet>
       </PageContent>
       {isSuccess && (
         <SideSheet
