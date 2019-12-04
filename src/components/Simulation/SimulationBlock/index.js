@@ -4,7 +4,7 @@ import { Tab, Tabs } from "@material-ui/core";
 import kebabCase from "lodash/kebabCase";
 import classNames from "classnames";
 import Header from "../Header";
-import SimulationPart from "../SimulationPart";
+import PeriodView from "../PeriodView";
 import useStyles from "./styles";
 
 function a11yProps(index, title) {
@@ -15,7 +15,7 @@ function a11yProps(index, title) {
   };
 }
 
-const SimulationSet = props => {
+const SimulationBlock = props => {
   const { title, simulations } = props;
   const [value, setValue] = React.useState(0);
   const classes = useStyles();
@@ -46,7 +46,7 @@ const SimulationSet = props => {
       </Tabs>
       {simulations.map((simulation, index) => {
         return (
-          <SimulationPart
+          <PeriodView
             key={[
               simulation.orgunit_ext_id,
               simulation.period,
@@ -61,9 +61,9 @@ const SimulationSet = props => {
   );
 };
 
-SimulationSet.propTypes = {
+SimulationBlock.propTypes = {
   simulations: PropTypes.array,
   title: PropTypes.string,
 };
 
-export default SimulationSet;
+export default SimulationBlock;

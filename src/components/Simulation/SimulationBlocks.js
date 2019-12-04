@@ -1,17 +1,17 @@
 import React from "react";
 import PropTypes from "prop-types";
-import SimulationSet from "./SimulationSet";
+import SimulationBlock from "./SimulationBlock";
 
-const SimulationSets = props => {
+const SimulationBlocks = props => {
   const { setsByCode } = props;
   return Object.keys(setsByCode).map(key => {
     const simulations = setsByCode[key];
-    return <SimulationSet key={key} title={key} simulations={simulations} />;
+    return <SimulationBlock key={key} title={key} simulations={simulations} />;
   });
 };
 
-SimulationSets.propTypes = {
+SimulationBlocks.propTypes = {
   simulations: PropTypes.array,
 };
 
-export default SimulationSets;
+export default SimulationBlocks;
