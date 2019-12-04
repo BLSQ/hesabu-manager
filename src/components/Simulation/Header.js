@@ -11,17 +11,10 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const Header = function(props) {
-  const name = props.invoice.code;
   const classes = useStyles(props);
   return (
-    <Typography
-      variant="h6"
-      data-period={props.invoice.period}
-      data-orgunit={props.invoice.orgunit_ext_id}
-      data-code={props.invoice.code}
-      className={classes.root}
-    >
-      {humanize(name)}
+    <Typography variant="h6" className={classes.root}>
+      {humanize(props.title)}
     </Typography>
   );
 };

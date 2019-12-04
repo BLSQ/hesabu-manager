@@ -36,16 +36,17 @@ const Table = function(props) {
       <MaterialTable className={classes.table} aria-label="simple table">
         <TableHead>
           <MaterialRow>
+            <TableCell>Activity</TableCell>
             {headers.map(key => (
               <TableCell key={key}>{humanize(key)}</TableCell>
             ))}
-            <TableCell>Activity</TableCell>
           </MaterialRow>
         </TableHead>
         <TableBody>
           {rows.map(function(row, i) {
             return (
               <MaterialRow key={[row.activity.code, i].join("-")}>
+                <TableCell>{row.activity.name}</TableCell>
                 {headers.map((key, index) => {
                   return (
                     <TableCell key={key}>
@@ -53,7 +54,6 @@ const Table = function(props) {
                     </TableCell>
                   );
                 })}
-                <TableCell>{row.activity.name}</TableCell>
               </MaterialRow>
             );
           })}

@@ -29,6 +29,9 @@ const useStyles = makeStyles(() => ({
   appBarHeader: {
     flex: 1,
   },
+  dialog: {
+    flexDirection: "row",
+  },
 }));
 
 const SetContainer = props => {
@@ -55,6 +58,9 @@ const SetContainer = props => {
       className={classes.root}
       onClose={() => history.push("/sets")}
       TransitionComponent={Transition}
+      classes={{
+        paperScrollPaper: classes.dialog,
+      }}
     >
       <TopBar
         fullscreen
