@@ -12,7 +12,7 @@ import groupBy from "lodash/groupBy";
 import { useHistory } from "react-router-dom";
 import TopBar from "../Shared/TopBar";
 import FiltersToggleBtn from "../FiltersToggleBtn";
-import SimulationSets from "./SimulationSets";
+import SimulationBlocks from "./SimulationBlocks";
 import SideSheet from "../SideSheet";
 import SimulationFilters from "./Filters";
 import { handleFilterChange } from "../../lib/formUtils";
@@ -126,7 +126,7 @@ export const Simulation = props => {
           autoHideDuration={6000}
           message={<span id="message-id">Error: {errorMessage}</span>}
         />
-        {isSuccess && <SimulationSets setsByCode={setsByCode} />}
+        {isSuccess && <SimulationBlocks setsByCode={setsByCode} />}
         <ExpandableBottomSheet
           open={bottomSheetOpen}
           onOpen={openBottomSheet}

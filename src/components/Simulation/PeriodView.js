@@ -14,7 +14,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const SimulationPart = props => {
+const PeriodView = props => {
   const { simulation, className } = props;
   const classes = useStyles();
   return (
@@ -34,4 +34,4 @@ const SimulationPart = props => {
   );
 };
 
-export default SimulationPart;
+export default PeriodView;
