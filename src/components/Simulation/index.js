@@ -7,9 +7,11 @@ import uniqWith from "lodash/uniqWith";
 import some from "lodash/some";
 import humanize from "string-humanize";
 import { withTranslation } from "react-i18next";
+import groupBy from "lodash/groupBy";
+import { useHistory } from "react-router-dom";
 import TopBar from "../Shared/TopBar";
 import FiltersToggleBtn from "../FiltersToggleBtn";
-import SimulationParts from "./parts";
+import SimulationSets from "./SimulationSets";
 import SideSheet from "../SideSheet";
 import SimulationFilters from "./Filters";
 import { handleFilterChange } from "../../lib/formUtils";
@@ -30,20 +32,13 @@ const mapSimulationResources = (resources, attr) => {
 
 export const Simulation = props => {
   const classes = useStyles();
+  const history = useHistory();
   const [sideSheetOpen, setSideSheetOpen] = useState(false);
   const [periods, setPeriods] = useState([]);
   const [packages, setPackages] = useState([]);
   const [orgUnits, setOrgUnits] = useState([]);
 
-  const {
-    errorMessage,
-    loading,
-    invoices: sets,
-    request,
-    history,
-    t,
-    open,
-  } = props;
+  const { errorMessage, loading, invoices: sets, request, t, open } = props;
 
   const isLoaded = !loading;
   const hasError = !!errorMessage;
@@ -88,6 +83,8 @@ export const Simulation = props => {
       })
     : [];
 
+  const setsByCode = groupBy(filteredSimulations, "code");
+
   return (
     <Dialog
       fullScreen
@@ -95,6 +92,9 @@ export const Simulation = props => {
       className={classes.root}
       onClose={() => history.push("/simulations")}
       TransitionComponent={Transition}
+      classes={{
+        paperScrollPaper: classes.dialog,
+      }}
     >
       <TopBar fullscreen backLinkPath="/simulations">
         <Typography
@@ -122,7 +122,7 @@ export const Simulation = props => {
           autoHideDuration={6000}
           message={<span id="message-id">Error: {errorMessage}</span>}
         />
-        {isSuccess && <SimulationParts simulations={filteredSimulations} />}
+        {isSuccess && <SimulationSets setsByCode={setsByCode} />}
       </PageContent>
       {isSuccess && (
         <SideSheet

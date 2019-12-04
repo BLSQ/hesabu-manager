@@ -40,4 +40,8 @@ SideSheet.propTypes = {
   onClose: PropTypes.func,
 };
 
+SideSheet.defaultProps = {
+  hasTabs: false,
+};
+
 export default SideSheet;

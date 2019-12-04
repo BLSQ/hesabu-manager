@@ -13,6 +13,9 @@ const useStyles = makeStyles(theme => ({
   spinner: {
     marginTop: theme.spacing(20),
   },
+  dialog: {
+    flexDirection: "row",
+  },
 }));
 
 export default useStyles;
