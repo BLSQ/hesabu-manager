@@ -4,8 +4,8 @@ import { Tab, Tabs } from "@material-ui/core";
 import kebabCase from "lodash/kebabCase";
 import classNames from "classnames";
 import Header from "../Header";
-import PeriodView from "../PeriodView";
 import useStyles from "./styles";
+import PeriodView from "./PeriodView";
 
 function a11yProps(index, title) {
   const tag = kebabCase(title);
@@ -16,7 +16,7 @@ function a11yProps(index, title) {
 }
 
 const SimulationBlock = props => {
-  const { title, simulations } = props;
+  const { title, periodViews } = props;
   const [value, setValue] = React.useState(0);
   const classes = useStyles();
 
@@ -34,25 +34,25 @@ const SimulationBlock = props => {
         textColor="primary"
         className={classes.tabs}
       >
-        {simulations.map((simulation, index) => {
+        {periodViews.map((periodView, index) => {
           return (
             <Tab
               key={`${kebabCase(title)}-tab-${index}`}
-              label={simulation.period}
+              label={periodView.period}
               {...a11yProps(index, title)}
             />
           );
         })}
       </Tabs>
-      {simulations.map((simulation, index) => {
+      {periodViews.map((periodView, index) => {
         return (
           <PeriodView
             key={[
-              simulation.orgunit_ext_id,
-              simulation.period,
-              simulation.code,
+              periodView.orgunit_ext_id,
+              periodView.period,
+              periodView.code,
             ].join("-")}
-            simulation={simulation}
+            periodView={periodView}
             className={classNames({ [classes.hidden]: index !== value })}
           />
         );
@@ -62,7 +62,7 @@ const SimulationBlock = props => {
 };
 
 SimulationBlock.propTypes = {
-  simulations: PropTypes.array,
+  periodViews: PropTypes.array,
   title: PropTypes.string,
 };
 
