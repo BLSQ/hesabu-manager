@@ -15,6 +15,7 @@ const useStyles = makeStyles(theme => ({
   },
   dialog: {
     flexDirection: "row",
+    overflowX: "hidden",
   },
 }));
 
