@@ -29,7 +29,7 @@ const PeriodView = props => {
           />
         ))}
       </div>
-      <Table invoice={periodView} />
+      <Table periodView={periodView} />
     </div>
   );
 };
