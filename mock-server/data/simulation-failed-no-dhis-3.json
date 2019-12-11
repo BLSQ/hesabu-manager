@@ -1,0 +1,20 @@
+{
+    "data": {
+        "id": "3",
+        "type": "invoicingJob",
+        "attributes": {
+            "orgUnit": "AOsKyLAjVWH",
+            "dhis2Period": "2019Q1",
+            "user": null,
+            "createdAt": "2019-11-21T08:51:41.010Z",
+            "processedAt": null,
+            "erroredAt": "2019-11-21T08:51:43.922Z",
+            "durationMs": 2872,
+            "status": "processed",
+            "lastError": "Failed to open TCP connection to dhis.example.com:80 (getaddrinfo: nodename nor servname provided, or not known)",
+            "sidekiqJobRef": null,
+            "isAlive": false,
+            "resultUrl": null
+        }
+    }
+}
