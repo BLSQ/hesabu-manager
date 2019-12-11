@@ -15,7 +15,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const PeriodView = props => {
-  const { periodView, className } = props;
+  const { periodView, className, setSelectedCell } = props;
   const classes = useStyles();
   return (
     <div className={classNames(classes.root, className)}>
@@ -29,7 +29,7 @@ const PeriodView = props => {
           />
         ))}
       </div>
-      <Table periodView={periodView} />
+      <Table periodView={periodView} setSelectedCell={setSelectedCell} />
     </div>
   );
 };

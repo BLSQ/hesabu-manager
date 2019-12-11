@@ -18,6 +18,7 @@ import SimulationFilters from "./Filters";
 import { handleFilterChange } from "../../lib/formUtils";
 import PageContent from "../Shared/PageContent";
 import useStyles from "./styles";
+import ExpandableCellContent from "./ExpandableCellContent";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -39,6 +40,7 @@ export const Simulation = props => {
   const [packages, setPackages] = useState([]);
   const [orgUnits, setOrgUnits] = useState([]);
   const [bottomSheetOpen, setBottomSheetOpen] = useState(false);
+  const [selectedCell, setSelectedCell] = useState(null);
 
   const { errorMessage, loading, invoices: sets, request, t, open } = props;
 
@@ -76,6 +78,13 @@ export const Simulation = props => {
       setOrgUnits([allOrgUnits[0]]);
     }
   }, [allPeriods, periods, allPackages, packages, allOrgUnits, orgUnits]);
+
+  useEffect(() => {
+    if (selectedCell && !bottomSheetOpen) {
+      setBottomSheetOpen(true);
+    }
+    // eslint-disable-next-line
+  }, [selectedCell]);
 
   const filteredSimulations = sets
     ? sets.filter(simulation => {
@@ -126,13 +135,18 @@ export const Simulation = props => {
           autoHideDuration={6000}
           message={<span id="message-id">Error: {errorMessage}</span>}
         />
-        {isSuccess && <SimulationBlocks setsByCode={setsByCode} />}
+        {isSuccess && (
+          <SimulationBlocks
+            setsByCode={setsByCode}
+            setSelectedCell={setSelectedCell}
+          />
+        )}
         <ExpandableBottomSheet
           open={bottomSheetOpen}
           onOpen={openBottomSheet}
           onClose={closeBottomSheet}
         >
-          <p>Hello</p>
+          <ExpandableCellContent cell={selectedCell} />
         </ExpandableBottomSheet>
       </PageContent>
       {isSuccess && (
