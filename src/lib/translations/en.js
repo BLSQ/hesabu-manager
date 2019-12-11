@@ -14,6 +14,14 @@ export default {
       drawerItems: {
         help: "Help",
       },
+      cellExplanation: {
+        tabs: {
+          title: "Cell explanation tabs",
+          code: "Code",
+          values: "Values",
+          debug: "Debug",
+        },
+      },
       resources: {
         set: "set",
         set_plural: "sets",

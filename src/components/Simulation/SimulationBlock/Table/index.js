@@ -10,6 +10,7 @@ import {
 import { useTable } from "react-table";
 import Solution from "./Solution";
 import { sortCollator } from "../../../../lib/formatters";
+import useStyles from "./styles";
 
 const prepareHeaders = collection => {
   return collection
@@ -53,7 +54,9 @@ const prepareData = activity_items => {
 const Table = function(props) {
   const {
     periodView: { activity_items },
+    setSelectedCell,
   } = props;
+  const classes = useStyles(props);
   const columns = React.useMemo(() => prepareHeaders(activity_items));
   const data = React.useMemo(() => prepareData(activity_items));
 
@@ -69,8 +72,8 @@ const Table = function(props) {
   });
 
   return (
-    <div style={{ overflowX: "auto", width: "100%" }}>
-      <MaterialTable {...getTableProps()} style={{ width: "90vw" }}>
+    <div className={classes.root}>
+      <MaterialTable {...getTableProps()} className={classes.table}>
         <TableHead>
           {headerGroups.map(headerGroup => (
             <TableRow {...headerGroup.getHeaderGroupProps()}>
@@ -89,7 +92,12 @@ const Table = function(props) {
               <TableRow {...row.getRowProps()}>
                 {row.cells.map(cell => {
                   return (
-                    <TableCell {...cell.getCellProps()}>
+                    <TableCell
+                      {...cell.getCellProps()}
+                      onClick={e => {
+                        setSelectedCell(cell.value);
+                      }}
+                    >
                       {cell.render("Cell")}
                     </TableCell>
                   );

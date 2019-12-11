@@ -13,6 +13,14 @@ export default {
       drawerItems: {
         help: "Aide",
       },
+      cellExplanation: {
+        tabs: {
+          title: "Onglets des explication de cellules",
+          code: "Code",
+          values: "Valeurs",
+          debug: "Débug",
+        },
+      },
       resources: {
         set: "set",
         set_plural: "sets",
