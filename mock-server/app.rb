@@ -15,7 +15,7 @@ get '/api/simulations/:identifier' do |identifier|
   if path = Dir.glob("data/*#{identifier}.json").first
     File.read(path)
   else
-    File.read('data/simulation-result-1.json')
+    not_found
   end
 end
 
@@ -24,6 +24,6 @@ get '/s3/results/:identifier.json' do |identifier|
   if path = Dir.glob("data/s3/*#{identifier}.json").first
     File.read(path)
   else
-    File.read('data/s3/success-1.json')
+    not_found
   end
 end

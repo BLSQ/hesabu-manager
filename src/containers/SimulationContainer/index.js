@@ -10,6 +10,7 @@ const SimulationContainer = props => {
   const [simulation, setSimulation] = useState();
   const timer = useRef(null);
   const { simulationId } = props;
+  const url = `http://localhost:4567/api/simulations/${simulationId}`;
 
   useEffect(() => {
     const fetchSimulationResult = async url => {
@@ -47,8 +48,6 @@ const SimulationContainer = props => {
         showError(response.payload);
       }
     };
-
-    const url = `http://localhost:4567/api/simulations/${simulationId}`;
 
     if (!timer.current) {
       timer.current = setInterval(() => apiFetch(url), 1000);

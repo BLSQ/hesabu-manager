@@ -56,24 +56,24 @@ const SimulationsContainer = props => {
 const mapStateToProps = state => ({
   simulations: [
     {
-      id: "1234",
-      name: "SIGL BCZ FOSA Coherence, COSPRO - A.3 - Bureaux Administratifs",
+      id: "1",
+      name: "COSPRO ECC KALEMIE 1",
       groupNames: ["BCZs"],
       createdAt: "2019-11-02T18:25:43.511Z",
       buildDuration: 240,
-      period: "Q3 - 2019",
+      period: "Q1 - 2016",
     },
     {
-      id: "1234",
-      name: "SIGL BCZ FOSA Coherence",
+      id: "2",
+      name: "COSPRO ECC KALEMIE 1",
       groupNames: ["BCZs", "FOSAs"],
       createdAt: "2019-10-02T18:25:43.511Z",
       buildDuration: 108,
       period: "Q2 - 2019",
     },
     {
-      id: "1234",
-      name: "SIGL BCZ FOSA Coherence",
+      id: "3",
+      name: "SIGL BCZ FOSA (dhis fail)",
       groupNames: ["BCZs", "FOSAs"],
       createdAt: "2019-10-06T18:25:43.511Z",
       buildDuration: 53,
