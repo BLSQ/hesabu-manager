@@ -7,12 +7,22 @@ export default {
         back: "Back",
         save: "Save",
       },
+      noData: "N/A",
       emptySection: {
         title: "You don’t have any {{resourceName}}",
         body: "Create some and they will appear here.",
       },
       drawerItems: {
         help: "Help",
+      },
+      cellExplanation: {
+        noSelectedCell: "Please select a cell to see related information",
+        tabs: {
+          title: "Cell explanation tabs",
+          code: "Code",
+          values: "Values",
+          debug: "Debug",
+        },
       },
       resources: {
         set: "set",

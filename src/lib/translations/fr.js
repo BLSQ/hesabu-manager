@@ -6,12 +6,23 @@ export default {
         back: "Retour",
         save: "Sauver",
       },
+      noData: "N/D",
       emptySection: {
         title: "Vous n'avez aucun {{resourceName}}",
         body: "Créez-en et ils apparaîtront ici.",
       },
       drawerItems: {
         help: "Aide",
+      },
+      cellExplanation: {
+        noSelectedCell:
+          "Veuillez sélectionner une cellule pour voir les informations connexes",
+        tabs: {
+          title: "Onglets des explication de cellules",
+          code: "Code",
+          values: "Valeurs",
+          debug: "Débug",
+        },
       },
       resources: {
         set: "set",
