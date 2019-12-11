@@ -10,8 +10,8 @@ You can access using simulation id (which is unique):
 
 Or you can access them by referencing the `org_unit` and `period` directly, which will not always return the exact same simulation instance, but will always return the simulation for that period and org unit. (So the ID one is stuck in time, this one is always the most recently ran one.)
 
-`/api/simulations/AOsKyLAjVWH?periods=2016Q1` => Normal result
-`/api/simulations/BOsKyLAjVWH?periods=2019Q2` => Normal result
-`/api/simulations/COsKyLAjVWH?periods=2018Q1` => Error: Could not connect to DHIS2
+`/api/simulation?orgUnit=AOsKyLAjVWH&periods=2016Q1` => Normal result
+`/api/simulation?orgUnit=BOsKyLAjVWH&periods=2019Q2` => Normal result
+`/api/simulation?orgUnit=COsKyLAjVWH&periods=2018Q1` => Error: Could not connect to DHIS2
 
 If you try and fetch an org unit with a period that's not run, you'll get a 404.

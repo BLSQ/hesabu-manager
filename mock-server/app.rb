@@ -30,9 +30,11 @@ get '/api/simulations' do
   File.read("data/simulations.json")
 end
 
-# This needs a ?periods to be set.
-get %r{/api/simulations/([A-za-z]+)} do |org_unit|
-  content_type :json
+# Filter to a specific simulation
+#
+# Needs ?orgUnit=bla&periods=2019Q1
+get '/api/simulation' do
+  org_unit = params[:orgUnit] || ""
   period = params[:periods].split(",").first
   identifier = simulation_id_based_on_org_unit_and_period(org_unit, period)
 
