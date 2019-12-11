@@ -46,15 +46,13 @@ const ExpandableCellContent = props => {
   const { cell } = props;
   const [value, setValue] = React.useState(0);
   const classes = useStyles(props);
-
+  const { t } = useTranslation();
   const handleChange = (_, newValue) => {
     setValue(newValue);
   };
 
-  console.log(cell);
-
   if (!cell) {
-    return "Please select a cell to see related information";
+    return t("cellExplanation.noSelectedCell");
   }
 
   return (

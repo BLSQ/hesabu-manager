@@ -16,6 +16,7 @@ export default {
         help: "Help",
       },
       cellExplanation: {
+        noSelectedCell: "Please select a cell to see related information",
         tabs: {
           title: "Cell explanation tabs",
           code: "Code",
