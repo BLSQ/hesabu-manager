@@ -6,7 +6,7 @@ const useStyles = makeStyles(theme => ({
     width: "100%",
   },
   table: {
-    width: "96vw",
+    width: "95vw",
     "& td:hover": {
       background: "#efefef",
       cursor: "pointer",

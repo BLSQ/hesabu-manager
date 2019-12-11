@@ -83,6 +83,7 @@ export const Simulation = props => {
     if (selectedCell && !bottomSheetOpen) {
       setBottomSheetOpen(true);
     }
+    // eslint-disable-next-line
   }, [selectedCell]);
 
   const filteredSimulations = sets

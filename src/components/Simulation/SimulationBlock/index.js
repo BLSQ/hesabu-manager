@@ -65,6 +65,7 @@ const SimulationBlock = props => {
 SimulationBlock.propTypes = {
   periodViews: PropTypes.array,
   title: PropTypes.string,
+  setSelectedCell: PropTypes.object,
 };
 
 export default SimulationBlock;

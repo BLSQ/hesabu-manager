@@ -13,8 +13,8 @@ const SimulationContainer = props => {
   const url = `http://localhost:4567/api/simulations/${simulationId}`;
 
   useEffect(() => {
-    const fetchSimulationResult = async url => {
-      const response = await fetchJSON(url);
+    const fetchSimulationResult = async simUrl => {
+      const response = await fetchJSON(simUrl);
       if (response.success) {
         setLoading(false);
         setSimulation(response.payload);
@@ -23,8 +23,8 @@ const SimulationContainer = props => {
       }
     };
 
-    const apiFetch = async url => {
-      const response = await fetchJSON(url);
+    const apiFetch = async simUrl => {
+      const response = await fetchJSON(simUrl);
       if (response.success) {
         const {
           isAlive,
@@ -56,7 +56,7 @@ const SimulationContainer = props => {
     return function cleanup() {
       clearInterval(timer.current);
     };
-  }, [simulationId]);
+  }, [simulationId, url]);
 
   const fetchJSON = async url => {
     try {

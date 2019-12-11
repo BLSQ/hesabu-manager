@@ -8,58 +8,52 @@ import {
   TableRow,
 } from "@material-ui/core";
 import { useTable } from "react-table";
+import { useTranslation } from "react-i18next";
+import PropTypes from "prop-types";
 import Solution from "./Solution";
 import { sortCollator } from "../../../../lib/formatters";
 import useStyles from "./styles";
 
-const prepareHeaders = collection => {
+const prepareHeaders = (collection, t) => {
   return collection
-    .reduce(
-      (array, item) => {
-        Object.keys(item.cells).forEach(headerName => {
-          if (!array.includes(headerName)) {
-            array.push(headerName);
-          }
-        });
-        return array;
-      },
-      ["activity"],
-    )
+    .reduce((array, item) => {
+      Object.keys(item).forEach(headerName => {
+        if (!array.includes(headerName)) {
+          array.push(headerName);
+        }
+      });
+      return array;
+    }, [])
     .map(item => ({
       Header: humanize(item),
       accessor: item,
       width: 50,
+      // eslint-disable-next-line
       Cell: ({ cell: { value } }) => {
         if (!value) {
-          return null;
+          return t("noData");
         }
-        return value.solution ? <Solution rowData={value} /> : value.label;
+        // eslint-disable-next-line
+        return value.solution ? <Solution rowData={value} /> : value.value;
       },
     }));
 };
 
-const prepareData = activity_items => {
-  return activity_items
-    .sort((a, b) => sortCollator.compare(a.activity.code, b.activity.code))
-    .map(item => {
-      return {
-        activity: {
-          label: item.activity.name,
-        },
-        ...item.cells,
-      };
-    });
+const prepareData = items => {
+  return items.sort((a, b) => sortCollator.compare(a.key, b.key));
 };
 
-const Table = function(props) {
+const Table = props => {
   const {
-    periodView: { activity_items },
+    periodView: { activity_items: activityItems },
     setSelectedCell,
   } = props;
   const classes = useStyles(props);
-  const columns = React.useMemo(() => prepareHeaders(activity_items));
-  const data = React.useMemo(() => prepareData(activity_items));
+  const { t } = useTranslation();
 
+  const columns = React.useMemo(() => prepareHeaders(activityItems, t));
+
+  const data = React.useMemo(() => prepareData(activityItems, t));
   const {
     headerGroups,
     getTableProps,
@@ -71,14 +65,21 @@ const Table = function(props) {
     data,
   });
 
+  if (!columns.length) {
+    return null;
+  }
+
   return (
     <div className={classes.root}>
       <MaterialTable {...getTableProps()} className={classes.table}>
         <TableHead>
-          {headerGroups.map(headerGroup => (
-            <TableRow {...headerGroup.getHeaderGroupProps()}>
+          {headerGroups.map((headerGroup, index) => (
+            <TableRow
+              key={`headerGroup${index}`}
+              {...headerGroup.getHeaderGroupProps()}
+            >
               {headerGroup.headers.map(column => (
-                <TableCell {...column.getHeaderProps()}>
+                <TableCell key={column} {...column.getHeaderProps()}>
                   {column.render("Header")}
                 </TableCell>
               ))}
@@ -89,12 +90,13 @@ const Table = function(props) {
           {rows.map((row, i) => {
             prepareRow(row);
             return (
-              <TableRow {...row.getRowProps()}>
+              <TableRow key={i} {...row.getRowProps()}>
                 {row.cells.map(cell => {
                   return (
                     <TableCell
+                      key={cell.value}
                       {...cell.getCellProps()}
-                      onClick={e => {
+                      onClick={() => {
                         setSelectedCell(cell.value);
                       }}
                     >
@@ -109,6 +111,11 @@ const Table = function(props) {
       </MaterialTable>
     </div>
   );
+};
+
+Table.propTypes = {
+  setSelectedCell: PropTypes.func,
+  periodView: PropTypes.object,
 };
 
 export default Table;

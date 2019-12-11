@@ -7,6 +7,7 @@ export default {
         back: "Back",
         save: "Save",
       },
+      noData: "N/A",
       emptySection: {
         title: "You don’t have any {{resourceName}}",
         body: "Create some and they will appear here.",
