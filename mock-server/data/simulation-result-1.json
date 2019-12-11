@@ -1,6 +1,6 @@
 {
     "data": {
-        "id": "39076",
+        "id": "1",
         "type": "invoicingJob",
         "attributes": {
             "orgUnit": "AOsKyLAjVWH",
@@ -14,7 +14,7 @@
             "lastError": null,
             "sidekiqJobRef": null,
             "isAlive": false,
-            "resultUrl": "http://localhost:4567/s3/result"
+            "resultUrl": "http://localhost:4567/s3/results/1.json"
         }
     }
 }
