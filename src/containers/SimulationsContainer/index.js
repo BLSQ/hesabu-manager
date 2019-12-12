@@ -10,7 +10,6 @@ import { useParams } from "react-router-dom";
 import SideSheet from "../../components/SideSheet";
 import FiltersToggleBtn from "../../components/FiltersToggleBtn";
 import useStyles from "./styles";
-import SimulationContainer from "../SimulationContainer";
 import { formattedName } from "../../utils/textUtils";
 
 const SimulationsContainer = props => {
@@ -19,9 +18,6 @@ const SimulationsContainer = props => {
   const { t } = useTranslation();
   const [sideSheetOpen, setSideSheetOpen] = useState(false);
   const handleToggleSideSheet = () => setSideSheetOpen(!sideSheetOpen);
-
-  const { simulationId } = useParams();
-  const open = !!simulationId;
 
   return (
     <Fragment>
@@ -37,7 +33,6 @@ const SimulationsContainer = props => {
       </TopBar>
       <PageContent>
         <SimulationList simulations={simulations} />
-        <SimulationContainer simulationId={simulationId} open={open} />
       </PageContent>
       <SideSheet
         title={t("filtersSheet.title")}
@@ -57,27 +52,58 @@ const mapStateToProps = state => ({
   simulations: [
     {
       id: "1",
-      name: "COSPRO ECC KALEMIE 1",
-      groupNames: ["BCZs"],
-      createdAt: "2019-11-02T18:25:43.511Z",
-      buildDuration: 240,
-      period: "Q1 - 2016",
+      type: "invoicingJob",
+      attributes: {
+        orgUnit: "AOsKyLAjVWH",
+        dhis2Period: "2016Q1",
+        user: null,
+        createdAt: "2019-11-21T08:51:41.010Z",
+        processedAt: "2019-11-21T08:51:43.922Z",
+        erroredAt: null,
+        durationMs: 2872,
+        status: "processed",
+        lastError: null,
+        sidekiqJobRef: null,
+        isAlive: false,
+        resultUrl: "http://localhost:4567/s3/results/1.json",
+      },
     },
     {
       id: "2",
-      name: "COSPRO ECC KALEMIE 1",
-      groupNames: ["BCZs", "FOSAs"],
-      createdAt: "2019-10-02T18:25:43.511Z",
-      buildDuration: 108,
-      period: "Q2 - 2019",
+      type: "invoicingJob",
+      attributes: {
+        orgUnit: "BOsKyLAjVWH",
+        dhis2Period: "2019Q2",
+        user: null,
+        createdAt: "2019-11-21T08:51:41.010Z",
+        processedAt: "2019-11-21T08:51:43.922Z",
+        erroredAt: null,
+        durationMs: 2872,
+        status: "processed",
+        lastError: null,
+        sidekiqJobRef: null,
+        isAlive: false,
+        resultUrl: "http://localhost:4567/s3/results/2.json",
+      },
     },
     {
       id: "3",
-      name: "SIGL BCZ FOSA (dhis fail)",
-      groupNames: ["BCZs", "FOSAs"],
-      createdAt: "2019-10-06T18:25:43.511Z",
-      buildDuration: 53,
-      period: "Q1 - 2018",
+      type: "invoicingJob",
+      attributes: {
+        orgUnit: "COsKyLAjVWH",
+        dhis2Period: "2018Q1",
+        user: null,
+        createdAt: "2019-11-21T08:51:41.010Z",
+        processedAt: null,
+        erroredAt: "2019-11-21T08:51:43.922Z",
+        durationMs: 2872,
+        status: "processed",
+        lastError:
+          "Failed to open TCP connection to dhis.example.com:80 (getaddrinfo: nodename nor servname provided, or not known)",
+        sidekiqJobRef: null,
+        isAlive: false,
+        resultUrl: null,
+      },
     },
   ],
 });

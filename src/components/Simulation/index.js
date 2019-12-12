@@ -6,7 +6,6 @@ import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import uniqWith from "lodash/uniqWith";
 import some from "lodash/some";
-import humanize from "string-humanize";
 import { withTranslation } from "react-i18next";
 import groupBy from "lodash/groupBy";
 import { useHistory } from "react-router-dom";
@@ -15,69 +14,62 @@ import FiltersToggleBtn from "../FiltersToggleBtn";
 import SimulationBlocks from "./SimulationBlocks";
 import SideSheet from "../SideSheet";
 import SimulationFilters from "./Filters";
-import { handleFilterChange } from "../../lib/formUtils";
 import PageContent from "../Shared/PageContent";
 import useStyles from "./styles";
 import ExpandableCellContent from "./ExpandableCellContent";
+import EmptySection from "../EmptySection";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-const mapSimulationResources = (resources, attr) => {
-  const all = resources.map(resource => ({
-    key: resource[attr.key],
-    human: humanize(resource[attr.name || attr.key]),
-  }));
-  return uniqWith(all, (a, b) => a.key === b.key);
-};
+// const mapSimulationResources = (resources, attr) => {
+//   const all = resources.map(resource => ({
+//     key: resource[attr.key],
+//     human: humanize(resource[attr.name || attr.key]),
+//   }));
+//   return uniqWith(all, (a, b) => a.key === b.key);
+// };
 
 export const Simulation = props => {
   const classes = useStyles();
   const history = useHistory();
   const [sideSheetOpen, setSideSheetOpen] = useState(false);
-  const [periods, setPeriods] = useState([]);
-  const [packages, setPackages] = useState([]);
-  const [orgUnits, setOrgUnits] = useState([]);
   const [bottomSheetOpen, setBottomSheetOpen] = useState(false);
   const [selectedCell, setSelectedCell] = useState(null);
+  console.log("valuesFromParams", props.valuesFromParams);
 
-  const { errorMessage, loading, invoices: sets, request, t, open } = props;
+  const {
+    errorMessage,
+    loading,
+    invoices: sets,
+    request,
+    t,
+    open,
+    simulation,
+  } = props;
 
-  const isLoaded = !loading;
   const hasError = !!errorMessage;
-  const isSuccess = isLoaded && !hasError;
+  const showSimulation = !loading && !hasError && !!simulation;
 
   const handleToggleSideSheet = () => setSideSheetOpen(!sideSheetOpen);
   const openBottomSheet = () => setBottomSheetOpen(true);
   const closeBottomSheet = () => setBottomSheetOpen(false);
 
-  let nameWithDate = "…";
-  let allPeriods = [];
-  let allPackages = [];
-  let allOrgUnits = [];
+  let title;
+  // const allPeriods = [];
+  // const allPackages = [];
+  // const allOrgUnits = [];
 
-  if (request) {
-    nameWithDate = `${request.organisation_unit.name}-${request.period}`;
-    allPeriods = mapSimulationResources(sets, { key: "period" });
-    allPackages = mapSimulationResources(sets, { key: "code" });
-    allOrgUnits = mapSimulationResources(sets, {
-      key: "orgunit_ext_id",
-      name: "orgunit_name",
-    });
-  }
-
-  useEffect(() => {
-    if (allPeriods.length && !periods.length) {
-      setPeriods([allPeriods[0]]);
-    }
-    if (allPackages.length && !packages.length) {
-      setPackages([allPackages[0]]);
-    }
-    if (allOrgUnits.length && !orgUnits.length) {
-      setOrgUnits([allOrgUnits[0]]);
-    }
-  }, [allPeriods, periods, allPackages, packages, allOrgUnits, orgUnits]);
+  // if (request) {
+  //   title = `${request.organisation_unit.name}-${request.period}`;
+  //   allPeriods = mapSimulationResources(sets, { key: "period" });
+  //   allPackages = mapSimulationResources(sets, { key: "code" });
+  //   allOrgUnits = mapSimulationResources(sets, {
+  //     key: "orgunit_ext_id",
+  //     name: "orgunit_name",
+  //   });
+  // }
 
   useEffect(() => {
     if (selectedCell && !bottomSheetOpen) {
@@ -86,17 +78,19 @@ export const Simulation = props => {
     // eslint-disable-next-line
   }, [selectedCell]);
 
-  const filteredSimulations = sets
-    ? sets.filter(simulation => {
-        return (
-          some(periods, ["key", simulation.period]) &&
-          some(packages, ["key", simulation.code]) &&
-          some(orgUnits, ["key", simulation.orgunit_ext_id])
-        );
-      })
-    : [];
+  // Should be already filtered
+  // ----
+  // const filteredBlocks = sets
+  //   ? sets.filter(sim => {
+  //       return (
+  //         some(periods, ["key", sim.period]) &&
+  //         some(packages, ["key", sim.code]) &&
+  //         some(orgUnits, ["key", sim.orgunit_ext_id])
+  //       );
+  //     })
+  //   : [];
 
-  const setsByCode = groupBy(filteredSimulations, "code");
+  const setsByCode = groupBy(simulation, "code");
 
   return (
     <Dialog
@@ -115,7 +109,7 @@ export const Simulation = props => {
           color="inherit"
           className={classes.appBarHeader}
         >
-          {nameWithDate}
+          {title}
         </Typography>
         <FiltersToggleBtn
           variant="filters"
@@ -124,57 +118,32 @@ export const Simulation = props => {
         />
       </TopBar>
       <PageContent fullscreen>
-        <Fade in={loading} unmountOnExit>
-          <Grid container alignItems="center" justify="center">
-            <CircularProgress className={classes.spinner} />
-          </Grid>
-        </Fade>
-        <Snackbar
-          anchorOrigin={{ vertical: "top", horizontal: "right" }}
-          open={isLoaded && hasError}
-          autoHideDuration={6000}
-          message={<span id="message-id">Error: {errorMessage}</span>}
-        />
-        {isSuccess && (
-          <SimulationBlocks
-            setsByCode={setsByCode}
-            setSelectedCell={setSelectedCell}
-          />
+        {showSimulation ? (
+          <>
+            <SimulationBlocks
+              setsByCode={setsByCode}
+              setSelectedCell={setSelectedCell}
+            />
+            <ExpandableBottomSheet
+              open={bottomSheetOpen}
+              onOpen={openBottomSheet}
+              onClose={closeBottomSheet}
+            >
+              <ExpandableCellContent cell={selectedCell} />
+            </ExpandableBottomSheet>
+          </>
+        ) : (
+          <EmptySection resourceName={t("resources.simulation")} />
         )}
-        <ExpandableBottomSheet
-          open={bottomSheetOpen}
-          onOpen={openBottomSheet}
-          onClose={closeBottomSheet}
-        >
-          <ExpandableCellContent cell={selectedCell} />
-        </ExpandableBottomSheet>
       </PageContent>
-      {isSuccess && (
-        <SideSheet
-          title={t("simulations.sidesheet.title")}
-          open={sideSheetOpen}
-          onClose={handleToggleSideSheet}
-          variant="big"
-        >
-          <SimulationFilters
-            allPeriods={allPeriods}
-            periods={periods}
-            allOrgUnits={allOrgUnits}
-            orgUnits={orgUnits}
-            allPackages={allPackages}
-            packages={packages}
-            onPeriodsChanged={periodKeys => {
-              setPeriods(handleFilterChange(allPeriods, periodKeys));
-            }}
-            onPackagesChanged={packageKeys =>
-              setPackages(handleFilterChange(allPackages, packageKeys))
-            }
-            onOrgUnitsChanged={orgUnitKeys =>
-              setOrgUnits(handleFilterChange(allOrgUnits, orgUnitKeys))
-            }
-          />
-        </SideSheet>
-      )}
+      <SideSheet
+        title={t("simulations.sidesheet.title")}
+        open={!simulation || sideSheetOpen}
+        onClose={handleToggleSideSheet}
+        variant="big"
+      >
+        <SimulationFilters values={props.valuesFromParams} />
+      </SideSheet>
     </Dialog>
   );
 };

@@ -8,7 +8,7 @@ export default {
       },
       noData: "N/D",
       emptySection: {
-        title: "Vous n'avez aucun {{resourceName}}",
+        title: "Vous n'avez aucun.e {{resourceName}}",
         body: "Créez-en et ils apparaîtront ici.",
       },
       drawerItems: {

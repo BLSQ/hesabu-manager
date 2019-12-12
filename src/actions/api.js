@@ -15,12 +15,11 @@ export const receiveTokenError = error => ({
 });
 
 export const externalApi = () => {
-  const state = store.getState();
-  const { token } = state.api;
-  const url = `${process.env.REACT_APP_MANAGER_URL}/api`;
+  // const state = store.getState();
+  // const { token } = state.api;
   return wretch()
-    .url(url)
+    .url(process.env.REACT_APP_API_URL)
     .headers({ "Accept-Language": i18n.language })
-    .auth(token)
     .options({ credentials: "include", mode: "cors" });
+  // .auth(token)
 };
