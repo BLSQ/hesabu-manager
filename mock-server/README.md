@@ -15,3 +15,7 @@ Or you can access them by referencing the `org_unit` and `period` directly, whic
 `/api/simulation?orgUnit=COsKyLAjVWH&periods=2018Q1` => Error: Could not connect to DHIS2
 
 If you try and fetch an org unit with a period that's not run, you'll get a 404.
+
+`/api/org_units` => Returns all org units
+`/api/org_units?term=arab` => returns all org units matching that term
+`/api/org_units?id=Rp268JB6Ne4` => returns all org units matching that id
