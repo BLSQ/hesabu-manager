@@ -63,3 +63,23 @@ get '/s3/results/:identifier.json' do |identifier|
     not_found
   end
 end
+
+# Without a term will return all known org units
+# With a ?term will filter on name
+# With a ?id will filter on id
+get '/api/org_units' do
+  content_type :json
+  all_json = File.read("data/all_orgunits.json")
+  if id = params[:id]
+    units = JSON.parse(all_json)["data"]
+    units = units.select {|h| h["id"] == id }
+    {data: units}.to_json
+  elsif term = params[:term]
+    units = JSON.parse(all_json)["data"]
+    units = units.select {|h| h["attributes"]["displayName"].downcase.include?(term.downcase) }
+    {data: units}.to_json
+  else
+    all_json
+  end
+
+end
