@@ -1,14 +1,9 @@
-import { Grid, Dialog, Typography, Slide, Fade } from "@material-ui/core";
-import Snackbar from "@material-ui/core/Snackbar";
-import CircularProgress from "@material-ui/core/CircularProgress";
+import { Dialog, Typography, Slide } from "@material-ui/core";
 import { ExpandableBottomSheet } from "@blsq/manager-ui";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Fragment } from "react";
 import PropTypes from "prop-types";
-import uniqWith from "lodash/uniqWith";
-import some from "lodash/some";
-import { withTranslation } from "react-i18next";
-import groupBy from "lodash/groupBy";
 import { useHistory } from "react-router-dom";
+import { withTranslation } from "react-i18next";
 import TopBar from "../Shared/TopBar";
 import FiltersToggleBtn from "../FiltersToggleBtn";
 import SimulationBlocks from "./SimulationBlocks";
@@ -17,19 +12,12 @@ import SimulationFilters from "./Filters";
 import PageContent from "../Shared/PageContent";
 import useStyles from "./styles";
 import ExpandableCellContent from "./ExpandableCellContent";
-import EmptySection from "../EmptySection";
+
+import SimulationResultStatus from "./SimulationResultStatus";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
-
-// const mapSimulationResources = (resources, attr) => {
-//   const all = resources.map(resource => ({
-//     key: resource[attr.key],
-//     human: humanize(resource[attr.name || attr.key]),
-//   }));
-//   return uniqWith(all, (a, b) => a.key === b.key);
-// };
 
 export const Simulation = props => {
   const classes = useStyles();
@@ -37,39 +25,13 @@ export const Simulation = props => {
   const [sideSheetOpen, setSideSheetOpen] = useState(false);
   const [bottomSheetOpen, setBottomSheetOpen] = useState(false);
   const [selectedCell, setSelectedCell] = useState(null);
-  console.log("valuesFromParams", props.valuesFromParams);
 
-  const {
-    errorMessage,
-    loading,
-    invoices: sets,
-    request,
-    t,
-    open,
-    simulation,
-  } = props;
-
-  const hasError = !!errorMessage;
-  const showSimulation = !loading && !hasError && !!simulation;
-
+  const { errorMessage, t, open, simulation, loading } = props;
   const handleToggleSideSheet = () => setSideSheetOpen(!sideSheetOpen);
   const openBottomSheet = () => setBottomSheetOpen(true);
   const closeBottomSheet = () => setBottomSheetOpen(false);
 
   let title;
-  // const allPeriods = [];
-  // const allPackages = [];
-  // const allOrgUnits = [];
-
-  // if (request) {
-  //   title = `${request.organisation_unit.name}-${request.period}`;
-  //   allPeriods = mapSimulationResources(sets, { key: "period" });
-  //   allPackages = mapSimulationResources(sets, { key: "code" });
-  //   allOrgUnits = mapSimulationResources(sets, {
-  //     key: "orgunit_ext_id",
-  //     name: "orgunit_name",
-  //   });
-  // }
 
   useEffect(() => {
     if (selectedCell && !bottomSheetOpen) {
@@ -77,20 +39,6 @@ export const Simulation = props => {
     }
     // eslint-disable-next-line
   }, [selectedCell]);
-
-  // Should be already filtered
-  // ----
-  // const filteredBlocks = sets
-  //   ? sets.filter(sim => {
-  //       return (
-  //         some(periods, ["key", sim.period]) &&
-  //         some(packages, ["key", sim.code]) &&
-  //         some(orgUnits, ["key", sim.orgunit_ext_id])
-  //       );
-  //     })
-  //   : [];
-
-  const setsByCode = groupBy(simulation, "code");
 
   return (
     <Dialog
@@ -109,7 +57,7 @@ export const Simulation = props => {
           color="inherit"
           className={classes.appBarHeader}
         >
-          {title}
+          {title} {(simulation || {}).status}
         </Typography>
         <FiltersToggleBtn
           variant="filters"
@@ -118,10 +66,10 @@ export const Simulation = props => {
         />
       </TopBar>
       <PageContent fullscreen>
-        {showSimulation ? (
-          <>
+        {simulation && simulation.attributes.status === "processed" && (
+          <Fragment>
             <SimulationBlocks
-              setsByCode={setsByCode}
+              resultUrl={simulation.attributes.resultUrl}
               setSelectedCell={setSelectedCell}
             />
             <ExpandableBottomSheet
@@ -131,18 +79,20 @@ export const Simulation = props => {
             >
               <ExpandableCellContent cell={selectedCell} />
             </ExpandableBottomSheet>
-          </>
-        ) : (
-          <EmptySection resourceName={t("resources.simulation")} />
+          </Fragment>
         )}
+        <SimulationResultStatus
+          simulation={simulation}
+          errorMessage={errorMessage}
+        />
       </PageContent>
       <SideSheet
-        title={t("simulations.sidesheet.title")}
-        open={!simulation || sideSheetOpen}
+        title={t("simulation.sidesheet.title")}
+        open={!simulation || !simulation.attributes.resultUrl || sideSheetOpen}
         onClose={handleToggleSideSheet}
         variant="big"
       >
-        <SimulationFilters values={props.valuesFromParams} />
+        <SimulationFilters loading={loading} values={props.valuesFromParams} />
       </SideSheet>
     </Dialog>
   );

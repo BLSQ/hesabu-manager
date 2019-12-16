@@ -9,7 +9,7 @@ import { formattedName } from "../../utils/textUtils";
 
 const useStyles = makeStyles(theme => ({
   formControl: {
-    margin: theme.spacing(1),
+    margin: theme.spacing(1, 0, 2),
     minWidth: 120,
   },
   selectEmpty: {

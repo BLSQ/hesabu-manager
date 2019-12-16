@@ -5,6 +5,8 @@ export default {
         search: "Rechercher",
         back: "Retour",
         save: "Sauver",
+        submit: "Envoyez",
+        loading: "En cours",
       },
       noData: "N/D",
       emptySection: {
@@ -56,7 +58,7 @@ export default {
       },
       simulation: {
         sidesheet: {
-          title: "Filters",
+          title: "Filtres",
         },
       },
       simulationForm: {
@@ -76,6 +78,15 @@ export default {
           label: "Unité d’organisation",
           help:
             "Selectionnez une l’unité d’organisation pour laquelle vous voulez voir la simulation",
+        },
+      },
+      simulationResultStatus: {
+        enqueued: {
+          title: "Vous n’avez pas encore du simulation avec ces paramètres",
+          subtitle: "Votre simulation est en cours de génération",
+        },
+        errored: {
+          title: "La génération de simulation a échoué",
         },
       },
       tooltips: {
