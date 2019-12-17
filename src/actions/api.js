@@ -20,6 +20,7 @@ export const externalApi = () => {
   return wretch()
     .url(process.env.REACT_APP_API_URL)
     .headers({ "Accept-Language": i18n.language })
-    .options({ credentials: "include", mode: "cors" });
+    .options({ credentials: "include", mode: "cors" })
+    .options({ encoding: "same-origin" }, false);
   // .auth(token)
 };

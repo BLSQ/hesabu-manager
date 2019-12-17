@@ -16,7 +16,6 @@ const SimulationContainer = props => {
     setLoading(true);
     externalApi()
       .errorType("json")
-      .options({ encoding: "same-origin" }, false)
       .url(`/simulation${props.location.search}`)
       .get()
       .json(response => {

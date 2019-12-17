@@ -66,8 +66,8 @@ SimulationFilters.propTypes = {
 };
 
 // TODO import that from project state
-const mapStateToProps = () => ({
-  availablePeriods: ["2016Q1", "2018Q1", "2018Q3", "2019Q2"],
+const mapStateToProps = state => ({
+  availablePeriods: state.project.periods,
   orgUnits: [],
   sets: [],
 });
