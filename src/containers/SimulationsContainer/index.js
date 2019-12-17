@@ -6,7 +6,6 @@ import PageContent from "../../components/Shared/PageContent";
 import { withTranslation, useTranslation } from "react-i18next";
 import TopBar from "../../components/Shared/TopBar";
 import SimulationList from "../../components/Simulations/SimulationList";
-import { useParams } from "react-router-dom";
 import SideSheet from "../../components/SideSheet";
 import FiltersToggleBtn from "../../components/FiltersToggleBtn";
 import useStyles from "./styles";

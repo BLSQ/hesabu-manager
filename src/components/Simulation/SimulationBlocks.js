@@ -6,8 +6,9 @@ import SimulationBlock from "./SimulationBlock";
 
 const SimulationBlocks = props => {
   const [data, setData] = useState(undefined);
-  const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(false);
+  // #TODO add some loading states
+  const [_error, setError] = useState(null);
+  const [_loading, setLoading] = useState(false);
 
   const setsByCode = groupBy((data || {}).invoices, "code");
 

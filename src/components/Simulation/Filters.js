@@ -7,6 +7,7 @@ import { FormControl, MenuItem, Button } from "@material-ui/core";
 import { useHistory } from "react-router-dom";
 import queryString from "query-string";
 import SimpleSelect from "../Shared/SimpleSelect";
+import OrgUnitAsyncAutocomplete from "../Shared/OrgUnitAsyncAutocomplete";
 
 export const SimulationFilters = props => {
   const { t } = useTranslation();
@@ -28,7 +29,7 @@ export const SimulationFilters = props => {
         history.push(`/simulation?${queryString.stringify(values)}`);
       }}
     >
-      {({ values, handleChange, handleSubmit }) => (
+      {({ values, handleChange, handleSubmit, setFieldValue }) => (
         <form onSubmit={handleSubmit}>
           <div>
             <SimpleSelect
@@ -42,6 +43,12 @@ export const SimulationFilters = props => {
                 </MenuItem>
               ))}
             </SimpleSelect>
+          </div>
+          <div>
+            <OrgUnitAsyncAutocomplete
+              onChange={(e, v) => setFieldValue("orgUnit", v.id)}
+              defaultValue={values.orgUnit}
+            />
           </div>
           <FormControl tag="div">
             <Button
@@ -67,7 +74,7 @@ SimulationFilters.propTypes = {
 
 // TODO import that from project state
 const mapStateToProps = state => ({
-  availablePeriods: state.project.periods,
+  availablePeriods: state.project.periods || [],
   orgUnits: [],
   sets: [],
 });

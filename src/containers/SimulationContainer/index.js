@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useRef } from "react";
-import { withRouter, useQuery } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { withRouter } from "react-router-dom";
 import { withStyles } from "@material-ui/styles";
 import queryString from "query-string";
 import styles from "./styles";

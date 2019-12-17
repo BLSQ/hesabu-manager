@@ -62,7 +62,7 @@ class App extends Component {
     };
   }
 
-  componentDidMount(prevProps, prevState) {
+  componentDidMount() {
     if (!this.props.project) {
       this.props.requestProject();
       externalApi()
