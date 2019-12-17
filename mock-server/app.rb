@@ -30,6 +30,11 @@ get '/api/simulations' do
   File.read("data/simulations.json")
 end
 
+get '/api/project' do
+  content_type :json
+  File.read("data/project.json")
+end
+
 # Filter to a specific simulation
 #
 # Needs ?orgUnit=bla&periods=2019Q1

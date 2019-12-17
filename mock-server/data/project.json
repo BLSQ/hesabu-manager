@@ -1,0 +1,17 @@
+{
+  "data": {
+    "id": "1",
+    "type": "project",
+    "attributes": {
+      "createdAt": "2019-12-17T07:37:17.479Z",
+      "updatedAt": "2019-12-17T07:37:18.234Z",
+      "cycle": "quarterly",
+      "name": "Sierra Leone PBF",
+      "code": "Canada",
+      "startPeriod": "2016Q1",
+      "endPeriod": "2019Q4"
+    },
+    "relationships": {
+    }
+  }
+}
