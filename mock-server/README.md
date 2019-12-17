@@ -1,4 +1,4 @@
-
+`/api/project` => Returns the information on the current project
 
 `/api/simulations`   => Returns all ran simulations
 
