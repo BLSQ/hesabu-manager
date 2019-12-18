@@ -2,10 +2,15 @@
 export default {
   en: {
     translations: {
+      autocomplete: {
+        orgUnits: "Choose an org unit",
+      },
       buttons: {
         search: "Search",
         back: "Back",
         save: "Save",
+        submit: "Submit",
+        loading: "Loading",
       },
       noData: "N/A",
       emptySection: {
@@ -75,6 +80,15 @@ export default {
           legend: "Organisation Unit",
           label: "Organisation Unit",
           help: "Select an organisation you want to see the simulation for",
+        },
+      },
+      simulationResultStatus: {
+        enqueued: {
+          title: "You have no simulated yet with these parameters",
+          subtitle: "Your simulation is being generated",
+        },
+        errored: {
+          title: "Simulation generation failed",
         },
       },
       tooltips: {

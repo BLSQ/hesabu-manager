@@ -58,21 +58,26 @@ class App extends Component {
     super(props);
     registerServiceWorker(store);
     this.state = {
-      visible: true,
+      visible: false,
     };
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    if (false) {
+  componentDidMount() {
+    if (!this.props.project) {
       this.props.requestProject();
       externalApi()
         .errorType("json")
         .url("/project")
         .get()
-        .json(project => {
+        .json(response => {
           setTimeout(() => {
-            this.props.receiveProject(project);
-            setLocaleFromProject(project);
+            const attrs = response.data.attributes;
+            delete response.data.attributes;
+            this.props.receiveProject({
+              ...response.data,
+              ...attrs,
+            });
+            // setLocaleFromProject(project);
             this.setState({ visible: true });
           }, 300);
         });

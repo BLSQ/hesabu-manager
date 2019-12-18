@@ -1,84 +1,42 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { withRouter } from "react-router-dom";
 import { withStyles } from "@material-ui/styles";
+import queryString from "query-string";
 import styles from "./styles";
 import Simulation from "../../components/Simulation";
+import { externalApi } from "../../actions/api";
 
 const SimulationContainer = props => {
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
   const [simulation, setSimulation] = useState();
-  const timer = useRef(null);
-  const { simulationId } = props;
-  const url = `http://localhost:4567/api/simulations/${simulationId}`;
+  const valuesFromParams = queryString.parse(props.location.search);
 
   useEffect(() => {
-    const fetchSimulationResult = async simUrl => {
-      const response = await fetchJSON(simUrl);
-      if (response.success) {
+    setLoading(true);
+    externalApi()
+      .errorType("json")
+      .url(`/simulation${props.location.search}`)
+      .get()
+      .json(response => {
         setLoading(false);
-        setSimulation(response.payload);
-      } else {
-        showError(response.payload);
-      }
-    };
-
-    const apiFetch = async simUrl => {
-      const response = await fetchJSON(simUrl);
-      if (response.success) {
-        const {
-          isAlive,
-          status,
-          lastError,
-          resultUrl,
-        } = response.payload.data.attributes;
-        if (isAlive) {
-          // I'm still alive, keep polling.
-        } else {
-          // I finished processing
-          clearInterval(timer.current);
-          if (status === "processed") {
-            fetchSimulationResult(resultUrl);
-          } else {
-            showError({ message: lastError });
-          }
-        }
-      } else {
-        clearInterval(timer.current);
-        showError(response.payload);
-      }
-    };
-
-    if (!timer.current) {
-      timer.current = setInterval(() => apiFetch(url), 1000);
-    }
-
-    return function cleanup() {
-      clearInterval(timer.current);
-    };
-  }, [simulationId, url]);
-
-  const fetchJSON = async url => {
-    try {
-      const response = await fetch(url, {});
-      const json = await response.json();
-      return { success: true, payload: json };
-    } catch (error) {
-      return { success: false, payload: error };
-    }
-  };
-
-  const showError = error => {
-    setLoading(false);
-    setErrorMessage(error.message);
-  };
+        setSimulation(response.data);
+        setErrorMessage(null);
+      })
+      .catch(e => {
+        setErrorMessage(e.message);
+        setLoading(false);
+        setSimulation(null);
+      });
+  }, [props.location]);
 
   return (
     <Simulation
       errorMessage={errorMessage}
       loading={loading}
-      {...simulation}
-      open={props.open}
+      simulation={simulation}
+      valuesFromParams={valuesFromParams}
+      open={true}
     />
   );
 };
