@@ -15,12 +15,15 @@ export const receiveTokenError = error => ({
 });
 
 export const externalApi = () => {
+  // TODO: Fetch token from Dhis instead of baking it in at compile time
   // const state = store.getState();
   // const { token } = state.api;
+  const token = process.env.REACT_APP_HESABU_TOKEN;
   return wretch()
     .url(process.env.REACT_APP_API_URL)
-    .headers({ "Accept-Language": i18n.language })
-    .options({ encoding: "same-origin" }, false);
-  // .options({ credentials: "include", mode: "cors" })
-  // .auth(token)
+    .headers({ "Accept-Language": i18n.language,
+               "Accept": "application/vnd.api+json;version=2" })
+    .options({ credentials: "include", mode: "cors" })
+    .options({ encoding: "same-origin" }, false)
+    .auth(token);
 };
