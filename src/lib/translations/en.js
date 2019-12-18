@@ -97,6 +97,12 @@ export default {
         toggleFilters: "Show/Hide filters",
         toggleSearch: "Show/Hide search",
         toggleInfo: "Show / hide info",
+        cell: {
+          noData: "No data available",
+          input: "This is an input. Click to see details",
+          output: "This is an output. Click to see details",
+          default: "Click to see detail",
+        },
       },
       filtersSheet: {
         title: "Filters",

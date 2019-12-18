@@ -21,12 +21,12 @@ export const externalApi = () => {
   const token = process.env.REACT_APP_API_TOKEN;
   const headers = {
     "Accept-Language": i18n.language,
-    "Accept": "application/vnd.api+json;version=2",
-    "X-Token": token
+    Accept: "application/vnd.api+json;version=2",
+    "X-Token": token,
   };
 
   return wretch()
     .url(process.env.REACT_APP_API_URL)
     .headers(headers)
-    .options({ encoding: "same-origin", headers: headers });
+    .options({ encoding: "same-origin", headers });
 };

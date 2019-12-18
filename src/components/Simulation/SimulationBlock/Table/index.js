@@ -53,18 +53,18 @@ const cellBg = (cell, classes) => {
   return "";
 };
 
-const cellTooltip = cell => {
+const cellTooltip = (cell, t) => {
   if (!cell || !cell.value) {
-    return "No data available";
+    return t("tooltips.cell.noData");
   }
   if (cell.value.is_input) {
-    return "This is an input. Click to see details";
+    return t("tooltips.cell.input");
   }
   if (cell.value.is_output) {
-    return "This is an output. Click to see details";
+    return t("tooltips.cell.output");
   }
 
-  return "Click to see detail";
+  return t("tooltips.cell.default");
 };
 
 const Table = props => {
@@ -117,7 +117,7 @@ const Table = props => {
               <TableRow key={i} {...row.getRowProps()}>
                 {row.cells.map(cell => {
                   return (
-                    <Tooltip title={cellTooltip(cell)}>
+                    <Tooltip title={cellTooltip(cell, t)}>
                       <TableCell
                         key={cell.value}
                         {...cell.getCellProps()}
