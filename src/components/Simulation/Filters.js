@@ -1,59 +1,82 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { useTranslation } from "react-i18next";
-import MultiSelectDropdown from "../Shared/MultiSelectDropdown";
-import { formattedName } from "../../utils/textUtils";
+import { Formik } from "formik";
+import { connect } from "react-redux";
+import { FormControl, MenuItem, Button } from "@material-ui/core";
+import { useHistory } from "react-router-dom";
+import queryString from "query-string";
+import SimpleSelect from "../Shared/SimpleSelect";
+import OrgUnitAsyncAutocomplete from "../Shared/OrgUnitAsyncAutocomplete";
 
 export const SimulationFilters = props => {
-  // Renders the Filters of a simulation, a Simulation exists out of
-  // multiple parts, this component will allow us to filter
-  // those. Each part is identified by the combination:
-  //
-  //       - orgUnit
-  //       - package
-  //       - period
-  //
-  // It accepts callbacks for the `change` event, so the actual
-  // hiding/showing is handled in a higher component.
   const { t } = useTranslation();
+  const history = useHistory();
+  const {
+    values: { periods, orgUnit },
+    loading,
+  } = props;
+
+  const initialValues = {
+    periods,
+    orgUnit,
+  };
 
   return (
-    <>
-      <MultiSelectDropdown
-        name={formattedName(t("resources.period", { count: 2 }))}
-        items={props.allPeriods}
-        selected={props.periods}
-        optionsChanged={props.onPeriodsChanged}
-        key="periods"
-      />
-      <MultiSelectDropdown
-        name={formattedName(t("resources.orgUnit", { count: 2 }))}
-        items={props.allOrgUnits}
-        selected={props.orgUnits}
-        optionsChanged={props.onOrgUnitsChanged}
-        key="orgUnits"
-      />
-      <MultiSelectDropdown
-        name={formattedName(t("resources.set", { count: 2 }))}
-        items={props.allPackages}
-        selected={props.packages}
-        optionsChanged={props.onPackagesChanged}
-        key="packages"
-      />
-    </>
+    <Formik
+      initialValues={initialValues}
+      onSubmit={values => {
+        history.push(`/simulation?${queryString.stringify(values)}`);
+      }}
+    >
+      {({ values, handleChange, handleSubmit, setFieldValue }) => (
+        <form onSubmit={handleSubmit}>
+          <div>
+            <SimpleSelect
+              name="periods"
+              onChange={handleChange}
+              value={values.periods}
+            >
+              {props.availablePeriods.map(period => (
+                <MenuItem key={`filers-item-${period}`} value={period}>
+                  {period}
+                </MenuItem>
+              ))}
+            </SimpleSelect>
+          </div>
+          <div>
+            <OrgUnitAsyncAutocomplete
+              onChange={(_e, v) => v && setFieldValue("orgUnit", v.id)}
+              defaultValue={values.orgUnit}
+            />
+          </div>
+          <FormControl tag="div">
+            <Button
+              variant="contained"
+              color="primary"
+              type="submit"
+              disabled={loading}
+            >
+              {loading ? t("buttons.loading") : t("buttons.submit")}
+            </Button>
+          </FormControl>
+        </form>
+      )}
+    </Formik>
   );
 };
 
 SimulationFilters.propTypes = {
-  allPeriods: PropTypes.array.isRequired,
-  allOrgUnits: PropTypes.array.isRequired,
-  allPackages: PropTypes.array.isRequired,
-  periods: PropTypes.array.isRequired,
-  orgUnits: PropTypes.array.isRequired,
-  packages: PropTypes.array.isRequired,
-  onPeriodsChanged: PropTypes.func.isRequired,
-  onOrgUnitsChanged: PropTypes.func.isRequired,
-  onPackagesChanged: PropTypes.func.isRequired,
+  availablePeriods: PropTypes.array,
+  loading: PropTypes.bool,
+  values: PropTypes.object,
 };
 
-export default SimulationFilters;
+// TODO import that from project state
+const mapStateToProps = state => ({
+  availablePeriods: state.project.periods || [],
+  orgUnits: [],
+  sets: [],
+});
+
+export default connect(mapStateToProps)(SimulationFilters);

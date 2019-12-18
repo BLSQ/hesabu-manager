@@ -17,11 +17,13 @@ const SimulationListItem = props => {
   const classes = useStyles();
   const {
     id,
-    name: title,
-    createdAt,
-    buildDuration,
-    groupNames: groups,
-    period,
+    attributes: {
+      createdAt,
+      durationMs,
+      name: title,
+      dhis2Period: period,
+      orgUnit,
+    },
   } = props;
 
   return (
@@ -29,21 +31,21 @@ const SimulationListItem = props => {
       <Typography
         variant="h6"
         component={Link}
-        to={`/simulations/${id}`}
+        to={`/simulation?periods=${period.trim()}&orgUnit=${orgUnit}`}
         className={classes.sectionTitle}
       >
-        {title}
+        {id}
       </Typography>
       <HorizontalBulletList className={classes.subtitle}>
         <Typography component="li" variant="body2">
           <ReactTimeAgo date={createdAt} />
         </Typography>
         <Typography component="li" variant="body2">
-          {humanDuration(buildDuration)}
+          {humanDuration(durationMs)}
         </Typography>
       </HorizontalBulletList>
       <DuoToneChip
-        label={groups.join(", ")}
+        label={orgUnit}
         color="primary"
         avatar={<LinkIcon />}
         className={classNames(classes.groupChip, classes.chips)}
@@ -57,7 +59,7 @@ const SimulationListItem = props => {
 };
 
 SimulationListItem.propTypes = {
-  buildDuration: PropTypes.number,
+  durationMs: PropTypes.number,
   createdAt: PropTypes.string,
   groups: PropTypes.array,
   id: PropTypes.string,

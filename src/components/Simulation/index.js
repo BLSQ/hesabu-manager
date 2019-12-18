@@ -1,83 +1,37 @@
-import { Grid, Dialog, Typography, Slide, Fade } from "@material-ui/core";
-import Snackbar from "@material-ui/core/Snackbar";
-import CircularProgress from "@material-ui/core/CircularProgress";
+import { Dialog, Typography, Slide } from "@material-ui/core";
 import { ExpandableBottomSheet } from "@blsq/manager-ui";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Fragment } from "react";
 import PropTypes from "prop-types";
-import uniqWith from "lodash/uniqWith";
-import some from "lodash/some";
-import humanize from "string-humanize";
-import { withTranslation } from "react-i18next";
-import groupBy from "lodash/groupBy";
 import { useHistory } from "react-router-dom";
+import { withTranslation } from "react-i18next";
 import TopBar from "../Shared/TopBar";
 import FiltersToggleBtn from "../FiltersToggleBtn";
 import SimulationBlocks from "./SimulationBlocks";
 import SideSheet from "../SideSheet";
 import SimulationFilters from "./Filters";
-import { handleFilterChange } from "../../lib/formUtils";
 import PageContent from "../Shared/PageContent";
 import useStyles from "./styles";
 import ExpandableCellContent from "./ExpandableCellContent";
+
+import SimulationResultStatus from "./SimulationResultStatus";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-const mapSimulationResources = (resources, attr) => {
-  const all = resources.map(resource => ({
-    key: resource[attr.key],
-    human: humanize(resource[attr.name || attr.key]),
-  }));
-  return uniqWith(all, (a, b) => a.key === b.key);
-};
-
 export const Simulation = props => {
   const classes = useStyles();
   const history = useHistory();
   const [sideSheetOpen, setSideSheetOpen] = useState(false);
-  const [periods, setPeriods] = useState([]);
-  const [packages, setPackages] = useState([]);
-  const [orgUnits, setOrgUnits] = useState([]);
   const [bottomSheetOpen, setBottomSheetOpen] = useState(false);
   const [selectedCell, setSelectedCell] = useState(null);
 
-  const { errorMessage, loading, invoices: sets, request, t, open } = props;
-
-  const isLoaded = !loading;
-  const hasError = !!errorMessage;
-  const isSuccess = isLoaded && !hasError;
-
+  const { errorMessage, t, open, simulation, loading } = props;
   const handleToggleSideSheet = () => setSideSheetOpen(!sideSheetOpen);
   const openBottomSheet = () => setBottomSheetOpen(true);
   const closeBottomSheet = () => setBottomSheetOpen(false);
 
-  let nameWithDate = "…";
-  let allPeriods = [];
-  let allPackages = [];
-  let allOrgUnits = [];
-
-  if (request) {
-    nameWithDate = `${request.organisation_unit.name}-${request.period}`;
-    allPeriods = mapSimulationResources(sets, { key: "period" });
-    allPackages = mapSimulationResources(sets, { key: "code" });
-    allOrgUnits = mapSimulationResources(sets, {
-      key: "orgunit_ext_id",
-      name: "orgunit_name",
-    });
-  }
-
-  useEffect(() => {
-    if (allPeriods.length && !periods.length) {
-      setPeriods([allPeriods[0]]);
-    }
-    if (allPackages.length && !packages.length) {
-      setPackages([allPackages[0]]);
-    }
-    if (allOrgUnits.length && !orgUnits.length) {
-      setOrgUnits([allOrgUnits[0]]);
-    }
-  }, [allPeriods, periods, allPackages, packages, allOrgUnits, orgUnits]);
+  let title;
 
   useEffect(() => {
     if (selectedCell && !bottomSheetOpen) {
@@ -85,18 +39,6 @@ export const Simulation = props => {
     }
     // eslint-disable-next-line
   }, [selectedCell]);
-
-  const filteredSimulations = sets
-    ? sets.filter(simulation => {
-        return (
-          some(periods, ["key", simulation.period]) &&
-          some(packages, ["key", simulation.code]) &&
-          some(orgUnits, ["key", simulation.orgunit_ext_id])
-        );
-      })
-    : [];
-
-  const setsByCode = groupBy(filteredSimulations, "code");
 
   return (
     <Dialog
@@ -115,7 +57,7 @@ export const Simulation = props => {
           color="inherit"
           className={classes.appBarHeader}
         >
-          {nameWithDate}
+          {title} {(simulation || {}).status}
         </Typography>
         <FiltersToggleBtn
           variant="filters"
@@ -124,57 +66,38 @@ export const Simulation = props => {
         />
       </TopBar>
       <PageContent fullscreen>
-        <Fade in={loading} unmountOnExit>
-          <Grid container alignItems="center" justify="center">
-            <CircularProgress className={classes.spinner} />
-          </Grid>
-        </Fade>
-        <Snackbar
-          anchorOrigin={{ vertical: "top", horizontal: "right" }}
-          open={isLoaded && hasError}
-          autoHideDuration={6000}
-          message={<span id="message-id">Error: {errorMessage}</span>}
-        />
-        {isSuccess && (
-          <SimulationBlocks
-            setsByCode={setsByCode}
-            setSelectedCell={setSelectedCell}
-          />
+        {simulation && simulation.attributes.status === "processed" && (
+          <Fragment>
+            <SimulationBlocks
+              resultUrl={simulation.attributes.resultUrl}
+              setSelectedCell={setSelectedCell}
+            />
+            <ExpandableBottomSheet
+              open={bottomSheetOpen}
+              onOpen={openBottomSheet}
+              onClose={closeBottomSheet}
+            >
+              <ExpandableCellContent cell={selectedCell} />
+            </ExpandableBottomSheet>
+          </Fragment>
         )}
-        <ExpandableBottomSheet
-          open={bottomSheetOpen}
-          onOpen={openBottomSheet}
-          onClose={closeBottomSheet}
-        >
-          <ExpandableCellContent cell={selectedCell} />
-        </ExpandableBottomSheet>
+        <SimulationResultStatus
+          simulation={simulation}
+          errorMessage={errorMessage}
+        />
       </PageContent>
-      {isSuccess && (
-        <SideSheet
-          title={t("simulations.sidesheet.title")}
-          open={sideSheetOpen}
-          onClose={handleToggleSideSheet}
-          variant="big"
-        >
-          <SimulationFilters
-            allPeriods={allPeriods}
-            periods={periods}
-            allOrgUnits={allOrgUnits}
-            orgUnits={orgUnits}
-            allPackages={allPackages}
-            packages={packages}
-            onPeriodsChanged={periodKeys => {
-              setPeriods(handleFilterChange(allPeriods, periodKeys));
-            }}
-            onPackagesChanged={packageKeys =>
-              setPackages(handleFilterChange(allPackages, packageKeys))
-            }
-            onOrgUnitsChanged={orgUnitKeys =>
-              setOrgUnits(handleFilterChange(allOrgUnits, orgUnitKeys))
-            }
-          />
-        </SideSheet>
-      )}
+      <SideSheet
+        title={t("simulation.sidesheet.title")}
+        open={
+          (!loading && !simulation) ||
+          (simulation && !simulation.attributes.resultUrl) ||
+          sideSheetOpen
+        }
+        onClose={handleToggleSideSheet}
+        variant="big"
+      >
+        <SimulationFilters loading={loading} values={props.valuesFromParams} />
+      </SideSheet>
     </Dialog>
   );
 };

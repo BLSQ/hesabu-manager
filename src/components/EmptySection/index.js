@@ -27,12 +27,16 @@ const EmptySection = props => {
     <div className={classes.root}>
       <div className={classes.content}>
         <div className={classes.avatar}>
-          <HelpAvatar />
+          <HelpAvatar variant="sad" />
         </div>
-        <Typography variant="h6">
-          {t("emptySection.title", { resourceName: props.resourceName })}
-        </Typography>
-        <Typography variant="body2">{t("emptySection.body")}</Typography>
+        {props.children || (
+          <>
+            <Typography variant="h6">
+              {t("emptySection.title", { resourceName: props.resourceName })}
+            </Typography>
+            <Typography variant="body2">{t("emptySection.body")}</Typography>
+          </>
+        )}
       </div>
     </div>
   );
