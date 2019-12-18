@@ -46,7 +46,7 @@ export const SimulationFilters = props => {
           </div>
           <div>
             <OrgUnitAsyncAutocomplete
-              onChange={(e, v) => setFieldValue("orgUnit", v.id)}
+              onChange={(_e, v) => v && setFieldValue("orgUnit", v.id)}
               defaultValue={values.orgUnit}
             />
           </div>
