@@ -1,7 +1,8 @@
-import React, { useState, useEffect, Fragment } from "react";
+import React, { useState, useEffect } from "react";
 import TextField from "@material-ui/core/TextField";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import { makeStyles } from "@material-ui/core/styles";
+import PropTypes from "prop-types";
 import { externalApi } from "../../actions/api";
 
 const useStyles = makeStyles(theme => ({
@@ -60,7 +61,7 @@ export default function OrgUnitAsyncAutocomplete(props) {
     <div className={classes.root}>
       {defaultValue && <p>{defaultValue.attributes.displayName}</p>}
       <Autocomplete
-        id="google-map-demo"
+        id="org-unit-autocomplete"
         filterOptions={x => x}
         getOptionLabel={option => option.attributes.displayName}
         options={options}
@@ -82,3 +83,8 @@ export default function OrgUnitAsyncAutocomplete(props) {
     </div>
   );
 }
+
+OrgUnitAsyncAutocomplete.propTypes = {
+  defaultValue: PropTypes.object,
+  onChange: PropTypes.func,
+};
