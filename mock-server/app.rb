@@ -31,12 +31,14 @@ get '/api/simulations' do
 end
 
 get '/api/project' do
+  puts "TOKEN: #{request.env["HTTP_X_TOKEN"]}"
+  puts "Accept: #{request.env["HTTP_ACCEPT"]}"
   File.read("data/project.json")
 end
 
 options "*" do
     response.headers["Allow"] = "GET, PUT, POST, DELETE, OPTIONS"
-    response.headers["Access-Control-Allow-Headers"] = "Authorization, Content-Type, Accept, X-User-Email, X-Auth-Token"
+    response.headers["Access-Control-Allow-Headers"] = "Authorization, Content-Type, Accept, X-Token"
     response.headers["Access-Control-Allow-Origin"] = "*"
     200
 end
