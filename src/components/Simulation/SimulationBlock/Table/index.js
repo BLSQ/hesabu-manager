@@ -30,17 +30,26 @@ const prepareHeaders = (collection, t) => {
       width: 50,
       // eslint-disable-next-line
       Cell: ({ cell: { value } }) => {
-        if (!value) {
-          return t("noData");
-        }
-        // eslint-disable-next-line
-        return value.solution ? <Solution rowData={value} /> : value.value;
+        return <Solution cell={value} />;
       },
     }));
 };
 
 const prepareData = items => {
   return items.sort((a, b) => sortCollator.compare(a.key, b.key));
+};
+
+const cellBg = (cell, classes) => {
+  if (!cell.value) {
+    return undefined;
+  }
+  if (cell.value.is_input) {
+    return classes.is_input;
+  }
+  if (cell.value.is_output) {
+    return classes.is_output;
+  }
+  return {};
 };
 
 const Table = props => {
@@ -98,6 +107,9 @@ const Table = props => {
                       {...cell.getCellProps()}
                       onClick={() => {
                         setSelectedCell(cell.value);
+                      }}
+                      classes={{
+                        body: cellBg(cell, classes),
                       }}
                     >
                       {cell.render("Cell")}
