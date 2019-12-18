@@ -2,6 +2,9 @@
 export default {
   en: {
     translations: {
+      autocomplete: {
+        orgUnits: "Choose an org unit",
+      },
       buttons: {
         search: "Search",
         back: "Back",

@@ -3,6 +3,7 @@ import TextField from "@material-ui/core/TextField";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import { makeStyles } from "@material-ui/core/styles";
 import PropTypes from "prop-types";
+import { useTranslation } from "react-i18next";
 import { externalApi } from "../../actions/api";
 
 const useStyles = makeStyles(theme => ({
@@ -16,6 +17,7 @@ export default function OrgUnitAsyncAutocomplete(props) {
   const [inputValue, setInputValue] = useState("");
   const [options, setOptions] = useState([]);
   const [defaultValue, setDefaultValue] = useState(undefined);
+  const { t } = useTranslation();
   const handleChange = event => {
     setInputValue(event.target.value);
   };
@@ -73,7 +75,7 @@ export default function OrgUnitAsyncAutocomplete(props) {
         renderInput={params => (
           <TextField
             {...params}
-            label="Choose an org unit"
+            label={t("autocomplete.orgUnits")}
             variant="outlined"
             fullWidth
             onChange={handleChange}

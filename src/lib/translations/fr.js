@@ -1,6 +1,9 @@
 export default {
   fr: {
     translations: {
+      autocomplete: {
+        orgUnits: "Choisissez une unité d’organisation",
+      },
       buttons: {
         search: "Rechercher",
         back: "Retour",
