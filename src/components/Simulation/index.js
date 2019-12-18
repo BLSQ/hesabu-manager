@@ -88,7 +88,11 @@ export const Simulation = props => {
       </PageContent>
       <SideSheet
         title={t("simulation.sidesheet.title")}
-        open={!simulation || !simulation.attributes.resultUrl || sideSheetOpen}
+        open={
+          (!loading && !simulation) ||
+          (simulation && !simulation.attributes.resultUrl) ||
+          sideSheetOpen
+        }
         onClose={handleToggleSideSheet}
         variant="big"
       >
