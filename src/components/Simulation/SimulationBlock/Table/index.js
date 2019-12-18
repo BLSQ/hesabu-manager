@@ -6,6 +6,7 @@ import {
   TableCell,
   TableBody,
   TableRow,
+  Tooltip,
 } from "@material-ui/core";
 import { useTable } from "react-table";
 import { useTranslation } from "react-i18next";
@@ -30,17 +31,40 @@ const prepareHeaders = (collection, t) => {
       width: 50,
       // eslint-disable-next-line
       Cell: ({ cell: { value } }) => {
-        if (!value) {
-          return t("noData");
-        }
-        // eslint-disable-next-line
-        return value.solution ? <Solution rowData={value} /> : value.value;
+        return <Solution cell={value} />;
       },
     }));
 };
 
 const prepareData = items => {
   return items.sort((a, b) => sortCollator.compare(a.key, b.key));
+};
+
+const cellBg = (cell, classes) => {
+  if (!cell.value) {
+    return "";
+  }
+  if (cell.value.is_input) {
+    return classes.is_input;
+  }
+  if (cell.value.is_output) {
+    return classes.is_output;
+  }
+  return "";
+};
+
+const cellTooltip = (cell, t) => {
+  if (!cell || !cell.value) {
+    return t("tooltips.cell.noData");
+  }
+  if (cell.value.is_input) {
+    return t("tooltips.cell.input");
+  }
+  if (cell.value.is_output) {
+    return t("tooltips.cell.output");
+  }
+
+  return t("tooltips.cell.default");
 };
 
 const Table = props => {
@@ -93,15 +117,20 @@ const Table = props => {
               <TableRow key={i} {...row.getRowProps()}>
                 {row.cells.map(cell => {
                   return (
-                    <TableCell
-                      key={cell.value}
-                      {...cell.getCellProps()}
-                      onClick={() => {
-                        setSelectedCell(cell.value);
-                      }}
-                    >
-                      {cell.render("Cell")}
-                    </TableCell>
+                    <Tooltip title={cellTooltip(cell, t)}>
+                      <TableCell
+                        key={cell.value}
+                        {...cell.getCellProps()}
+                        onClick={() => {
+                          setSelectedCell(cell.value);
+                        }}
+                        classes={{
+                          body: cellBg(cell, classes),
+                        }}
+                      >
+                        {cell.render("Cell")}
+                      </TableCell>
+                    </Tooltip>
                   );
                 })}
               </TableRow>

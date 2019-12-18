@@ -10,6 +10,7 @@ export default {
         save: "Sauver",
         submit: "Envoyez",
         loading: "En cours",
+        seeOnDhis2: "Voir sur dhis2",
       },
       noData: "N/D",
       emptySection: {
@@ -97,6 +98,12 @@ export default {
         toggleFilters: "Montrez / cachez les filtres",
         toggleSearch: "Afficher / masquer la recherche",
         toggleInfo: "Afficher / masquer les infos",
+        cell: {
+          noData: "Pas de données disponibles",
+          input: "Ceci est une entrée. Cliquez pour voir les détails",
+          output: "Ceci est une sortie. Cliquez pour voir les détails",
+          default: "Cliquez pour voir les détails",
+        },
       },
       filtersSheet: {
         title: "Filtres",

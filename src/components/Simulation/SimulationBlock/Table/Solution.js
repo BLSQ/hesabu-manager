@@ -1,38 +1,24 @@
 import React from "react";
-import { numberFormatter } from "../../../../lib/formatters";
+import { useTranslation } from "react-i18next";
+import { Tooltip } from "@material-ui/core";
 
-const Solution = function(props) {
-  const safeData = props.rowData || {};
-  let formattedSolution;
-  let rounded;
+const Solution = props => {
+  const { cell } = props;
 
-  if (safeData.solution === undefined) {
-    formattedSolution = "";
-    rounded = false;
-  } else {
-    formattedSolution = numberFormatter.format(safeData.solution);
-    rounded = parseFloat(formattedSolution) !== parseFloat(safeData.solution);
+  const { t } = useTranslation();
+
+  if (!cell) {
+    return t("noData");
   }
 
-  return (
-    <>
-      {rounded && (
-        <span
-          title={`Rounded for ${safeData.solution}`}
-          className="text-danger"
-          role="button"
-        >
-          *
-        </span>
-      )}
+  const { value } = cell;
 
-      {safeData.not_exported ? (
-        <del>{formattedSolution}</del>
-      ) : (
-        formattedSolution
-      )}
-    </>
-  );
+  // Basically the topic name
+  if (!cell.instantiated_expression) {
+    return value;
+  }
+
+  return cell.not_exported ? <del>{value}</del> : value;
 };
 
 export default Solution;

@@ -3,11 +3,12 @@ import { KeyNumberBlock } from "@blsq/manager-ui";
 import humanize from "string-humanize";
 import { makeStyles } from "@material-ui/styles";
 import classNames from "classnames";
+import PropTypes from "prop-types";
 import Table from "../Table";
 
 const useStyles = makeStyles(theme => ({
   root: {
-    marginBottom: theme.spacing(6),
+    marginBottom: theme.spacing(8),
   },
   keyNumbers: {
     margin: theme.spacing(0, 2, 2, 0),
@@ -32,6 +33,12 @@ const PeriodView = props => {
       <Table periodView={periodView} setSelectedCell={setSelectedCell} />
     </div>
   );
+};
+
+PeriodView.propTypes = {
+  className: PropTypes.string,
+  periodView: PropTypes.object,
+  setSelectedCell: PropTypes.func,
 };
 
 export default PeriodView;

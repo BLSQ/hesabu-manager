@@ -1,10 +1,12 @@
-import React from "react";
+import React, { Fragment } from "react";
 import PropTypes from "prop-types";
 import humanize from "string-humanize";
-import { Tab, Tabs, Typography } from "@material-ui/core";
+import { Tab, Tabs, Typography, Button } from "@material-ui/core";
 import kebabCase from "lodash/kebabCase";
 import { useTranslation } from "react-i18next";
+import { Dhis2Icon } from "@blsq/manager-ui";
 import useStyles from "./styles";
+import ViewOnDhis2Btn from "./ViewOnDhis2Btn";
 
 function a11yProps(index, title) {
   const tag = kebabCase(title);
@@ -60,27 +62,32 @@ const ExpandableCellContent = props => {
       <Typography variant="h6" className={classes.title}>
         {humanize(cell.key)}
       </Typography>
-      <ExpandableCellTabs onChange={handleChange} value={value} />
-      {value === 0 && (
-        <div>
-          <code>
-            <pre>{cell.expression}</pre>
-          </code>
-        </div>
-      )}
-      {value === 1 && (
-        <div>
-          <code>
-            <pre>{cell.substituted}</pre>
-          </code>
-        </div>
-      )}
-      {value === 2 && (
-        <div>
-          <code>
-            <pre>{cell.instantiated_expression}</pre>
-          </code>
-        </div>
+      <ViewOnDhis2Btn cell={cell} />
+      {cell.expression && (
+        <Fragment>
+          <ExpandableCellTabs onChange={handleChange} value={value} />
+          {value === 0 && (
+            <div>
+              <code>
+                <pre>{cell.expression}</pre>
+              </code>
+            </div>
+          )}
+          {value === 1 && (
+            <div>
+              <code>
+                <pre>{cell.substituted}</pre>
+              </code>
+            </div>
+          )}
+          {value === 2 && (
+            <div>
+              <code>
+                <pre>{cell.instantiated_expression}</pre>
+              </code>
+            </div>
+          )}
+        </Fragment>
       )}
     </div>
   );

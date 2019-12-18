@@ -13,7 +13,7 @@ const useStyles = makeStyles(theme => ({
 const Header = function(props) {
   const classes = useStyles(props);
   return (
-    <Typography variant="h6" className={classes.root}>
+    <Typography variant="h5" className={classes.root}>
       {humanize(props.title)}
     </Typography>
   );
