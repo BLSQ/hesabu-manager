@@ -19,6 +19,7 @@ end
 
 before do
   response.headers['Access-Control-Allow-Origin'] = '*'
+  content_type 'application/vnd.api+json;version=2'
 end
 
 get '/' do
@@ -26,13 +27,20 @@ get '/' do
 end
 
 get '/api/simulations' do
-  content_type :json
   File.read("data/simulations.json")
 end
 
 get '/api/project' do
-  content_type :json
+  puts "TOKEN: #{request.env["HTTP_X_TOKEN"]}"
+  puts "Accept: #{request.env["HTTP_ACCEPT"]}"
   File.read("data/project.json")
+end
+
+options "*" do
+    response.headers["Allow"] = "GET, PUT, POST, DELETE, OPTIONS"
+    response.headers["Access-Control-Allow-Headers"] = "Authorization, Content-Type, Accept, X-Token"
+    response.headers["Access-Control-Allow-Origin"] = "*"
+    200
 end
 
 # Filter to a specific simulation
@@ -51,7 +59,6 @@ get '/api/simulation' do
 end
 
 get %r{/api/simulations/([0-9]+)} do |identifier|
-  content_type :json
   periods = params[:periods]
   if path = Dir.glob("data/*#{identifier}.json").first
     File.read(path)
@@ -61,7 +68,7 @@ get %r{/api/simulations/([0-9]+)} do |identifier|
 end
 
 get '/s3/results/:identifier.json' do |identifier|
-  content_type :json
+  content_type 'json'
   if path = Dir.glob("data/s3/*#{identifier}.json").first
     File.read(path)
   else
@@ -73,7 +80,6 @@ end
 # With a ?term will filter on name
 # With a ?id will filter on id
 get '/api/org_units' do
-  content_type :json
   all_json = File.read("data/all_orgunits.json")
   if id = params[:id]
     units = JSON.parse(all_json)["data"]
