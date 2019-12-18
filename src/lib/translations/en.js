@@ -11,6 +11,7 @@ export default {
         save: "Save",
         submit: "Submit",
         loading: "Loading",
+        seeOnDhis2: "See on dhis2",
       },
       noData: "N/A",
       emptySection: {

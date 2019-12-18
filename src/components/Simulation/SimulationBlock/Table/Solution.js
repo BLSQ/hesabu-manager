@@ -1,5 +1,6 @@
-import React, { Fragment } from "react";
+import React from "react";
 import { useTranslation } from "react-i18next";
+import { Tooltip } from "@material-ui/core";
 
 const Solution = props => {
   const { cell } = props;
@@ -12,11 +13,12 @@ const Solution = props => {
 
   const { value } = cell;
 
+  // Basically the topic name
   if (!cell.instantiated_expression) {
     return value;
   }
 
-  return value.not_exported ? <del>{value}</del> : value;
+  return cell.not_exported ? <del>{value}</del> : value;
 };
 
 export default Solution;

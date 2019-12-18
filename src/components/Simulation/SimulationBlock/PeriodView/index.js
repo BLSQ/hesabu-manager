@@ -8,7 +8,7 @@ import Table from "../Table";
 
 const useStyles = makeStyles(theme => ({
   root: {
-    marginBottom: theme.spacing(6),
+    marginBottom: theme.spacing(8),
   },
   keyNumbers: {
     margin: theme.spacing(0, 2, 2, 0),
@@ -36,7 +36,7 @@ const PeriodView = props => {
 };
 
 PeriodView.propTypes = {
-  className: PropTypes.object,
+  className: PropTypes.string,
   periodView: PropTypes.object,
   setSelectedCell: PropTypes.func,
 };

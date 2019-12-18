@@ -1,6 +1,7 @@
 import { makeStyles } from "@material-ui/styles";
 import yellow from "@material-ui/core/colors/yellow";
 import green from "@material-ui/core/colors/green";
+import { fade } from "@material-ui/core/styles/colorManipulator";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -9,17 +10,26 @@ const useStyles = makeStyles(theme => ({
   },
   table: {
     width: "95vw",
+    "& tr:nth-child(even)": {
+      background: "#F5F5F5",
+    },
+    "& td": {
+      border: "none",
+    },
+    "& th": {
+      whiteSpace: "nowrap",
+    },
     "& td:hover": {
-      background: "#efefef",
+      background: "#e4e4e4",
       cursor: "pointer",
     },
   },
   is_input: {
-    background: yellow[50],
+    background: fade(yellow[50], 0.5),
     color: yellow[900],
   },
   is_output: {
-    background: green[50],
+    background: fade(green[50], 0.5),
     color: green[900],
   },
 }));

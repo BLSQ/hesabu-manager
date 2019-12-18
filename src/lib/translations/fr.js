@@ -10,6 +10,7 @@ export default {
         save: "Sauver",
         submit: "Envoyez",
         loading: "En cours",
+        seeOnDhis2: "Voir sur dhis2",
       },
       noData: "N/D",
       emptySection: {

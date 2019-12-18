@@ -6,6 +6,7 @@ import {
   TableCell,
   TableBody,
   TableRow,
+  Tooltip,
 } from "@material-ui/core";
 import { useTable } from "react-table";
 import { useTranslation } from "react-i18next";
@@ -41,7 +42,7 @@ const prepareData = items => {
 
 const cellBg = (cell, classes) => {
   if (!cell.value) {
-    return undefined;
+    return "";
   }
   if (cell.value.is_input) {
     return classes.is_input;
@@ -49,7 +50,21 @@ const cellBg = (cell, classes) => {
   if (cell.value.is_output) {
     return classes.is_output;
   }
-  return {};
+  return "";
+};
+
+const cellTooltip = cell => {
+  if (!cell || !cell.value) {
+    return "No data available";
+  }
+  if (cell.value.is_input) {
+    return "This is an input. Click to see details";
+  }
+  if (cell.value.is_output) {
+    return "This is an output. Click to see details";
+  }
+
+  return "Click to see detail";
 };
 
 const Table = props => {
@@ -102,18 +117,20 @@ const Table = props => {
               <TableRow key={i} {...row.getRowProps()}>
                 {row.cells.map(cell => {
                   return (
-                    <TableCell
-                      key={cell.value}
-                      {...cell.getCellProps()}
-                      onClick={() => {
-                        setSelectedCell(cell.value);
-                      }}
-                      classes={{
-                        body: cellBg(cell, classes),
-                      }}
-                    >
-                      {cell.render("Cell")}
-                    </TableCell>
+                    <Tooltip title={cellTooltip(cell)}>
+                      <TableCell
+                        key={cell.value}
+                        {...cell.getCellProps()}
+                        onClick={() => {
+                          setSelectedCell(cell.value);
+                        }}
+                        classes={{
+                          body: cellBg(cell, classes),
+                        }}
+                      >
+                        {cell.render("Cell")}
+                      </TableCell>
+                    </Tooltip>
                   );
                 })}
               </TableRow>
