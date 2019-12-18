@@ -1,3 +1,15 @@
+# [1.4.0](https://github.com/BLSQ/hesabu-manager/compare/v1.3.0...v1.4.0) (2019-12-18)
+
+
+### Features
+
+* Add /api/project for current project information ([#27](https://github.com/BLSQ/hesabu-manager/issues/27)) ([0da5dbc](https://github.com/BLSQ/hesabu-manager/commit/0da5dbc526dce027fd935899a4ddc7862b025408))
+* Add `simulations` endpoint and direct link for simulations ([#24](https://github.com/BLSQ/hesabu-manager/issues/24)) ([a519c73](https://github.com/BLSQ/hesabu-manager/commit/a519c73089db4a14f35ecf80729e5d27aaec38d3))
+* Add autocomplete endpoint to mock server ([#25](https://github.com/BLSQ/hesabu-manager/issues/25)) ([879b267](https://github.com/BLSQ/hesabu-manager/commit/879b267d1a26503e4838e6b8671a9cc60d93316d))
+* Add basic cell explanation cell content ([#23](https://github.com/BLSQ/hesabu-manager/issues/23)) ([db80a11](https://github.com/BLSQ/hesabu-manager/commit/db80a11eb7463c461b495f8342380104dd1d3eef))
+* Add simulation url based filters ([#26](https://github.com/BLSQ/hesabu-manager/issues/26)) ([12d4e32](https://github.com/BLSQ/hesabu-manager/commit/12d4e3214f7b2e874487b6765653226986f945a6))
+* Make a better cell explanation panel ([#29](https://github.com/BLSQ/hesabu-manager/issues/29)) ([b088d8b](https://github.com/BLSQ/hesabu-manager/commit/b088d8ba74d608dacf1f7df6192f20fe453157a5))
+
 # [1.3.0](https://github.com/BLSQ/hesabu-manager/compare/v1.2.0...v1.3.0) (2019-12-05)
 
 
