@@ -4,6 +4,7 @@
     "type": "invoicingJob",
     "attributes": {
       "orgUnit": "AOsKyLAjVWH",
+      "orgUnitName": "COSPRO ECC KALEMIE 1",
       "dhis2Period": "2019Q1",
       "user": null,
       "createdAt": "2019-11-21T08:51:41.010Z",

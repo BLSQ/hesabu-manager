@@ -5,6 +5,7 @@
       "type": "invoicingJob",
       "attributes": {
         "orgUnit": "AOsKyLAjVWH",
+        "orgUnitName": "COSPRO ECC KALEMIE 1",
         "dhis2Period": "2016Q1",
         "user": null,
         "createdAt": "2019-11-21T08:51:41.010Z",
@@ -23,6 +24,7 @@
       "type": "invoicingJob",
       "attributes": {
         "orgUnit": "BOsKyLAjVWH",
+        "orgUnitName": "COSPRO ECC KALEMIE 2",
         "dhis2Period": "2019Q2",
         "user": null,
         "createdAt": "2019-11-21T08:51:41.010Z",
@@ -41,6 +43,7 @@
       "type": "invoicingJob",
       "attributes": {
         "orgUnit": "COsKyLAjVWH",
+        "orgUnitName": "COSPRO With Error",
         "dhis2Period": "2018Q1",
         "user": null,
         "createdAt": "2019-11-21T08:51:41.010Z",
@@ -60,6 +63,7 @@
       "attributes": {
         "orgUnit": "AOsKyLAjVWH",
         "dhis2Period": "2018Q3",
+        "orgUnitName": "COSPRO (Pending)",
         "user": null,
         "createdAt": "2019-11-21T08:51:41.010Z",
         "processedAt": "",
