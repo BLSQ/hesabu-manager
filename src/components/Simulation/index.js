@@ -82,6 +82,7 @@ export const Simulation = props => {
           </Fragment>
         )}
         <SimulationResultStatus
+          newSim={!props.valuesFromParams.length}
           simulation={simulation}
           errorMessage={errorMessage}
         />

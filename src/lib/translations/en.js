@@ -91,6 +91,9 @@ export default {
         errored: {
           title: "Simulation generation failed",
         },
+        new: {
+          title: "Your simulation will appear here once you submit the form",
+        },
       },
       tooltips: {
         backToDhis2: "Back to Dhis2",
