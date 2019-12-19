@@ -20,7 +20,7 @@ const SimulationListItem = props => {
     attributes: {
       createdAt,
       durationMs,
-      name: title,
+      orgUnitName: title,
       dhis2Period: period,
       orgUnit,
     },
@@ -34,7 +34,7 @@ const SimulationListItem = props => {
         to={`/simulation?periods=${period.trim()}&orgUnit=${orgUnit}`}
         className={classes.sectionTitle}
       >
-        {id}
+        {title}
       </Typography>
       <HorizontalBulletList className={classes.subtitle}>
         <Typography component="li" variant="body2">
