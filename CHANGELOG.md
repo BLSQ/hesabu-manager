@@ -1,3 +1,10 @@
+# [1.5.0](https://github.com/BLSQ/hesabu-manager/compare/v1.4.0...v1.5.0) (2019-12-19)
+
+
+### Features
+
+* Add new simulation button on sim index page ([00dd2b8](https://github.com/BLSQ/hesabu-manager/commit/00dd2b86d765f48eed00782ca740912fae5fcc90))
+
 # [1.4.0](https://github.com/BLSQ/hesabu-manager/compare/v1.3.0...v1.4.0) (2019-12-18)
 
 
