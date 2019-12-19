@@ -4,6 +4,7 @@ import React, { useState, useEffect, Fragment } from "react";
 import PropTypes from "prop-types";
 import { useHistory } from "react-router-dom";
 import { withTranslation } from "react-i18next";
+import isEmpty from "lodash/isEmpty";
 import TopBar from "../Shared/TopBar";
 import FiltersToggleBtn from "../FiltersToggleBtn";
 import SimulationBlocks from "./SimulationBlocks";
@@ -12,7 +13,6 @@ import SimulationFilters from "./Filters";
 import PageContent from "../Shared/PageContent";
 import useStyles from "./styles";
 import ExpandableCellContent from "./ExpandableCellContent";
-
 import SimulationResultStatus from "./SimulationResultStatus";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -82,7 +82,7 @@ export const Simulation = props => {
           </Fragment>
         )}
         <SimulationResultStatus
-          newSim={!props.valuesFromParams.length}
+          newSim={isEmpty(props.valuesFromParams)}
           simulation={simulation}
           errorMessage={errorMessage}
         />
