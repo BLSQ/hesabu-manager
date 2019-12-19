@@ -9,8 +9,8 @@ import humanizeDuration from "humanize-duration";
 import { DuoToneChip, HorizontalBulletList } from "@blsq/manager-ui";
 import useStyles from "./styles";
 
-const humanDuration = seconds => {
-  return humanizeDuration(seconds * 1000);
+const humanDuration = milliSeconds => {
+  return humanizeDuration(milliSeconds);
 };
 
 const SimulationListItem = props => {
