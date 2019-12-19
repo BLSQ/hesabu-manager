@@ -8,7 +8,7 @@ import useStyles from "./styles";
 import EmptySection from "../../EmptySection";
 
 const SimulationResultStatus = props => {
-  const { simulation, errorMessage } = props;
+  const { simulation, errorMessage, newSim } = props;
   const classes = useStyles();
   const { t } = useTranslation();
   if (simulation && simulation.attributes.status === "enqueued") {
@@ -37,6 +37,15 @@ const SimulationResultStatus = props => {
         >
           {simulation.attributes.lastError}
         </InfoBox>
+      </EmptySection>
+    );
+  }
+  if (newSim) {
+    return (
+      <EmptySection resourceName={t("resources.simulation")} variant="happy">
+        <Typography variant="h6">
+          {t("simulationResultStatus.new.title")}
+        </Typography>
       </EmptySection>
     );
   }

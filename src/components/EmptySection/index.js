@@ -27,7 +27,7 @@ const EmptySection = props => {
     <div className={classes.root}>
       <div className={classes.content}>
         <div className={classes.avatar}>
-          <HelpAvatar variant="sad" />
+          <HelpAvatar variant={props.variant === "happy" ? "happy" : "sad"} />
         </div>
         {props.children || (
           <>

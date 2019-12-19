@@ -16,11 +16,11 @@ const styles = theme => ({
 });
 
 const ActionFab = props => {
-  const { classes, match } = props;
+  const { classes, match, extended } = props;
 
   return (
     <Fab
-      variant="extended"
+      variant={extended ? "extended" : "round"}
       aria-label="Delete"
       color="secondary"
       className={classes.button}

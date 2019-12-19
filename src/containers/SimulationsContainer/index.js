@@ -11,6 +11,7 @@ import FiltersToggleBtn from "../../components/FiltersToggleBtn";
 import useStyles from "./styles";
 import { formattedName } from "../../utils/textUtils";
 import { externalApi } from "../../actions/api";
+import ActionFab from "../../components/Shared/ActionFab";
 
 const SimulationsContainer = props => {
   const classes = useStyles();
@@ -60,6 +61,7 @@ const SimulationsContainer = props => {
           </InfoBox>
         )}
         <SimulationList simulations={simulations} />
+        <ActionFab to="/simulation" />
       </PageContent>
       <SideSheet
         title={t("filtersSheet.title")}

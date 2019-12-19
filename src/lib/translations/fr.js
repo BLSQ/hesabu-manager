@@ -92,6 +92,10 @@ export default {
         errored: {
           title: "La génération de simulation a échoué",
         },
+        new: {
+          title:
+            "Votre simulation apparaîtra ici une fois que vous aurez soumis le formulaire",
+        },
       },
       tooltips: {
         backToDhis2: "Retour à Dhis2",
