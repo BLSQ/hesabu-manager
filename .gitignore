@@ -26,3 +26,4 @@ yarn-error.log*
 # I, pj, still vendor my ruby gems in the directory of the
 # application, this stops me from committing them here.
 mock-server/vendor/ruby
+Hesabu.zip
