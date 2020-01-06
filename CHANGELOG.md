@@ -1,3 +1,16 @@
+# [1.6.0](https://github.com/BLSQ/hesabu-manager/compare/v1.5.0...v1.6.0) (2020-01-06)
+
+
+### Bug Fixes
+
+* Duration is returned in milliseconds ([#31](https://github.com/BLSQ/hesabu-manager/issues/31)) ([f63bab2](https://github.com/BLSQ/hesabu-manager/commit/f63bab2801ddc66c54129b9a4813fcdfb6025f2a))
+* Simulation error now display properly ([18ca651](https://github.com/BLSQ/hesabu-manager/commit/18ca6518ebeec769080ab14e6789214a1d2ce75c))
+
+
+### Features
+
+* Display currently selected cell on simulation page ([#34](https://github.com/BLSQ/hesabu-manager/issues/34)) ([246bb4a](https://github.com/BLSQ/hesabu-manager/commit/246bb4abad0333ea98b727dc959529588866e746))
+
 # [1.5.0](https://github.com/BLSQ/hesabu-manager/compare/v1.4.0...v1.5.0) (2019-12-19)
 
 
