@@ -7,8 +7,6 @@ function api(
   },
   action,
 ) {
-  console.log("API", { state });
-
   switch (action.type) {
     case RECEIVE_TOKEN:
       return { ...state, token: action.token };

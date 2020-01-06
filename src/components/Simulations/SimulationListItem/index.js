@@ -16,7 +16,6 @@ const humanDuration = milliSeconds => {
 const SimulationListItem = props => {
   const classes = useStyles();
   const {
-    id,
     attributes: {
       createdAt,
       durationMs,

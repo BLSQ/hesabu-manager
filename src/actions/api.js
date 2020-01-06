@@ -2,7 +2,6 @@ import wretch from "wretch";
 import { RECEIVE_TOKEN, RECEIVE_TOKEN_ERROR } from "../constants/types";
 
 import i18n from "../lib/i18n";
-import store from "../store";
 
 export const receiveToken = token => ({
   type: RECEIVE_TOKEN,

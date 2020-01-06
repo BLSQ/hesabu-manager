@@ -9,7 +9,7 @@ import TopBar from "../Shared/TopBar";
 import FiltersToggleBtn from "../FiltersToggleBtn";
 import SimulationBlocks from "./SimulationBlocks";
 import SideSheet from "../SideSheet";
-import SimulationFilters from "./Filters";
+import Filters from "./Filters";
 import PageContent from "../Shared/PageContent";
 import useStyles from "./styles";
 import ExpandableCellContent from "./ExpandableCellContent";
@@ -97,7 +97,7 @@ export const Simulation = props => {
         onClose={handleToggleSideSheet}
         variant="big"
       >
-        <SimulationFilters loading={loading} values={props.valuesFromParams} />
+        <Filters loading={loading} values={props.valuesFromParams} />
       </SideSheet>
     </Dialog>
   );
@@ -107,7 +107,6 @@ Simulation.propTypes = {
   errorMessage: PropTypes.string,
   history: PropTypes.object,
   id: PropTypes.string,
-  sets: PropTypes.array,
   loading: PropTypes.bool,
   name: PropTypes.string,
   open: PropTypes.bool,
@@ -116,12 +115,14 @@ Simulation.propTypes = {
   }),
   period: PropTypes.string,
   request: PropTypes.object,
+  sets: PropTypes.array,
   simulation: PropTypes.shape({
     id: PropTypes.string,
     name: PropTypes.string,
     period: PropTypes.string,
   }),
   t: PropTypes.func,
+  valuesFromParams: PropTypes.object,
 };
 
 export default withTranslation("translations")(Simulation);

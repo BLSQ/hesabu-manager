@@ -75,9 +75,10 @@ const Table = props => {
   const classes = useStyles(props);
   const { t } = useTranslation();
 
-  const columns = React.useMemo(() => prepareHeaders(activityItems, t));
+  const columns = prepareHeaders(activityItems, t);
 
-  const data = React.useMemo(() => prepareData(activityItems, t));
+  const data = prepareData(activityItems, t);
+
   const {
     headerGroups,
     getTableProps,
