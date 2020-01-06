@@ -14,6 +14,9 @@ import PropTypes from "prop-types";
 import Solution from "./Solution";
 import { sortCollator } from "../../../../lib/formatters";
 import useStyles from "./styles";
+import { connect } from "react-redux";
+import { setSelectedCell } from "../../../../actions/ui";
+import classNames from "classnames";
 
 const prepareHeaders = (collection, t) => {
   return collection
@@ -40,17 +43,16 @@ const prepareData = items => {
   return items.sort((a, b) => sortCollator.compare(a.key, b.key));
 };
 
-const cellBg = (cell, classes) => {
-  if (!cell.value) {
+const cellBg = (cell, classes, isCurrent = false) => {
+  if (cell.value) {
+    return classNames({
+      [classes.is_input]: cell.value.is_input,
+      [classes.is_output]: cell.value.is_output,
+      [classes.is_current]: isCurrent,
+    });
+  } else {
     return "";
   }
-  if (cell.value.is_input) {
-    return classes.is_input;
-  }
-  if (cell.value.is_output) {
-    return classes.is_output;
-  }
-  return "";
 };
 
 const cellTooltip = (cell, t) => {
@@ -71,6 +73,7 @@ const Table = props => {
   const {
     periodView: { activity_items: activityItems },
     setSelectedCell,
+    selectedCell,
   } = props;
   const classes = useStyles(props);
   const { t } = useTranslation();
@@ -117,16 +120,22 @@ const Table = props => {
             return (
               <TableRow key={i} {...row.getRowProps()}>
                 {row.cells.map(cell => {
+                  const cellProps = cell.getCellProps();
                   return (
                     <Tooltip title={cellTooltip(cell, t)}>
                       <TableCell
                         key={cell.value}
-                        {...cell.getCellProps()}
+                        {...cellProps}
                         onClick={() => {
                           setSelectedCell(cell.value);
                         }}
                         classes={{
-                          body: cellBg(cell, classes),
+                          body: cellBg(
+                            cell,
+                            classes,
+                            selectedCell &&
+                              (cell.value || {}).key === selectedCell.key,
+                          ),
                         }}
                       >
                         {cell.render("Cell")}
@@ -148,4 +157,8 @@ Table.propTypes = {
   periodView: PropTypes.object,
 };
 
-export default Table;
+const mapStateToProps = state => ({
+  selectedCell: state.ui.selectedCell,
+});
+
+export default connect(mapStateToProps, { setSelectedCell })(Table);
