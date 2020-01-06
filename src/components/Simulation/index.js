@@ -5,6 +5,7 @@ import PropTypes from "prop-types";
 import { useHistory } from "react-router-dom";
 import { withTranslation } from "react-i18next";
 import isEmpty from "lodash/isEmpty";
+import { connect } from "react-redux";
 import TopBar from "../Shared/TopBar";
 import FiltersToggleBtn from "../FiltersToggleBtn";
 import SimulationBlocks from "./SimulationBlocks";
@@ -14,7 +15,6 @@ import PageContent from "../Shared/PageContent";
 import useStyles from "./styles";
 import ExpandableCellContent from "./ExpandableCellContent";
 import SimulationResultStatus from "./SimulationResultStatus";
-
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
@@ -24,7 +24,7 @@ export const Simulation = props => {
   const history = useHistory();
   const [sideSheetOpen, setSideSheetOpen] = useState(false);
   const [bottomSheetOpen, setBottomSheetOpen] = useState(false);
-  const [selectedCell, setSelectedCell] = useState(null);
+  const { selectedCell } = props;
 
   const { errorMessage, t, open, simulation, loading } = props;
   const handleToggleSideSheet = () => setSideSheetOpen(!sideSheetOpen);
@@ -68,10 +68,7 @@ export const Simulation = props => {
       <PageContent fullscreen>
         {simulation && simulation.attributes.status === "processed" && (
           <Fragment>
-            <SimulationBlocks
-              resultUrl={simulation.attributes.resultUrl}
-              setSelectedCell={setSelectedCell}
-            />
+            <SimulationBlocks resultUrl={simulation.attributes.resultUrl} />
             <ExpandableBottomSheet
               open={bottomSheetOpen}
               onOpen={openBottomSheet}
@@ -125,4 +122,10 @@ Simulation.propTypes = {
   valuesFromParams: PropTypes.object,
 };
 
-export default withTranslation("translations")(Simulation);
+const mapStateToProps = state => ({
+  selectedCell: state.ui.selectedCell,
+});
+
+export default connect(mapStateToProps)(
+  withTranslation("translations")(Simulation),
+);
