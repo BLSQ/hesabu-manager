@@ -17,7 +17,6 @@ import { externalApi } from "./actions/api";
 import i18n from "./lib/i18n";
 import theme from "./utils/theme";
 import { toggleDrawer } from "./actions/ui";
-import { setLocaleFromProject } from "./lib/setLocaleFromProject";
 import store from "./store";
 import registerServiceWorker from "./registerServiceWorker";
 import { CookiesProvider } from "react-cookie";
@@ -77,7 +76,6 @@ class App extends Component {
               ...response.data,
               ...attrs,
             });
-            // setLocaleFromProject(project);
             this.setState({ visible: true });
           }, 300);
         });

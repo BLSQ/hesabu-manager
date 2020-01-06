@@ -2,13 +2,14 @@ import React, { useEffect, useState } from "react";
 import groupBy from "lodash/groupBy";
 import PropTypes from "prop-types";
 import wretch from "wretch";
+import { CircularProgress } from "@material-ui/core";
 import SimulationBlock from "./SimulationBlock";
 
 const SimulationBlocks = props => {
   const [data, setData] = useState(undefined);
   // #TODO add some loading states
-  const [_error, setError] = useState(null);
-  const [_loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const setsByCode = groupBy((data || {}).invoices, "code");
 
@@ -32,6 +33,14 @@ const SimulationBlocks = props => {
   }, [props.resultUrl]);
 
   const { setSelectedCell } = props;
+
+  if (loading) {
+    return <CircularProgress />;
+  }
+
+  if (error) {
+    return <p>{error}</p>;
+  }
 
   return Object.keys(setsByCode).map(key => {
     const periodViews = setsByCode[key];

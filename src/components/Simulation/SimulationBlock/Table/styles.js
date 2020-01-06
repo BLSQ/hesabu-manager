@@ -24,6 +24,10 @@ const useStyles = makeStyles(theme => ({
       cursor: "pointer",
     },
   },
+  is_current: {
+    background: `${theme.palette.primary.main} !important`,
+    color: "white !important",
+  },
   is_input: {
     background: fade(yellow[50], 0.5),
     color: yellow[900],

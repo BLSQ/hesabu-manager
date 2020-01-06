@@ -9,18 +9,17 @@ import humanizeDuration from "humanize-duration";
 import { DuoToneChip, HorizontalBulletList } from "@blsq/manager-ui";
 import useStyles from "./styles";
 
-const humanDuration = seconds => {
-  return humanizeDuration(seconds * 1000);
+const humanDuration = milliSeconds => {
+  return humanizeDuration(milliSeconds);
 };
 
 const SimulationListItem = props => {
   const classes = useStyles();
   const {
-    id,
     attributes: {
       createdAt,
       durationMs,
-      name: title,
+      orgUnitName: title,
       dhis2Period: period,
       orgUnit,
     },
@@ -34,7 +33,7 @@ const SimulationListItem = props => {
         to={`/simulation?periods=${period.trim()}&orgUnit=${orgUnit}`}
         className={classes.sectionTitle}
       >
-        {id}
+        {title}
       </Typography>
       <HorizontalBulletList className={classes.subtitle}>
         <Typography component="li" variant="body2">

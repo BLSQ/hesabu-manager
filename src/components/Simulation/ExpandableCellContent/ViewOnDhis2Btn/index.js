@@ -1,8 +1,6 @@
-import React, { Fragment } from "react";
+import React from "react";
 import PropTypes from "prop-types";
-import humanize from "string-humanize";
-import { Typography, Button, makeStyles } from "@material-ui/core";
-import kebabCase from "lodash/kebabCase";
+import { Button, makeStyles } from "@material-ui/core";
 import { useTranslation } from "react-i18next";
 import { Dhis2Icon } from "@blsq/manager-ui";
 
@@ -56,6 +54,8 @@ const ViewOnDhis2Btn = props => {
   );
 };
 
-ViewOnDhis2Btn.propTypes = {};
+ViewOnDhis2Btn.propTypes = {
+  cell: PropTypes.object,
+};
 
 export default ViewOnDhis2Btn;

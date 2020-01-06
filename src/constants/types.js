@@ -6,6 +6,7 @@ export const RECEIVE_TOKEN = "received_token";
 export const RECEIVE_TOKEN_ERROR = "received_token_error";
 
 export const TOGGLE_DRAWER = "toggle_drawer";
+export const SET_SELECTED_CELL = "SET_SELECTED_CELL";
 
 export const REQUEST_PROJECT = "REQUEST_PROJECT";
 export const RECEIVE_PROJECT = "RECEIVE_PROJECT";
