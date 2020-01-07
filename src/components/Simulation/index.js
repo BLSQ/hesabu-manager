@@ -41,7 +41,9 @@ export const Simulation = props => {
   const openBottomSheet = () => setBottomSheetOpen(true);
   const closeBottomSheet = () => setBottomSheetOpen(false);
 
-  let title;
+  let title = simulation
+    ? `${simulation.attributes.orgUnitName} @ ${simulation.attributes.dhis2Period}`
+    : "...";
 
   useEffect(() => {
     if (selectedCell && !bottomSheetOpen) {
