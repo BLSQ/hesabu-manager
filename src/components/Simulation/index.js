@@ -27,7 +27,17 @@ export const Simulation = props => {
   const { selectedCell } = props;
 
   const { errorMessage, t, open, simulation, loading } = props;
-  const handleToggleSideSheet = () => setSideSheetOpen(!sideSheetOpen);
+  const handleToggleSideSheet = () => {
+    if (sideSheetOpen) {
+      if (selectedCell) {
+        setBottomSheetOpen(true);
+      }
+      setSideSheetOpen(false);
+    } else {
+      setBottomSheetOpen(false);
+      setSideSheetOpen(true);
+    }
+  };
   const openBottomSheet = () => setBottomSheetOpen(true);
   const closeBottomSheet = () => setBottomSheetOpen(false);
 
