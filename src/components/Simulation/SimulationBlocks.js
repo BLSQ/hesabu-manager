@@ -32,8 +32,6 @@ const SimulationBlocks = props => {
       });
   }, [props.resultUrl]);
 
-  const { setSelectedCell } = props;
-
   if (loading) {
     return <CircularProgress />;
   }
@@ -44,20 +42,12 @@ const SimulationBlocks = props => {
 
   return Object.keys(setsByCode).map(key => {
     const periodViews = setsByCode[key];
-    return (
-      <SimulationBlock
-        key={key}
-        title={key}
-        periodViews={periodViews}
-        setSelectedCell={setSelectedCell}
-      />
-    );
+    return <SimulationBlock key={key} title={key} periodViews={periodViews} />;
   });
 };
 
 SimulationBlocks.propTypes = {
   periodViews: PropTypes.array,
-  setSelectedCell: PropTypes.func,
 };
 
 export default SimulationBlocks;

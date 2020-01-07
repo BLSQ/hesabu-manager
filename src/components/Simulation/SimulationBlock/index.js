@@ -16,7 +16,7 @@ function a11yProps(index, title) {
 }
 
 const SimulationBlock = props => {
-  const { title, periodViews, setSelectedCell } = props;
+  const { title, periodViews } = props;
   const [value, setValue] = React.useState(0);
   const classes = useStyles();
 
@@ -53,7 +53,6 @@ const SimulationBlock = props => {
               periodView.code,
             ].join("-")}
             periodView={periodView}
-            setSelectedCell={setSelectedCell}
             className={classNames({ [classes.hidden]: index !== value })}
           />
         );
@@ -65,7 +64,6 @@ const SimulationBlock = props => {
 SimulationBlock.propTypes = {
   periodViews: PropTypes.array,
   title: PropTypes.string,
-  setSelectedCell: PropTypes.func,
 };
 
 export default SimulationBlock;

@@ -44,7 +44,7 @@ const prepareData = items => {
 };
 
 function isTopic(cellValue) {
-  return !cellValue.hasOwnProperty("is_input");
+  return cellValue && !cellValue.hasOwnProperty("is_input");
 }
 
 const cellBg = (cell, classes, isCurrent = false) => {

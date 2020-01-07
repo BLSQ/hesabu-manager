@@ -8,7 +8,7 @@ import AceEditor from "react-ace";
 import useStyles from "./styles";
 import ViewOnDhis2Btn from "./ViewOnDhis2Btn";
 
-import "ace-builds/src-noconflict/mode-javascript";
+import "ace-builds/src-noconflict/mode-ruby";
 import "ace-builds/src-noconflict/theme-monokai";
 
 function a11yProps(index, title) {
@@ -49,7 +49,7 @@ function ExpandableCellTabs(props) {
 
 const Editor = props => (
   <AceEditor
-    mode="javascript"
+    mode="ruby"
     theme="monokai"
     value={props.value}
     readOnly

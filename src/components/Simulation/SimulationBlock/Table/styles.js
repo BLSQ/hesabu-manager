@@ -25,8 +25,9 @@ const useStyles = makeStyles(theme => ({
     },
   },
   is_current: {
-    background: `${theme.palette.primary.main} !important`,
-    color: "white !important",
+    outlineColor: fade(theme.palette.primary.main, 0.1),
+    outlineWidth: 5,
+    outlineStyle: "auto",
   },
   is_input: {
     background: fade(yellow[50], 0.5),
