@@ -43,6 +43,10 @@ const prepareData = items => {
   return items.sort((a, b) => sortCollator.compare(a.key, b.key));
 };
 
+function isTopic(cellValue) {
+  return !cellValue.hasOwnProperty("is_input");
+}
+
 const cellBg = (cell, classes, isCurrent = false) => {
   if (cell.value) {
     return classNames({
@@ -122,12 +126,18 @@ const Table = props => {
                 {row.cells.map(cell => {
                   const cellProps = cell.getCellProps();
                   return (
-                    <Tooltip title={cellTooltip(cell, t)}>
+                    <Tooltip
+                      title={cellTooltip(cell, t)}
+                      enterDelay={500}
+                      open={isTopic(cell.value || {}) ? false : undefined}
+                    >
                       <TableCell
                         key={cell.value}
                         {...cellProps}
                         onClick={() => {
-                          setSelectedCell(cell.value);
+                          if (!isTopic(cell.value)) {
+                            setSelectedCell(cell.value);
+                          }
                         }}
                         classes={{
                           body: cellBg(
