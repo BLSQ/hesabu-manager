@@ -1,4 +1,4 @@
-import { createMuiTheme } from "@material-ui/core";
+import { createMuiTheme, fade } from "@material-ui/core";
 
 const theme = createMuiTheme({
   typography: {
@@ -12,6 +12,15 @@ const theme = createMuiTheme({
   palette: {
     primary: { main: "#AB1441" },
     secondary: { main: "#EA622A" },
+  },
+  link: {
+    color: "#AB1441",
+    "&:hover": {
+      color: fade("#AB1441", 0.8),
+    },
+    "&:visited": {
+      color: fade("#AB1441", 0.5),
+    },
   },
 });
 

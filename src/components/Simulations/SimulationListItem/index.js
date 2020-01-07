@@ -8,6 +8,7 @@ import ReactTimeAgo from "react-time-ago";
 import humanizeDuration from "humanize-duration";
 import { DuoToneChip, HorizontalBulletList } from "@blsq/manager-ui";
 import useStyles from "./styles";
+import SimulationStateIcon from "../SimulationStateIcon";
 
 const humanDuration = milliSeconds => {
   return humanizeDuration(milliSeconds);
@@ -27,14 +28,17 @@ const SimulationListItem = props => {
 
   return (
     <div className={classes.root}>
-      <Typography
-        variant="h6"
-        component={Link}
-        to={`/simulation?periods=${period.trim()}&orgUnit=${orgUnit}`}
-        className={classes.sectionTitle}
-      >
-        {title}
-      </Typography>
+      <div className={classes.header}>
+        <SimulationStateIcon {...props.attributes} />
+        <Typography
+          variant="subtitle1"
+          component={Link}
+          to={`/simulation?periods=${period.trim()}&orgUnit=${orgUnit}`}
+          className={classes.sectionTitle}
+        >
+          {title}
+        </Typography>
+      </div>
       <HorizontalBulletList className={classes.subtitle}>
         <Typography component="li" variant="body2">
           <ReactTimeAgo date={createdAt} />
