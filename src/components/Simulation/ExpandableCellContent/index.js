@@ -65,6 +65,7 @@ const ExpandableCellContent = props => {
   const [value, setValue] = React.useState(0);
   const classes = useStyles(props);
   const { t } = useTranslation();
+
   const handleChange = (_, newValue) => {
     setValue(newValue);
   };
@@ -74,7 +75,7 @@ const ExpandableCellContent = props => {
   }
 
   return (
-    <div style={{ paddingBottom: 100 }}>
+    <div className={classes.root}>
       <Typography variant="h6" className={classes.title}>
         {humanize(cell.key)}
       </Typography>
