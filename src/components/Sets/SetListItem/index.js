@@ -16,7 +16,7 @@ const SetListItem = props => {
         <Typography
           component={Link}
           to={`/sets/${id}/current_level`}
-          variant="h6"
+          variant="subtitle1"
           className={classes.sectionTitle}
         >
           {name}

@@ -8,9 +8,7 @@ export default makeStyles(theme => ({
     borderBottom: "1px solid #efefef",
     position: "relative",
   },
-  sectionTitle: {
-    marginBottom: theme.spacing(2),
-  },
+  sectionTitle: theme.link,
   groupChip: {
     marginRight: theme.spacing(1),
   },

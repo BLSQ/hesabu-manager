@@ -49,12 +49,13 @@ const SimulationListItem = props => {
       </HorizontalBulletList>
       <DuoToneChip
         label={orgUnit}
-        color="primary"
+        size="small"
         avatar={<LinkIcon />}
         className={classNames(classes.groupChip, classes.chips)}
       />
       <Chip
         label={period}
+        size="small"
         className={classNames(classes.periodChip, classes.chips)}
       />
     </div>
