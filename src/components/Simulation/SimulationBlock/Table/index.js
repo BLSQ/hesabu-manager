@@ -134,6 +134,7 @@ const Table = props => {
                       <TableCell
                         key={cell.value}
                         {...cellProps}
+                        tabIndex="0"
                         onClick={() => {
                           if (!isTopic(cell.value)) {
                             setSelectedCell(cell.value);
