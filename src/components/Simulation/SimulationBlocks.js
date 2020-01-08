@@ -10,7 +10,6 @@ const SimulationBlocks = props => {
   // #TODO add some loading states
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
-
   const setsByCode = groupBy((data || {}).invoices, "code");
 
   useEffect(() => {
@@ -40,10 +39,23 @@ const SimulationBlocks = props => {
     return <p>{error}</p>;
   }
 
-  return Object.keys(setsByCode).map(key => {
-    const periodViews = setsByCode[key];
-    return <SimulationBlock key={key} title={key} periodViews={periodViews} />;
-  });
+  // Placeholder before future split async fetch of Periodviews
+  // At least now the list can be filtered by code from url params
+  // Which mean we can link to that url from the set edit page
+  // Ex:
+  // ?sets=cospro__b_1__gestion_manuel,cospro__a_4__reduction_des_frais
+
+  const displayedSetCodes = (props.searchQuery.sets || "")
+    .split(",")
+    .filter(i => i);
+
+  const sets = Object.keys(setsByCode);
+  const filteredSets = displayedSetCodes.length
+    ? sets.filter(setKey => displayedSetCodes.includes(setKey))
+    : sets;
+  return filteredSets.map(key => (
+    <SimulationBlock key={key} title={key} periodViews={setsByCode[key]} />
+  ));
 };
 
 SimulationBlocks.propTypes = {
