@@ -2,7 +2,7 @@ import { MuiThemeProvider, withStyles } from "@material-ui/core/styles";
 import React, { Component, Fragment } from "react";
 import { Redirect, Route, Switch, withRouter } from "react-router";
 import { receiveProject, requestProject } from "./actions/project";
-
+import PropTypes from "prop-types";
 import DateFnsUtils from "@date-io/date-fns";
 import Fade from "@material-ui/core/Fade";
 import { I18nextProvider } from "react-i18next";
@@ -20,6 +20,11 @@ import { toggleDrawer } from "./actions/ui";
 import store from "./store";
 import registerServiceWorker from "./registerServiceWorker";
 import { CookiesProvider } from "react-cookie";
+
+import keymap from "./lib/shortcuts";
+import { ShortcutManager, Shortcuts } from "react-shortcuts";
+
+const shortcutManager = new ShortcutManager(keymap);
 
 const LoadableSetsContainer = Loadable({
   loader: () => import("./containers/SetsContainer"),
@@ -60,6 +65,30 @@ class App extends Component {
       visible: false,
     };
   }
+
+  getChildContext() {
+    return { shortcuts: shortcutManager };
+  }
+
+  handleShortcuts = action => {
+    const { history } = this.props;
+    switch (action) {
+      case "GO_TO_SETS":
+        history.push("/sets");
+        break;
+      case "GO_TO_SETS_GROUPS":
+        history.push("/sets_groups");
+        break;
+      case "GO_TO_SIMULATIONS":
+        history.push("/simulations");
+        break;
+      case "GO_TO_SIMULATION":
+        history.push("/simulation");
+        break;
+      default:
+        return false;
+    }
+  };
 
   componentDidMount() {
     if (!this.props.project.id) {
@@ -102,54 +131,56 @@ class App extends Component {
                   horizontal: "center",
                 }}
               >
-                {this.props.project.id && (
-                  <Fragment>
-                    <SnackBarContainer />
-                    <Fade in={this.state.visible}>
-                      <div className={classes.root}>
-                        <ResponsiveDrawers
-                          handleDrawerToggle={() => this.props.toggleDrawer()}
-                          open={this.props.drawerOpen}
-                        />
-                        {pathname === "/" && <Redirect to="/sets" />}
-                        {/* AB: Make this relate to drawer items? */}
-                        <Switch>
-                          <Route
-                            exact
-                            path="/sets"
-                            component={LoadableSetsContainer}
+                <Shortcuts name="APP" handler={this.handleShortcuts}>
+                  {this.props.project.id && (
+                    <Fragment>
+                      <SnackBarContainer />
+                      <Fade in={this.state.visible}>
+                        <div className={classes.root}>
+                          <ResponsiveDrawers
+                            handleDrawerToggle={() => this.props.toggleDrawer()}
+                            open={this.props.drawerOpen}
                           />
-                          <Route
-                            path="/sets/:setId"
-                            component={LoadableSetsContainer}
-                          />
-                          <Route
-                            exact
-                            path="/sets_groups"
-                            component={LoadableSetsGroupsContainer}
-                          />
-                          <Route
-                            path="/sets_groups/:setsGroupId"
-                            component={LoadableSetsGroupsContainer}
-                          />
-                          <Route
-                            exact
-                            path="/simulations"
-                            component={LoadableSimulationsContainer}
-                          />
-                          <Route
-                            path="/simulation"
-                            component={LoadableSimulationContainer}
-                          />
-                          <Route
-                            path="/help"
-                            component={LoadableSetsContainer}
-                          />
-                        </Switch>
-                      </div>
-                    </Fade>
-                  </Fragment>
-                )}
+                          {pathname === "/" && <Redirect to="/sets" />}
+                          {/* AB: Make this relate to drawer items? */}
+                          <Switch>
+                            <Route
+                              exact
+                              path="/sets"
+                              component={LoadableSetsContainer}
+                            />
+                            <Route
+                              path="/sets/:setId"
+                              component={LoadableSetsContainer}
+                            />
+                            <Route
+                              exact
+                              path="/sets_groups"
+                              component={LoadableSetsGroupsContainer}
+                            />
+                            <Route
+                              path="/sets_groups/:setsGroupId"
+                              component={LoadableSetsGroupsContainer}
+                            />
+                            <Route
+                              exact
+                              path="/simulations"
+                              component={LoadableSimulationsContainer}
+                            />
+                            <Route
+                              path="/simulation"
+                              component={LoadableSimulationContainer}
+                            />
+                            <Route
+                              path="/help"
+                              component={LoadableSetsContainer}
+                            />
+                          </Switch>
+                        </div>
+                      </Fade>
+                    </Fragment>
+                  )}
+                </Shortcuts>
               </SnackbarProvider>
             </MuiThemeProvider>
           </MuiPickersUtilsProvider>
@@ -158,6 +189,10 @@ class App extends Component {
     );
   }
 }
+
+App.childContextTypes = {
+  shortcuts: PropTypes.object.isRequired,
+};
 
 const mapStateToProps = state => ({
   drawerOpen: (state.ui || {}).drawerOpen,
