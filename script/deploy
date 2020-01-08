@@ -2,7 +2,23 @@
 
 if [[ $# -eq 0 ]] ; then
     echo 'password required'
-    exit 0
+    exit 1
+fi
+
+if [[ -f .env.production ]]; then
+    true
+else
+    cat <<"WARNING"
+You don't have a .env.production!
+
+In the .env.production should be:
+
+      REACT_APP_API_URL="https://orbf2-staging.herokuapp.com/api"
+      REACT_APP_API_TOKEN="<token for the project>"
+
+If this is not defined it will fallback to the .env.development and the wrong token and URL will be used.
+WARNING
+    exit 1
 fi
 
 export DHIS2HOST=https://dhis2.demo.bluesquare.org
