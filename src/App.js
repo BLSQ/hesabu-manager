@@ -102,7 +102,7 @@ class App extends Component {
                   horizontal: "center",
                 }}
               >
-                {this.props.project && (
+                {this.props.project.id && (
                   <Fragment>
                     <SnackBarContainer />
                     <Fade in={this.state.visible}>
