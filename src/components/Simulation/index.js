@@ -80,7 +80,10 @@ export const Simulation = props => {
       <PageContent fullscreen>
         {simulation && simulation.attributes.status === "processed" && (
           <Fragment>
-            <SimulationBlocks resultUrl={simulation.attributes.resultUrl} />
+            <SimulationBlocks
+              resultUrl={simulation.attributes.resultUrl}
+              searchQuery={props.valuesFromParams}
+            />
             <ExpandableBottomSheet
               open={bottomSheetOpen}
               onOpen={openBottomSheet}
