@@ -1,8 +1,33 @@
 #!/usr/bin/env bash
+#
+# This script will deploy a production build (handled by
+# `react-scripts build`) to the DHIS specified in $DHIS2HOST. Since
+# we're using ENV-variables in our application, we need to make sure a
+# .env.production is found in this directory.
+#
+# Usage:
+#
+#      script/deploy <password-goes-here>
 
 if [[ $# -eq 0 ]] ; then
     echo 'password required'
-    exit 0
+    exit 1
+fi
+
+if [[ -f .env.production ]]; then
+    true
+else
+    cat <<"WARNING"
+You don't have a .env.production!
+
+In the .env.production should be:
+
+      REACT_APP_API_URL="https://orbf2-staging.herokuapp.com/api"
+      REACT_APP_API_TOKEN="<token for the project>"
+
+If this is not defined it will fallback to the .env.development and the wrong token and URL will be used.
+WARNING
+    exit 1
 fi
 
 export DHIS2HOST=https://dhis2.demo.bluesquare.org
@@ -10,7 +35,8 @@ export DHIS2PASSWORD=$1
 export DHIS2USER=admin
 export APP=Hesabu
 
-yarn build --production
+
+yarn build
 rm $APP.zip || true
 cd ./build && rm ./static/js/main.*.js.map && zip -r ../$APP.zip . && cd ..
 
