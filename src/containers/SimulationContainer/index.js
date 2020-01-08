@@ -1,44 +1,85 @@
-import React, { useState, useEffect } from "react";
+import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 import { withStyles } from "@material-ui/styles";
 import queryString from "query-string";
+import PropTypes from "prop-types";
 import styles from "./styles";
 import Simulation from "../../components/Simulation";
 import { externalApi } from "../../actions/api";
 
-const SimulationContainer = props => {
-  const [loading, setLoading] = useState(false);
-  const [errorMessage, setErrorMessage] = useState(null);
-  const [simulation, setSimulation] = useState();
-  const valuesFromParams = queryString.parse(props.location.search);
+class SimulationContainer extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      loading: true,
+      errorMessage: undefined,
+      simulation: undefined,
+      polling: false,
+    };
+  }
 
-  useEffect(() => {
-    setLoading(true);
+  componentDidMount() {
+    this.fetchSimulation();
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (
+      this.state.polling &&
+      !this.state.loading &&
+      this.state.loading !== prevState.loading
+    ) {
+      setTimeout(() => {
+        this.fetchSimulation();
+      }, 2000);
+    }
+
+    if (this.props.location.search !== prevProps.location.search) {
+      this.fetchSimulation();
+    }
+  }
+
+  fetchSimulation() {
+    this.setState({ loading: true });
     externalApi()
       .errorType("json")
-      .url(`/simulation${props.location.search}`)
+      .url(`/simulation${this.props.location.search}`)
       .get()
       .json(response => {
-        setLoading(false);
-        setSimulation(response.data);
-        setErrorMessage(null);
+        this.setState({
+          loading: false,
+          simulation: response.data,
+          polling: response.data.attributes.status === "enqueued",
+          errorMessage: undefined,
+        });
       })
       .catch(e => {
-        setErrorMessage(e.message);
-        setLoading(false);
-        setSimulation(null);
+        this.setState({
+          loading: false,
+          simulation: undefined,
+          polling: false,
+          errorMessage: e.message,
+        });
       });
-  }, [props.location]);
+  }
 
-  return (
-    <Simulation
-      errorMessage={errorMessage}
-      loading={loading}
-      simulation={simulation}
-      valuesFromParams={valuesFromParams}
-      open={true}
-    />
-  );
+  render() {
+    const { loading, simulation, errorMessage } = this.state;
+    const valuesFromParams = queryString.parse(this.props.location.search);
+
+    return (
+      <Simulation
+        errorMessage={errorMessage}
+        loading={loading}
+        simulation={simulation}
+        valuesFromParams={valuesFromParams}
+        open={true}
+      />
+    );
+  }
+}
+
+SimulationContainer.propTypes = {
+  location: PropTypes.object,
 };
 
-export default withStyles(styles)(withRouter(SimulationContainer));
+export default withRouter(withStyles(styles)(SimulationContainer));

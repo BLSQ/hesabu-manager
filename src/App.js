@@ -62,7 +62,7 @@ class App extends Component {
   }
 
   componentDidMount() {
-    if (!this.props.project) {
+    if (!this.props.project.id) {
       this.props.requestProject();
       externalApi()
         .errorType("json")
@@ -102,53 +102,54 @@ class App extends Component {
                   horizontal: "center",
                 }}
               >
-                <Fragment>
-                  <SnackBarContainer />
-                  <Fade in={this.state.visible}>
-                    <div className={classes.root}>
-                      <ResponsiveDrawers
-                        handleDrawerToggle={() => this.props.toggleDrawer()}
-                        open={this.props.drawerOpen}
-                      />
-                      {pathname === "/" && <Redirect to="/sets" />}
-                      {/* AB: Make this relate to drawer items? */}
-                      <Switch>
-                        <Route
-                          exact
-                          path="/sets"
-                          component={LoadableSetsContainer}
+                {this.props.project && (
+                  <Fragment>
+                    <SnackBarContainer />
+                    <Fade in={this.state.visible}>
+                      <div className={classes.root}>
+                        <ResponsiveDrawers
+                          handleDrawerToggle={() => this.props.toggleDrawer()}
+                          open={this.props.drawerOpen}
                         />
-                        <Route
-                          path="/sets/:setId"
-                          component={LoadableSetsContainer}
-                        />
-                        <Route
-                          exact
-                          path="/sets_groups"
-                          component={LoadableSetsGroupsContainer}
-                        />
-                        <Route
-                          path="/sets_groups/:setsGroupId"
-                          component={LoadableSetsGroupsContainer}
-                        />
-                        <Route
-                          exact
-                          path="/simulations"
-                          component={LoadableSimulationsContainer}
-                        />
-                        <Route
-                          path="/simulations/:simulationId"
-                          component={LoadableSimulationsContainer}
-                        />
-                        <Route
-                          path="/simulation"
-                          component={LoadableSimulationContainer}
-                        />
-                        <Route path="/help" component={LoadableSetsContainer} />
-                      </Switch>
-                    </div>
-                  </Fade>
-                </Fragment>
+                        {pathname === "/" && <Redirect to="/sets" />}
+                        {/* AB: Make this relate to drawer items? */}
+                        <Switch>
+                          <Route
+                            exact
+                            path="/sets"
+                            component={LoadableSetsContainer}
+                          />
+                          <Route
+                            path="/sets/:setId"
+                            component={LoadableSetsContainer}
+                          />
+                          <Route
+                            exact
+                            path="/sets_groups"
+                            component={LoadableSetsGroupsContainer}
+                          />
+                          <Route
+                            path="/sets_groups/:setsGroupId"
+                            component={LoadableSetsGroupsContainer}
+                          />
+                          <Route
+                            exact
+                            path="/simulations"
+                            component={LoadableSimulationsContainer}
+                          />
+                          <Route
+                            path="/simulation"
+                            component={LoadableSimulationContainer}
+                          />
+                          <Route
+                            path="/help"
+                            component={LoadableSetsContainer}
+                          />
+                        </Switch>
+                      </div>
+                    </Fade>
+                  </Fragment>
+                )}
               </SnackbarProvider>
             </MuiThemeProvider>
           </MuiPickersUtilsProvider>
@@ -160,7 +161,7 @@ class App extends Component {
 
 const mapStateToProps = state => ({
   drawerOpen: (state.ui || {}).drawerOpen,
-  project: (state.project || {}).project,
+  project: state.project,
   token: (state.api || {}).token,
 });
 
