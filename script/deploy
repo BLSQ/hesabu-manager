@@ -10,7 +10,8 @@ export DHIS2PASSWORD=$1
 export DHIS2USER=admin
 export APP=Hesabu
 
-yarn build --production
+
+yarn build
 rm $APP.zip || true
 cd ./build && rm ./static/js/main.*.js.map && zip -r ../$APP.zip . && cd ..
 
