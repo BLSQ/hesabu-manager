@@ -1,4 +1,10 @@
-import { Dialog, Typography, Slide } from "@material-ui/core";
+import {
+  Dialog,
+  Typography,
+  Slide,
+  FormControlLabel,
+  Switch,
+} from "@material-ui/core";
 import { ExpandableBottomSheet } from "@blsq/manager-ui";
 import React, { useState, useEffect, Fragment } from "react";
 import PropTypes from "prop-types";
@@ -24,9 +30,17 @@ export const Simulation = props => {
   const history = useHistory();
   const [sideSheetOpen, setSideSheetOpen] = useState(false);
   const [bottomSheetOpen, setBottomSheetOpen] = useState(false);
-  const { selectedCell } = props;
 
-  const { errorMessage, t, open, simulation, loading } = props;
+  const {
+    errorMessage,
+    t,
+    open,
+    simulation,
+    loading,
+    selectedCell,
+    polling,
+  } = props;
+
   const handleToggleSideSheet = () => {
     if (sideSheetOpen) {
       if (selectedCell) {
@@ -71,6 +85,16 @@ export const Simulation = props => {
         >
           {title} {(simulation || {}).status}
         </Typography>
+        <FormControlLabel
+          control={
+            <Switch
+              checked={polling}
+              onChange={props.onPollingChange}
+              value={"polling"}
+            />
+          }
+          label={t("buttons.autoreload")}
+        />
         <FiltersToggleBtn
           variant="filters"
           className={classes.filtersBtn}

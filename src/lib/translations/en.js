@@ -6,6 +6,7 @@ export default {
         orgUnits: "Choose an org unit",
       },
       buttons: {
+        autoreload: "Auto reload",
         search: "Search",
         back: "Back",
         save: "Save",
