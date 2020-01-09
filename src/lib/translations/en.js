@@ -65,6 +65,9 @@ export default {
         sidesheet: {
           title: "Filters",
         },
+        ohNo: "Oh no",
+        noSimulationForOrgUnit:
+          "It looks like there is no set associated with this organization unit.",
       },
       simulationForm: {
         projectVersion: {

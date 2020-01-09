@@ -65,6 +65,9 @@ export default {
         sidesheet: {
           title: "Filtres",
         },
+        ohNo: "Oh no",
+        noSimulationForOrgUnit:
+          "Il semble qu’il n’y ai aucun set associé à cette unité d’organisation. Choisissez une autre unité d’organisation ou ajouter celle-ci dans les groupes d’unité d’organisations que vous utilisez pour vos sets.",
       },
       simulationForm: {
         projectVersion: {
