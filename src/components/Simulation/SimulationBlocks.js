@@ -2,8 +2,17 @@ import React, { useEffect, useState } from "react";
 import groupBy from "lodash/groupBy";
 import PropTypes from "prop-types";
 import wretch from "wretch";
-import { CircularProgress } from "@material-ui/core";
+import { CircularProgress, Typography, makeStyles } from "@material-ui/core";
+import { InfoBox } from "@blsq/manager-ui";
+import { useTranslation } from "react-i18next";
 import SimulationBlock from "./SimulationBlock";
+import EmptySection from "../EmptySection";
+
+const useStyles = makeStyles(theme => ({
+  spaced: {
+    marginTop: theme.spacing(4),
+  },
+}));
 
 const SimulationBlocks = props => {
   const [data, setData] = useState(undefined);
@@ -11,7 +20,8 @@ const SimulationBlocks = props => {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
   const setsByCode = groupBy((data || {}).invoices, "code");
-
+  const classes = useStyles();
+  const { t } = useTranslation();
   useEffect(() => {
     setLoading(true);
     wretch()
@@ -53,6 +63,18 @@ const SimulationBlocks = props => {
   const filteredSets = displayedSetCodes.length
     ? sets.filter(setKey => displayedSetCodes.includes(setKey))
     : sets;
+
+  if (!filteredSets.length) {
+    return (
+      <EmptySection>
+        <Typography variant="h6">{t("simulation.ohNo")}</Typography>
+        <InfoBox
+          text={t("simulation.noSimulationForOrgUnit")}
+          className={classes.spaced}
+        />
+      </EmptySection>
+    );
+  }
   return filteredSets.map(key => (
     <SimulationBlock key={key} title={key} periodViews={setsByCode[key]} />
   ));
