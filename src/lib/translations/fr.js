@@ -5,6 +5,7 @@ export default {
         orgUnits: "Choisissez une unité d’organisation",
       },
       buttons: {
+        autoreload: "Rafraichissement auto",
         search: "Rechercher",
         back: "Retour",
         save: "Sauver",

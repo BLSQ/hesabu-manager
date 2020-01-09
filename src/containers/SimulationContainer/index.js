@@ -12,6 +12,7 @@ class SimulationContainer extends Component {
     super(props);
     this.state = {
       loading: true,
+      forcePolling: false,
       errorMessage: undefined,
       simulation: undefined,
       polling: false,
@@ -23,7 +24,14 @@ class SimulationContainer extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
+    if (this.state.forcePolling && !this.state.loading) {
+      setTimeout(() => {
+        this.fetchSimulation();
+      }, 2000);
+    }
+
     if (
+      !this.state.forcePolling &&
       this.state.polling &&
       !this.state.loading &&
       this.state.loading !== prevState.loading
@@ -39,6 +47,8 @@ class SimulationContainer extends Component {
   }
 
   fetchSimulation() {
+    console.log("hedd");
+
     this.setState({ loading: true });
     externalApi()
       .errorType("json")
@@ -62,8 +72,12 @@ class SimulationContainer extends Component {
       });
   }
 
+  handlePollingChange = () => {
+    this.setState({ forcePolling: !this.state.forcePolling });
+  };
+
   render() {
-    const { loading, simulation, errorMessage } = this.state;
+    const { loading, simulation, errorMessage, forcePolling } = this.state;
     const valuesFromParams = queryString.parse(this.props.location.search);
 
     return (
@@ -72,6 +86,8 @@ class SimulationContainer extends Component {
         loading={loading}
         simulation={simulation}
         valuesFromParams={valuesFromParams}
+        polling={this.state.polling || forcePolling}
+        onPollingChange={this.handlePollingChange}
         open={true}
       />
     );
