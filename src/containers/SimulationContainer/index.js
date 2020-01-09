@@ -47,8 +47,6 @@ class SimulationContainer extends Component {
   }
 
   fetchSimulation() {
-    console.log("hedd");
-
     this.setState({ loading: true });
     externalApi()
       .errorType("json")
