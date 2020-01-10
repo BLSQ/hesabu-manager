@@ -98,15 +98,13 @@ class App extends Component {
         .url("/project")
         .get()
         .json(response => {
-          setTimeout(() => {
-            const attrs = response.data.attributes;
-            delete response.data.attributes;
-            this.props.receiveProject({
-              ...response.data,
-              ...attrs,
-            });
-            this.setState({ visible: true });
-          }, 300);
+          const attrs = response.data.attributes;
+          delete response.data.attributes;
+          this.props.receiveProject({
+            ...response.data,
+            ...attrs,
+          });
+          this.setState({ visible: true });
         });
     }
   }
