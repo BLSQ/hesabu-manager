@@ -51,6 +51,7 @@ const Editor = props => (
   <AceEditor
     mode="ruby"
     theme="monokai"
+    fontSize={16}
     value={props.value}
     readOnly
     wrapEnabled
