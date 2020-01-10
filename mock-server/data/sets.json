@@ -1,0 +1,409 @@
+{
+  "data": [
+    {
+      "id": "4",
+      "type": "set",
+      "attributes": {
+        "name": "Performance Adm",
+        "description": null,
+        "frequency": "quarterly",
+        "kind": "single",
+        "include_main_orgunit": false,
+        "loop_over_combo_ext_id": null,
+        "data_element_group_ext_ref": "data_element_group_ext_ref"
+      },
+      "relationships": {
+        "org_unit_groups": {
+          "data": [
+            {
+              "id": "w0gFTTmsUcF",
+              "type": "org_unit_group"
+            }
+          ]
+        },
+        "org_unit_group_sets": {
+          "data": []
+        },
+        "inputs": {
+          "data": [
+            {
+              "id": "1",
+              "type": "input"
+            },
+            {
+              "id": "4",
+              "type": "input"
+            },
+            {
+              "id": "6",
+              "type": "input"
+            }
+          ]
+        },
+        "topic_formulas": {
+          "data": [
+            {
+              "id": "21",
+              "type": "topic_formula"
+            },
+            {
+              "id": "22",
+              "type": "topic_formula"
+            },
+            {
+              "id": "23",
+              "type": "topic_formula"
+            }
+          ]
+        },
+        "topics": {
+          "data": [
+            {
+              "id": "2",
+              "type": "topic"
+            },
+            {
+              "id": "1",
+              "type": "topic"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "2",
+      "type": "set",
+      "attributes": {
+        "name": "Quality",
+        "description": null,
+        "frequency": "quarterly",
+        "kind": "single",
+        "include_main_orgunit": false,
+        "loop_over_combo_ext_id": null,
+        "data_element_group_ext_ref": "data_element_group_ext_ref"
+      },
+      "relationships": {
+        "org_unit_groups": {
+          "data": [
+            {
+              "id": "RXL3lPSK8oG",
+              "type": "org_unit_group"
+            },
+            {
+              "id": "tDZVQ1WtwpA",
+              "type": "org_unit_group"
+            }
+          ]
+        },
+        "org_unit_group_sets": {
+          "data": []
+        },
+        "inputs": {
+          "data": [
+            {
+              "id": "1",
+              "type": "input"
+            },
+            {
+              "id": "2",
+              "type": "input"
+            },
+            {
+              "id": "4",
+              "type": "input"
+            }
+          ]
+        },
+        "topic_formulas": {
+          "data": [
+            {
+              "id": "8",
+              "type": "topic_formula"
+            },
+            {
+              "id": "9",
+              "type": "topic_formula"
+            },
+            {
+              "id": "10",
+              "type": "topic_formula"
+            }
+          ]
+        },
+        "topics": {
+          "data": [
+            {
+              "id": "2",
+              "type": "topic"
+            },
+            {
+              "id": "1",
+              "type": "topic"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "3",
+      "type": "set",
+      "attributes": {
+        "name": "Quantity PCA",
+        "description": null,
+        "frequency": "monthly",
+        "kind": "single",
+        "include_main_orgunit": false,
+        "loop_over_combo_ext_id": null,
+        "data_element_group_ext_ref": "data_element_group_ext_ref"
+      },
+      "relationships": {
+        "org_unit_groups": {
+          "data": [
+            {
+              "id": "tDZVQ1WtwpA",
+              "type": "org_unit_group"
+            }
+          ]
+        },
+        "org_unit_group_sets": {
+          "data": []
+        },
+        "inputs": {
+          "data": [
+            {
+              "id": "1",
+              "type": "input"
+            },
+            {
+              "id": "2",
+              "type": "input"
+            },
+            {
+              "id": "5",
+              "type": "input"
+            }
+          ]
+        },
+        "topic_formulas": {
+          "data": [
+            {
+              "id": "17",
+              "type": "topic_formula"
+            },
+            {
+              "id": "18",
+              "type": "topic_formula"
+            },
+            {
+              "id": "19",
+              "type": "topic_formula"
+            }
+          ]
+        },
+        "topics": {
+          "data": [
+            {
+              "id": "2",
+              "type": "topic"
+            },
+            {
+              "id": "1",
+              "type": "topic"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "1",
+      "type": "set",
+      "attributes": {
+        "name": "Quantity PMA",
+        "description": null,
+        "frequency": "monthly",
+        "kind": "single",
+        "include_main_orgunit": false,
+        "loop_over_combo_ext_id": null,
+        "data_element_group_ext_ref": "data_element_group_ext_ref"
+      },
+      "relationships": {
+        "org_unit_groups": {
+          "data": [
+            {
+              "id": "RXL3lPSK8oG",
+              "type": "org_unit_group"
+            }
+          ]
+        },
+        "org_unit_group_sets": {
+          "data": []
+        },
+        "inputs": {
+          "data": [
+            {
+              "id": "1",
+              "type": "input"
+            },
+            {
+              "id": "2",
+              "type": "input"
+            },
+            {
+              "id": "5",
+              "type": "input"
+            }
+          ]
+        },
+        "topic_formulas": {
+          "data": [
+            {
+              "id": "4",
+              "type": "topic_formula"
+            },
+            {
+              "id": "5",
+              "type": "topic_formula"
+            },
+            {
+              "id": "6",
+              "type": "topic_formula"
+            }
+          ]
+        },
+        "topics": {
+          "data": [
+            {
+              "id": "2",
+              "type": "topic"
+            },
+            {
+              "id": "1",
+              "type": "topic"
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "included": [
+    {
+      "id": "1",
+      "type": "input",
+      "attributes": {
+        "name": "Claimed",
+        "short_name": null
+      }
+    },
+    {
+      "id": "4",
+      "type": "input",
+      "attributes": {
+        "name": "Max. Score",
+        "short_name": null
+      }
+    },
+    {
+      "id": "6",
+      "type": "input",
+      "attributes": {
+        "name": "Budget",
+        "short_name": null
+      }
+    },
+    {
+      "id": "w0gFTTmsUcF",
+      "type": "orgUnitGroup",
+      "attributes": {
+        "value": "Administrative",
+        "id": "w0gFTTmsUcF",
+        "name": "Administrative"
+      }
+    },
+    {
+      "id": "2",
+      "type": "topic",
+      "attributes": {
+        "code": "clients_sous_traitement_arv_suivi_pendant_les_6_premiers_mois",
+        "name": "Clients sous traitement ARV suivi pendant les 6 premiers mois",
+        "short_name": null,
+        "created_at": "2020-01-10T10:17:39.935Z",
+        "updated_at": "2020-01-10T10:17:39.935Z",
+        "stable_id": "56951288-4759-4ac5-9bd3-20d92a5e3ccb"
+      },
+      "relationships": {
+        "inputs": {
+          "data": [
+            {
+              "id": "3",
+              "type": "input"
+            },
+            {
+              "id": "4",
+              "type": "input"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "1",
+      "type": "topic",
+      "attributes": {
+        "code": "vaccination",
+        "name": "Vaccination",
+        "short_name": null,
+        "created_at": "2020-01-10T10:17:39.922Z",
+        "updated_at": "2020-01-10T10:17:39.922Z",
+        "stable_id": "075a9440-a10a-4528-8df4-18e876abc7f8"
+      },
+      "relationships": {
+        "inputs": {
+          "data": [
+            {
+              "id": "1",
+              "type": "input"
+            },
+            {
+              "id": "2",
+              "type": "input"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "2",
+      "type": "input",
+      "attributes": {
+        "name": "Verified",
+        "short_name": null
+      }
+    },
+    {
+      "id": "RXL3lPSK8oG",
+      "type": "orgUnitGroup",
+      "attributes": {
+        "value": "Clinic",
+        "id": "RXL3lPSK8oG",
+        "name": "Clinic"
+      }
+    },
+    {
+      "id": "tDZVQ1WtwpA",
+      "type": "orgUnitGroup",
+      "attributes": {
+        "value": "Hospital",
+        "id": "tDZVQ1WtwpA",
+        "name": "Hospital"
+      }
+    },
+    {
+      "id": "5",
+      "type": "input",
+      "attributes": {
+        "name": "Tarif",
+        "short_name": null
+      }
+    }
+  ]
+}
