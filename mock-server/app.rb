@@ -26,6 +26,10 @@ get '/' do
   'Hello world!'
 end
 
+get '/api/sets' do
+  File.read("data/sets.json")
+end
+
 get '/api/simulations' do
   File.read("data/simulations.json")
 end
