@@ -9,7 +9,9 @@ import styles from "./styles";
 const SetListItem = props => {
   const classes = styles();
   const [expanded, setExpanded] = useState(false);
-  const { name, description, groupNames: groups, id } = props;
+
+  const { name, description, orgUnitGroups, id } = props;
+
   return (
     <div className={classes.root}>
       <div className={classes.header}>
@@ -22,21 +24,23 @@ const SetListItem = props => {
           {name}
           {id}
         </Typography>
-        <IconButton
-          className={classes.expandBtn}
-          onClick={() => setExpanded(!expanded)}
-        >
-          {expanded ? <ExpandLess /> : <ExpandMore />}
-        </IconButton>
+        {description && (
+          <IconButton
+            className={classes.expandBtn}
+            onClick={() => setExpanded(!expanded)}
+          >
+            {expanded ? <ExpandLess /> : <ExpandMore />}
+          </IconButton>
+        )}
       </div>
-      {groups.map((group, index) => (
+      {orgUnitGroups.map((group, index) => (
         <Chip
           key={`${index}-group`}
-          label={group}
+          label={group.name}
           className={classes.groupChip}
         />
       ))}
-      {expanded && (
+      {expanded && description && (
         <Typography variant="subtitle1" className={classes.description}>
           {description}
         </Typography>
@@ -50,6 +54,7 @@ SetListItem.propTypes = {
   description: PropTypes.string,
   groupNames: PropTypes.array,
   name: PropTypes.string,
+  orgUnitGroups: PropTypes.array,
 };
 
 SetListItem.defaultProps = {

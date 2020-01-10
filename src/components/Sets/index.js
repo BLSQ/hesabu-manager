@@ -1,5 +1,5 @@
 import React, { Fragment } from "react";
-import { Typography } from "@material-ui/core";
+import { Typography, CircularProgress } from "@material-ui/core";
 import { useTranslation } from "react-i18next";
 import { InfoBox } from "@blsq/manager-ui";
 import PropTypes from "prop-types";
@@ -18,6 +18,7 @@ const Sets = props => {
   const classes = useStyles(props);
   const { t } = useTranslation();
   const {
+    loading,
     searchOpen,
     handleToggleSearch,
     query,
@@ -26,6 +27,7 @@ const Sets = props => {
     sets,
     filteredSets,
     sideSheetOpen,
+    errorMessage,
   } = props;
 
   const { setId } = useParams();
@@ -61,6 +63,12 @@ const Sets = props => {
         />
       </TopBar>
       <PageContent>
+        {loading && <CircularProgress />}
+        {errorMessage && (
+          <InfoBox name="sets-fetch-errors" dismissable={false}>
+            {errorMessage}
+          </InfoBox>
+        )}
         <InfoBox name="hesabu-sets-infobox" className={classes.infoBox}>
           {t("sets.index.infoBox")}
         </InfoBox>
@@ -84,7 +92,16 @@ const Sets = props => {
 };
 
 Sets.propTypes = {
+  errorMessage: PropTypes.string,
+  filteredSets: PropTypes.array,
+  handleToggleSearch: PropTypes.func,
+  handleToggleSideSheet: PropTypes.func,
+  loading: PropTypes.bool,
+  query: PropTypes.object,
+  searchOpen: PropTypes.bool,
+  setQuery: PropTypes.func,
   sets: PropTypes.arrayOf(PropTypes.object),
+  sideSheetOpen: PropTypes.bool,
 };
 
 export default Sets;

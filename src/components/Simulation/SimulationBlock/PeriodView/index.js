@@ -38,7 +38,7 @@ const PeriodView = props => {
   return (
     <div className={classNames(classes.root, className)}>
       <div className={classes.keyNumbersContainer}>
-        {periodView.total_items.map((item, index) => (
+        {periodView.totalItems.map((item, index) => (
           <button
             onClick={() => props.setSelectedCell(item)}
             key={`key-number-${item.solution}-${index}`}

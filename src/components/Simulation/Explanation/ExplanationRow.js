@@ -18,16 +18,16 @@ const ExplanationRow = function(props) {
             {props.rowData.state && [
               <dt key="mapping-label">Mapping</dt>,
               <dd key="mapping-value">
-                {props.rowData.state.kind} - {props.rowData.state.ext_id || ""}
+                {props.rowData.state.kind} - {props.rowData.state.extId || ""}
               </dd>,
             ]}
-            {props.rowData.dhis2_data_element && [
+            {props.rowData.dhis2DataElement && [
               <dt key="de-label">DHIS2-element</dt>,
-              <dd key="de-value">{props.rowData.dhis2_data_element}</dd>,
+              <dd key="de-value">{props.rowData.dhis2DataElement}</dd>,
             ]}
           </dl>
 
-          {props.rowData.instantiated_expression && (
+          {props.rowData.instantiatedExpression && (
             <ExplanationSteps item={props.rowData} variable={props.header} />
           )}
         </div>

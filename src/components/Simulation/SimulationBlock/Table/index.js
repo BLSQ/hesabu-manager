@@ -51,9 +51,9 @@ const cellBg = (cell, classes, isCurrent = false) => {
   if (cell.value) {
     return classNames(classes.cell, {
       [classes.is_topic]: isTopic(cell.value || {}),
-      [classes.interactable]: cell.value.is_input || cell.value.is_output,
-      [classes.is_input]: cell.value.is_input,
-      [classes.is_output]: cell.value.is_output,
+      [classes.interactable]: cell.value.isInput || cell.value.isOutput,
+      [classes.is_input]: cell.value.isInput,
+      [classes.is_output]: cell.value.isOutput,
       [classes.is_current]: isCurrent,
     });
   } else {
@@ -65,10 +65,10 @@ const cellTooltip = (cell, t) => {
   if (!cell || !cell.value) {
     return t("tooltips.cell.noData");
   }
-  if (cell.value.is_input) {
+  if (cell.value.isInput) {
     return t("tooltips.cell.input");
   }
-  if (cell.value.is_output) {
+  if (cell.value.isOutput) {
     return t("tooltips.cell.output");
   }
   if (isTopic(cell.value)) {
@@ -80,7 +80,7 @@ const cellTooltip = (cell, t) => {
 
 const Table = props => {
   const {
-    periodView: { activity_items: activityItems },
+    periodView: { activityItems },
     setSelectedCell,
     selectedCell,
   } = props;

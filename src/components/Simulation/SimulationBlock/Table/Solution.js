@@ -14,11 +14,11 @@ const Solution = props => {
   const { value } = cell;
 
   // Basically the topic name
-  if (!cell.instantiated_expression) {
+  if (!cell.instantiatedExpression) {
     return value;
   }
 
-  return cell.not_exported ? <del>{value}</del> : value;
+  return cell.notExported ? <del>{value}</del> : value;
 };
 
 Solution.propTypes = {

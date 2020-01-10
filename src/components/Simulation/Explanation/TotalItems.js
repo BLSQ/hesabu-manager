@@ -31,7 +31,7 @@ class TotalItem extends React.Component {
   render() {
     const { classes, item } = this.props;
     let value = item.solution;
-    if (item.not_exported) {
+    if (item.notExported) {
       value = <del>{value}</del>;
     }
     return (
@@ -43,7 +43,7 @@ class TotalItem extends React.Component {
           <div
             className={classNames(
               "col-md-3",
-              item.is_output ? "formula-output" : "",
+              item.isOutput ? "formula-output" : "",
               this.state.selected ? classes.selected : null,
             )}
             onClick={this.cellClicked}
@@ -73,7 +73,7 @@ class TotalItem extends React.Component {
               <dt>Key</dt>
               <dd>{item.key}</dd>
               <dt>Data element out</dt>
-              <dd>{item.is_output}</dd>
+              <dd>{item.isOutput}</dd>
             </dl>
             <div className="col-md-10">
               <div>

@@ -13,7 +13,7 @@ import { formattedName } from "../../utils/textUtils";
 import { externalApi } from "../../actions/api";
 import ActionFab from "../../components/Shared/ActionFab";
 
-const SimulationsContainer = props => {
+const SimulationsContainer = () => {
   const classes = useStyles();
   const { t } = useTranslation();
   const [sideSheetOpen, setSideSheetOpen] = useState(false);

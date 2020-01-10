@@ -21,7 +21,7 @@ const ViewOnDhis2Btn = props => {
   const { t } = useTranslation();
 
   const isInput = !!cell.state;
-  const isOutput = !!cell.dhis2_data_element;
+  const isOutput = !!cell.dhis2DataElement;
   let href;
 
   if (!isInput && !isOutput) {
@@ -33,11 +33,11 @@ const ViewOnDhis2Btn = props => {
       process.env.REACT_APP_DHIS2_URL
     }dhis-web-maintenance/index.html#/edit/${camelCase(
       cell.state.kind,
-    )}Section/${camelCase(cell.state.kind)}/${cell.state.ext_id}`;
+    )}Section/${camelCase(cell.state.kind)}/${cell.state.extId}`;
   }
 
   if (isOutput) {
-    href = `${process.env.REACT_APP_DHIS2_URL}dhis-web-maintenance/index.html#/edit/dataElementSection/dataElement/${cell.dhis2_data_element}`;
+    href = `${process.env.REACT_APP_DHIS2_URL}dhis-web-maintenance/index.html#/edit/dataElementSection/dataElement/${cell.dhis2DataElement}`;
   }
 
   return (
