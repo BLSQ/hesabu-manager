@@ -53,12 +53,17 @@ class SimulationContainer extends Component {
       .url(`/simulation${this.props.location.search}`)
       .get()
       .json(response => {
-        this.setState({
+        const newstatus = response.data.attributes.status;
+        let newState = {
           loading: false,
-          simulation: response.data,
-          polling: response.data.attributes.status === "enqueued",
+          polling: newstatus === "enqueued",
           errorMessage: undefined,
-        });
+          status: newstatus,
+        };
+        if (newstatus !== this.state.status) {
+          newState["simulation"] = response.data;
+        }
+        this.setState(newState);
       })
       .catch(e => {
         this.setState({
