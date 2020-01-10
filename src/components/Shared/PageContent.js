@@ -35,9 +35,13 @@ function PageContent(props) {
   const classes = useStyles(props);
   return (
     <main
-      className={classNames(classes.content, {
-        [classes.tabsMargin]: tabs,
-      })}
+      className={classNames(
+        classes.content,
+        {
+          [classes.tabsMargin]: tabs,
+        },
+        props.className,
+      )}
     >
       {props.children}
     </main>

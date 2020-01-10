@@ -1,6 +1,11 @@
 import { makeStyles } from "@material-ui/styles";
 
 const useStyles = makeStyles(theme => ({
+  root: {
+    "&:last-of-type": {
+      paddingBottom: 320,
+    },
+  },
   hidden: {
     display: "none",
   },

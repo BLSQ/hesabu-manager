@@ -101,7 +101,7 @@ export const Simulation = props => {
           onClick={handleToggleSideSheet}
         />
       </TopBar>
-      <PageContent fullscreen>
+      <PageContent fullscreen className={classes.content}>
         {simulation && simulation.attributes.status === "processed" && (
           <Fragment>
             <SimulationBlocks

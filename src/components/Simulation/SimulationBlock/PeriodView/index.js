@@ -23,21 +23,24 @@ const useStyles = makeStyles(theme => ({
       minWidth: 150,
     },
     cursor: "pointer",
-    "&:focus": {
+    "&:focus, &:active": {
       outlineColor: fade(theme.palette.primary.main, 0.1),
+      color: theme.palette.text.primary,
+      outlineWidth: 5,
+      outlineStyle: "solid",
     },
   },
 }));
 
 const PeriodView = props => {
-  const { periodView, className, setSelectedCell } = props;
+  const { periodView, className } = props;
   const classes = useStyles();
   return (
     <div className={classNames(classes.root, className)}>
       <div className={classes.keyNumbersContainer}>
         {periodView.total_items.map((item, index) => (
           <button
-            onClick={() => setSelectedCell(item)}
+            onClick={() => props.setSelectedCell(item)}
             key={`key-number-${item.solution}-${index}`}
             className={classes.keyNumbers}
           >

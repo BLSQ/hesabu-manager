@@ -75,9 +75,13 @@ const SimulationBlocks = props => {
       </EmptySection>
     );
   }
-  return filteredSets.map(key => (
-    <SimulationBlock key={key} title={key} periodViews={setsByCode[key]} />
-  ));
+  return (
+    <div>
+      {filteredSets.map(key => (
+        <SimulationBlock key={key} title={key} periodViews={setsByCode[key]} />
+      ))}
+    </div>
+  );
 };
 
 SimulationBlocks.propTypes = {

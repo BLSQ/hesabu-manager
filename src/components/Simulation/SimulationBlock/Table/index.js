@@ -49,7 +49,9 @@ function isTopic(cellValue) {
 
 const cellBg = (cell, classes, isCurrent = false) => {
   if (cell.value) {
-    return classNames({
+    return classNames(classes.cell, {
+      [classes.is_topic]: isTopic(cell.value || {}),
+      [classes.interactable]: cell.value.is_input || cell.value.is_output,
       [classes.is_input]: cell.value.is_input,
       [classes.is_output]: cell.value.is_output,
       [classes.is_current]: isCurrent,
@@ -129,12 +131,12 @@ const Table = props => {
                     <Tooltip
                       title={cellTooltip(cell, t)}
                       enterDelay={500}
-                      open={isTopic(cell.value || {}) ? false : undefined}
+                      open={isTopic(cell.value) ? false : undefined}
                     >
                       <TableCell
                         key={cell.value}
                         {...cellProps}
-                        tabIndex="0"
+                        tabIndex={isTopic(cell.value) ? undefined : "0"}
                         onClick={() => {
                           if (!isTopic(cell.value)) {
                             setSelectedCell(cell.value);

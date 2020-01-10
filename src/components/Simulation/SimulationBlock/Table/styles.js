@@ -19,9 +19,21 @@ const useStyles = makeStyles(theme => ({
     "& th": {
       whiteSpace: "nowrap",
     },
-    "& td:hover": {
+  },
+  cell: {
+    padding: theme.spacing(1, 2),
+  },
+  interactable: {
+    "&:hover": {
       background: "#e4e4e4",
       cursor: "pointer",
+    },
+  },
+  is_topic: {
+    maxWidth: 200,
+    "&:hover": {
+      cursor: "default",
+      background: "inherit !important",
     },
   },
   is_current: {

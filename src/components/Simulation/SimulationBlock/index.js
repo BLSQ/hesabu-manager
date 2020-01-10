@@ -25,7 +25,7 @@ const SimulationBlock = props => {
   };
 
   return (
-    <div>
+    <div className={classes.root}>
       <Header title={title} />
       <Tabs
         value={value}
