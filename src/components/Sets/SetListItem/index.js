@@ -10,7 +10,7 @@ const SetListItem = props => {
   const classes = styles();
   const [expanded, setExpanded] = useState(false);
 
-  const { name, description, orgUnitGroups, id } = props;
+  const { name, description, orgUnitGroups, id, topics } = props;
 
   return (
     <div className={classes.root}>
@@ -24,7 +24,7 @@ const SetListItem = props => {
           {name}
           {id}
         </Typography>
-        {description && (
+        {topics.length && (
           <IconButton
             className={classes.expandBtn}
             onClick={() => setExpanded(!expanded)}
@@ -40,9 +40,9 @@ const SetListItem = props => {
           className={classes.groupChip}
         />
       ))}
-      {expanded && description && (
+      {expanded && topics.length && (
         <Typography variant="subtitle1" className={classes.description}>
-          {description}
+          {topics.map(topic => topic.name).join(", ")}
         </Typography>
       )}
     </div>
@@ -55,6 +55,7 @@ SetListItem.propTypes = {
   groupNames: PropTypes.array,
   name: PropTypes.string,
   orgUnitGroups: PropTypes.array,
+  topics: PropTypes.array,
 };
 
 SetListItem.defaultProps = {
