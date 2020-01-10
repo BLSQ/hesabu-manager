@@ -8,20 +8,20 @@
         "description": null,
         "frequency": "quarterly",
         "kind": "single",
-        "include_main_orgunit": false,
-        "loop_over_combo_ext_id": null,
-        "data_element_group_ext_ref": "data_element_group_ext_ref"
+        "includeMainOrgunit": false,
+        "loopOverComboExtId": null,
+        "dataElementGroupExtRef": "data_element_group_ext_ref"
       },
       "relationships": {
-        "org_unit_groups": {
+        "orgUnitGroups": {
           "data": [
             {
               "id": "w0gFTTmsUcF",
-              "type": "org_unit_group"
+              "type": "orgUnitGroup"
             }
           ]
         },
-        "org_unit_group_sets": {
+        "orgUnitGroupSets": {
           "data": []
         },
         "inputs": {
@@ -40,19 +40,19 @@
             }
           ]
         },
-        "topic_formulas": {
+        "topicFormulas": {
           "data": [
             {
               "id": "21",
-              "type": "topic_formula"
+              "type": "topicFormula"
             },
             {
               "id": "22",
-              "type": "topic_formula"
+              "type": "topicFormula"
             },
             {
               "id": "23",
-              "type": "topic_formula"
+              "type": "topicFormula"
             }
           ]
         },
@@ -78,24 +78,24 @@
         "description": null,
         "frequency": "quarterly",
         "kind": "single",
-        "include_main_orgunit": false,
-        "loop_over_combo_ext_id": null,
-        "data_element_group_ext_ref": "data_element_group_ext_ref"
+        "includeMainOrgunit": false,
+        "loopOverComboExtId": null,
+        "dataElementGroupExtRef": "data_element_group_ext_ref"
       },
       "relationships": {
-        "org_unit_groups": {
+        "orgUnitGroups": {
           "data": [
             {
               "id": "RXL3lPSK8oG",
-              "type": "org_unit_group"
+              "type": "orgUnitGroup"
             },
             {
               "id": "tDZVQ1WtwpA",
-              "type": "org_unit_group"
+              "type": "orgUnitGroup"
             }
           ]
         },
-        "org_unit_group_sets": {
+        "orgUnitGroupSets": {
           "data": []
         },
         "inputs": {
@@ -114,19 +114,19 @@
             }
           ]
         },
-        "topic_formulas": {
+        "topicFormulas": {
           "data": [
             {
               "id": "8",
-              "type": "topic_formula"
+              "type": "topicFormula"
             },
             {
               "id": "9",
-              "type": "topic_formula"
+              "type": "topicFormula"
             },
             {
               "id": "10",
-              "type": "topic_formula"
+              "type": "topicFormula"
             }
           ]
         },
@@ -152,20 +152,20 @@
         "description": null,
         "frequency": "monthly",
         "kind": "single",
-        "include_main_orgunit": false,
-        "loop_over_combo_ext_id": null,
-        "data_element_group_ext_ref": "data_element_group_ext_ref"
+        "includeMainOrgunit": false,
+        "loopOverComboExtId": null,
+        "dataElementGroupExtRef": "data_element_group_ext_ref"
       },
       "relationships": {
-        "org_unit_groups": {
+        "orgUnitGroups": {
           "data": [
             {
               "id": "tDZVQ1WtwpA",
-              "type": "org_unit_group"
+              "type": "orgUnitGroup"
             }
           ]
         },
-        "org_unit_group_sets": {
+        "orgUnitGroupSets": {
           "data": []
         },
         "inputs": {
@@ -184,19 +184,19 @@
             }
           ]
         },
-        "topic_formulas": {
+        "topicFormulas": {
           "data": [
             {
               "id": "17",
-              "type": "topic_formula"
+              "type": "topicFormula"
             },
             {
               "id": "18",
-              "type": "topic_formula"
+              "type": "topicFormula"
             },
             {
               "id": "19",
-              "type": "topic_formula"
+              "type": "topicFormula"
             }
           ]
         },
@@ -222,20 +222,20 @@
         "description": null,
         "frequency": "monthly",
         "kind": "single",
-        "include_main_orgunit": false,
-        "loop_over_combo_ext_id": null,
-        "data_element_group_ext_ref": "data_element_group_ext_ref"
+        "includeMainOrgunit": false,
+        "loopOverComboExtId": null,
+        "dataElementGroupExtRef": "data_element_group_ext_ref"
       },
       "relationships": {
-        "org_unit_groups": {
+        "orgUnitGroups": {
           "data": [
             {
               "id": "RXL3lPSK8oG",
-              "type": "org_unit_group"
+              "type": "orgUnitGroup"
             }
           ]
         },
-        "org_unit_group_sets": {
+        "orgUnitGroupSets": {
           "data": []
         },
         "inputs": {
@@ -254,19 +254,19 @@
             }
           ]
         },
-        "topic_formulas": {
+        "topicFormulas": {
           "data": [
             {
               "id": "4",
-              "type": "topic_formula"
+              "type": "topicFormula"
             },
             {
               "id": "5",
-              "type": "topic_formula"
+              "type": "topicFormula"
             },
             {
               "id": "6",
-              "type": "topic_formula"
+              "type": "topicFormula"
             }
           ]
         },
@@ -291,7 +291,7 @@
       "type": "input",
       "attributes": {
         "name": "Claimed",
-        "short_name": null
+        "shortName": null
       }
     },
     {
@@ -299,7 +299,7 @@
       "type": "input",
       "attributes": {
         "name": "Max. Score",
-        "short_name": null
+        "shortName": null
       }
     },
     {
@@ -307,7 +307,7 @@
       "type": "input",
       "attributes": {
         "name": "Budget",
-        "short_name": null
+        "shortName": null
       }
     },
     {
@@ -325,10 +325,10 @@
       "attributes": {
         "code": "clients_sous_traitement_arv_suivi_pendant_les_6_premiers_mois",
         "name": "Clients sous traitement ARV suivi pendant les 6 premiers mois",
-        "short_name": null,
-        "created_at": "2020-01-10T10:17:39.935Z",
-        "updated_at": "2020-01-10T10:17:39.935Z",
-        "stable_id": "56951288-4759-4ac5-9bd3-20d92a5e3ccb"
+        "shortName": null,
+        "createdAt": "2020-01-10T13:40:01.966Z",
+        "updatedAt": "2020-01-10T13:40:01.966Z",
+        "stableId": "b8a44d93-d59a-433c-9f89-e2add55f1c83"
       },
       "relationships": {
         "inputs": {
@@ -351,10 +351,10 @@
       "attributes": {
         "code": "vaccination",
         "name": "Vaccination",
-        "short_name": null,
-        "created_at": "2020-01-10T10:17:39.922Z",
-        "updated_at": "2020-01-10T10:17:39.922Z",
-        "stable_id": "075a9440-a10a-4528-8df4-18e876abc7f8"
+        "shortName": null,
+        "createdAt": "2020-01-10T13:40:01.955Z",
+        "updatedAt": "2020-01-10T13:40:01.955Z",
+        "stableId": "85db1ef8-ddb4-42cf-87f4-37d941b0d03a"
       },
       "relationships": {
         "inputs": {
@@ -376,7 +376,7 @@
       "type": "input",
       "attributes": {
         "name": "Verified",
-        "short_name": null
+        "shortName": null
       }
     },
     {
@@ -402,7 +402,7 @@
       "type": "input",
       "attributes": {
         "name": "Tarif",
-        "short_name": null
+        "shortName": null
       }
     }
   ]
