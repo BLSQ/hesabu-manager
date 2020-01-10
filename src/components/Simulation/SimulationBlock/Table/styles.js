@@ -31,6 +31,9 @@ const useStyles = makeStyles(theme => ({
   },
   is_topic: {
     maxWidth: 200,
+    textOverflow: "ellipsis",
+    overflowX: "hidden",
+    whiteSpace: "nowrap",
     "&:hover": {
       cursor: "default",
       background: "inherit !important",

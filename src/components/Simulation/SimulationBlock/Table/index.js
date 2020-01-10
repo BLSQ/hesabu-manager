@@ -71,6 +71,9 @@ const cellTooltip = (cell, t) => {
   if (cell.value.is_output) {
     return t("tooltips.cell.output");
   }
+  if (isTopic(cell.value)) {
+    return cell.value.value;
+  }
 
   return t("tooltips.cell.default");
 };
