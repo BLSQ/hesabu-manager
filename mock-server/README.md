@@ -1,8 +1,10 @@
 `/api/project` => Returns the information on the current project
 
 `/api/sets` => Returns all sets available in the project
+`/api/sets/1` => Returns all info for a specific set
 
-`/api/set_groups` => Returns all set groups available in the project
+`/api/compounds` => Returns all compounds available in the project
+`/api/compounds/1` => Returns all info for a specific compound
 
 `/api/simulations` => Returns all ran simulations
 

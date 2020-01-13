@@ -1,13 +1,33 @@
 {
   "data": {
     "id": "3",
-    "type": "setGroup",
+    "type": "compound",
     "attributes": {
       "name": "Payment rule pma",
       "frequency": "quarterly",
-      "stableId": "9a41700f-d8e9-43b3-a18a-bdb7f2ca9abc"
+      "stableId": "9e06206a-e0cc-4008-bbf1-a80c4773fe14"
     },
     "relationships": {
+      "sets": {
+        "data": [
+          {
+            "id": "5",
+            "type": "set"
+          },
+          {
+            "id": "5",
+            "type": "set"
+          },
+          {
+            "id": "6",
+            "type": "set"
+          },
+          {
+            "id": "6",
+            "type": "set"
+          }
+        ]
+      },
       "formulas": {
         "data": [
           {
@@ -38,8 +58,8 @@
         "expression": "IF(quality_technical_score_value > 50, (0.35 * quality_technical_score_value) + (0.30 * 10.0), 0.0)",
         "frequency": null,
         "shortName": null,
-        "createdAt": "2020-01-13T11:21:53.402Z",
-        "updatedAt": "2020-01-13T11:21:53.402Z"
+        "createdAt": "2020-01-13T15:12:02.154Z",
+        "updatedAt": "2020-01-13T15:12:02.154Z"
       }
     },
     {
@@ -53,8 +73,8 @@
         "expression": "quantity_total_pma * quality_bonus_percentage_value",
         "frequency": null,
         "shortName": null,
-        "createdAt": "2020-01-13T11:21:53.403Z",
-        "updatedAt": "2020-01-13T11:21:53.403Z"
+        "createdAt": "2020-01-13T15:12:02.155Z",
+        "updatedAt": "2020-01-13T15:12:02.155Z"
       }
     },
     {
@@ -68,8 +88,8 @@
         "expression": "quantity_total_pma + quality_bonus_value",
         "frequency": null,
         "shortName": null,
-        "createdAt": "2020-01-13T11:21:53.404Z",
-        "updatedAt": "2020-01-13T11:21:53.404Z"
+        "createdAt": "2020-01-13T15:12:02.157Z",
+        "updatedAt": "2020-01-13T15:12:02.157Z"
       }
     }
   ]
