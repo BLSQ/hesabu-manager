@@ -1,0 +1,76 @@
+{
+  "data": {
+    "id": "3",
+    "type": "setGroup",
+    "attributes": {
+      "name": "Payment rule pma",
+      "frequency": "quarterly",
+      "stableId": "9a41700f-d8e9-43b3-a18a-bdb7f2ca9abc"
+    },
+    "relationships": {
+      "formulas": {
+        "data": [
+          {
+            "id": "28",
+            "type": "formula"
+          },
+          {
+            "id": "29",
+            "type": "formula"
+          },
+          {
+            "id": "30",
+            "type": "formula"
+          }
+        ]
+      }
+    }
+  },
+  "included": [
+    {
+      "id": "28",
+      "type": "formula",
+      "attributes": {
+        "id": 28,
+        "code": "quality_bonus_percentage_value",
+        "description": "Quality bonus percentage",
+        "exportableFormulaCode": null,
+        "expression": "IF(quality_technical_score_value > 50, (0.35 * quality_technical_score_value) + (0.30 * 10.0), 0.0)",
+        "frequency": null,
+        "shortName": null,
+        "createdAt": "2020-01-13T11:21:53.402Z",
+        "updatedAt": "2020-01-13T11:21:53.402Z"
+      }
+    },
+    {
+      "id": "29",
+      "type": "formula",
+      "attributes": {
+        "id": 29,
+        "code": "quality_bonus_value",
+        "description": "Bonus qualité",
+        "exportableFormulaCode": null,
+        "expression": "quantity_total_pma * quality_bonus_percentage_value",
+        "frequency": null,
+        "shortName": null,
+        "createdAt": "2020-01-13T11:21:53.403Z",
+        "updatedAt": "2020-01-13T11:21:53.403Z"
+      }
+    },
+    {
+      "id": "30",
+      "type": "formula",
+      "attributes": {
+        "id": 30,
+        "code": "quarterly_payment",
+        "description": "Quarterly Payment",
+        "exportableFormulaCode": null,
+        "expression": "quantity_total_pma + quality_bonus_value",
+        "frequency": null,
+        "shortName": null,
+        "createdAt": "2020-01-13T11:21:53.404Z",
+        "updatedAt": "2020-01-13T11:21:53.404Z"
+      }
+    }
+  ]
+}

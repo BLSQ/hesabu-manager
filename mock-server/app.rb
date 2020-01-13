@@ -30,8 +30,18 @@ get '/api/sets' do
   File.read("data/sets.json")
 end
 
+get '/api/sets/:identifier' do |identifier|
+  _id = identifier
+  File.read("data/set.json")
+end
+
 get '/api/set_groups' do
   File.read("data/set_groups.json")
+end
+
+get '/api/set_groups/:identifier' do |identifier|
+  _id = identifier
+  File.read("data/set_group.json")
 end
 
 get '/api/simulations' do

@@ -1,0 +1,159 @@
+{
+  "data": {
+    "id": "13",
+    "type": "set",
+    "attributes": {
+      "name": "Quantity PMA",
+      "description": null,
+      "frequency": "monthly",
+      "kind": "single",
+      "includeMainOrgunit": false,
+      "loopOverComboExtId": null,
+      "dataElementGroupExtRef": "data_element_group_ext_ref"
+    },
+    "relationships": {
+      "orgUnitGroups": {
+        "data": [
+          {
+            "id": "RXL3lPSK8oG",
+            "type": "orgUnitGroup"
+          }
+        ]
+      },
+      "orgUnitGroupSets": {
+        "data": []
+      },
+      "inputs": {
+        "data": [
+          {
+            "id": "28",
+            "type": "input"
+          },
+          {
+            "id": "29",
+            "type": "input"
+          },
+          {
+            "id": "32",
+            "type": "input"
+          }
+        ]
+      },
+      "topicFormulas": {
+        "data": [
+          {
+            "id": "85",
+            "type": "topicFormula"
+          },
+          {
+            "id": "86",
+            "type": "topicFormula"
+          },
+          {
+            "id": "87",
+            "type": "topicFormula"
+          }
+        ]
+      },
+      "topics": {
+        "data": [
+          {
+            "id": "8",
+            "type": "topic"
+          },
+          {
+            "id": "7",
+            "type": "topic"
+          }
+        ]
+      }
+    }
+  },
+  "included": [
+    {
+      "id": "28",
+      "type": "input",
+      "attributes": {
+        "name": "Claimed",
+        "shortName": null
+      }
+    },
+    {
+      "id": "29",
+      "type": "input",
+      "attributes": {
+        "name": "Verified",
+        "shortName": null
+      }
+    },
+    {
+      "id": "32",
+      "type": "input",
+      "attributes": {
+        "name": "Tarif",
+        "shortName": null
+      }
+    },
+    {
+      "id": "RXL3lPSK8oG",
+      "type": "orgUnitGroup",
+      "attributes": {
+        "value": "Clinic",
+        "id": "RXL3lPSK8oG",
+        "name": "Clinic"
+      }
+    },
+    {
+      "id": "8",
+      "type": "topic",
+      "attributes": {
+        "code": "clients_sous_traitement_arv_suivi_pendant_les_6_premiers_mois",
+        "name": "Clients sous traitement ARV suivi pendant les 6 premiers mois",
+        "shortName": null,
+        "createdAt": "2020-01-13T11:21:56.482Z",
+        "updatedAt": "2020-01-13T11:21:56.482Z",
+        "stableId": "6ee73dcf-602e-4da2-8d9d-0bfa0e90dd1b"
+      },
+      "relationships": {
+        "inputs": {
+          "data": [
+            {
+              "id": "15",
+              "type": "input"
+            },
+            {
+              "id": "16",
+              "type": "input"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "7",
+      "type": "topic",
+      "attributes": {
+        "code": "vaccination",
+        "name": "Vaccination",
+        "shortName": null,
+        "createdAt": "2020-01-13T11:21:56.475Z",
+        "updatedAt": "2020-01-13T11:21:56.475Z",
+        "stableId": "e69703ee-01fd-44ed-b469-a0062e37d5dc"
+      },
+      "relationships": {
+        "inputs": {
+          "data": [
+            {
+              "id": "13",
+              "type": "input"
+            },
+            {
+              "id": "14",
+              "type": "input"
+            }
+          ]
+        }
+      }
+    }
+  ]
+}
