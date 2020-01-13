@@ -6,6 +6,7 @@ import PropTypes from "prop-types";
 import styles from "./styles";
 import Simulation from "../../components/Simulation";
 import { externalApi } from "../../actions/api";
+import { deserialize } from "../../utils/jsonApiUtils";
 
 class SimulationContainer extends Component {
   constructor(props) {
@@ -60,10 +61,12 @@ class SimulationContainer extends Component {
           errorMessage: undefined,
           status: newstatus,
         };
-        if (newstatus !== this.state.status) {
-          newState["simulation"] = response.data;
-        }
-        this.setState(newState);
+        deserialize(response).then(data => {
+          if (newstatus !== this.state.status) {
+            newState["simulation"] = data;
+          }
+          this.setState(newState);
+        });
       })
       .catch(e => {
         this.setState({

@@ -20,6 +20,7 @@ const SimulationBlocks = props => {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
   const setsByCode = groupBy((data || {}).invoices, "code");
+
   const classes = useStyles();
   const { t } = useTranslation();
   useEffect(() => {
@@ -37,7 +38,7 @@ const SimulationBlocks = props => {
       .catch(e => {
         setError(e.message);
         setLoading(false);
-        setData(null);
+        setData(undefined);
       });
   }, [props.resultUrl]);
 

@@ -48,7 +48,7 @@ const SimulationBlock = props => {
         return (
           <PeriodView
             key={[
-              periodView.orgunitExtId,
+              periodView.orgunit_ext_id,
               periodView.period,
               periodView.code,
             ].join("-")}

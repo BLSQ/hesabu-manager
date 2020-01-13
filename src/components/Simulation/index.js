@@ -56,7 +56,7 @@ export const Simulation = props => {
   const closeBottomSheet = () => setBottomSheetOpen(false);
 
   let title = simulation
-    ? `${simulation.attributes.orgUnitName} @ ${simulation.attributes.dhis2Period}`
+    ? `${simulation.orgUnitName} @ ${simulation.dhis2Period}`
     : "...";
 
   useEffect(() => {
@@ -102,10 +102,10 @@ export const Simulation = props => {
         />
       </TopBar>
       <PageContent fullscreen className={classes.content}>
-        {simulation && simulation.attributes.status === "processed" && (
+        {simulation && simulation.status === "processed" && (
           <Fragment>
             <SimulationBlocks
-              resultUrl={simulation.attributes.resultUrl}
+              resultUrl={simulation.resultUrl}
               searchQuery={props.valuesFromParams}
             />
             <ExpandableBottomSheet
@@ -127,7 +127,7 @@ export const Simulation = props => {
         title={t("simulation.sidesheet.title")}
         open={
           (!loading && !simulation) ||
-          (simulation && !simulation.attributes.resultUrl) ||
+          (simulation && !simulation.resultUrl) ||
           sideSheetOpen
         }
         onClose={handleToggleSideSheet}

@@ -11,7 +11,7 @@ const SimulationResultStatus = props => {
   const { simulation, errorMessage, newSim } = props;
   const classes = useStyles();
   const { t } = useTranslation();
-  if (simulation && simulation.attributes.status === "enqueued") {
+  if (simulation && simulation.status === "enqueued") {
     return (
       <EmptySection resourceName={t("resources.simulation")}>
         <Typography variant="h6">
@@ -24,7 +24,7 @@ const SimulationResultStatus = props => {
       </EmptySection>
     );
   }
-  if (simulation && simulation.attributes.status === "errored") {
+  if (simulation && simulation.status === "errored") {
     return (
       <EmptySection resourceName={t("resources.simulation")}>
         <Typography variant="h6">
@@ -35,7 +35,7 @@ const SimulationResultStatus = props => {
           dismissable={false}
           className={classes.spaced}
         >
-          {simulation.attributes.lastError}
+          {simulation.lastError}
         </InfoBox>
       </EmptySection>
     );

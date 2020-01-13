@@ -21,8 +21,6 @@ const SetsGroupsContainer = () => {
       .json(response => {
         setLoading(false);
         deserialize(response).then(data => {
-          console.log(data);
-
           setSetsGroups(data);
         });
 
