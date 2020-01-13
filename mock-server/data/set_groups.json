@@ -1,0 +1,150 @@
+{
+  "data": [
+    {
+      "id": "1",
+      "type": "setGroup",
+      "attributes": {
+        "name": "Payment rule pma",
+        "frequency": "quarterly",
+        "stableId": "87b1e374-2f83-4d9b-bdbd-11aba29d543b"
+      },
+      "relationships": {
+        "formulas": {
+          "data": [
+            {
+              "id": "1",
+              "type": "formula"
+            },
+            {
+              "id": "2",
+              "type": "formula"
+            },
+            {
+              "id": "3",
+              "type": "formula"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "2",
+      "type": "setGroup",
+      "attributes": {
+        "name": "Payment rule pca",
+        "frequency": "quarterly",
+        "stableId": "39e53882-f8d9-4fce-aa41-e53e9054e4d8"
+      },
+      "relationships": {
+        "formulas": {
+          "data": [
+            {
+              "id": "14",
+              "type": "formula"
+            },
+            {
+              "id": "15",
+              "type": "formula"
+            },
+            {
+              "id": "16",
+              "type": "formula"
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "included": [
+    {
+      "id": "1",
+      "type": "formula",
+      "attributes": {
+        "id": 1,
+        "code": "quality_bonus_percentage_value",
+        "description": "Quality bonus percentage",
+        "exportableFormulaCode": null,
+        "expression": "IF(quality_technical_score_value > 50, (0.35 * quality_technical_score_value) + (0.30 * 10.0), 0.0)",
+        "frequency": null,
+        "shortName": null,
+        "createdAt": "2020-01-13T09:39:00.534Z",
+        "updatedAt": "2020-01-13T09:39:00.534Z"
+      }
+    },
+    {
+      "id": "2",
+      "type": "formula",
+      "attributes": {
+        "id": 2,
+        "code": "quality_bonus_value",
+        "description": "Bonus qualité",
+        "exportableFormulaCode": null,
+        "expression": "quantity_total_pma * quality_bonus_percentage_value",
+        "frequency": null,
+        "shortName": null,
+        "createdAt": "2020-01-13T09:39:00.537Z",
+        "updatedAt": "2020-01-13T09:39:00.537Z"
+      }
+    },
+    {
+      "id": "3",
+      "type": "formula",
+      "attributes": {
+        "id": 3,
+        "code": "quarterly_payment",
+        "description": "Quarterly Payment",
+        "exportableFormulaCode": null,
+        "expression": "quantity_total_pma + quality_bonus_value",
+        "frequency": null,
+        "shortName": null,
+        "createdAt": "2020-01-13T09:39:00.539Z",
+        "updatedAt": "2020-01-13T09:39:00.539Z"
+      }
+    },
+    {
+      "id": "14",
+      "type": "formula",
+      "attributes": {
+        "id": 14,
+        "code": "quality_bonus_percentage_value",
+        "description": "Quality bonus percentage",
+        "exportableFormulaCode": null,
+        "expression": "IF(quality_technical_score_value > 50, (0.35 * quality_technical_score_value) + (0.30 * 10.0), 0.0)",
+        "frequency": null,
+        "shortName": null,
+        "createdAt": "2020-01-13T09:39:00.884Z",
+        "updatedAt": "2020-01-13T09:39:00.884Z"
+      }
+    },
+    {
+      "id": "15",
+      "type": "formula",
+      "attributes": {
+        "id": 15,
+        "code": "quality_bonus_value",
+        "description": "Bonus qualité",
+        "exportableFormulaCode": null,
+        "expression": "quantity_total_pca * quality_bonus_percentage_value",
+        "frequency": null,
+        "shortName": null,
+        "createdAt": "2020-01-13T09:39:00.885Z",
+        "updatedAt": "2020-01-13T09:39:00.885Z"
+      }
+    },
+    {
+      "id": "16",
+      "type": "formula",
+      "attributes": {
+        "id": 16,
+        "code": "quarterly_payment",
+        "description": "Quarterly Payment",
+        "exportableFormulaCode": null,
+        "expression": "quantity_total_pca + quality_bonus_value",
+        "frequency": null,
+        "shortName": null,
+        "createdAt": "2020-01-13T09:39:00.887Z",
+        "updatedAt": "2020-01-13T09:39:00.887Z"
+      }
+    }
+  ]
+}

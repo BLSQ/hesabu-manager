@@ -30,6 +30,10 @@ get '/api/sets' do
   File.read("data/sets.json")
 end
 
+get '/api/set_groups' do
+  File.read("data/set_groups.json")
+end
+
 get '/api/simulations' do
   File.read("data/simulations.json")
 end

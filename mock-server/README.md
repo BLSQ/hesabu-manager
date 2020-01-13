@@ -2,6 +2,8 @@
 
 `/api/sets` => Returns all sets available in the project
 
+`/api/set_groups` => Returns all set groups available in the project
+
 `/api/simulations` => Returns all ran simulations
 
 You can access using simulation id (which is unique):
