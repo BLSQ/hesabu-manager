@@ -48,7 +48,7 @@ const SetContainer = props => {
   const history = useHistory();
   const location = useLocation();
   const { t } = useTranslation();
-  const [sideSheetOpen, setSideSheetOpen] = useState(true);
+  const [sideSheetOpen, setSideSheetOpen] = useState(false);
   const classes = useStyles(sideSheetOpen);
 
   const [loading, setLoading] = useState(false);
