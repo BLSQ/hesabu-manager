@@ -10,7 +10,7 @@ const SetListItem = props => {
   const classes = styles();
   const [expanded, setExpanded] = useState(false);
 
-  const { name, description, orgUnitGroups, id, topics } = props;
+  const { name, orgUnitGroups, id, topics } = props;
 
   return (
     <div className={classes.root}>

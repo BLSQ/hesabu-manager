@@ -41,6 +41,10 @@ export default {
         set_plural: "sets",
         setGroup: "sets group",
         setGroup_plural: "sets groups",
+        orgUnitGroup: "Organisation unit group",
+        orgUnitGroup_plural: "Organisation unit groups",
+        orgUnitGroupSet: "Organisation unit group set",
+        orgUnitGroupSet_plural: "Organisation unit group sets",
         simulation: "simulation",
         simulation_plural: "simulations",
         orgUnit: "organisation unit",
@@ -51,6 +55,7 @@ export default {
         formula_plural: "formulas",
       },
       set: {
+        frequency: "Frequency",
         tabs: {
           currentLevel: "Current level",
           children: "Children",
