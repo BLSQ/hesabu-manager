@@ -35,13 +35,13 @@ get '/api/sets/:identifier' do |identifier|
   File.read("data/set.json")
 end
 
-get '/api/set_groups' do
-  File.read("data/set_groups.json")
+get '/api/compounds' do
+  File.read("data/compounds.json")
 end
 
-get '/api/set_groups/:identifier' do |identifier|
+get '/api/compounds/:identifier' do |identifier|
   _id = identifier
-  File.read("data/set_group.json")
+  File.read("data/compound.json")
 end
 
 get '/api/simulations' do

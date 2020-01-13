@@ -2,13 +2,33 @@
   "data": [
     {
       "id": "1",
-      "type": "setGroup",
+      "type": "compound",
       "attributes": {
         "name": "Payment rule pma",
         "frequency": "quarterly",
-        "stableId": "87b1e374-2f83-4d9b-bdbd-11aba29d543b"
+        "stableId": "3ea2ee64-5d03-4016-8811-74389366acf8"
       },
       "relationships": {
+        "sets": {
+          "data": [
+            {
+              "id": "1",
+              "type": "set"
+            },
+            {
+              "id": "1",
+              "type": "set"
+            },
+            {
+              "id": "2",
+              "type": "set"
+            },
+            {
+              "id": "2",
+              "type": "set"
+            }
+          ]
+        },
         "formulas": {
           "data": [
             {
@@ -29,13 +49,33 @@
     },
     {
       "id": "2",
-      "type": "setGroup",
+      "type": "compound",
       "attributes": {
         "name": "Payment rule pca",
         "frequency": "quarterly",
-        "stableId": "39e53882-f8d9-4fce-aa41-e53e9054e4d8"
+        "stableId": "d8be4185-7636-4de5-92bd-52f0f0ad0cb7"
       },
       "relationships": {
+        "sets": {
+          "data": [
+            {
+              "id": "3",
+              "type": "set"
+            },
+            {
+              "id": "3",
+              "type": "set"
+            },
+            {
+              "id": "2",
+              "type": "set"
+            },
+            {
+              "id": "2",
+              "type": "set"
+            }
+          ]
+        },
         "formulas": {
           "data": [
             {
@@ -67,8 +107,8 @@
         "expression": "IF(quality_technical_score_value > 50, (0.35 * quality_technical_score_value) + (0.30 * 10.0), 0.0)",
         "frequency": null,
         "shortName": null,
-        "createdAt": "2020-01-13T09:39:00.534Z",
-        "updatedAt": "2020-01-13T09:39:00.534Z"
+        "createdAt": "2020-01-13T15:12:00.524Z",
+        "updatedAt": "2020-01-13T15:12:00.524Z"
       }
     },
     {
@@ -82,8 +122,8 @@
         "expression": "quantity_total_pma * quality_bonus_percentage_value",
         "frequency": null,
         "shortName": null,
-        "createdAt": "2020-01-13T09:39:00.537Z",
-        "updatedAt": "2020-01-13T09:39:00.537Z"
+        "createdAt": "2020-01-13T15:12:00.527Z",
+        "updatedAt": "2020-01-13T15:12:00.527Z"
       }
     },
     {
@@ -97,8 +137,8 @@
         "expression": "quantity_total_pma + quality_bonus_value",
         "frequency": null,
         "shortName": null,
-        "createdAt": "2020-01-13T09:39:00.539Z",
-        "updatedAt": "2020-01-13T09:39:00.539Z"
+        "createdAt": "2020-01-13T15:12:00.529Z",
+        "updatedAt": "2020-01-13T15:12:00.529Z"
       }
     },
     {
@@ -112,8 +152,8 @@
         "expression": "IF(quality_technical_score_value > 50, (0.35 * quality_technical_score_value) + (0.30 * 10.0), 0.0)",
         "frequency": null,
         "shortName": null,
-        "createdAt": "2020-01-13T09:39:00.884Z",
-        "updatedAt": "2020-01-13T09:39:00.884Z"
+        "createdAt": "2020-01-13T15:12:00.873Z",
+        "updatedAt": "2020-01-13T15:12:00.873Z"
       }
     },
     {
@@ -127,8 +167,8 @@
         "expression": "quantity_total_pca * quality_bonus_percentage_value",
         "frequency": null,
         "shortName": null,
-        "createdAt": "2020-01-13T09:39:00.885Z",
-        "updatedAt": "2020-01-13T09:39:00.885Z"
+        "createdAt": "2020-01-13T15:12:00.874Z",
+        "updatedAt": "2020-01-13T15:12:00.874Z"
       }
     },
     {
@@ -142,8 +182,8 @@
         "expression": "quantity_total_pca + quality_bonus_value",
         "frequency": null,
         "shortName": null,
-        "createdAt": "2020-01-13T09:39:00.887Z",
-        "updatedAt": "2020-01-13T09:39:00.887Z"
+        "createdAt": "2020-01-13T15:12:00.875Z",
+        "updatedAt": "2020-01-13T15:12:00.875Z"
       }
     }
   ]
