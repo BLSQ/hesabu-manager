@@ -31,6 +31,11 @@ export default {
           debug: "Débug",
         },
       },
+      periodicity: {
+        monthly: "mensuel",
+        quarterly: "semestriel",
+        yearly: "annuel",
+      },
       resources: {
         set: "set",
         set_plural: "sets",

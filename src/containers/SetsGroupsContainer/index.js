@@ -1,27 +1,56 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import matchSorter from "match-sorter";
-import { connect } from "react-redux";
-import PropTypes from "prop-types";
 import SetsGroups from "../../components/SetsGroups";
+import { deserialize } from "../../utils/jsonApiUtils";
+import { externalApi } from "../../actions/api";
 
-const SetsContainer = props => {
+const SetsGroupsContainer = () => {
   const [sideSheetOpen, setSideSheetOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [query, setQuery] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(null);
+  const [setsGroups, setSetsGroups] = useState([]);
+
+  useEffect(() => {
+    setLoading(true);
+    externalApi()
+      .errorType("json")
+      .url(`/set_groups`)
+      .get()
+      .json(response => {
+        setLoading(false);
+        deserialize(response).then(data => {
+          console.log(data);
+
+          setSetsGroups(data);
+        });
+
+        setErrorMessage(null);
+      })
+      .catch(e => {
+        setErrorMessage(e.message);
+        setLoading(false);
+        setSetsGroups(null);
+      });
+  }, []);
 
   const handleToggleSideSheet = () => setSideSheetOpen(!sideSheetOpen);
   const handleToggleSearch = () => setSearchOpen(!searchOpen);
 
-  const filteredSetsGroups = matchSorter(props.setsGroups, query, {
+  const filteredSetsGroups = matchSorter(setsGroups, query, {
     keys: ["name", "displayName"],
   });
 
   return (
     <SetsGroups
       filteredSetsGroups={filteredSetsGroups}
-      setsGroups={props.setsGroups}
+      setsGroups={setsGroups}
+      loading={loading}
+      query={query}
       setQuery={setQuery}
       searchOpen={searchOpen}
+      errorMessage={errorMessage}
       handleToggleSearch={handleToggleSearch}
       sideSheetOpen={sideSheetOpen}
       handleToggleSideSheet={handleToggleSideSheet}
@@ -29,19 +58,4 @@ const SetsContainer = props => {
   );
 };
 
-SetsContainer.propTypes = {
-  setsGroups: PropTypes.arrayOf(PropTypes.object),
-};
-
-const mapStateToProps = () => ({
-  setsGroups: [
-    {
-      id: "12334",
-      name: "PBF payments CPA for NSHIP",
-      formulasCount: 3,
-      createdAt: "2019-11-02T18:25:43.511Z",
-    },
-  ],
-});
-
-export default connect(mapStateToProps)(SetsContainer);
+export default SetsGroupsContainer;

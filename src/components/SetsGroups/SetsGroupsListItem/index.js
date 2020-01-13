@@ -6,10 +6,11 @@ import { HorizontalBulletList } from "@blsq/manager-ui";
 import ReactTimeAgo from "react-time-ago/commonjs/ReactTimeAgo";
 import { useTranslation } from "react-i18next";
 import styles from "./styles";
+import { formattedName } from "../../../utils/textUtils";
 
 const SetsGroupsListItem = props => {
   const classes = styles();
-  const { name, id, createdAt, formulasCount } = props;
+  const { name, id, formulas, frequency } = props;
   const { t } = useTranslation();
 
   return (
@@ -24,10 +25,10 @@ const SetsGroupsListItem = props => {
       </Typography>
       <HorizontalBulletList className={classes.subheader}>
         <Typography component="li" variant="body2">
-          {formulasCount} {t("resources.formula", { count: formulasCount })}
+          {formattedName(t(`periodicity.${frequency}`))}
         </Typography>
         <Typography component="li" variant="body2">
-          <ReactTimeAgo date={new Date(createdAt)} />
+          {formulas.length} {t("resources.formula", { count: formulas.length })}
         </Typography>
       </HorizontalBulletList>
     </div>
