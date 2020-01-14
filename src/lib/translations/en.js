@@ -16,6 +16,10 @@ export default {
         edit: "Edit",
         delete: "Delete",
         reload: "Reload",
+        close: "Close",
+        last: "Last",
+        next: "Next",
+        skip: "Skip",
       },
       noData: "N/A",
       emptySection: {
@@ -130,6 +134,28 @@ export default {
       },
       snackBars: {
         reloadPage: "A new version is available! Please refresh the page.",
+      },
+      tours: {
+        welcome: {
+          title: "Welcome to Hesabu ßeta!",
+          content:
+            "In order to better reflect the diversity of our projects, we have opted for a new nomenclature compared to the old hesabu. This introductory tour will review these new concepts. The exact mapping of terms can be found in the help section.",
+          sets: {
+            title: "The sets",
+            content:
+              "Sets are collections of topics. Each set will produce one or two tables during the simulation depending on its type. You can use inputs from various sources to feed formulas which can then be exported to dhis2 and/or reused in compounds.",
+          },
+          compounds: {
+            title: "The compounds",
+            content:
+              "Compounds allow you to create and group new formulas by combining existing formulas from several different sets.",
+          },
+          simulations: {
+            title: "The simulations",
+            content:
+              "For the moment, simulations are still limited to one organization unit and one period. However, they can now self-recharge. This will allow you to automatically recreate a simulation as soon as you make a change to your set or compound.",
+          },
+        },
       },
     },
   },

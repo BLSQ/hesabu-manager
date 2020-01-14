@@ -20,9 +20,9 @@ import { toggleDrawer } from "./actions/ui";
 import store from "./store";
 import registerServiceWorker from "./registerServiceWorker";
 import { CookiesProvider } from "react-cookie";
-
 import keymap from "./lib/shortcuts";
 import { ShortcutManager, Shortcuts } from "react-shortcuts";
+import HomeTour from "./components/HomeTour";
 
 const shortcutManager = new ShortcutManager(keymap);
 
@@ -133,6 +133,7 @@ class App extends Component {
                   {this.props.project.id && (
                     <Fragment>
                       <SnackBarContainer />
+                      <HomeTour />
                       <Fade in={this.state.visible}>
                         <div className={classes.root}>
                           <ResponsiveDrawers

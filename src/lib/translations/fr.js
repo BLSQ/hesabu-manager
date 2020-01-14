@@ -15,6 +15,10 @@ export default {
         edit: "Modifier",
         delete: "Effacer",
         reload: "Recharger",
+        close: "Fermer",
+        last: "Dernier",
+        next: "Suivant",
+        skip: "Passer",
       },
       noData: "N/D",
       emptySection: {
@@ -133,6 +137,28 @@ export default {
       snackBars: {
         reloadPage:
           "Une nouvelle version est disponible! Rafraichissez la page.",
+      },
+      tours: {
+        welcome: {
+          title: "Bienvenue sur Hesabu ßeta!",
+          content:
+            "Afin de mieux refléter la diversité de nos projets, nous avons opté pour une nouvelle nomenclature par rapport à l’ancien hesabu. Ce tour d’introduction passera en revue ces nouveaux concept. La correspondance exacte des terme pourra être trouvée dans la section aide.",
+          sets: {
+            title: "Les sets",
+            content:
+              "Les sets sont des ensembles de sujets. Chaque ensemble produira un ou deux tableaux lors de la simulation en fonction de son type. Vous pouvez y utiliser des intrants de source diverses pour nourir des formules qui pourront ensuite être exportées vers dhis2 et/ou réutilisées dans des compounds.",
+          },
+          compounds: {
+            title: "Les compounds",
+            content:
+              "Les compounds permettent de créer et grouper de nouvelles formules en combinant des formules existantes provenant de plusieurs sets differents.",
+          },
+          simulations: {
+            title: "Les simulations",
+            content:
+              "Pour le moment les simulations sont toujours limitée à une unité d’organisation et une période. Par contre elles peuvent désormais s’auto-recharger. Cela vous permettra de d’automatiquement recréer une simulation dès que vous opérez un changement sur votre set ou compound.",
+          },
+        },
       },
     },
   },
