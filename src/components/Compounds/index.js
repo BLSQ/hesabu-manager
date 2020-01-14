@@ -53,9 +53,6 @@ const Compounds = props => {
         />
       </TopBar>
       <PageContent>
-        <InfoBox name="hesabu-sets-infobox" className={classes.infoBox}>
-          {t("sets.index.infoBox")}
-        </InfoBox>
         <CompoundsList
           compounds={filteredCompounds}
           noItems={!compounds.length}
