@@ -13,13 +13,14 @@ export const SimulationFilters = props => {
   const { t } = useTranslation();
   const history = useHistory();
   const {
-    values: { periods, orgUnit },
+    values: { periods, orgUnit, sets },
     loading,
   } = props;
 
   const initialValues = {
     periods,
     orgUnit,
+    sets,
   };
 
   return (

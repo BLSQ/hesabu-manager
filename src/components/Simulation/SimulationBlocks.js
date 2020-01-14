@@ -54,15 +54,17 @@ const SimulationBlocks = props => {
   // At least now the list can be filtered by code from url params
   // Which mean we can link to that url from the set edit page
   // Ex:
-  // ?sets=cospro__b_1__gestion_manuel,cospro__a_4__reduction_des_frais
-
-  const displayedSetCodes = (props.searchQuery.sets || "")
-    .split(",")
-    .filter(i => i);
+  // ?sets=gestion_manuel,reduction_des_frais
+  function getSetName(setKey) {
+    return setKey.split("__")[setKey.split("__").length - 1];
+  }
+  const displayedSetCodes =
+    props.searchQuery.sets.split(",").filter(i => i) || "";
 
   const sets = Object.keys(setsByCode);
+
   const filteredSets = displayedSetCodes.length
-    ? sets.filter(setKey => displayedSetCodes.includes(setKey))
+    ? sets.filter(setKey => displayedSetCodes.includes(getSetName(setKey)))
     : sets;
 
   if (!filteredSets.length) {

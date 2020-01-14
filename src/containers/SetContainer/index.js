@@ -26,6 +26,7 @@ import { formattedName } from "../../utils/textUtils";
 import SidebarBlock from "../../components/Shared/SidebarBlock";
 import ActionFab from "../../components/Shared/ActionFab";
 import { SIDEBAR_WIDTH } from "../../constants/ui";
+import snakeCase from "lodash/snakeCase";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -112,7 +113,9 @@ const SetContainer = props => {
         />
       </TopBar>
       <ActionFab
-        to={`/simulation?periods=${props.simulationPeriod}&sets=${setId}`}
+        to={`/simulation?periods=${props.simulationPeriod}&sets=${snakeCase(
+          set.name,
+        )}`}
         text="Simulation"
         extended
         className={classes.simulationBtn}
