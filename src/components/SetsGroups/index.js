@@ -26,7 +26,7 @@ const SetsGroups = props => {
     handleToggleSearch,
     setQuery,
     handleToggleSideSheet,
-    setsGroups,
+    compounds,
     filteredSetsGroups,
     sideSheetOpen,
   } = props;
@@ -57,8 +57,8 @@ const SetsGroups = props => {
           {t("sets.index.infoBox")}
         </InfoBox>
         <SetsGroupsList
-          setsGroups={filteredSetsGroups}
-          noItems={!setsGroups.length}
+          compounds={filteredSetsGroups}
+          noItems={!compounds.length}
         />
         <SetsGroupContainer open={modalOpen} setsGroupId={setsGroupId} />
       </PageContent>
@@ -85,7 +85,7 @@ SetsGroups.propTypes = {
   query: PropTypes.string,
   searchOpen: PropTypes.bool,
   setQuery: PropTypes.func,
-  setsGroups: PropTypes.array,
+  compounds: PropTypes.array,
   sideSheetOpen: PropTypes.bool,
 };
 

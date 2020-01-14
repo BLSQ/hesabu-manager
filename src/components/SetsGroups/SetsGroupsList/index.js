@@ -7,11 +7,11 @@ import EmptySection from "../../EmptySection";
 const SetsGroupsList = props => {
   const { t } = useTranslation();
   if (props.noItems)
-    return <EmptySection resourceName={t("resources.setsGroup")} />;
-  if (!props.setsGroups.length) return <p>No sets groups found</p>;
+    return <EmptySection resourceName={t("resources.compound")} />;
+  if (!props.compounds.length) return <p>No compounds found</p>;
   return (
     <div>
-      {props.setsGroups.map((set, index) => (
+      {props.compounds.map((set, index) => (
         <SetsGroupsListItem key={index} {...set} />
       ))}
     </div>
@@ -19,7 +19,7 @@ const SetsGroupsList = props => {
 };
 
 SetsGroupsList.propTypes = {
-  setsGroups: PropTypes.arrayOf(PropTypes.object),
+  compounds: PropTypes.arrayOf(PropTypes.object),
   noItems: PropTypes.bool,
 };
 

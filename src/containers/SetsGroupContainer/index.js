@@ -6,20 +6,20 @@ import PropTypes from "prop-types";
 import SetsGroup from "../../components/SetsGroups/SetsGroup";
 
 const SetsGroupContainer = props => {
-  const { open, setsGroup } = props;
+  const { open, compound } = props;
 
-  return <SetsGroup open={open} {...setsGroup} />;
+  return <SetsGroup open={open} {...compound} />;
 };
 
 SetsGroupContainer.propTypes = {
   open: PropTypes.bool,
-  setsGroup: PropTypes.object,
+  compound: PropTypes.object,
   setsGroupId: PropTypes.string,
 };
 
 const mapStateToProps = () => ({
   // #TODO: Fetch over api
-  setsGroup: {
+  compound: {
     id: "12334",
     name: "Sets group example",
     formulasCount: 3,

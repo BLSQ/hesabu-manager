@@ -43,7 +43,7 @@ export default {
         orgUnitGroup_plural: "Groupes d’unité d’organisation",
         orgUnitGroupSet: "Set de groupes d’unité d’organisation",
         orgUnitGroupSet_plural: "Sets de groupes d’unité d’organisation",
-        setsGroup: "groupe de sets",
+        compound: "groupe de sets",
         setsGroup_plural: "groupes de sets",
         simulation: "simulation",
         simulation_plural: "simulations",

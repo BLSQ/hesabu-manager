@@ -10,7 +10,7 @@ const SetsGroupsContainer = () => {
   const [query, setQuery] = useState("");
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
-  const [setsGroups, setSetsGroups] = useState([]);
+  const [compounds, setSetsGroups] = useState([]);
 
   useEffect(() => {
     setLoading(true);
@@ -36,14 +36,14 @@ const SetsGroupsContainer = () => {
   const handleToggleSideSheet = () => setSideSheetOpen(!sideSheetOpen);
   const handleToggleSearch = () => setSearchOpen(!searchOpen);
 
-  const filteredSetsGroups = matchSorter(setsGroups, query, {
+  const filteredSetsGroups = matchSorter(compounds, query, {
     keys: ["name", "displayName"],
   });
 
   return (
     <SetsGroups
       filteredSetsGroups={filteredSetsGroups}
-      setsGroups={setsGroups}
+      compounds={compounds}
       loading={loading}
       query={query}
       setQuery={setQuery}
