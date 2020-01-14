@@ -14,6 +14,7 @@ export default {
         seeOnDhis2: "Voir sur dhis2",
         edit: "Modifier",
         delete: "Effacer",
+        reload: "Recharger",
       },
       noData: "N/D",
       emptySection: {
@@ -128,6 +129,10 @@ export default {
       filtersSheet: {
         title: "Filtres",
         label: "Liste des filtres",
+      },
+      snackBars: {
+        reloadPage:
+          "Une nouvelle version est disponible! Rafraichissez la page.",
       },
     },
   },
