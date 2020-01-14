@@ -39,6 +39,10 @@ export default {
       resources: {
         set: "set",
         set_plural: "sets",
+        orgUnitGroup: "Groupe d’unité d’organisation",
+        orgUnitGroup_plural: "Groupes d’unité d’organisation",
+        orgUnitGroupSet: "Set de groupes d’unité d’organisation",
+        orgUnitGroupSet_plural: "Sets de groupes d’unité d’organisation",
         setsGroup: "groupe de sets",
         setsGroup_plural: "groupes de sets",
         simulation: "simulation",
@@ -51,6 +55,7 @@ export default {
         formula_plural: "formules",
       },
       set: {
+        frequency: "Fréquence",
         tabs: {
           currentLevel: "Niveau actuel",
           children: " Enfants",

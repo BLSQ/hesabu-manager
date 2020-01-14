@@ -17,19 +17,17 @@ const humanDuration = milliSeconds => {
 const SimulationListItem = props => {
   const classes = useStyles();
   const {
-    attributes: {
-      createdAt,
-      durationMs,
-      orgUnitName: title,
-      dhis2Period: period,
-      orgUnit,
-    },
+    createdAt,
+    durationMs,
+    orgUnitName: title,
+    dhis2Period: period,
+    orgUnit,
   } = props;
 
   return (
     <div className={classes.root}>
       <div className={classes.header}>
-        <SimulationStateIcon {...props.attributes} />
+        <SimulationStateIcon {...props} />
         <Typography
           variant="subtitle1"
           component={Link}

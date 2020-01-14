@@ -12,6 +12,7 @@ import useStyles from "./styles";
 import { formattedName } from "../../utils/textUtils";
 import { externalApi } from "../../actions/api";
 import ActionFab from "../../components/Shared/ActionFab";
+import { deserialize } from "../../utils/jsonApiUtils";
 
 const SimulationsContainer = () => {
   const classes = useStyles();
@@ -30,13 +31,15 @@ const SimulationsContainer = () => {
       .get()
       .json(response => {
         setLoading(false);
-        setSimulations(response.data);
+        deserialize(response).then(data => {
+          setSimulations(data);
+        });
         setErrorMessage(null);
       })
       .catch(e => {
         setErrorMessage(e.message);
         setLoading(false);
-        setSimulations(null);
+        setSimulations([]);
       });
   }, []);
 

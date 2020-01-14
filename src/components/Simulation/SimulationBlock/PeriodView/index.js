@@ -35,10 +35,11 @@ const useStyles = makeStyles(theme => ({
 const PeriodView = props => {
   const { periodView, className } = props;
   const classes = useStyles();
+
   return (
     <div className={classNames(classes.root, className)}>
       <div className={classes.keyNumbersContainer}>
-        {periodView.totalItems.map((item, index) => (
+        {periodView.total_items.map((item, index) => (
           <button
             onClick={() => props.setSelectedCell(item)}
             key={`key-number-${item.solution}-${index}`}
