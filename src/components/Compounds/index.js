@@ -10,16 +10,16 @@ import SideSheet from "../SideSheet";
 import FiltersToggleBtn from "../FiltersToggleBtn";
 import AppBarSearch from "../AppBarSearch";
 import useStyles from "./styles";
-import SetsGroupsList from "./SetsGroupsList";
+import CompoundsList from "./CompoundsList";
 import { formattedName } from "../../utils/textUtils";
-import SetsGroupContainer from "../../containers/SetsGroupContainer";
+import CompoundContainer from "../../containers/CompoundContainer";
 
-const SetsGroups = props => {
+const Compounds = props => {
   const classes = useStyles(props);
   const { t } = useTranslation();
 
-  const { setsGroupId } = useParams();
-  const modalOpen = !!setsGroupId;
+  const { compoundId } = useParams();
+  const modalOpen = !!compoundId;
 
   const {
     searchOpen,
@@ -27,7 +27,7 @@ const SetsGroups = props => {
     setQuery,
     handleToggleSideSheet,
     compounds,
-    filteredSetsGroups,
+    filteredCompounds,
     sideSheetOpen,
   } = props;
 
@@ -42,7 +42,7 @@ const SetsGroups = props => {
             color="inherit"
             className={classes.appBarHeader}
           >
-            {formattedName(t("resources.setsGroup_plural"))}
+            {formattedName(t("resources.compound_plural"))}
           </Typography>
         )}
         <FiltersToggleBtn onClick={handleToggleSearch} variant="search" />
@@ -56,11 +56,11 @@ const SetsGroups = props => {
         <InfoBox name="hesabu-sets-infobox" className={classes.infoBox}>
           {t("sets.index.infoBox")}
         </InfoBox>
-        <SetsGroupsList
-          compounds={filteredSetsGroups}
+        <CompoundsList
+          compounds={filteredCompounds}
           noItems={!compounds.length}
         />
-        <SetsGroupContainer open={modalOpen} setsGroupId={setsGroupId} />
+        <CompoundContainer open={modalOpen} compoundId={compoundId} />
       </PageContent>
       <SideSheet
         title={t("filtersSheet.title")}
@@ -78,8 +78,8 @@ const SetsGroups = props => {
   );
 };
 
-SetsGroups.propTypes = {
-  filteredSetsGroups: PropTypes.array,
+Compounds.propTypes = {
+  filteredCompounds: PropTypes.array,
   handleToggleSearch: PropTypes.func,
   handleToggleSideSheet: PropTypes.func,
   query: PropTypes.string,
@@ -89,4 +89,4 @@ SetsGroups.propTypes = {
   sideSheetOpen: PropTypes.bool,
 };
 
-export default SetsGroups;
+export default Compounds;

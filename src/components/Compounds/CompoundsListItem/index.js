@@ -8,7 +8,7 @@ import { useTranslation } from "react-i18next";
 import styles from "./styles";
 import { formattedName } from "../../../utils/textUtils";
 
-const SetsGroupsListItem = props => {
+const CompoundsListItem = props => {
   const classes = styles();
   const { name, id, formulas, frequency } = props;
   const { t } = useTranslation();
@@ -17,7 +17,7 @@ const SetsGroupsListItem = props => {
     <div className={classes.root}>
       <Typography
         component={Link}
-        to={`/sets_groups/${id}`}
+        to={`/compounds/${id}`}
         variant="subtitle1"
         className={classes.sectionTitle}
       >
@@ -35,11 +35,11 @@ const SetsGroupsListItem = props => {
   );
 };
 
-SetsGroupsListItem.propTypes = {
+CompoundsListItem.propTypes = {
   createdAt: PropTypes.string,
   id: PropTypes.string,
   name: PropTypes.string,
   formulasCount: PropTypes.number,
 };
 
-export default withRouter(SetsGroupsListItem);
+export default withRouter(CompoundsListItem);

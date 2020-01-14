@@ -1,10 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { useTranslation } from "react-i18next";
-import SetsGroupsListItem from "../SetsGroupsListItem";
+import CompoundsListItem from "../CompoundsListItem";
 import EmptySection from "../../EmptySection";
 
-const SetsGroupsList = props => {
+const CompoundsList = props => {
   const { t } = useTranslation();
   if (props.noItems)
     return <EmptySection resourceName={t("resources.compound")} />;
@@ -12,15 +12,15 @@ const SetsGroupsList = props => {
   return (
     <div>
       {props.compounds.map((set, index) => (
-        <SetsGroupsListItem key={index} {...set} />
+        <CompoundsListItem key={index} {...set} />
       ))}
     </div>
   );
 };
 
-SetsGroupsList.propTypes = {
+CompoundsList.propTypes = {
   compounds: PropTypes.arrayOf(PropTypes.object),
   noItems: PropTypes.bool,
 };
 
-export default SetsGroupsList;
+export default CompoundsList;

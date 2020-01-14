@@ -41,8 +41,8 @@ function DrawerItems(props) {
       Icon: ListIcon,
     },
     {
-      name: formattedName(t("resources.setsGroup_plural")),
-      to: "/sets_groups",
+      name: formattedName(t("resources.compound_plural")),
+      to: "/compounds",
       Icon: FunctionsIcon,
     },
     {
