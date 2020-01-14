@@ -31,8 +31,8 @@ const LoadableSetsContainer = Loadable({
   loading: RouteLoading,
 });
 
-const LoadableSetsGroupsContainer = Loadable({
-  loader: () => import("./containers/SetsGroupsContainer"),
+const LoadableCompoundsContainer = Loadable({
+  loader: () => import("./containers/CompoundsContainer"),
   loading: RouteLoading,
 });
 
@@ -77,7 +77,7 @@ class App extends Component {
         history.push("/sets");
         break;
       case "GO_TO_SETS_GROUPS":
-        history.push("/sets_groups");
+        history.push("/compounds");
         break;
       case "GO_TO_SIMULATIONS":
         history.push("/simulations");
@@ -153,12 +153,12 @@ class App extends Component {
                             />
                             <Route
                               exact
-                              path="/sets_groups"
-                              component={LoadableSetsGroupsContainer}
+                              path="/compounds"
+                              component={LoadableCompoundsContainer}
                             />
                             <Route
-                              path="/sets_groups/:setsGroupId"
-                              component={LoadableSetsGroupsContainer}
+                              path="/compounds/:compoundId"
+                              component={LoadableCompoundsContainer}
                             />
                             <Route
                               exact

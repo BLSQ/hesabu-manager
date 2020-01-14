@@ -9,7 +9,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-const SetsGroup = props => {
+const Compound = props => {
   const history = useHistory();
 
   const { open, name } = props;
@@ -18,10 +18,10 @@ const SetsGroup = props => {
     <Dialog
       fullScreen
       open={open}
-      onClose={() => history.push("/sets_groups")}
+      onClose={() => history.push("/compounds")}
       TransitionComponent={Transition}
     >
-      <TopBar fullscreen backLinkPath="/sets_groups">
+      <TopBar fullscreen backLinkPath="/compounds">
         <Typography variant="h6" color="inherit">
           {name}
         </Typography>
@@ -38,9 +38,9 @@ const SetsGroup = props => {
   );
 };
 
-SetsGroup.propTypes = {
+Compound.propTypes = {
   open: PropTypes.bool,
   name: PropTypes.string,
 };
 
-export default SetsGroup;
+export default Compound;

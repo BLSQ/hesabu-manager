@@ -3,27 +3,27 @@ import { withRouter } from "react-router-dom";
 
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import SetsGroup from "../../components/SetsGroups/SetsGroup";
+import Compound from "../../components/Compounds/Compound";
 
-const SetsGroupContainer = props => {
-  const { open, setsGroup } = props;
+const CompoundContainer = props => {
+  const { open, compound } = props;
 
-  return <SetsGroup open={open} {...setsGroup} />;
+  return <Compound open={open} {...compound} />;
 };
 
-SetsGroupContainer.propTypes = {
+CompoundContainer.propTypes = {
   open: PropTypes.bool,
-  setsGroup: PropTypes.object,
-  setsGroupId: PropTypes.string,
+  compound: PropTypes.object,
+  compoundId: PropTypes.string,
 };
 
 const mapStateToProps = () => ({
   // #TODO: Fetch over api
-  setsGroup: {
+  compound: {
     id: "12334",
     name: "Sets group example",
     formulasCount: 3,
-    setsGroupsFormulas: [
+    compoundsFormulas: [
       {
         name: "Set group formula example",
         id: " 2234",
@@ -36,4 +36,4 @@ const mapStateToProps = () => ({
   },
 });
 
-export default connect(mapStateToProps)(withRouter(SetsGroupContainer));
+export default connect(mapStateToProps)(withRouter(CompoundContainer));

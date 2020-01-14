@@ -39,8 +39,8 @@ export default {
       resources: {
         set: "set",
         set_plural: "sets",
-        setGroup: "sets group",
-        setGroup_plural: "sets groups",
+        compound: "compound",
+        compound_plural: "compounds",
         orgUnitGroup: "Organisation unit group",
         orgUnitGroup_plural: "Organisation unit groups",
         orgUnitGroupSet: "Organisation unit group set",
