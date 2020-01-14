@@ -13,6 +13,8 @@ export default {
         submit: "Submit",
         loading: "Loading",
         seeOnDhis2: "See on dhis2",
+        edit: "Edit",
+        delete: "Delete",
       },
       noData: "N/A",
       emptySection: {

@@ -3,7 +3,6 @@ import React from "react";
 import { Typography } from "@material-ui/core";
 import PropTypes from "prop-types";
 import { HorizontalBulletList } from "@blsq/manager-ui";
-import ReactTimeAgo from "react-time-ago/commonjs/ReactTimeAgo";
 import { useTranslation } from "react-i18next";
 import styles from "./styles";
 import { formattedName } from "../../../utils/textUtils";

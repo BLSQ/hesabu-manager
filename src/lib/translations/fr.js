@@ -12,6 +12,8 @@ export default {
         submit: "Envoyez",
         loading: "En cours",
         seeOnDhis2: "Voir sur dhis2",
+        edit: "Modifier",
+        delete: "Effacer",
       },
       noData: "N/D",
       emptySection: {
