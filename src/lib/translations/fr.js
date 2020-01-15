@@ -20,6 +20,12 @@ export default {
         next: "Suivant",
         skip: "Passer",
       },
+      compound: {
+        frequency: "Fréquence",
+        sidesheet: {
+          title: "Compound info",
+        },
+      },
       noData: "N/D",
       emptySection: {
         title: "Vous n'avez aucun.e {{resourceName}}",
