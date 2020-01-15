@@ -21,6 +21,12 @@ export default {
         next: "Next",
         skip: "Skip",
       },
+      compound: {
+        frequency: "Fréquency",
+        sidesheet: {
+          title: "Compound info",
+        },
+      },
       noData: "N/A",
       emptySection: {
         title: "You don’t have any {{resourceName}}",

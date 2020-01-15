@@ -7,6 +7,7 @@ import { externalApi } from "../../actions/api";
 
 const CompoundContainer = props => {
   const { open } = props;
+  const [sideSheetOpen, setSideSheetOpen] = useState(true);
 
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
@@ -33,9 +34,19 @@ const CompoundContainer = props => {
           setCompound({});
         });
     }
-  }, [props.compoundId]);
+  }, [props.compoundId, open]);
 
-  return <Compound open={open} {...compound} />;
+  return (
+    <Compound
+      open={open}
+      loading={loading}
+      errorMessage={errorMessage}
+      {...compound}
+      sideSheetOpen={sideSheetOpen}
+      onSideSheetClose={() => setSideSheetOpen(false)}
+      onToggleSideSheet={() => setSideSheetOpen(!sideSheetOpen)}
+    />
+  );
 };
 
 CompoundContainer.propTypes = {
