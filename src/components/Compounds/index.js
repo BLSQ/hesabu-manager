@@ -1,7 +1,6 @@
 import React, { Fragment } from "react";
 import { Typography } from "@material-ui/core";
 import { useTranslation } from "react-i18next";
-import { InfoBox } from "@blsq/manager-ui";
 import PropTypes from "prop-types";
 import { useParams } from "react-router-dom";
 import PageContent from "../Shared/PageContent";
