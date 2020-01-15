@@ -36,7 +36,7 @@ const SideSheet = props => {
 
 SideSheet.propTypes = {
   title: PropTypes.string,
-  children: PropTypes.element,
+  children: PropTypes.node,
   onClose: PropTypes.func,
 };
 

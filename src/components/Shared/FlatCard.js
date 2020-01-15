@@ -24,7 +24,6 @@ const FlatCard = props => {
   const { t } = useTranslation();
   return (
     <Card
-      raise={false}
       classes={{
         root: classes.root,
       }}

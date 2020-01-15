@@ -24,7 +24,7 @@ const SidebarBlock = props => {
 };
 
 SidebarBlock.propTypes = {
-  children: PropTypes.oneOfType(PropTypes.string, PropTypes.array),
+  children: PropTypes.node,
   title: PropTypes.string.isRequired,
 };
 
