@@ -12,6 +12,7 @@ import { useTranslation } from "react-i18next";
 import { makeStyles } from "@material-ui/styles";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import snakeCase from "lodash/snakeCase";
 import TopBar from "../../components/Shared/TopBar";
 import SideSheet from "../../components/SideSheet";
 import FiltersToggleBtn from "../../components/FiltersToggleBtn";
@@ -26,7 +27,6 @@ import { formattedName } from "../../utils/textUtils";
 import SidebarBlock from "../../components/Shared/SidebarBlock";
 import ActionFab from "../../components/Shared/ActionFab";
 import { SIDEBAR_WIDTH } from "../../constants/ui";
-import snakeCase from "lodash/snakeCase";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -115,9 +115,13 @@ const SetContainer = props => {
         />
       </TopBar>
       <ActionFab
-        to={`/simulation?periods=${props.simulationPeriod}&sets=${snakeCase(
-          set.name,
-        )}`}
+        to={{
+          pathname: `/simulation`,
+          search: `?periods=${props.simulationPeriod}&sets=${snakeCase(
+            set.name,
+          )}`,
+          state: { referrer: location.pathname },
+        }}
         text="Simulation"
         extended
         className={classes.simulationBtn}

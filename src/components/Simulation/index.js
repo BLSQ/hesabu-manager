@@ -8,7 +8,7 @@ import {
 import { ExpandableBottomSheet } from "@blsq/manager-ui";
 import React, { useState, useEffect, Fragment } from "react";
 import PropTypes from "prop-types";
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import { withTranslation } from "react-i18next";
 import isEmpty from "lodash/isEmpty";
 import { connect } from "react-redux";
@@ -28,6 +28,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 export const Simulation = props => {
   const classes = useStyles();
   const history = useHistory();
+  const location = useLocation();
   const [sideSheetOpen, setSideSheetOpen] = useState(false);
   const [bottomSheetOpen, setBottomSheetOpen] = useState(false);
 
@@ -66,6 +67,10 @@ export const Simulation = props => {
     // eslint-disable-next-line
   }, [selectedCell]);
 
+  const backLinkPath = (location.state || {}).referrer
+    ? location.state.referrer
+    : "/simulations";
+
   return (
     <Dialog
       fullScreen
@@ -77,7 +82,7 @@ export const Simulation = props => {
         paperScrollPaper: classes.dialog,
       }}
     >
-      <TopBar fullscreen backLinkPath="/simulations">
+      <TopBar fullscreen backLinkPath={backLinkPath}>
         <Typography
           variant="h6"
           color="inherit"
