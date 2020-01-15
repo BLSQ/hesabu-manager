@@ -57,25 +57,27 @@ const SetContainer = props => {
   const [set, setSet] = useState({});
 
   useEffect(() => {
-    setLoading(true);
-    externalApi()
-      .errorType("json")
-      .url(`/sets/${props.setId}`)
-      .get()
-      .json(response => {
-        setLoading(false);
-        deserialize(response).then(data => {
-          setSet(data);
-        });
+    if (open) {
+      setLoading(true);
+      externalApi()
+        .errorType("json")
+        .url(`/sets/${props.setId}`)
+        .get()
+        .json(response => {
+          setLoading(false);
+          deserialize(response).then(data => {
+            setSet(data);
+          });
 
-        setErrorMessage(null);
-      })
-      .catch(e => {
-        setErrorMessage(e.message);
-        setLoading(false);
-        setSet({});
-      });
-  }, []);
+          setErrorMessage(null);
+        })
+        .catch(e => {
+          setErrorMessage(e.message);
+          setLoading(false);
+          setSet({});
+        });
+    }
+  }, [props.setId]);
 
   const { setId, open, match } = props;
 

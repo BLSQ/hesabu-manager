@@ -13,25 +13,27 @@ const CompoundContainer = props => {
   const [compound, setCompound] = useState({});
 
   useEffect(() => {
-    setLoading(true);
-    externalApi()
-      .errorType("json")
-      .url(`/compounds/${props.compoundId}`)
-      .get()
-      .json(response => {
-        setLoading(false);
-        deserialize(response).then(data => {
-          setCompound(data);
-        });
+    if (open) {
+      setLoading(true);
+      externalApi()
+        .errorType("json")
+        .url(`/compounds/${props.compoundId}`)
+        .get()
+        .json(response => {
+          setLoading(false);
+          deserialize(response).then(data => {
+            setCompound(data);
+          });
 
-        setErrorMessage(null);
-      })
-      .catch(e => {
-        setErrorMessage(e.message);
-        setLoading(false);
-        setCompound({});
-      });
-  }, []);
+          setErrorMessage(null);
+        })
+        .catch(e => {
+          setErrorMessage(e.message);
+          setLoading(false);
+          setCompound({});
+        });
+    }
+  }, [props.compoundId]);
 
   return <Compound open={open} {...compound} />;
 };
