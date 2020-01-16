@@ -1,0 +1,20 @@
+{
+  "data": {
+    "id": "25030",
+    "type": "invoicingJob",
+    "attributes": {
+      "orgUnit": "nfqd7CzY380",
+      "dhis2Period": "2019Q3",
+      "user": null,
+      "createdAt": "2019-08-07T19:46:51.254Z",
+      "processedAt": "2020-01-15T14:54:24.053Z",
+      "erroredAt": null,
+      "durationMs": 3139,
+      "status": "processed",
+      "lastError": null,
+      "sidekiqJobRef": null,
+      "isAlive": false,
+      "resultUrl": "http://localhost:4567/s3/results/25030.json"
+    }
+  }
+}

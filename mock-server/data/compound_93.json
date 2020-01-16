@@ -1,0 +1,147 @@
+{
+  "data": {
+    "id": "93",
+    "type": "compound",
+    "attributes": {
+      "name": "INSPOOL paiement",
+      "frequency": "quarterly",
+      "stableId": "4da7f6c4-50bf-4ac8-9002-f3e273f4a1dd"
+    },
+    "relationships": {
+      "sets": {
+        "data": [
+          {
+            "id": "256",
+            "type": "set"
+          },
+          {
+            "id": "257",
+            "type": "set"
+          },
+          {
+            "id": "258",
+            "type": "set"
+          },
+          {
+            "id": "259",
+            "type": "set"
+          },
+          {
+            "id": "261",
+            "type": "set"
+          },
+          {
+            "id": "262",
+            "type": "set"
+          },
+          {
+            "id": "263",
+            "type": "set"
+          },
+          {
+            "id": "264",
+            "type": "set"
+          },
+          {
+            "id": "265",
+            "type": "set"
+          },
+          {
+            "id": "266",
+            "type": "set"
+          },
+          {
+            "id": "267",
+            "type": "set"
+          },
+          {
+            "id": "268",
+            "type": "set"
+          }
+        ]
+      },
+      "formulas": {
+        "data": [
+          {
+            "id": "2078",
+            "type": "formula"
+          },
+          {
+            "id": "2077",
+            "type": "formula"
+          },
+          {
+            "id": "2076",
+            "type": "formula"
+          },
+          {
+            "id": "2075",
+            "type": "formula"
+          }
+        ]
+      }
+    }
+  },
+  "included": [
+    {
+      "id": "2078",
+      "type": "formula",
+      "attributes": {
+        "id": 2078,
+        "code": "total",
+        "description": "subside for all sections",
+        "exportableFormulaCode": null,
+        "expression": "inspool_a_subsidies_obtained + inspool_b_subsidies_obtained+ inspool_c_subsidies_obtained",
+        "frequency": null,
+        "shortName": "total",
+        "createdAt": "2019-06-14T14:04:06.579Z",
+        "updatedAt": "2019-06-18T10:15:47.827Z"
+      }
+    },
+    {
+      "id": "2077",
+      "type": "formula",
+      "attributes": {
+        "id": 2077,
+        "code": "inspool_c_subsidies_obtained",
+        "description": "INSPOOL - Subsides obtenus pour la Section C",
+        "exportableFormulaCode": null,
+        "expression": "inspool_c1_subsidies_obtained \r\n+ inspool_c2_subsidies_obtained \r\n+ inspool_c3_subsidies_obtained \r\n+ inspool_c4_subsidies_obtained \r\n+ inspool_c5_subsidies_obtained",
+        "frequency": null,
+        "shortName": "INSPOOL - Subsides obtenus pour la Section C",
+        "createdAt": "2019-06-14T14:04:06.571Z",
+        "updatedAt": "2019-06-18T10:15:47.839Z"
+      }
+    },
+    {
+      "id": "2076",
+      "type": "formula",
+      "attributes": {
+        "id": 2076,
+        "code": "inspool_b_subsidies_obtained",
+        "description": "INSPOOL - Subsides obtenus pour la Section B",
+        "exportableFormulaCode": null,
+        "expression": "inspool_b1_subsidies_obtained + \r\ninspool_b2_subsidies_obtained + \r\ninspool_b3_subsidies_obtained +\r\ninspool_b4_subsidies_obtained +\r\ninspool_b5_subsidies_obtained +\r\ninspool_b6_subsidies_obtained",
+        "frequency": null,
+        "shortName": "INSPOOL - Subsides obtenus pour la Section B",
+        "createdAt": "2019-06-14T14:04:06.563Z",
+        "updatedAt": "2019-06-18T10:15:47.849Z"
+      }
+    },
+    {
+      "id": "2075",
+      "type": "formula",
+      "attributes": {
+        "id": 2075,
+        "code": "inspool_a_subsidies_obtained",
+        "description": "INSPOOL - Subsides obtenus pour la Section A",
+        "exportableFormulaCode": null,
+        "expression": "inspool_a1_subsidies_obtained",
+        "frequency": null,
+        "shortName": "INSPOOL - Subsides obtenus pour la Section A",
+        "createdAt": "2019-06-14T14:04:06.555Z",
+        "updatedAt": "2019-06-18T10:15:47.859Z"
+      }
+    }
+  ]
+}
