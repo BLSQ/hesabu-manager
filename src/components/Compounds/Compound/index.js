@@ -66,37 +66,39 @@ const Compound = props => {
           onClick={onToggleSideSheet}
         />
       </TopBar>
-      <PageContent fullscreen>
-        {loading && <CircularProgress />}
-        {errorMessage && <p>{errorMessage}</p>}
-        <div className={classes.formulaWrapper}>
-          {(formulas || []).map((formula, i) => (
-            <FlatCard
-              key={`formula-${i}`}
-              to={`${match.url}/edit`}
-              onDelete={handleDelete}
-            >
-              {formula.description}
-            </FlatCard>
-          ))}
-        </div>
-      </PageContent>
-      <SideSheet
-        title={t("compound.sidesheet.title")}
-        open={sideSheetOpen}
-        onClose={onSideSheetClose}
-      >
-        <SidebarBlock title={formattedName(t("resources.set_plural"))}>
-          {(sets || []).length && (
-            <span>{sets.map(set => (set || {}).id)}</span>
-          )}
-        </SidebarBlock>
-        {frequency && (
-          <SidebarBlock title={formattedName(t(`compound.frequency`))}>
-            {t(`periodicity.${frequency}`)}
+      <div style={{ display: "flex" }}>
+        <PageContent fullscreen>
+          {loading && <CircularProgress />}
+          {errorMessage && <p>{errorMessage}</p>}
+          <div className={classes.formulaWrapper}>
+            {(formulas || []).map((formula, i) => (
+              <FlatCard
+                key={`formula-${i}`}
+                to={`${match.url}/edit`}
+                onDelete={handleDelete}
+              >
+                {formula.description}
+              </FlatCard>
+            ))}
+          </div>
+        </PageContent>
+        <SideSheet
+          title={t("compound.sidesheet.title")}
+          open={sideSheetOpen}
+          onClose={onSideSheetClose}
+        >
+          <SidebarBlock title={formattedName(t("resources.set_plural"))}>
+            {(sets || []).length && (
+              <span>{sets.map(set => (set || {}).id)}</span>
+            )}
           </SidebarBlock>
-        )}
-      </SideSheet>
+          {frequency && (
+            <SidebarBlock title={formattedName(t(`compound.frequency`))}>
+              {t(`periodicity.${frequency}`)}
+            </SidebarBlock>
+          )}
+        </SideSheet>
+      </div>
     </Dialog>
   );
 };
