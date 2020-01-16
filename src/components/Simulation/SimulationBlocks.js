@@ -64,8 +64,6 @@ const SimulationBlocks = props => {
     .filter(i => i);
 
   const sets = Object.keys(setsByCode);
-  console.log("sets", sets);
-  console.log("displayedSetCodes", displayedSetCodes);
 
   const filteredSets = displayedSetCodes.length
     ? sets.filter(setKey => displayedSetCodes.includes(getSetName(setKey)))
