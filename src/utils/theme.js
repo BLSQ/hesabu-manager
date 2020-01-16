@@ -22,6 +22,9 @@ const theme = createMuiTheme({
       color: fade("#AB1441", 0.5),
     },
   },
+  formControl: {
+    marginBottom: 16,
+  },
 });
 
 export default theme;

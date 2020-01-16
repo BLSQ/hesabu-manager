@@ -21,6 +21,9 @@ export default {
         next: "Next",
         skip: "Skip",
       },
+      filters: {
+        mockedValues: "Mocked values",
+      },
       compound: {
         frequency: "Fréquency",
         sidesheet: {

@@ -20,6 +20,9 @@ export default {
         next: "Suivant",
         skip: "Passer",
       },
+      filters: {
+        mockedValues: "Valeurs factices",
+      },
       compound: {
         frequency: "Fréquence",
         sidesheet: {
