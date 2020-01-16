@@ -1,0 +1,178 @@
+{
+  "data": {
+    "id": "197",
+    "type": "set",
+    "attributes": {
+      "name": "Qualité EP - B.4 - Formation continue",
+      "description": null,
+      "frequency": "quarterly",
+      "kind": "single",
+      "includeMainOrgunit": false,
+      "loopOverComboExtId": null,
+      "dataElementGroupExtRef": "todo"
+    },
+    "relationships": {
+      "simulationOrgUnit": {
+        "data": {
+          "id": "KDXCihdQfR5",
+          "type": "simulationOrgUnit"
+        }
+      },
+      "orgUnitGroups": {
+        "data": [
+          {
+            "id": "UmAPOYBgJSk",
+            "type": "orgUnitGroup"
+          }
+        ]
+      },
+      "orgUnitGroupSets": {
+        "data": []
+      },
+      "inputs": {
+        "data": [
+          {
+            "id": "328",
+            "type": "input"
+          },
+          {
+            "id": "330",
+            "type": "input"
+          },
+          {
+            "id": "332",
+            "type": "input"
+          }
+        ]
+      },
+      "topicFormulas": {
+        "data": [
+          {
+            "id": "1520",
+            "type": "topicFormula"
+          },
+          {
+            "id": "1522",
+            "type": "topicFormula"
+          },
+          {
+            "id": "1524",
+            "type": "topicFormula"
+          },
+          {
+            "id": "1523",
+            "type": "topicFormula"
+          },
+          {
+            "id": "1521",
+            "type": "topicFormula"
+          }
+        ]
+      },
+      "topics": {
+        "data": [
+          {
+            "id": "1054",
+            "type": "topic"
+          },
+          {
+            "id": "1055",
+            "type": "topic"
+          }
+        ]
+      }
+    }
+  },
+  "included": [
+    {
+      "id": "328",
+      "type": "input",
+      "attributes": {
+        "name": "Reached",
+        "shortName": "Palier Atteint"
+      }
+    },
+    {
+      "id": "330",
+      "type": "input",
+      "attributes": {
+        "name": "Max Points",
+        "shortName": "Max Points"
+      }
+    },
+    {
+      "id": "332",
+      "type": "input",
+      "attributes": {
+        "name": "Available Budget",
+        "shortName": "Budget Disponible"
+      }
+    },
+    {
+      "id": "UmAPOYBgJSk",
+      "type": "orgUnitGroup",
+      "attributes": {
+        "value": "Ecole Primaire",
+        "id": "UmAPOYBgJSk",
+        "name": "Ecole Primaire",
+        "displayName": "Ecole Primaire"
+      }
+    },
+    {
+      "id": "1054",
+      "type": "topic",
+      "attributes": {
+        "code": "qual_b_4_1",
+        "name": "B.4.1. Le directeur organise au moins 3 réunions d'unités pédagogiques par mois au sein de son école",
+        "shortName": "B.4.1 Au - 3 réunions d'unités péda/m",
+        "createdAt": "2019-04-23T09:15:48.290Z",
+        "updatedAt": "2019-04-23T09:17:35.545Z",
+        "stableId": "37f0ddf4-b6a1-49a9-9ff6-7560cd907b8f"
+      },
+      "relationships": {
+        "inputs": {
+          "data": [
+            {
+              "id": "3998",
+              "type": "input"
+            },
+            {
+              "id": "4022",
+              "type": "input"
+            },
+            {
+              "id": "4023",
+              "type": "input"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "1055",
+      "type": "topic",
+      "attributes": {
+        "code": "qual_b_4_2",
+        "name": "B.4.2. Il y a un REP (Réseau Ecoles de Proximité): au moins une rencontre d'echange entre les enseignants de même degré des ecoles de proximités par mois",
+        "shortName": "B.4.2. REP: au moins une rencontre",
+        "createdAt": "2019-04-23T09:17:16.972Z",
+        "updatedAt": "2019-04-23T09:17:16.972Z",
+        "stableId": "79b146ad-3b6a-4054-9667-f22510a3c621"
+      },
+      "relationships": {
+        "inputs": {
+          "data": [
+            {
+              "id": "3999",
+              "type": "input"
+            },
+            {
+              "id": "4024",
+              "type": "input"
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

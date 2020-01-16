@@ -1,0 +1,167 @@
+{
+  "data": {
+    "id": "92",
+    "type": "compound",
+    "attributes": {
+      "name": "PTSD Paiement",
+      "frequency": "quarterly",
+      "stableId": "73e8f128-578a-44e5-bebe-dd3cd3637a29"
+    },
+    "relationships": {
+      "sets": {
+        "data": [
+          {
+            "id": "247",
+            "type": "set"
+          },
+          {
+            "id": "248",
+            "type": "set"
+          },
+          {
+            "id": "249",
+            "type": "set"
+          },
+          {
+            "id": "250",
+            "type": "set"
+          },
+          {
+            "id": "239",
+            "type": "set"
+          },
+          {
+            "id": "240",
+            "type": "set"
+          },
+          {
+            "id": "241",
+            "type": "set"
+          },
+          {
+            "id": "242",
+            "type": "set"
+          },
+          {
+            "id": "243",
+            "type": "set"
+          },
+          {
+            "id": "244",
+            "type": "set"
+          },
+          {
+            "id": "245",
+            "type": "set"
+          },
+          {
+            "id": "246",
+            "type": "set"
+          },
+          {
+            "id": "251",
+            "type": "set"
+          },
+          {
+            "id": "252",
+            "type": "set"
+          },
+          {
+            "id": "253",
+            "type": "set"
+          },
+          {
+            "id": "254",
+            "type": "set"
+          },
+          {
+            "id": "255",
+            "type": "set"
+          }
+        ]
+      },
+      "formulas": {
+        "data": [
+          {
+            "id": "1978",
+            "type": "formula"
+          },
+          {
+            "id": "1976",
+            "type": "formula"
+          },
+          {
+            "id": "1972",
+            "type": "formula"
+          },
+          {
+            "id": "1977",
+            "type": "formula"
+          }
+        ]
+      }
+    }
+  },
+  "included": [
+    {
+      "id": "1978",
+      "type": "formula",
+      "attributes": {
+        "id": 1978,
+        "code": "total",
+        "description": "subside for all sections",
+        "exportableFormulaCode": null,
+        "expression": "pstd_a_subsidies_obtained + pstd_b_subsidies_obtained+ pstd_c_subsidies_obtained",
+        "frequency": null,
+        "shortName": "total",
+        "createdAt": "2019-06-11T10:03:15.980Z",
+        "updatedAt": "2019-06-11T10:03:15.980Z"
+      }
+    },
+    {
+      "id": "1976",
+      "type": "formula",
+      "attributes": {
+        "id": 1976,
+        "code": "pstd_a_subsidies_obtained",
+        "description": "PTSD - A Subsides Obtenus",
+        "exportableFormulaCode": null,
+        "expression": "pstd_a1_subsidies_obtained + pstd_a2_subsidies_obtained + \r\npstd_a3_subsidies_obtained + pstd_a4_subsidies_obtained +\r\n pstd_a5_subsidies_obtained + pstd_a6_subsidies_obtained",
+        "frequency": null,
+        "shortName": "PTSD - A Subsides Obtenus",
+        "createdAt": "2019-06-11T10:00:55.986Z",
+        "updatedAt": "2019-06-18T06:36:06.133Z"
+      }
+    },
+    {
+      "id": "1972",
+      "type": "formula",
+      "attributes": {
+        "id": 1972,
+        "code": "pstd_b_subsidies_obtained",
+        "description": "PTSD - B Subsides Obtenus",
+        "exportableFormulaCode": null,
+        "expression": "pstd_b1_subsidies_obtained + pstd_b2_subsidies_obtained + \r\npstd_b3_subsidies_obtained + pstd_b4_subsidies_obtained + pstd_b5_subsidies_obtained",
+        "frequency": null,
+        "shortName": "PTSD - B Subsides Obtenus",
+        "createdAt": "2019-06-11T09:42:46.569Z",
+        "updatedAt": "2019-06-18T06:36:06.145Z"
+      }
+    },
+    {
+      "id": "1977",
+      "type": "formula",
+      "attributes": {
+        "id": 1977,
+        "code": "pstd_c_subsidies_obtained",
+        "description": "PTSD - C Subsides Obtenus",
+        "exportableFormulaCode": null,
+        "expression": "pstd_c1_subsidies_obtained + pstd_c2_subsidies_obtained + \r\npstd_c3_subsidies_obtained +  pstd_c4_subsidies_obtained + \r\npstd_c5_subsidies_obtained + pstd_c6_subsidies_obtained",
+        "frequency": null,
+        "shortName": "PTSD - C Subsides Obtenus",
+        "createdAt": "2019-06-11T10:02:34.020Z",
+        "updatedAt": "2019-06-18T06:36:35.696Z"
+      }
+    }
+  ]
+}

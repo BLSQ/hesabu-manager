@@ -1,0 +1,526 @@
+{
+  "data": {
+    "id": "187",
+    "type": "set",
+    "attributes": {
+      "name": "Quantité EP",
+      "description": null,
+      "frequency": "quarterly",
+      "kind": "single",
+      "includeMainOrgunit": false,
+      "loopOverComboExtId": null,
+      "dataElementGroupExtRef": "todo"
+    },
+    "relationships": {
+      "simulationOrgUnit": {
+        "data": {
+          "id": "KDXCihdQfR5",
+          "type": "simulationOrgUnit"
+        }
+      },
+      "orgUnitGroups": {
+        "data": [
+          {
+            "id": "UmAPOYBgJSk",
+            "type": "orgUnitGroup"
+          }
+        ]
+      },
+      "orgUnitGroupSets": {
+        "data": []
+      },
+      "inputs": {
+        "data": [
+          {
+            "id": "320",
+            "type": "input"
+          },
+          {
+            "id": "321",
+            "type": "input"
+          },
+          {
+            "id": "322",
+            "type": "input"
+          }
+        ]
+      },
+      "topicFormulas": {
+        "data": [
+          {
+            "id": "1422",
+            "type": "topicFormula"
+          },
+          {
+            "id": "1423",
+            "type": "topicFormula"
+          },
+          {
+            "id": "1428",
+            "type": "topicFormula"
+          },
+          {
+            "id": "1424",
+            "type": "topicFormula"
+          },
+          {
+            "id": "2399",
+            "type": "topicFormula"
+          },
+          {
+            "id": "2400",
+            "type": "topicFormula"
+          }
+        ]
+      },
+      "topics": {
+        "data": [
+          {
+            "id": "992",
+            "type": "topic"
+          },
+          {
+            "id": "993",
+            "type": "topic"
+          },
+          {
+            "id": "996",
+            "type": "topic"
+          },
+          {
+            "id": "997",
+            "type": "topic"
+          },
+          {
+            "id": "998",
+            "type": "topic"
+          },
+          {
+            "id": "999",
+            "type": "topic"
+          },
+          {
+            "id": "1000",
+            "type": "topic"
+          },
+          {
+            "id": "1001",
+            "type": "topic"
+          },
+          {
+            "id": "1002",
+            "type": "topic"
+          },
+          {
+            "id": "1003",
+            "type": "topic"
+          },
+          {
+            "id": "1004",
+            "type": "topic"
+          },
+          {
+            "id": "1005",
+            "type": "topic"
+          }
+        ]
+      }
+    }
+  },
+  "included": [
+    {
+      "id": "320",
+      "type": "input",
+      "attributes": {
+        "name": "verified",
+        "shortName": "Vérifié"
+      }
+    },
+    {
+      "id": "321",
+      "type": "input",
+      "attributes": {
+        "name": "declared",
+        "shortName": "Déclaré"
+      }
+    },
+    {
+      "id": "322",
+      "type": "input",
+      "attributes": {
+        "name": "unit_price_def",
+        "shortName": "PU config"
+      }
+    },
+    {
+      "id": "UmAPOYBgJSk",
+      "type": "orgUnitGroup",
+      "attributes": {
+        "value": "Ecole Primaire",
+        "id": "UmAPOYBgJSk",
+        "name": "Ecole Primaire",
+        "displayName": "Ecole Primaire"
+      }
+    },
+    {
+      "id": "992",
+      "type": "topic",
+      "attributes": {
+        "code": "quant_a_1_1_1",
+        "name": "Filles par année en 1e année",
+        "shortName": "Fille, 1ère année",
+        "createdAt": "2019-04-04T07:19:49.270Z",
+        "updatedAt": "2019-04-19T10:12:06.364Z",
+        "stableId": "70c62d76-376c-4547-bb0e-ecca0e799725"
+      },
+      "relationships": {
+        "inputs": {
+          "data": [
+            {
+              "id": "3848",
+              "type": "input"
+            },
+            {
+              "id": "3849",
+              "type": "input"
+            },
+            {
+              "id": "3852",
+              "type": "input"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "993",
+      "type": "topic",
+      "attributes": {
+        "code": "quant_a_1_1_2",
+        "name": "Filles par année en 2e année",
+        "shortName": "Fille, 2e année",
+        "createdAt": "2019-04-04T10:06:42.817Z",
+        "updatedAt": "2019-04-19T06:01:08.318Z",
+        "stableId": "a0783b4f-f983-463c-b14f-b4e6a1301647"
+      },
+      "relationships": {
+        "inputs": {
+          "data": [
+            {
+              "id": "3850",
+              "type": "input"
+            },
+            {
+              "id": "3851",
+              "type": "input"
+            },
+            {
+              "id": "3853",
+              "type": "input"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "996",
+      "type": "topic",
+      "attributes": {
+        "code": "quant_a_1_1_3",
+        "name": "Filles par année en 3e année",
+        "shortName": "Filles par année en 3e année",
+        "createdAt": "2019-04-04T11:26:06.898Z",
+        "updatedAt": "2019-04-19T06:01:39.786Z",
+        "stableId": "2e4aa95d-40b8-4f92-8c63-bc95f9fd6a98"
+      },
+      "relationships": {
+        "inputs": {
+          "data": [
+            {
+              "id": "3854",
+              "type": "input"
+            },
+            {
+              "id": "3855",
+              "type": "input"
+            },
+            {
+              "id": "3856",
+              "type": "input"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "997",
+      "type": "topic",
+      "attributes": {
+        "code": "quant_a_1_1_4",
+        "name": "Filles par année en 4e année",
+        "shortName": "Filles par année en 4e année",
+        "createdAt": "2019-04-04T11:45:48.405Z",
+        "updatedAt": "2019-04-19T06:02:01.905Z",
+        "stableId": "3e70a255-d16b-4b98-86b3-0f7d68d9e9ad"
+      },
+      "relationships": {
+        "inputs": {
+          "data": [
+            {
+              "id": "3857",
+              "type": "input"
+            },
+            {
+              "id": "3858",
+              "type": "input"
+            },
+            {
+              "id": "3863",
+              "type": "input"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "998",
+      "type": "topic",
+      "attributes": {
+        "code": "quant_a_1_1_5",
+        "name": "Filles par année en 5e année",
+        "shortName": "Filles par année en 5e année",
+        "createdAt": "2019-04-04T11:46:01.668Z",
+        "updatedAt": "2019-04-19T06:02:29.443Z",
+        "stableId": "5a4a9ed8-0fd8-440a-bca6-3fef783c4c66"
+      },
+      "relationships": {
+        "inputs": {
+          "data": [
+            {
+              "id": "3859",
+              "type": "input"
+            },
+            {
+              "id": "3860",
+              "type": "input"
+            },
+            {
+              "id": "3864",
+              "type": "input"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "999",
+      "type": "topic",
+      "attributes": {
+        "code": "quant_a_1_1_6",
+        "name": "Filles par année en 6e année",
+        "shortName": "Filles par année en 6e année",
+        "createdAt": "2019-04-04T11:46:16.324Z",
+        "updatedAt": "2019-04-19T06:02:50.322Z",
+        "stableId": "42bab832-a90f-466b-9464-b8cb6c1f254e"
+      },
+      "relationships": {
+        "inputs": {
+          "data": [
+            {
+              "id": "3861",
+              "type": "input"
+            },
+            {
+              "id": "3862",
+              "type": "input"
+            },
+            {
+              "id": "3865",
+              "type": "input"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "1000",
+      "type": "topic",
+      "attributes": {
+        "code": "quant_a_1_2_1",
+        "name": "Garçons par année en 1e année",
+        "shortName": "Garçons par année en 1e année",
+        "createdAt": "2019-04-04T12:12:22.419Z",
+        "updatedAt": "2019-04-19T06:03:19.247Z",
+        "stableId": "bb102ac5-50b3-4fb0-bd6e-a3679f61e69d"
+      },
+      "relationships": {
+        "inputs": {
+          "data": [
+            {
+              "id": "3866",
+              "type": "input"
+            },
+            {
+              "id": "3867",
+              "type": "input"
+            },
+            {
+              "id": "3878",
+              "type": "input"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "1001",
+      "type": "topic",
+      "attributes": {
+        "code": "quant_a_1_2_2",
+        "name": "Garçons par année en 2e année",
+        "shortName": "Garçons par année en 2e année",
+        "createdAt": "2019-04-04T12:12:38.930Z",
+        "updatedAt": "2019-04-19T06:03:44.869Z",
+        "stableId": "0af37adb-ccaf-4883-a3ff-609b379d6004"
+      },
+      "relationships": {
+        "inputs": {
+          "data": [
+            {
+              "id": "3868",
+              "type": "input"
+            },
+            {
+              "id": "3869",
+              "type": "input"
+            },
+            {
+              "id": "3879",
+              "type": "input"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "1002",
+      "type": "topic",
+      "attributes": {
+        "code": "quant_a_1_2_3",
+        "name": "Garçons par année en 3e année",
+        "shortName": "Garçons par année en 3e année",
+        "createdAt": "2019-04-04T12:13:03.325Z",
+        "updatedAt": "2019-04-19T06:04:28.104Z",
+        "stableId": "0c57d55b-bd3d-4226-9a52-21765c0e51ff"
+      },
+      "relationships": {
+        "inputs": {
+          "data": [
+            {
+              "id": "3870",
+              "type": "input"
+            },
+            {
+              "id": "3871",
+              "type": "input"
+            },
+            {
+              "id": "3880",
+              "type": "input"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "1003",
+      "type": "topic",
+      "attributes": {
+        "code": "quant_a_1_2_4",
+        "name": "Garçons par année en 4e année",
+        "shortName": "Garçons par année en 4e année",
+        "createdAt": "2019-04-04T12:13:38.141Z",
+        "updatedAt": "2019-04-19T06:28:09.603Z",
+        "stableId": "1e76535f-3dde-4dfe-a80c-467d2ebd0272"
+      },
+      "relationships": {
+        "inputs": {
+          "data": [
+            {
+              "id": "3872",
+              "type": "input"
+            },
+            {
+              "id": "3873",
+              "type": "input"
+            },
+            {
+              "id": "3881",
+              "type": "input"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "1004",
+      "type": "topic",
+      "attributes": {
+        "code": "quant_a_1_2_5",
+        "name": "Garçons par année en 5e année",
+        "shortName": "Garçons par année en 5e année",
+        "createdAt": "2019-04-04T12:14:00.760Z",
+        "updatedAt": "2019-04-19T06:30:09.135Z",
+        "stableId": "b5a58216-bc27-4bcd-b76e-84e3b02ae3de"
+      },
+      "relationships": {
+        "inputs": {
+          "data": [
+            {
+              "id": "3874",
+              "type": "input"
+            },
+            {
+              "id": "3875",
+              "type": "input"
+            },
+            {
+              "id": "3882",
+              "type": "input"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "1005",
+      "type": "topic",
+      "attributes": {
+        "code": "quant_a_1_2_6",
+        "name": "Garçons par année en 6e année",
+        "shortName": "Garçons par année en 6e année",
+        "createdAt": "2019-04-04T12:14:23.179Z",
+        "updatedAt": "2019-04-19T06:30:20.635Z",
+        "stableId": "493305b4-14fd-42b6-b920-b192a3e11e92"
+      },
+      "relationships": {
+        "inputs": {
+          "data": [
+            {
+              "id": "3876",
+              "type": "input"
+            },
+            {
+              "id": "3877",
+              "type": "input"
+            },
+            {
+              "id": "3883",
+              "type": "input"
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

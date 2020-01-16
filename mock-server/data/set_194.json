@@ -1,0 +1,178 @@
+{
+  "data": {
+    "id": "194",
+    "type": "set",
+    "attributes": {
+      "name": "Qualité EP - B.3 - Disponibilité des enseignants",
+      "description": null,
+      "frequency": "quarterly",
+      "kind": "single",
+      "includeMainOrgunit": false,
+      "loopOverComboExtId": null,
+      "dataElementGroupExtRef": "todo"
+    },
+    "relationships": {
+      "simulationOrgUnit": {
+        "data": {
+          "id": "KDXCihdQfR5",
+          "type": "simulationOrgUnit"
+        }
+      },
+      "orgUnitGroups": {
+        "data": [
+          {
+            "id": "UmAPOYBgJSk",
+            "type": "orgUnitGroup"
+          }
+        ]
+      },
+      "orgUnitGroupSets": {
+        "data": []
+      },
+      "inputs": {
+        "data": [
+          {
+            "id": "328",
+            "type": "input"
+          },
+          {
+            "id": "330",
+            "type": "input"
+          },
+          {
+            "id": "332",
+            "type": "input"
+          }
+        ]
+      },
+      "topicFormulas": {
+        "data": [
+          {
+            "id": "1495",
+            "type": "topicFormula"
+          },
+          {
+            "id": "1498",
+            "type": "topicFormula"
+          },
+          {
+            "id": "1500",
+            "type": "topicFormula"
+          },
+          {
+            "id": "1497",
+            "type": "topicFormula"
+          },
+          {
+            "id": "1499",
+            "type": "topicFormula"
+          }
+        ]
+      },
+      "topics": {
+        "data": [
+          {
+            "id": "1052",
+            "type": "topic"
+          },
+          {
+            "id": "1053",
+            "type": "topic"
+          }
+        ]
+      }
+    }
+  },
+  "included": [
+    {
+      "id": "328",
+      "type": "input",
+      "attributes": {
+        "name": "Reached",
+        "shortName": "Palier Atteint"
+      }
+    },
+    {
+      "id": "330",
+      "type": "input",
+      "attributes": {
+        "name": "Max Points",
+        "shortName": "Max Points"
+      }
+    },
+    {
+      "id": "332",
+      "type": "input",
+      "attributes": {
+        "name": "Available Budget",
+        "shortName": "Budget Disponible"
+      }
+    },
+    {
+      "id": "UmAPOYBgJSk",
+      "type": "orgUnitGroup",
+      "attributes": {
+        "value": "Ecole Primaire",
+        "id": "UmAPOYBgJSk",
+        "name": "Ecole Primaire",
+        "displayName": "Ecole Primaire"
+      }
+    },
+    {
+      "id": "1052",
+      "type": "topic",
+      "attributes": {
+        "code": "qual_b_3_1",
+        "name": "B.3.1. Taux de ponctualité des enseignants à 90% et régistre de présence à jour signé par les enseignants ",
+        "shortName": "B.3.1. Tx ponct ens 90%",
+        "createdAt": "2019-04-23T09:07:51.913Z",
+        "updatedAt": "2019-04-25T06:30:53.305Z",
+        "stableId": "88ff5257-e8ec-458d-acbb-9fd92a38ae8b"
+      },
+      "relationships": {
+        "inputs": {
+          "data": [
+            {
+              "id": "3996",
+              "type": "input"
+            },
+            {
+              "id": "4019",
+              "type": "input"
+            },
+            {
+              "id": "4020",
+              "type": "input"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "1053",
+      "type": "topic",
+      "attributes": {
+        "code": "qual_b_3_2",
+        "name": "B.3.2. Taux de régularité des enseignants à 90% et régistre de présence à jour signé par les enseignants ",
+        "shortName": "B.3.2. Tx régularité enseignants à 90%",
+        "createdAt": "2019-04-23T09:14:03.571Z",
+        "updatedAt": "2019-04-25T06:31:14.098Z",
+        "stableId": "d779bf48-9862-4eb4-9c3a-586fcf1ae8c4"
+      },
+      "relationships": {
+        "inputs": {
+          "data": [
+            {
+              "id": "3997",
+              "type": "input"
+            },
+            {
+              "id": "4021",
+              "type": "input"
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,208 @@
+{
+  "data": {
+    "id": "199",
+    "type": "set",
+    "attributes": {
+      "name": "Qualité EP - B.6 - Utilisation manuels scol.",
+      "description": null,
+      "frequency": "quarterly",
+      "kind": "single",
+      "includeMainOrgunit": false,
+      "loopOverComboExtId": null,
+      "dataElementGroupExtRef": "todo"
+    },
+    "relationships": {
+      "simulationOrgUnit": {
+        "data": {
+          "id": "KDXCihdQfR5",
+          "type": "simulationOrgUnit"
+        }
+      },
+      "orgUnitGroups": {
+        "data": [
+          {
+            "id": "UmAPOYBgJSk",
+            "type": "orgUnitGroup"
+          }
+        ]
+      },
+      "orgUnitGroupSets": {
+        "data": []
+      },
+      "inputs": {
+        "data": [
+          {
+            "id": "328",
+            "type": "input"
+          },
+          {
+            "id": "330",
+            "type": "input"
+          },
+          {
+            "id": "332",
+            "type": "input"
+          }
+        ]
+      },
+      "topicFormulas": {
+        "data": [
+          {
+            "id": "1540",
+            "type": "topicFormula"
+          },
+          {
+            "id": "1541",
+            "type": "topicFormula"
+          },
+          {
+            "id": "1537",
+            "type": "topicFormula"
+          },
+          {
+            "id": "1539",
+            "type": "topicFormula"
+          },
+          {
+            "id": "1538",
+            "type": "topicFormula"
+          }
+        ]
+      },
+      "topics": {
+        "data": [
+          {
+            "id": "1058",
+            "type": "topic"
+          },
+          {
+            "id": "1059",
+            "type": "topic"
+          },
+          {
+            "id": "1060",
+            "type": "topic"
+          }
+        ]
+      }
+    }
+  },
+  "included": [
+    {
+      "id": "328",
+      "type": "input",
+      "attributes": {
+        "name": "Reached",
+        "shortName": "Palier Atteint"
+      }
+    },
+    {
+      "id": "330",
+      "type": "input",
+      "attributes": {
+        "name": "Max Points",
+        "shortName": "Max Points"
+      }
+    },
+    {
+      "id": "332",
+      "type": "input",
+      "attributes": {
+        "name": "Available Budget",
+        "shortName": "Budget Disponible"
+      }
+    },
+    {
+      "id": "UmAPOYBgJSk",
+      "type": "orgUnitGroup",
+      "attributes": {
+        "value": "Ecole Primaire",
+        "id": "UmAPOYBgJSk",
+        "name": "Ecole Primaire",
+        "displayName": "Ecole Primaire"
+      }
+    },
+    {
+      "id": "1058",
+      "type": "topic",
+      "attributes": {
+        "code": "qual_b_6_1",
+        "name": "B.6.1. Disponibilité de manuel scolaire par élève et par branche",
+        "shortName": "B.6.1. Dispo manuel scolaire",
+        "createdAt": "2019-04-23T09:23:17.109Z",
+        "updatedAt": "2019-04-23T09:23:17.109Z",
+        "stableId": "0b72fb08-1d8e-447a-b979-eab073f8742d"
+      },
+      "relationships": {
+        "inputs": {
+          "data": [
+            {
+              "id": "4002",
+              "type": "input"
+            },
+            {
+              "id": "4028",
+              "type": "input"
+            },
+            {
+              "id": "4029",
+              "type": "input"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "1059",
+      "type": "topic",
+      "attributes": {
+        "code": "qual_b_6_2",
+        "name": "B.6.2. Retrait et remise des livres à l'école en bon etat",
+        "shortName": "B.6.2. Retrait remise livres en bon etat",
+        "createdAt": "2019-04-23T09:33:08.975Z",
+        "updatedAt": "2019-04-23T09:33:08.975Z",
+        "stableId": "f4cd0ba1-9a99-4717-8c62-ff6f11f7f4b8"
+      },
+      "relationships": {
+        "inputs": {
+          "data": [
+            {
+              "id": "4003",
+              "type": "input"
+            },
+            {
+              "id": "4030",
+              "type": "input"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "1060",
+      "type": "topic",
+      "attributes": {
+        "code": "qual_b_6_3",
+        "name": "B.6.3. 100% des parents ou membres de famille assistent les eleves à faire devoir à domicile",
+        "shortName": "B.6.3. 100% parents assistent à domicile",
+        "createdAt": "2019-04-23T09:34:29.153Z",
+        "updatedAt": "2019-04-23T09:34:29.153Z",
+        "stableId": "9dcc2d93-bbd5-465d-a60c-369e691fbb9c"
+      },
+      "relationships": {
+        "inputs": {
+          "data": [
+            {
+              "id": "4004",
+              "type": "input"
+            },
+            {
+              "id": "4031",
+              "type": "input"
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

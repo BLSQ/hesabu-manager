@@ -1,0 +1,148 @@
+{
+  "data": {
+    "id": "200",
+    "type": "set",
+    "attributes": {
+      "name": "Qualité EP - B.7 - Contrôle leçons par ens.",
+      "description": null,
+      "frequency": "quarterly",
+      "kind": "single",
+      "includeMainOrgunit": false,
+      "loopOverComboExtId": null,
+      "dataElementGroupExtRef": "todo"
+    },
+    "relationships": {
+      "simulationOrgUnit": {
+        "data": {
+          "id": "KDXCihdQfR5",
+          "type": "simulationOrgUnit"
+        }
+      },
+      "orgUnitGroups": {
+        "data": [
+          {
+            "id": "UmAPOYBgJSk",
+            "type": "orgUnitGroup"
+          }
+        ]
+      },
+      "orgUnitGroupSets": {
+        "data": []
+      },
+      "inputs": {
+        "data": [
+          {
+            "id": "328",
+            "type": "input"
+          },
+          {
+            "id": "330",
+            "type": "input"
+          },
+          {
+            "id": "332",
+            "type": "input"
+          }
+        ]
+      },
+      "topicFormulas": {
+        "data": [
+          {
+            "id": "1545",
+            "type": "topicFormula"
+          },
+          {
+            "id": "1548",
+            "type": "topicFormula"
+          },
+          {
+            "id": "1549",
+            "type": "topicFormula"
+          },
+          {
+            "id": "1547",
+            "type": "topicFormula"
+          },
+          {
+            "id": "1546",
+            "type": "topicFormula"
+          }
+        ]
+      },
+      "topics": {
+        "data": [
+          {
+            "id": "1061",
+            "type": "topic"
+          }
+        ]
+      }
+    }
+  },
+  "included": [
+    {
+      "id": "328",
+      "type": "input",
+      "attributes": {
+        "name": "Reached",
+        "shortName": "Palier Atteint"
+      }
+    },
+    {
+      "id": "330",
+      "type": "input",
+      "attributes": {
+        "name": "Max Points",
+        "shortName": "Max Points"
+      }
+    },
+    {
+      "id": "332",
+      "type": "input",
+      "attributes": {
+        "name": "Available Budget",
+        "shortName": "Budget Disponible"
+      }
+    },
+    {
+      "id": "UmAPOYBgJSk",
+      "type": "orgUnitGroup",
+      "attributes": {
+        "value": "Ecole Primaire",
+        "id": "UmAPOYBgJSk",
+        "name": "Ecole Primaire",
+        "displayName": "Ecole Primaire"
+      }
+    },
+    {
+      "id": "1061",
+      "type": "topic",
+      "attributes": {
+        "code": "qual_b_7_1",
+        "name": "B.7.1. 100% de cahier de devoir des élève est controlé par l'enseignant ",
+        "shortName": "B.7.1. 100% cahier de devoir controlé",
+        "createdAt": "2019-04-23T09:35:51.558Z",
+        "updatedAt": "2019-04-23T09:35:51.558Z",
+        "stableId": "a3e1d112-c933-4769-9ce1-38d7acc79327"
+      },
+      "relationships": {
+        "inputs": {
+          "data": [
+            {
+              "id": "4005",
+              "type": "input"
+            },
+            {
+              "id": "4032",
+              "type": "input"
+            },
+            {
+              "id": "4033",
+              "type": "input"
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

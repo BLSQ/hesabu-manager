@@ -1,0 +1,20 @@
+{
+  "data": {
+    "id": "19370",
+    "type": "invoicingJob",
+    "attributes": {
+      "orgUnit": "H92MLnQ7tYA",
+      "dhis2Period": "2019Q2",
+      "user": null,
+      "createdAt": "2019-05-23T05:45:16.018Z",
+      "processedAt": "2020-01-15T14:54:18.243Z",
+      "erroredAt": null,
+      "durationMs": 2312,
+      "status": "processed",
+      "lastError": null,
+      "sidekiqJobRef": null,
+      "isAlive": false,
+      "resultUrl": "http://localhost:4567/s3/results/19370.json"
+    }
+  }
+}

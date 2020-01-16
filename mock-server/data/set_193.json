@@ -1,0 +1,208 @@
+{
+  "data": {
+    "id": "193",
+    "type": "set",
+    "attributes": {
+      "name": "Qualité EP - B.2 - Qualité des salles de classe",
+      "description": null,
+      "frequency": "quarterly",
+      "kind": "single",
+      "includeMainOrgunit": false,
+      "loopOverComboExtId": null,
+      "dataElementGroupExtRef": "todo"
+    },
+    "relationships": {
+      "simulationOrgUnit": {
+        "data": {
+          "id": "KDXCihdQfR5",
+          "type": "simulationOrgUnit"
+        }
+      },
+      "orgUnitGroups": {
+        "data": [
+          {
+            "id": "UmAPOYBgJSk",
+            "type": "orgUnitGroup"
+          }
+        ]
+      },
+      "orgUnitGroupSets": {
+        "data": []
+      },
+      "inputs": {
+        "data": [
+          {
+            "id": "328",
+            "type": "input"
+          },
+          {
+            "id": "330",
+            "type": "input"
+          },
+          {
+            "id": "332",
+            "type": "input"
+          }
+        ]
+      },
+      "topicFormulas": {
+        "data": [
+          {
+            "id": "1483",
+            "type": "topicFormula"
+          },
+          {
+            "id": "1486",
+            "type": "topicFormula"
+          },
+          {
+            "id": "1487",
+            "type": "topicFormula"
+          },
+          {
+            "id": "1490",
+            "type": "topicFormula"
+          },
+          {
+            "id": "1484",
+            "type": "topicFormula"
+          }
+        ]
+      },
+      "topics": {
+        "data": [
+          {
+            "id": "1048",
+            "type": "topic"
+          },
+          {
+            "id": "1049",
+            "type": "topic"
+          },
+          {
+            "id": "1050",
+            "type": "topic"
+          }
+        ]
+      }
+    }
+  },
+  "included": [
+    {
+      "id": "328",
+      "type": "input",
+      "attributes": {
+        "name": "Reached",
+        "shortName": "Palier Atteint"
+      }
+    },
+    {
+      "id": "330",
+      "type": "input",
+      "attributes": {
+        "name": "Max Points",
+        "shortName": "Max Points"
+      }
+    },
+    {
+      "id": "332",
+      "type": "input",
+      "attributes": {
+        "name": "Available Budget",
+        "shortName": "Budget Disponible"
+      }
+    },
+    {
+      "id": "UmAPOYBgJSk",
+      "type": "orgUnitGroup",
+      "attributes": {
+        "value": "Ecole Primaire",
+        "id": "UmAPOYBgJSk",
+        "name": "Ecole Primaire",
+        "displayName": "Ecole Primaire"
+      }
+    },
+    {
+      "id": "1048",
+      "type": "topic",
+      "attributes": {
+        "code": "qual_b_2_1",
+        "name": "B.2.1. Tableau noir ou vert avec craies de chaque salle de classe",
+        "shortName": "B.2.1 Tableau & craies ds classe",
+        "createdAt": "2019-04-19T09:27:52.844Z",
+        "updatedAt": "2019-04-23T11:56:30.494Z",
+        "stableId": "3bc66320-5edc-4a74-8da6-cf96ceb842e2"
+      },
+      "relationships": {
+        "inputs": {
+          "data": [
+            {
+              "id": "3976",
+              "type": "input"
+            },
+            {
+              "id": "4014",
+              "type": "input"
+            },
+            {
+              "id": "4016",
+              "type": "input"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "1049",
+      "type": "topic",
+      "attributes": {
+        "code": "qual_b_2_2",
+        "name": "B.2.2. Il y a des materiels didactiques affichés sur les murs dans toutes les classes",
+        "shortName": "B.2.2. materiels did ds classes",
+        "createdAt": "2019-04-19T09:40:08.128Z",
+        "updatedAt": "2019-04-19T10:00:04.494Z",
+        "stableId": "78f3519d-6d51-4c6e-a1a4-af52c13cc3d8"
+      },
+      "relationships": {
+        "inputs": {
+          "data": [
+            {
+              "id": "3977",
+              "type": "input"
+            },
+            {
+              "id": "4017",
+              "type": "input"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "1050",
+      "type": "topic",
+      "attributes": {
+        "code": "qual_b_2_3",
+        "name": "B.2.3. Présence des tables/bancs 1 pour 2 élèves (1m40 sur 60) dans toutes les salles de classes?",
+        "shortName": "B.2.3. Pupitres ds classes?",
+        "createdAt": "2019-04-19T09:44:44.067Z",
+        "updatedAt": "2019-04-19T10:00:20.215Z",
+        "stableId": "fae70187-dd71-4c49-89ca-d91a602a02d3"
+      },
+      "relationships": {
+        "inputs": {
+          "data": [
+            {
+              "id": "3978",
+              "type": "input"
+            },
+            {
+              "id": "4018",
+              "type": "input"
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

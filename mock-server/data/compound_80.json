@@ -1,0 +1,155 @@
+{
+  "data": {
+    "id": "80",
+    "type": "compound",
+    "attributes": {
+      "name": "Paque Paiement",
+      "frequency": "quarterly",
+      "stableId": "bf2a44dd-b41f-4ef5-91ae-e57e859a221e"
+    },
+    "relationships": {
+      "sets": {
+        "data": [
+          {
+            "id": "194",
+            "type": "set"
+          },
+          {
+            "id": "187",
+            "type": "set"
+          },
+          {
+            "id": "197",
+            "type": "set"
+          },
+          {
+            "id": "190",
+            "type": "set"
+          },
+          {
+            "id": "193",
+            "type": "set"
+          },
+          {
+            "id": "198",
+            "type": "set"
+          },
+          {
+            "id": "199",
+            "type": "set"
+          },
+          {
+            "id": "200",
+            "type": "set"
+          },
+          {
+            "id": "201",
+            "type": "set"
+          },
+          {
+            "id": "202",
+            "type": "set"
+          },
+          {
+            "id": "204",
+            "type": "set"
+          },
+          {
+            "id": "203",
+            "type": "set"
+          },
+          {
+            "id": "214",
+            "type": "set"
+          },
+          {
+            "id": "216",
+            "type": "set"
+          }
+        ]
+      },
+      "formulas": {
+        "data": [
+          {
+            "id": "1494",
+            "type": "formula"
+          },
+          {
+            "id": "1427",
+            "type": "formula"
+          },
+          {
+            "id": "1646",
+            "type": "formula"
+          },
+          {
+            "id": "1656",
+            "type": "formula"
+          }
+        ]
+      }
+    }
+  },
+  "included": [
+    {
+      "id": "1494",
+      "type": "formula",
+      "attributes": {
+        "id": 1494,
+        "code": "total_quality",
+        "description": "Total Qualité",
+        "exportableFormulaCode": null,
+        "expression": "round(b_total_subsidies + recup_total_subsidies, 2)",
+        "frequency": null,
+        "shortName": "Total Qualité",
+        "createdAt": "2019-04-23T12:02:50.731Z",
+        "updatedAt": "2019-05-15T09:44:01.771Z"
+      }
+    },
+    {
+      "id": "1427",
+      "type": "formula",
+      "attributes": {
+        "id": 1427,
+        "code": "total",
+        "description": "total",
+        "exportableFormulaCode": null,
+        "expression": "round(quantity_subsidies_obtained + global_quality + vc_total_subsidies , 2)",
+        "frequency": null,
+        "shortName": "total",
+        "createdAt": "2019-04-04T11:23:04.430Z",
+        "updatedAt": "2019-05-11T17:01:39.625Z"
+      }
+    },
+    {
+      "id": "1646",
+      "type": "formula",
+      "attributes": {
+        "id": 1646,
+        "code": "global_quality",
+        "description": "global_quality",
+        "exportableFormulaCode": null,
+        "expression": "round(total_quality + c_total_subsidies  + d_total_subsidies , 2)",
+        "frequency": null,
+        "shortName": "Qualité Globale",
+        "createdAt": "2019-05-11T16:41:29.416Z",
+        "updatedAt": "2019-05-15T07:31:54.436Z"
+      }
+    },
+    {
+      "id": "1656",
+      "type": "formula",
+      "attributes": {
+        "id": 1656,
+        "code": "b_total_subsidies",
+        "description": "b_total_subsidies",
+        "exportableFormulaCode": null,
+        "expression": "round(b1_total_subsidies + b2_total_subsidies + b3_total_subsidies \r\n+ b4_total_subsidies + b5_total_subsidies + b6_total_subsidies \r\n+ b7_total_subsidies + b8_total_subsidies + b9_total_subsidies\r\n, 2)",
+        "frequency": null,
+        "shortName": "b_total_subsidies",
+        "createdAt": "2019-05-15T09:44:01.783Z",
+        "updatedAt": "2019-05-15T09:44:01.783Z"
+      }
+    }
+  ]
+}
