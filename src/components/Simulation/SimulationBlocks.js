@@ -58,11 +58,14 @@ const SimulationBlocks = props => {
   function getSetName(setKey) {
     return setKey.split("__")[setKey.split("__").length - 1];
   }
+
   const displayedSetCodes = (props.searchQuery.sets || "")
     .split(",")
     .filter(i => i);
 
   const sets = Object.keys(setsByCode);
+  console.log("sets", sets);
+  console.log("displayedSetCodes", displayedSetCodes);
 
   const filteredSets = displayedSetCodes.length
     ? sets.filter(setKey => displayedSetCodes.includes(getSetName(setKey)))

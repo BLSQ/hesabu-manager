@@ -13,6 +13,7 @@ import AppBarSearch from "../AppBarSearch";
 import SetContainer from "../../containers/SetContainer";
 import useStyles from "./styles";
 import { formattedName } from "../../utils/textUtils";
+import SetsFilters from "./SetsFilters";
 
 const Sets = props => {
   const classes = useStyles(props);
@@ -80,12 +81,7 @@ const Sets = props => {
         open={sideSheetOpen}
         onClose={handleToggleSideSheet}
       >
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequuntur
-          velit et exercitationem ut ex eveniet in sit aperiam, voluptatum
-          laboriosam quam voluptate officiis ullam perspiciatis at sint deserunt
-          architecto illo!
-        </p>
+        <SetsFilters sets={sets} />
       </SideSheet>
     </Fragment>
   );
