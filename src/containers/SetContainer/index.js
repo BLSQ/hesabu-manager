@@ -65,7 +65,16 @@ const SetContainer = props => {
         .get()
         .json(response => {
           setLoading(false);
-          deserialize(response).then(data => {
+          deserialize(response, {
+            simulationOrgUnit: {
+              valueForRelationship: function(relationship) {
+                return {
+                  id: relationship.id,
+                  type: relationship.type,
+                };
+              },
+            },
+          }).then(data => {
             setSet(data);
           });
 
@@ -114,53 +123,59 @@ const SetContainer = props => {
           onClick={handleToggleSideSheet}
         />
       </TopBar>
-      <ActionFab
-        to={{
-          pathname: `/simulation`,
-          search: `?periods=${props.simulationPeriod}&sets=${snakeCase(
-            set.name,
-          )}`,
-          state: { referrer: location.pathname },
-        }}
-        text="Simulation"
-        extended
-        className={classes.simulationBtn}
-      />
-      <Switch>
-        <Route
-          path={`${match.url}/current_level`}
-          component={() => <SetCurrentLevelContainer set={set} />}
-        />
-        <Route
-          path={`${match.url}/children`}
-          component={SetChildrenContainer}
-        />
-        <Route
-          path={`${match.url}/set_formulas`}
-          component={SetFormulasContainer}
-        />
-      </Switch>
-      <SideSheet
-        hasTabs
-        title={t("set.sidesheet.title")}
-        open={sideSheetOpen}
-        onClose={handleToggleSideSheet}
-      >
-        <p>
-          <Chip label={formattedName(set.kind)} />
-        </p>
-        <SidebarBlock title={t("resources.orgUnitGroup_plural")}>
-          {(set.orgUnitGroups || []).length && (
-            <span>{set.orgUnitGroups.map(group => group.id)}</span>
-          )}
-        </SidebarBlock>
-        <SidebarBlock title={t("resources.orgUnitGroupSet_plural")}>
-          {(set.orgUnitGroupSets || []).length && (
-            <p>{set.orgUnitGroupSets.map(group => group.id)}</p>
-          )}
-        </SidebarBlock>
-        <SidebarBlock title={t("set.frequency")}>{set.frequency}</SidebarBlock>
-      </SideSheet>
+      {!!set.id && (
+        <>
+          <ActionFab
+            to={{
+              pathname: `/simulation`,
+              search: `?periods=${props.simulationPeriod}&sets=${snakeCase(
+                set.name,
+              )}&orgUnit=${set.simulationOrgUnit.id}`,
+              state: { referrer: location.pathname },
+            }}
+            text="Simulation"
+            extended
+            className={classes.simulationBtn}
+          />
+          <Switch>
+            <Route
+              path={`${match.url}/current_level`}
+              component={() => <SetCurrentLevelContainer set={set} />}
+            />
+            <Route
+              path={`${match.url}/children`}
+              component={SetChildrenContainer}
+            />
+            <Route
+              path={`${match.url}/set_formulas`}
+              component={SetFormulasContainer}
+            />
+          </Switch>
+          <SideSheet
+            hasTabs
+            title={t("set.sidesheet.title")}
+            open={sideSheetOpen}
+            onClose={handleToggleSideSheet}
+          >
+            <p>
+              <Chip label={formattedName(set.kind)} />
+            </p>
+            <SidebarBlock title={t("resources.orgUnitGroup_plural")}>
+              {(set.orgUnitGroups || []).length && (
+                <span>{set.orgUnitGroups.map(group => group.id)}</span>
+              )}
+            </SidebarBlock>
+            <SidebarBlock title={t("resources.orgUnitGroupSet_plural")}>
+              {(set.orgUnitGroupSets || []).length && (
+                <p>{set.orgUnitGroupSets.map(group => group.id)}</p>
+              )}
+            </SidebarBlock>
+            <SidebarBlock title={t("set.frequency")}>
+              {set.frequency}
+            </SidebarBlock>
+          </SideSheet>
+        </>
+      )}
     </Dialog>
   );
 };
