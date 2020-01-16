@@ -35,7 +35,10 @@ export default {
         body: "Créez-en et ils apparaîtront ici.",
       },
       drawerItems: {
-        help: "Aide",
+        help: {
+          main: "Aide",
+          shortcuts: "Racourcis",
+        },
       },
       cellExplanation: {
         noSelectedCell:
@@ -146,6 +149,11 @@ export default {
       snackBars: {
         reloadPage:
           "Une nouvelle version est disponible! Rafraichissez la page.",
+      },
+      shortcuts: {
+        title: "Aide — Raccourcis",
+        intro:
+          "Pas beaucoup de raccourcis pour l'instant mais ceux-ci devraient déjà accélérer votre navigation:",
       },
       tours: {
         welcome: {

@@ -97,7 +97,7 @@ Sets.propTypes = {
   handleToggleSearch: PropTypes.func,
   handleToggleSideSheet: PropTypes.func,
   loading: PropTypes.bool,
-  query: PropTypes.object,
+  query: PropTypes.string,
   searchOpen: PropTypes.bool,
   setQuery: PropTypes.func,
   sets: PropTypes.arrayOf(PropTypes.object),

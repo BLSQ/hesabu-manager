@@ -46,6 +46,11 @@ const LoadableSimulationsContainer = Loadable({
   loading: RouteLoading,
 });
 
+const LoadableHelpContainer = Loadable({
+  loader: () => import("./containers/HelpContainer"),
+  loading: RouteLoading,
+});
+
 const styles = () => ({
   root: {
     flexGrow: 1,
@@ -72,6 +77,8 @@ class App extends Component {
 
   handleShortcuts = action => {
     const { history } = this.props;
+    console.log("presse");
+
     switch (action) {
       case "GO_TO_SETS":
         history.push("/sets");
@@ -129,7 +136,12 @@ class App extends Component {
                   horizontal: "center",
                 }}
               >
-                <Shortcuts name="APP" handler={this.handleShortcuts}>
+                <Shortcuts
+                  name="APP"
+                  global
+                  handler={this.handleShortcuts}
+                  targetNodeSelector="body"
+                >
                   {this.props.project.id && (
                     <Fragment>
                       <SnackBarContainer />
@@ -172,7 +184,7 @@ class App extends Component {
                             />
                             <Route
                               path="/help"
-                              component={LoadableSetsContainer}
+                              component={LoadableHelpContainer}
                             />
                           </Switch>
                         </div>

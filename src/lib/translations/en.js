@@ -36,7 +36,10 @@ export default {
         body: "Create some and they will appear here.",
       },
       drawerItems: {
-        help: "Help",
+        help: {
+          main: "Help",
+          shortcuts: "Shortcuts",
+        },
       },
       cellExplanation: {
         noSelectedCell: "Please select a cell to see related information",
@@ -143,6 +146,11 @@ export default {
       },
       snackBars: {
         reloadPage: "A new version is available! Please refresh the page.",
+      },
+      shortcuts: {
+        title: "Help — Shortcuts",
+        intro:
+          "Not many shortcuts for now but these should already speed up your navigation:",
       },
       tours: {
         welcome: {
