@@ -1,3 +1,40 @@
+# [1.7.0](https://github.com/BLSQ/hesabu-manager/compare/v1.6.0...v1.7.0) (2020-01-17)
+
+
+### Bug Fixes
+
+* Close bottom sheet when filters are open on simulation page ([d658d4f](https://github.com/BLSQ/hesabu-manager/commit/d658d4fcce2df5c241fc8238ce8a93999026562c))
+* Fix the responsive drawer toggle ([1e7e191](https://github.com/BLSQ/hesabu-manager/commit/1e7e191a1b595fa313b0ad2c9945395a5c4586e5))
+* List item link styles ([1dea8b7](https://github.com/BLSQ/hesabu-manager/commit/1dea8b7e0d82c8e8e94333b2a6a37024e6e76c1c))
+* Make simulation cells more accessible ([f33f844](https://github.com/BLSQ/hesabu-manager/commit/f33f844a15f83cd20cf4715bbf6c8a46a25d0740))
+* Only display cell tooltip when its not the topic name ([2546527](https://github.com/BLSQ/hesabu-manager/commit/2546527e1568e8b3975699af637ad3b9d54adc0d))
+* Orgunit id now passed to simulation from set page ([a0cbda3](https://github.com/BLSQ/hesabu-manager/commit/a0cbda3f875c7ac8cb9c928230823b4c59c720c8))
+* Set filtering should not take org unit into account ([ed2f5e9](https://github.com/BLSQ/hesabu-manager/commit/ed2f5e9eb4cac7a46c9acd74554c2dd455884506))
+* Show container api fetch condition ([b76474b](https://github.com/BLSQ/hesabu-manager/commit/b76474b9a8b37d6e40dccb6e459c4ac1cf37ce88))
+* Simulation modal now goes back to history previous location ([bf8c522](https://github.com/BLSQ/hesabu-manager/commit/bf8c5223bd2e0f131e9477978d3e225b4bfda58e))
+* Simulation title ([ab560a8](https://github.com/BLSQ/hesabu-manager/commit/ab560a8bccc0df2071e4878012970770ad1fa036))
+
+
+### Features
+
+*  Long poll enqueued simulations ([#36](https://github.com/BLSQ/hesabu-manager/issues/36)) ([75b6044](https://github.com/BLSQ/hesabu-manager/commit/75b604498fb63ab3d1293846beb1d05893bd90f9))
+* Add basic hometour for the demo ([86d3181](https://github.com/BLSQ/hesabu-manager/commit/86d31818a7a4262c8eceb4058b0bdda9d6f614b6))
+* Add code editor for simulation cell explanation ([#35](https://github.com/BLSQ/hesabu-manager/issues/35)) ([1c90bbe](https://github.com/BLSQ/hesabu-manager/commit/1c90bbe3bd8d376b0a75898477b2569d6ad204b8))
+* Add filters to sets index ([#53](https://github.com/BLSQ/hesabu-manager/issues/53)) ([2f4e455](https://github.com/BLSQ/hesabu-manager/commit/2f4e4556fc5b6eca063a0e68424421276c6bbe17))
+* Add formulas card on compound show page ([a88b9a3](https://github.com/BLSQ/hesabu-manager/commit/a88b9a3307cba63c1d837c6bcbae8196eccb6598))
+* Add help section and fix shortcuts ([846196c](https://github.com/BLSQ/hesabu-manager/commit/846196cea5e6bb59a81c45ef4e4d9d1d2c3b74a9))
+* Add shortcut library ([#39](https://github.com/BLSQ/hesabu-manager/issues/39)) ([42a6164](https://github.com/BLSQ/hesabu-manager/commit/42a61645079c2c81e9cbdc74ac8de693b8ca3eb0))
+* Add sidesheet to compound modal ([#50](https://github.com/BLSQ/hesabu-manager/issues/50)) ([689e7b5](https://github.com/BLSQ/hesabu-manager/commit/689e7b5190e1d6f41b44d504370f62f26c7905e8))
+* Add simulation status icons ([ca686b3](https://github.com/BLSQ/hesabu-manager/commit/ca686b3b9466d281d28e19ff3e29d6918afc0112))
+* Add topic list to sets list item ([61fe95f](https://github.com/BLSQ/hesabu-manager/commit/61fe95f1974ba7869c527928c576645f102a6c7d))
+* Add warning when no sim blocks for current org unit ([#41](https://github.com/BLSQ/hesabu-manager/issues/41)) ([317e621](https://github.com/BLSQ/hesabu-manager/commit/317e621e345b319500aab0fcd056fc8c928f3ef0))
+* Allow simulation blocks filtering via url param ([#37](https://github.com/BLSQ/hesabu-manager/issues/37)) ([ee8173c](https://github.com/BLSQ/hesabu-manager/commit/ee8173c89785d0fea185fddb94faf30dcc7fbd16))
+* Expose a sets endpoints ([#42](https://github.com/BLSQ/hesabu-manager/issues/42)) ([8cb1150](https://github.com/BLSQ/hesabu-manager/commit/8cb1150de7426ed9a996df15d6ed1e27f2c0f337))
+* Expose set groups payload at /set_groups ([#44](https://github.com/BLSQ/hesabu-manager/issues/44)) ([bd57ba8](https://github.com/BLSQ/hesabu-manager/commit/bd57ba80ff18f33aa75387828e828e70a04fac62))
+* Fetch set from api and add fab sim btn ([#46](https://github.com/BLSQ/hesabu-manager/issues/46)) ([bfba750](https://github.com/BLSQ/hesabu-manager/commit/bfba7503839e00fa1317c7f048f8d633ed0ca999))
+* Force auto reload for processed sims ([#40](https://github.com/BLSQ/hesabu-manager/issues/40)) ([b16b166](https://github.com/BLSQ/hesabu-manager/commit/b16b166344ff3785c89f7482466e03303a2064b2))
+* Make the set formulas viewable in bottom sheet ([e78e943](https://github.com/BLSQ/hesabu-manager/commit/e78e94388940dd22a54488902c14cb0a11b89ba9))
+
 # [1.6.0](https://github.com/BLSQ/hesabu-manager/compare/v1.5.0...v1.6.0) (2020-01-06)
 
 
