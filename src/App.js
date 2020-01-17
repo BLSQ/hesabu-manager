@@ -77,7 +77,6 @@ class App extends Component {
 
   handleShortcuts = action => {
     const { history } = this.props;
-    console.log("presse");
 
     switch (action) {
       case "GO_TO_SETS":
