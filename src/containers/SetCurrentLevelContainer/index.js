@@ -1,7 +1,7 @@
 import React from "react";
 import { makeStyles } from "@material-ui/styles";
 import ReactDataSheet from "react-datasheet";
-import PropTypes, { number } from "prop-types";
+import PropTypes from "prop-types";
 import { APPBAR_WITH_TABS_HEIGHT } from "../../constants/ui";
 
 const useStyles = makeStyles(theme => ({

@@ -29,18 +29,7 @@ const styles = theme => ({});
 class SimulationForm extends Component {
   state = {};
 
-  createSimulation(values) {
-    console.log(values);
-    return null;
-  }
-
-  updatePublication = values => {
-    console.log(values);
-    return null;
-  };
-
   periodsChanged = values => {
-    console.log(values);
     this.setState({ selectedPeriods: [{ key: "a", human: "A" }] });
   };
 
@@ -48,9 +37,9 @@ class SimulationForm extends Component {
     const { t, classes, simulation } = this.props;
     const initialValues = {
       simulation: {
-        title: getIn(simulation, "title") || "",
-        content: getIn(simulation, "content") || "",
-        orgUnitId: getIn(simulation, "orgUnitId") || "",
+        title: simulation?.title || "",
+        content: simulation?.content || "",
+        orgUnitId: simulation?.orgUnitId || "",
       },
     };
 

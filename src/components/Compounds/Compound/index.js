@@ -49,6 +49,8 @@ const Compound = props => {
   } = props;
   const handleDelete = () => alert("this is not yet implemented");
   const { t } = useTranslation();
+  const filteredSets = (sets || []).filter(s => s);
+
   return (
     <Dialog
       fullScreen
@@ -87,11 +89,11 @@ const Compound = props => {
           open={sideSheetOpen}
           onClose={onSideSheetClose}
         >
-          <SidebarBlock title={formattedName(t("resources.set_plural"))}>
-            {(sets || []).length && (
-              <span>{sets.map(set => (set || {}).id)}</span>
-            )}
-          </SidebarBlock>
+          {!!filteredSets.length && (
+            <SidebarBlock title={formattedName(t("resources.set_plural"))}>
+              <span>{filteredSets.map(set => set?.id)}</span>
+            </SidebarBlock>
+          )}
           {frequency && (
             <SidebarBlock title={formattedName(t(`compound.frequency`))}>
               {t(`periodicity.${frequency}`)}
