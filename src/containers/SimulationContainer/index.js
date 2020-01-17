@@ -84,9 +84,7 @@ class SimulationContainer extends Component {
 
   render() {
     const { loading, simulation, errorMessage, forcePolling } = this.state;
-    const valuesFromParams = queryString.parse(this.props.location.search, {
-      arrayFormat: "comma",
-    });
+    const valuesFromParams = queryString.parse(this.props.location.search);
 
     return (
       <Simulation
