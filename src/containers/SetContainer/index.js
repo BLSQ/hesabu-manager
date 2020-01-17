@@ -56,6 +56,15 @@ const SetContainer = props => {
   const [errorMessage, setErrorMessage] = useState(null);
   const [set, setSet] = useState({});
 
+  function simulationParams() {
+    const prms = new URLSearchParams();
+    if (props.simulationPeriod) prms.append("periods", props.simulationPeriod);
+    if (set) prms.append("sets", snakeCase(set.name));
+    if (!!set?.simulationOrgUnit?.id)
+      prms.append("orgUnit", set.simulationOrgUnit.id);
+    return prms.toString();
+  }
+
   useEffect(() => {
     if (open) {
       setLoading(true);
@@ -67,7 +76,7 @@ const SetContainer = props => {
           setLoading(false);
           deserialize(response, {
             simulationOrgUnit: {
-              valueForRelationship: function(relationship) {
+              valueForRelationship(relationship) {
                 return {
                   id: relationship.id,
                   type: relationship.type,
@@ -129,9 +138,7 @@ const SetContainer = props => {
           <ActionFab
             to={{
               pathname: `/simulation`,
-              search: `?periods=${props.simulationPeriod}&sets=${snakeCase(
-                set.name,
-              )}&orgUnit=${set?.simulationOrgUnit?.id}`,
+              search: `?${simulationParams()}`,
               state: { referrer: location.pathname },
             }}
             text="Simulation"
