@@ -123,6 +123,7 @@ const SetContainer = props => {
           onClick={handleToggleSideSheet}
         />
       </TopBar>
+
       {!!set.id && (
         <>
           <ActionFab
@@ -130,7 +131,7 @@ const SetContainer = props => {
               pathname: `/simulation`,
               search: `?periods=${props.simulationPeriod}&sets=${snakeCase(
                 set.name,
-              )}&orgUnit=${set.simulationOrgUnit.id}`,
+              )}&orgUnit=${set?.simulationOrgUnit?.id}`,
               state: { referrer: location.pathname },
             }}
             text="Simulation"
@@ -160,16 +161,16 @@ const SetContainer = props => {
             <p>
               <Chip label={formattedName(set.kind)} />
             </p>
-            <SidebarBlock title={t("resources.orgUnitGroup_plural")}>
-              {(set.orgUnitGroups || []).length && (
+            {!!set.orgUnitGroups.length && (
+              <SidebarBlock title={t("resources.orgUnitGroup_plural")}>
                 <span>{set.orgUnitGroups.map(group => group.id)}</span>
-              )}
-            </SidebarBlock>
-            <SidebarBlock title={t("resources.orgUnitGroupSet_plural")}>
-              {(set.orgUnitGroupSets || []).length && (
+              </SidebarBlock>
+            )}
+            {!!set.orgUnitGroupSets.length && (
+              <SidebarBlock title={t("resources.orgUnitGroupSet_plural")}>
                 <p>{set.orgUnitGroupSets.map(group => group.id)}</p>
-              )}
-            </SidebarBlock>
+              </SidebarBlock>
+            )}
             <SidebarBlock title={t("set.frequency")}>
               {set.frequency}
             </SidebarBlock>

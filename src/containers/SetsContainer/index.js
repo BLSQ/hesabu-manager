@@ -41,7 +41,9 @@ const SetsContainer = () => {
   const { search } = useLocation();
   const parsedSearch = queryString.parse(search);
 
-  const ougIdsFromParams = parsedSearch.orgUnitGroups.split(",").filter(i => i);
+  const ougIdsFromParams = (parsedSearch.orgUnitGroups || "")
+    .split(",")
+    .filter(i => i);
 
   const filteredSets = matchSorter(sets, query, {
     keys: ["name", "displayName"],
