@@ -56,6 +56,15 @@ const SetContainer = props => {
   const [errorMessage, setErrorMessage] = useState(null);
   const [set, setSet] = useState({});
 
+  function simulationParams() {
+    const prms = new URLSearchParams();
+    if (props.simulationPeriod) prms.append("periods", props.simulationPeriod);
+    if (set) prms.append("sets", snakeCase(set.name));
+    if (!!set?.simulationOrgUnit?.id)
+      prms.append("orgUnit", set.simulationOrgUnit.id);
+    return prms.toString();
+  }
+
   useEffect(() => {
     if (open) {
       setLoading(true);
@@ -67,7 +76,7 @@ const SetContainer = props => {
           setLoading(false);
           deserialize(response, {
             simulationOrgUnit: {
-              valueForRelationship: function(relationship) {
+              valueForRelationship(relationship) {
                 return {
                   id: relationship.id,
                   type: relationship.type,
@@ -123,14 +132,13 @@ const SetContainer = props => {
           onClick={handleToggleSideSheet}
         />
       </TopBar>
+
       {!!set.id && (
         <>
           <ActionFab
             to={{
               pathname: `/simulation`,
-              search: `?periods=${props.simulationPeriod}&sets=${snakeCase(
-                set.name,
-              )}&orgUnit=${set.simulationOrgUnit.id}`,
+              search: `?${simulationParams()}`,
               state: { referrer: location.pathname },
             }}
             text="Simulation"
@@ -160,16 +168,16 @@ const SetContainer = props => {
             <p>
               <Chip label={formattedName(set.kind)} />
             </p>
-            <SidebarBlock title={t("resources.orgUnitGroup_plural")}>
-              {(set.orgUnitGroups || []).length && (
+            {!!set.orgUnitGroups.length && (
+              <SidebarBlock title={t("resources.orgUnitGroup_plural")}>
                 <span>{set.orgUnitGroups.map(group => group.id)}</span>
-              )}
-            </SidebarBlock>
-            <SidebarBlock title={t("resources.orgUnitGroupSet_plural")}>
-              {(set.orgUnitGroupSets || []).length && (
+              </SidebarBlock>
+            )}
+            {!!set.orgUnitGroupSets.length && (
+              <SidebarBlock title={t("resources.orgUnitGroupSet_plural")}>
                 <p>{set.orgUnitGroupSets.map(group => group.id)}</p>
-              )}
-            </SidebarBlock>
+              </SidebarBlock>
+            )}
             <SidebarBlock title={t("set.frequency")}>
               {set.frequency}
             </SidebarBlock>
