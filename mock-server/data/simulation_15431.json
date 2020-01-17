@@ -1,0 +1,20 @@
+{
+  "data": {
+    "id": "15431",
+    "type": "invoicingJob",
+    "attributes": {
+      "orgUnit": "nfqd7CzY380",
+      "dhis2Period": "2019Q2",
+      "user": null,
+      "createdAt": "2019-04-29T11:07:34.803Z",
+      "processedAt": "2020-01-15T14:54:15.924Z",
+      "erroredAt": null,
+      "durationMs": 2782,
+      "status": "processed",
+      "lastError": null,
+      "sidekiqJobRef": null,
+      "isAlive": false,
+      "resultUrl": "http://localhost:4567/s3/results/15431.json"
+    }
+  }
+}

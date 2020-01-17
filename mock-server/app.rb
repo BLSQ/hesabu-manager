@@ -4,9 +4,6 @@ require 'sinatra'
 def simulation_id_based_on_org_unit_and_period(org_unit, period)
   all = JSON.parse(File.read("data/simulations.json"))
   response = all["data"].detect do |h|
-    puts h
-    puts h["attributes"]["orgUnit"]
-    puts h["attributes"]["dhis2Period"]
     h["attributes"]["orgUnit"] == org_unit &&
       h["attributes"]["dhis2Period"] == period
   end
@@ -24,6 +21,32 @@ end
 
 get '/' do
   'Hello world!'
+end
+
+get '/api/sets' do
+  File.read("data/sets.json")
+end
+
+get '/api/sets/:identifier' do |identifier|
+  without_ext = identifier.split(".")[0]
+  if identifier && path = Dir.glob("data/set_#{without_ext}.json").first
+    File.read(path)
+  else
+    File.read("data/set.json")
+  end
+end
+
+get '/api/compounds' do
+  File.read("data/compounds.json")
+end
+
+get '/api/compounds/:identifier' do |identifier|
+  without_ext = identifier.split(".")[0]
+  if identifier && path = Dir.glob("data/compound_#{without_ext}.json").first
+    File.read(path)
+  else
+    File.read("data/compound.json")
+  end
 end
 
 get '/api/simulations' do
@@ -51,7 +74,7 @@ get '/api/simulation' do
   period = params[:periods].split(",").first
   identifier = simulation_id_based_on_org_unit_and_period(org_unit, period)
 
-  if identifier && path = Dir.glob("data/*#{identifier}.json").first
+  if identifier && path = Dir.glob("data/simulation_#{identifier}.json").first
     File.read(path)
   else
     not_found
@@ -70,6 +93,8 @@ end
 get '/s3/results/:identifier.json' do |identifier|
   content_type 'json'
   if path = Dir.glob("data/s3/*#{identifier}.json").first
+    File.read(path)
+  elsif path = Dir.glob("data/sim_s3_#{identifier}.json").first
     File.read(path)
   else
     not_found

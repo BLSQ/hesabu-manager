@@ -23,7 +23,6 @@ Header.propTypes = {
   invoice: PropTypes.shape({
     code: PropTypes.string,
     period: PropTypes.string,
-    orgunit_ext_id: PropTypes.string,
   }),
 };
 

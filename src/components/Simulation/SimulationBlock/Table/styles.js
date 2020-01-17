@@ -19,14 +19,30 @@ const useStyles = makeStyles(theme => ({
     "& th": {
       whiteSpace: "nowrap",
     },
-    "& td:hover": {
+  },
+  cell: {
+    padding: theme.spacing(1, 2),
+  },
+  interactable: {
+    "&:hover": {
       background: "#e4e4e4",
       cursor: "pointer",
     },
   },
+  is_topic: {
+    maxWidth: 200,
+    textOverflow: "ellipsis",
+    overflowX: "hidden",
+    whiteSpace: "nowrap",
+    "&:hover": {
+      cursor: "default",
+      background: "inherit !important",
+    },
+  },
   is_current: {
-    background: `${theme.palette.primary.main} !important`,
-    color: "white !important",
+    outlineColor: fade(theme.palette.primary.main, 0.1),
+    outlineWidth: 5,
+    outlineStyle: "auto",
   },
   is_input: {
     background: fade(yellow[50], 0.5),

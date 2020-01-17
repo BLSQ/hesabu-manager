@@ -9,6 +9,7 @@ export default makeStyles(theme => ({
     position: "relative",
   },
   sectionTitle: {
+    ...theme.link,
     marginBottom: theme.spacing(2),
   },
   groupChip: {

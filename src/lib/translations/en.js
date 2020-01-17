@@ -6,12 +6,29 @@ export default {
         orgUnits: "Choose an org unit",
       },
       buttons: {
+        autoreload: "Auto reload",
         search: "Search",
         back: "Back",
         save: "Save",
         submit: "Submit",
         loading: "Loading",
         seeOnDhis2: "See on dhis2",
+        edit: "Edit",
+        delete: "Delete",
+        reload: "Reload",
+        close: "Close",
+        last: "Last",
+        next: "Next",
+        skip: "Skip",
+      },
+      filters: {
+        mockedValues: "Mocked values",
+      },
+      compound: {
+        frequency: "Fréquency",
+        sidesheet: {
+          title: "Compound info",
+        },
       },
       noData: "N/A",
       emptySection: {
@@ -19,7 +36,10 @@ export default {
         body: "Create some and they will appear here.",
       },
       drawerItems: {
-        help: "Help",
+        help: {
+          main: "Help",
+          shortcuts: "Shortcuts",
+        },
       },
       cellExplanation: {
         noSelectedCell: "Please select a cell to see related information",
@@ -30,11 +50,20 @@ export default {
           debug: "Debug",
         },
       },
+      periodicity: {
+        monthly: "monthly",
+        quarterly: "quaterly",
+        yearly: "yearly",
+      },
       resources: {
         set: "set",
         set_plural: "sets",
-        setGroup: "sets group",
-        setGroup_plural: "sets groups",
+        compound: "compound",
+        compound_plural: "compounds",
+        orgUnitGroup: "Organisation unit group",
+        orgUnitGroup_plural: "Organisation unit groups",
+        orgUnitGroupSet: "Organisation unit group set",
+        orgUnitGroupSet_plural: "Organisation unit group sets",
         simulation: "simulation",
         simulation_plural: "simulations",
         orgUnit: "organisation unit",
@@ -45,6 +74,7 @@ export default {
         formula_plural: "formulas",
       },
       set: {
+        frequency: "Frequency",
         tabs: {
           currentLevel: "Current level",
           children: "Children",
@@ -64,6 +94,9 @@ export default {
         sidesheet: {
           title: "Filters",
         },
+        ohNo: "Oh no",
+        noSimulationForOrgUnit:
+          "It looks like there is no set associated with this organization unit.",
       },
       simulationForm: {
         projectVersion: {
@@ -110,6 +143,36 @@ export default {
       filtersSheet: {
         title: "Filters",
         label: "Filters list",
+      },
+      snackBars: {
+        reloadPage: "A new version is available! Please refresh the page.",
+      },
+      shortcuts: {
+        title: "Help — Shortcuts",
+        intro:
+          "Not many shortcuts for now but these should already speed up your navigation:",
+      },
+      tours: {
+        welcome: {
+          title: "Welcome to Hesabu ßeta!",
+          content:
+            "In order to better reflect the diversity of our projects, we have opted for a new nomenclature compared to the old hesabu. This introductory tour will review these new concepts. The exact mapping of terms can be found in the help section.",
+          sets: {
+            title: "The sets",
+            content:
+              "Sets are collections of topics. Each set will produce one or two tables during the simulation depending on its type. You can use inputs from various sources to feed formulas which can then be exported to dhis2 and/or reused in compounds.",
+          },
+          compounds: {
+            title: "The compounds",
+            content:
+              "Compounds allow you to create and group new formulas by combining existing formulas from several different sets.",
+          },
+          simulations: {
+            title: "The simulations",
+            content:
+              "For the moment, simulations are still limited to one organization unit and one period. However, they can now self-recharge. This will allow you to automatically recreate a simulation as soon as you make a change to your set or compound.",
+          },
+        },
       },
     },
   },

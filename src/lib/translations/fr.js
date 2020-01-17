@@ -5,12 +5,29 @@ export default {
         orgUnits: "Choisissez une unité d’organisation",
       },
       buttons: {
+        autoreload: "Rafraichissement auto",
         search: "Rechercher",
         back: "Retour",
         save: "Sauver",
         submit: "Envoyez",
         loading: "En cours",
         seeOnDhis2: "Voir sur dhis2",
+        edit: "Modifier",
+        delete: "Effacer",
+        reload: "Recharger",
+        close: "Fermer",
+        last: "Dernier",
+        next: "Suivant",
+        skip: "Passer",
+      },
+      filters: {
+        mockedValues: "Valeurs factices",
+      },
+      compound: {
+        frequency: "Fréquence",
+        sidesheet: {
+          title: "Compound info",
+        },
       },
       noData: "N/D",
       emptySection: {
@@ -18,7 +35,10 @@ export default {
         body: "Créez-en et ils apparaîtront ici.",
       },
       drawerItems: {
-        help: "Aide",
+        help: {
+          main: "Aide",
+          shortcuts: "Racourcis",
+        },
       },
       cellExplanation: {
         noSelectedCell:
@@ -30,11 +50,20 @@ export default {
           debug: "Débug",
         },
       },
+      periodicity: {
+        monthly: "mensuel",
+        quarterly: "semestriel",
+        yearly: "annuel",
+      },
       resources: {
         set: "set",
         set_plural: "sets",
-        setsGroup: "groupe de sets",
-        setsGroup_plural: "groupes de sets",
+        orgUnitGroup: "Groupe d’unité d’organisation",
+        orgUnitGroup_plural: "Groupes d’unité d’organisation",
+        orgUnitGroupSet: "Set de groupes d’unité d’organisation",
+        orgUnitGroupSet_plural: "Sets de groupes d’unité d’organisation",
+        compound: "compound",
+        compound_plural: "compounds",
         simulation: "simulation",
         simulation_plural: "simulations",
         orgUnit: "organisation unit",
@@ -45,6 +74,7 @@ export default {
         formula_plural: "formules",
       },
       set: {
+        frequency: "Fréquence",
         tabs: {
           currentLevel: "Niveau actuel",
           children: " Enfants",
@@ -64,6 +94,9 @@ export default {
         sidesheet: {
           title: "Filtres",
         },
+        ohNo: "Oh no",
+        noSimulationForOrgUnit:
+          "Il semble qu’il n’y ai aucun set associé à cette unité d’organisation. Choisissez une autre unité d’organisation ou ajouter celle-ci dans les groupes d’unité d’organisations que vous utilisez pour vos sets.",
       },
       simulationForm: {
         projectVersion: {
@@ -112,6 +145,37 @@ export default {
       filtersSheet: {
         title: "Filtres",
         label: "Liste des filtres",
+      },
+      snackBars: {
+        reloadPage:
+          "Une nouvelle version est disponible! Rafraichissez la page.",
+      },
+      shortcuts: {
+        title: "Aide — Raccourcis",
+        intro:
+          "Pas beaucoup de raccourcis pour l'instant mais ceux-ci devraient déjà accélérer votre navigation:",
+      },
+      tours: {
+        welcome: {
+          title: "Bienvenue sur Hesabu ßeta!",
+          content:
+            "Afin de mieux refléter la diversité de nos projets, nous avons opté pour une nouvelle nomenclature par rapport à l’ancien hesabu. Ce tour d’introduction passera en revue ces nouveaux concept. La correspondance exacte des terme pourra être trouvée dans la section aide.",
+          sets: {
+            title: "Les sets",
+            content:
+              "Les sets sont des ensembles de sujets. Chaque ensemble produira un ou deux tableaux lors de la simulation en fonction de son type. Vous pouvez y utiliser des intrants de source diverses pour nourir des formules qui pourront ensuite être exportées vers dhis2 et/ou réutilisées dans des compounds.",
+          },
+          compounds: {
+            title: "Les compounds",
+            content:
+              "Les compounds permettent de créer et grouper de nouvelles formules en combinant des formules existantes provenant de plusieurs sets differents.",
+          },
+          simulations: {
+            title: "Les simulations",
+            content:
+              "Pour le moment les simulations sont toujours limitée à une unité d’organisation et une période. Par contre elles peuvent désormais s’auto-recharger. Cela vous permettra de d’automatiquement recréer une simulation dès que vous opérez un changement sur votre set ou compound.",
+          },
+        },
       },
     },
   },

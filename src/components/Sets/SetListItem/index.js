@@ -9,36 +9,40 @@ import styles from "./styles";
 const SetListItem = props => {
   const classes = styles();
   const [expanded, setExpanded] = useState(false);
-  const { name, description, groupNames: groups, id } = props;
+
+  const { name, orgUnitGroups, id, topics } = props;
+
   return (
     <div className={classes.root}>
       <div className={classes.header}>
         <Typography
           component={Link}
           to={`/sets/${id}/current_level`}
-          variant="h6"
+          variant="subtitle1"
           className={classes.sectionTitle}
         >
           {name}
           {id}
         </Typography>
-        <IconButton
-          className={classes.expandBtn}
-          onClick={() => setExpanded(!expanded)}
-        >
-          {expanded ? <ExpandLess /> : <ExpandMore />}
-        </IconButton>
+        {topics.length && (
+          <IconButton
+            className={classes.expandBtn}
+            onClick={() => setExpanded(!expanded)}
+          >
+            {expanded ? <ExpandLess /> : <ExpandMore />}
+          </IconButton>
+        )}
       </div>
-      {groups.map((group, index) => (
+      {orgUnitGroups.map((group, index) => (
         <Chip
           key={`${index}-group`}
-          label={group}
+          label={group.name}
           className={classes.groupChip}
         />
       ))}
-      {expanded && (
+      {expanded && topics.length && (
         <Typography variant="subtitle1" className={classes.description}>
-          {description}
+          {topics.map(topic => topic.name).join(", ")}
         </Typography>
       )}
     </div>
@@ -50,6 +54,8 @@ SetListItem.propTypes = {
   description: PropTypes.string,
   groupNames: PropTypes.array,
   name: PropTypes.string,
+  orgUnitGroups: PropTypes.array,
+  topics: PropTypes.array,
 };
 
 SetListItem.defaultProps = {

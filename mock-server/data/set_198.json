@@ -1,0 +1,178 @@
+{
+  "data": {
+    "id": "198",
+    "type": "set",
+    "attributes": {
+      "name": "Qualité EP - B.5 - Visites de classe",
+      "description": null,
+      "frequency": "quarterly",
+      "kind": "single",
+      "includeMainOrgunit": false,
+      "loopOverComboExtId": null,
+      "dataElementGroupExtRef": "todo"
+    },
+    "relationships": {
+      "simulationOrgUnit": {
+        "data": {
+          "id": "KDXCihdQfR5",
+          "type": "simulationOrgUnit"
+        }
+      },
+      "orgUnitGroups": {
+        "data": [
+          {
+            "id": "UmAPOYBgJSk",
+            "type": "orgUnitGroup"
+          }
+        ]
+      },
+      "orgUnitGroupSets": {
+        "data": []
+      },
+      "inputs": {
+        "data": [
+          {
+            "id": "328",
+            "type": "input"
+          },
+          {
+            "id": "330",
+            "type": "input"
+          },
+          {
+            "id": "332",
+            "type": "input"
+          }
+        ]
+      },
+      "topicFormulas": {
+        "data": [
+          {
+            "id": "1528",
+            "type": "topicFormula"
+          },
+          {
+            "id": "1530",
+            "type": "topicFormula"
+          },
+          {
+            "id": "1533",
+            "type": "topicFormula"
+          },
+          {
+            "id": "1534",
+            "type": "topicFormula"
+          },
+          {
+            "id": "1535",
+            "type": "topicFormula"
+          }
+        ]
+      },
+      "topics": {
+        "data": [
+          {
+            "id": "1056",
+            "type": "topic"
+          },
+          {
+            "id": "1057",
+            "type": "topic"
+          }
+        ]
+      }
+    }
+  },
+  "included": [
+    {
+      "id": "328",
+      "type": "input",
+      "attributes": {
+        "name": "Reached",
+        "shortName": "Palier Atteint"
+      }
+    },
+    {
+      "id": "330",
+      "type": "input",
+      "attributes": {
+        "name": "Max Points",
+        "shortName": "Max Points"
+      }
+    },
+    {
+      "id": "332",
+      "type": "input",
+      "attributes": {
+        "name": "Available Budget",
+        "shortName": "Budget Disponible"
+      }
+    },
+    {
+      "id": "UmAPOYBgJSk",
+      "type": "orgUnitGroup",
+      "attributes": {
+        "value": "Ecole Primaire",
+        "id": "UmAPOYBgJSk",
+        "name": "Ecole Primaire",
+        "displayName": "Ecole Primaire"
+      }
+    },
+    {
+      "id": "1056",
+      "type": "topic",
+      "attributes": {
+        "code": "qual_b_5_1",
+        "name": "B.5.1. Le directeur visite au moins 3 enseignants par semaine",
+        "shortName": "B.5.1. Le directeur visite 3 ens/sem",
+        "createdAt": "2019-04-23T09:18:50.721Z",
+        "updatedAt": "2019-04-23T09:18:50.721Z",
+        "stableId": "865f94b7-dd66-46ca-b745-1b84ea5e4cd3"
+      },
+      "relationships": {
+        "inputs": {
+          "data": [
+            {
+              "id": "4000",
+              "type": "input"
+            },
+            {
+              "id": "4025",
+              "type": "input"
+            },
+            {
+              "id": "4026",
+              "type": "input"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "1057",
+      "type": "topic",
+      "attributes": {
+        "code": "qual_b_5_2",
+        "name": "B.5.2. Le Directeur tient une réunion de cellule de base au moins une fois par mois",
+        "shortName": "B.5.2. Directeur tient réu cellule base",
+        "createdAt": "2019-04-23T09:20:19.181Z",
+        "updatedAt": "2019-04-23T09:20:19.181Z",
+        "stableId": "92a6074c-535d-4fb0-b3b9-5407b66cb90d"
+      },
+      "relationships": {
+        "inputs": {
+          "data": [
+            {
+              "id": "4001",
+              "type": "input"
+            },
+            {
+              "id": "4027",
+              "type": "input"
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

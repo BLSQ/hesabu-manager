@@ -1,0 +1,478 @@
+{
+  "data": {
+    "id": "202",
+    "type": "set",
+    "attributes": {
+      "name": "Qualité EP - B.9 - Gouvernance Interne",
+      "description": null,
+      "frequency": "quarterly",
+      "kind": "single",
+      "includeMainOrgunit": false,
+      "loopOverComboExtId": null,
+      "dataElementGroupExtRef": "todo"
+    },
+    "relationships": {
+      "simulationOrgUnit": {
+        "data": {
+          "id": "KDXCihdQfR5",
+          "type": "simulationOrgUnit"
+        }
+      },
+      "orgUnitGroups": {
+        "data": [
+          {
+            "id": "UmAPOYBgJSk",
+            "type": "orgUnitGroup"
+          }
+        ]
+      },
+      "orgUnitGroupSets": {
+        "data": []
+      },
+      "inputs": {
+        "data": [
+          {
+            "id": "328",
+            "type": "input"
+          },
+          {
+            "id": "330",
+            "type": "input"
+          },
+          {
+            "id": "332",
+            "type": "input"
+          }
+        ]
+      },
+      "topicFormulas": {
+        "data": [
+          {
+            "id": "1561",
+            "type": "topicFormula"
+          },
+          {
+            "id": "1564",
+            "type": "topicFormula"
+          },
+          {
+            "id": "1565",
+            "type": "topicFormula"
+          },
+          {
+            "id": "1563",
+            "type": "topicFormula"
+          },
+          {
+            "id": "1562",
+            "type": "topicFormula"
+          }
+        ]
+      },
+      "topics": {
+        "data": [
+          {
+            "id": "1073",
+            "type": "topic"
+          },
+          {
+            "id": "1074",
+            "type": "topic"
+          },
+          {
+            "id": "1075",
+            "type": "topic"
+          },
+          {
+            "id": "1076",
+            "type": "topic"
+          },
+          {
+            "id": "1077",
+            "type": "topic"
+          },
+          {
+            "id": "1078",
+            "type": "topic"
+          },
+          {
+            "id": "1079",
+            "type": "topic"
+          },
+          {
+            "id": "1080",
+            "type": "topic"
+          },
+          {
+            "id": "1081",
+            "type": "topic"
+          },
+          {
+            "id": "1082",
+            "type": "topic"
+          },
+          {
+            "id": "1083",
+            "type": "topic"
+          },
+          {
+            "id": "1084",
+            "type": "topic"
+          }
+        ]
+      }
+    }
+  },
+  "included": [
+    {
+      "id": "328",
+      "type": "input",
+      "attributes": {
+        "name": "Reached",
+        "shortName": "Palier Atteint"
+      }
+    },
+    {
+      "id": "330",
+      "type": "input",
+      "attributes": {
+        "name": "Max Points",
+        "shortName": "Max Points"
+      }
+    },
+    {
+      "id": "332",
+      "type": "input",
+      "attributes": {
+        "name": "Available Budget",
+        "shortName": "Budget Disponible"
+      }
+    },
+    {
+      "id": "UmAPOYBgJSk",
+      "type": "orgUnitGroup",
+      "attributes": {
+        "value": "Ecole Primaire",
+        "id": "UmAPOYBgJSk",
+        "name": "Ecole Primaire",
+        "displayName": "Ecole Primaire"
+      }
+    },
+    {
+      "id": "1073",
+      "type": "topic",
+      "attributes": {
+        "code": "qual_b_9_1",
+        "name": "B.9.1. Règlement Interieur existe et signé par tous les enseignants et affiché sur les murs de toutes les classes?",
+        "shortName": "B.9.1. Règlement Interieur ds classes",
+        "createdAt": "2019-04-25T08:56:46.193Z",
+        "updatedAt": "2019-04-25T08:56:46.193Z",
+        "stableId": "72273128-33c6-4f05-b698-54ded60e7157"
+      },
+      "relationships": {
+        "inputs": {
+          "data": [
+            {
+              "id": "4085",
+              "type": "input"
+            },
+            {
+              "id": "4086",
+              "type": "input"
+            },
+            {
+              "id": "4087",
+              "type": "input"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "1074",
+      "type": "topic",
+      "attributes": {
+        "code": "qual_b_9_2_1",
+        "name": "B.9.2.1. Existence de bon d'entrée caisse à jour",
+        "shortName": "B.9.2. Exist bon entrée caisse à jour",
+        "createdAt": "2019-04-25T09:00:01.541Z",
+        "updatedAt": "2019-04-25T09:00:01.541Z",
+        "stableId": "78662736-5ee8-4a33-9322-8e6f4fe9845f"
+      },
+      "relationships": {
+        "inputs": {
+          "data": [
+            {
+              "id": "4088",
+              "type": "input"
+            },
+            {
+              "id": "4089",
+              "type": "input"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "1075",
+      "type": "topic",
+      "attributes": {
+        "code": "qual_b_9_2_2",
+        "name": "B.9.2.2. Existence de bon de sortie caisse à jour",
+        "shortName": "B.9.2.2. Exist bon sortie caisse à jour",
+        "createdAt": "2019-04-25T09:01:21.090Z",
+        "updatedAt": "2019-04-25T09:01:21.090Z",
+        "stableId": "57a61f77-ab0b-47e2-b730-966d6a3654c0"
+      },
+      "relationships": {
+        "inputs": {
+          "data": [
+            {
+              "id": "4090",
+              "type": "input"
+            },
+            {
+              "id": "4091",
+              "type": "input"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "1076",
+      "type": "topic",
+      "attributes": {
+        "code": "qual_b_9_2_3",
+        "name": "B.9.2.3. Existence du livre de caisse à jour",
+        "shortName": "B.9.2.3. Exist livre caisse à jour",
+        "createdAt": "2019-04-25T09:02:44.101Z",
+        "updatedAt": "2019-04-25T09:05:14.129Z",
+        "stableId": "078115ad-6e09-44db-a85c-deae5b120ac4"
+      },
+      "relationships": {
+        "inputs": {
+          "data": [
+            {
+              "id": "4092",
+              "type": "input"
+            },
+            {
+              "id": "4093",
+              "type": "input"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "1077",
+      "type": "topic",
+      "attributes": {
+        "code": "qual_b_9_2_4",
+        "name": "B.9.2.4. Existence des classeurs des pièces justificatives",
+        "shortName": "B.9.2.4. Classeurs pces justif",
+        "createdAt": "2019-04-25T09:04:27.335Z",
+        "updatedAt": "2019-04-25T09:04:27.335Z",
+        "stableId": "dcabc92a-6c45-4874-ad28-fd9e2ff228b3"
+      },
+      "relationships": {
+        "inputs": {
+          "data": [
+            {
+              "id": "4094",
+              "type": "input"
+            },
+            {
+              "id": "4095",
+              "type": "input"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "1078",
+      "type": "topic",
+      "attributes": {
+        "code": "qual_b_9_2_5",
+        "name": "B.9.2.5. Existence du rapport financier trimestriel signé",
+        "shortName": "B.9.2.5. Rapport fin trim signé",
+        "createdAt": "2019-04-25T09:06:34.542Z",
+        "updatedAt": "2019-04-25T09:06:34.542Z",
+        "stableId": "8e57a999-662f-4dc7-a34c-10e16d0291e3"
+      },
+      "relationships": {
+        "inputs": {
+          "data": [
+            {
+              "id": "4096",
+              "type": "input"
+            },
+            {
+              "id": "4097",
+              "type": "input"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "1079",
+      "type": "topic",
+      "attributes": {
+        "code": "qual_b_9_3",
+        "name": "B.9.3. Présence des fiches d'évaluation des élèves par trimestre avec resitutions de l'enseignant et signée par un parent/tuteur",
+        "shortName": "B.9.3. Fiches d'évaluation élèves",
+        "createdAt": "2019-04-25T09:09:34.305Z",
+        "updatedAt": "2019-04-25T09:09:34.305Z",
+        "stableId": "95bb08cb-630b-4d1f-8ff7-0ffa663d40b3"
+      },
+      "relationships": {
+        "inputs": {
+          "data": [
+            {
+              "id": "4098",
+              "type": "input"
+            },
+            {
+              "id": "4099",
+              "type": "input"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "1080",
+      "type": "topic",
+      "attributes": {
+        "code": "qual_b_9_4",
+        "name": "B.9.4. Existence des statistiques scolaires completes, promptes du dernier trimestre et transmises à la sous division",
+        "shortName": "B.9.4. Statistiques scolaires",
+        "createdAt": "2019-04-25T09:15:20.497Z",
+        "updatedAt": "2019-04-25T09:15:20.497Z",
+        "stableId": "60f056f2-0142-4515-b10f-cd4475e751d8"
+      },
+      "relationships": {
+        "inputs": {
+          "data": [
+            {
+              "id": "4100",
+              "type": "input"
+            },
+            {
+              "id": "4101",
+              "type": "input"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "1081",
+      "type": "topic",
+      "attributes": {
+        "code": "qual_b_9_5",
+        "name": "B.9.5. Tenue d'au moins 1 réunion mensuelle par l'équipe d'enseignants et directeur avec une liste de points d'action à améliorer",
+        "shortName": "B.9.5. Réunion mensuelle pts d'action",
+        "createdAt": "2019-04-25T09:19:12.728Z",
+        "updatedAt": "2019-04-25T09:19:12.728Z",
+        "stableId": "a4f93013-072f-4a4d-b91d-df97918e70ed"
+      },
+      "relationships": {
+        "inputs": {
+          "data": [
+            {
+              "id": "4102",
+              "type": "input"
+            },
+            {
+              "id": "4103",
+              "type": "input"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "1082",
+      "type": "topic",
+      "attributes": {
+        "code": "qual_b_9_6",
+        "name": "B.9.6. Restitution ASLO-Ecole",
+        "shortName": "B.9.6. Restitution ASLO-Ecole",
+        "createdAt": "2019-04-25T09:20:46.849Z",
+        "updatedAt": "2019-04-25T09:20:46.849Z",
+        "stableId": "88e17bfc-6f3d-4c78-971b-49614370638e"
+      },
+      "relationships": {
+        "inputs": {
+          "data": [
+            {
+              "id": "4104",
+              "type": "input"
+            },
+            {
+              "id": "4105",
+              "type": "input"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "1083",
+      "type": "topic",
+      "attributes": {
+        "code": "qual_b_9_7",
+        "name": "B.9.7. Elaboration d'un plan de gestion des risques d'urgences au sein de l'école",
+        "shortName": "B.9.7. Plan de gestion des risques",
+        "createdAt": "2019-04-25T09:23:16.165Z",
+        "updatedAt": "2019-04-25T09:23:16.165Z",
+        "stableId": "a5a8ca8a-65fd-4282-9ad2-1eec3c04d229"
+      },
+      "relationships": {
+        "inputs": {
+          "data": [
+            {
+              "id": "4106",
+              "type": "input"
+            },
+            {
+              "id": "4107",
+              "type": "input"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "1084",
+      "type": "topic",
+      "attributes": {
+        "code": "qual_b_9_8",
+        "name": "B.9.8. Utilisation correcte de l'outil indice",
+        "shortName": "B.9.8. Utilisation correcte outil indice",
+        "createdAt": "2019-04-25T09:24:38.427Z",
+        "updatedAt": "2019-04-25T09:24:38.427Z",
+        "stableId": "24e0d48b-0f60-4a9e-ba13-abcaae1f4c37"
+      },
+      "relationships": {
+        "inputs": {
+          "data": [
+            {
+              "id": "4108",
+              "type": "input"
+            },
+            {
+              "id": "4109",
+              "type": "input"
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

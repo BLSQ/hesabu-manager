@@ -1,0 +1,147 @@
+{
+  "data": {
+    "id": "95",
+    "type": "compound",
+    "attributes": {
+      "name": "COSPRO paiement",
+      "frequency": "quarterly",
+      "stableId": "d9618843-a0e0-41cf-9ad8-51002a194215"
+    },
+    "relationships": {
+      "sets": {
+        "data": [
+          {
+            "id": "295",
+            "type": "set"
+          },
+          {
+            "id": "296",
+            "type": "set"
+          },
+          {
+            "id": "297",
+            "type": "set"
+          },
+          {
+            "id": "298",
+            "type": "set"
+          },
+          {
+            "id": "299",
+            "type": "set"
+          },
+          {
+            "id": "300",
+            "type": "set"
+          },
+          {
+            "id": "301",
+            "type": "set"
+          },
+          {
+            "id": "302",
+            "type": "set"
+          },
+          {
+            "id": "303",
+            "type": "set"
+          },
+          {
+            "id": "304",
+            "type": "set"
+          },
+          {
+            "id": "305",
+            "type": "set"
+          },
+          {
+            "id": "306",
+            "type": "set"
+          }
+        ]
+      },
+      "formulas": {
+        "data": [
+          {
+            "id": "2391",
+            "type": "formula"
+          },
+          {
+            "id": "2390",
+            "type": "formula"
+          },
+          {
+            "id": "2392",
+            "type": "formula"
+          },
+          {
+            "id": "2393",
+            "type": "formula"
+          }
+        ]
+      }
+    }
+  },
+  "included": [
+    {
+      "id": "2391",
+      "type": "formula",
+      "attributes": {
+        "id": 2391,
+        "code": "b_subsidies_obtained",
+        "description": "Section B - Subsides obtenus",
+        "exportableFormulaCode": null,
+        "expression": "cospro_b1_subsidies_obtained +\r\ncospro_b2_subsidies_obtained + \r\ncospro_b3_subsidies_obtained",
+        "frequency": null,
+        "shortName": "Section B - Subsides obtenus",
+        "createdAt": "2019-07-09T06:55:49.128Z",
+        "updatedAt": "2019-07-09T06:58:17.519Z"
+      }
+    },
+    {
+      "id": "2390",
+      "type": "formula",
+      "attributes": {
+        "id": 2390,
+        "code": "a_subsidies_obtained",
+        "description": "Section A - Subsides obtenus",
+        "exportableFormulaCode": null,
+        "expression": "cospro_a1_subsidies_obtained + \r\ncospro_a2_subsidies_obtained + \r\ncospro_a3_subsidies_obtained + \r\ncospro_a4_subsidies_obtained",
+        "frequency": null,
+        "shortName": "Section A - Subsides obtenus",
+        "createdAt": "2019-07-09T06:54:20.412Z",
+        "updatedAt": "2019-07-09T06:58:17.528Z"
+      }
+    },
+    {
+      "id": "2392",
+      "type": "formula",
+      "attributes": {
+        "id": 2392,
+        "code": "c_subsidies_obtained",
+        "description": "Section C - Subsides obtenus",
+        "exportableFormulaCode": null,
+        "expression": "cospro_c1_subsidies_obtained + \r\ncospro_c2_subsidies_obtained +\r\ncospro_c3_subsidies_obtained +\r\ncospro_c4_subsidies_obtained +\r\ncospro_c5_subsidies_obtained",
+        "frequency": null,
+        "shortName": "Section C - Subsides obtenus",
+        "createdAt": "2019-07-09T06:58:17.535Z",
+        "updatedAt": "2019-07-09T06:58:17.535Z"
+      }
+    },
+    {
+      "id": "2393",
+      "type": "formula",
+      "attributes": {
+        "id": 2393,
+        "code": "total",
+        "description": "total",
+        "exportableFormulaCode": null,
+        "expression": "a_subsidies_obtained +\r\nb_subsidies_obtained +\r\nc_subsidies_obtained",
+        "frequency": null,
+        "shortName": "total",
+        "createdAt": "2019-07-09T06:58:17.541Z",
+        "updatedAt": "2019-07-09T06:58:17.541Z"
+      }
+    }
+  ]
+}

@@ -4,8 +4,12 @@ import humanize from "string-humanize";
 import { Tab, Tabs, Typography } from "@material-ui/core";
 import kebabCase from "lodash/kebabCase";
 import { useTranslation } from "react-i18next";
+import AceEditor from "react-ace";
 import useStyles from "./styles";
 import ViewOnDhis2Btn from "./ViewOnDhis2Btn";
+
+import "ace-builds/src-noconflict/mode-ruby";
+import "ace-builds/src-noconflict/theme-monokai";
 
 function a11yProps(index, title) {
   const tag = kebabCase(title);
@@ -43,11 +47,26 @@ function ExpandableCellTabs(props) {
   );
 }
 
+const Editor = props => (
+  <AceEditor
+    mode="ruby"
+    theme="monokai"
+    fontSize={16}
+    value={props.value}
+    readOnly
+    wrapEnabled
+    minLines={10}
+    width="100%"
+    height="200px"
+  />
+);
+
 const ExpandableCellContent = props => {
   const { cell } = props;
   const [value, setValue] = React.useState(0);
   const classes = useStyles(props);
   const { t } = useTranslation();
+
   const handleChange = (_, newValue) => {
     setValue(newValue);
   };
@@ -57,7 +76,7 @@ const ExpandableCellContent = props => {
   }
 
   return (
-    <div>
+    <div className={classes.root}>
       <Typography variant="h6" className={classes.title}>
         {humanize(cell.key)}
       </Typography>
@@ -65,27 +84,9 @@ const ExpandableCellContent = props => {
       {cell.expression && (
         <Fragment>
           <ExpandableCellTabs onChange={handleChange} value={value} />
-          {value === 0 && (
-            <div>
-              <code>
-                <pre>{cell.expression}</pre>
-              </code>
-            </div>
-          )}
-          {value === 1 && (
-            <div>
-              <code>
-                <pre>{cell.substituted}</pre>
-              </code>
-            </div>
-          )}
-          {value === 2 && (
-            <div>
-              <code>
-                <pre>{cell.instantiated_expression}</pre>
-              </code>
-            </div>
-          )}
+          {value === 0 && <Editor value={cell.expression} />}
+          {value === 1 && <Editor value={cell.substituted} />}
+          {value === 2 && <Editor value={cell.instantiatedExpression} />}
         </Fragment>
       )}
     </div>

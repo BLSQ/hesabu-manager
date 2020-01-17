@@ -1,6 +1,12 @@
 `/api/project` => Returns the information on the current project
 
-`/api/simulations`   => Returns all ran simulations
+`/api/sets` => Returns all sets available in the project
+`/api/sets/1` => Returns all info for a specific set
+
+`/api/compounds` => Returns all compounds available in the project
+`/api/compounds/1` => Returns all info for a specific compound
+
+`/api/simulations` => Returns all ran simulations
 
 You can access using simulation id (which is unique):
 

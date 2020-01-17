@@ -1,6 +1,9 @@
 import { makeStyles } from "@material-ui/styles";
 
 const useStyles = makeStyles(theme => ({
+  root: {
+    paddingBottom: 100,
+  },
   infoBox: {
     marginBottom: theme.spacing(4),
   },

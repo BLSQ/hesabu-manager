@@ -1,0 +1,96 @@
+{
+  "data": {
+    "id": "3",
+    "type": "compound",
+    "attributes": {
+      "name": "Payment rule pma",
+      "frequency": "quarterly",
+      "stableId": "9e06206a-e0cc-4008-bbf1-a80c4773fe14"
+    },
+    "relationships": {
+      "sets": {
+        "data": [
+          {
+            "id": "5",
+            "type": "set"
+          },
+          {
+            "id": "5",
+            "type": "set"
+          },
+          {
+            "id": "6",
+            "type": "set"
+          },
+          {
+            "id": "6",
+            "type": "set"
+          }
+        ]
+      },
+      "formulas": {
+        "data": [
+          {
+            "id": "28",
+            "type": "formula"
+          },
+          {
+            "id": "29",
+            "type": "formula"
+          },
+          {
+            "id": "30",
+            "type": "formula"
+          }
+        ]
+      }
+    }
+  },
+  "included": [
+    {
+      "id": "28",
+      "type": "formula",
+      "attributes": {
+        "id": 28,
+        "code": "quality_bonus_percentage_value",
+        "description": "Quality bonus percentage",
+        "exportableFormulaCode": null,
+        "expression": "IF(quality_technical_score_value > 50, (0.35 * quality_technical_score_value) + (0.30 * 10.0), 0.0)",
+        "frequency": null,
+        "shortName": null,
+        "createdAt": "2020-01-13T15:12:02.154Z",
+        "updatedAt": "2020-01-13T15:12:02.154Z"
+      }
+    },
+    {
+      "id": "29",
+      "type": "formula",
+      "attributes": {
+        "id": 29,
+        "code": "quality_bonus_value",
+        "description": "Bonus qualité",
+        "exportableFormulaCode": null,
+        "expression": "quantity_total_pma * quality_bonus_percentage_value",
+        "frequency": null,
+        "shortName": null,
+        "createdAt": "2020-01-13T15:12:02.155Z",
+        "updatedAt": "2020-01-13T15:12:02.155Z"
+      }
+    },
+    {
+      "id": "30",
+      "type": "formula",
+      "attributes": {
+        "id": 30,
+        "code": "quarterly_payment",
+        "description": "Quarterly Payment",
+        "exportableFormulaCode": null,
+        "expression": "quantity_total_pma + quality_bonus_value",
+        "frequency": null,
+        "shortName": null,
+        "createdAt": "2020-01-13T15:12:02.157Z",
+        "updatedAt": "2020-01-13T15:12:02.157Z"
+      }
+    }
+  ]
+}

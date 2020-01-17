@@ -8,6 +8,7 @@ import ReactTimeAgo from "react-time-ago";
 import humanizeDuration from "humanize-duration";
 import { DuoToneChip, HorizontalBulletList } from "@blsq/manager-ui";
 import useStyles from "./styles";
+import SimulationStateIcon from "../SimulationStateIcon";
 
 const humanDuration = milliSeconds => {
   return humanizeDuration(milliSeconds);
@@ -16,25 +17,26 @@ const humanDuration = milliSeconds => {
 const SimulationListItem = props => {
   const classes = useStyles();
   const {
-    attributes: {
-      createdAt,
-      durationMs,
-      orgUnitName: title,
-      dhis2Period: period,
-      orgUnit,
-    },
+    createdAt,
+    durationMs,
+    orgUnitName: title,
+    dhis2Period: period,
+    orgUnit,
   } = props;
 
   return (
     <div className={classes.root}>
-      <Typography
-        variant="h6"
-        component={Link}
-        to={`/simulation?periods=${period.trim()}&orgUnit=${orgUnit}`}
-        className={classes.sectionTitle}
-      >
-        {title}
-      </Typography>
+      <div className={classes.header}>
+        <SimulationStateIcon {...props} />
+        <Typography
+          variant="subtitle1"
+          component={Link}
+          to={`/simulation?periods=${period.trim()}&orgUnit=${orgUnit}`}
+          className={classes.sectionTitle}
+        >
+          {title}
+        </Typography>
+      </div>
       <HorizontalBulletList className={classes.subtitle}>
         <Typography component="li" variant="body2">
           <ReactTimeAgo date={createdAt} />
@@ -45,12 +47,13 @@ const SimulationListItem = props => {
       </HorizontalBulletList>
       <DuoToneChip
         label={orgUnit}
-        color="primary"
+        size="small"
         avatar={<LinkIcon />}
         className={classNames(classes.groupChip, classes.chips)}
       />
       <Chip
         label={period}
+        size="small"
         className={classNames(classes.periodChip, classes.chips)}
       />
     </div>

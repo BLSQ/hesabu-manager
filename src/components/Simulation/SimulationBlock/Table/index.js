@@ -43,9 +43,15 @@ const prepareData = items => {
   return items.sort((a, b) => sortCollator.compare(a.key, b.key));
 };
 
+function isTopic(cellValue) {
+  return cellValue && !cellValue.hasOwnProperty("is_input");
+}
+
 const cellBg = (cell, classes, isCurrent = false) => {
   if (cell.value) {
-    return classNames({
+    return classNames(classes.cell, {
+      [classes.is_topic]: isTopic(cell.value || {}),
+      [classes.interactable]: cell.value.is_input || cell.value.is_output,
       [classes.is_input]: cell.value.is_input,
       [classes.is_output]: cell.value.is_output,
       [classes.is_current]: isCurrent,
@@ -59,11 +65,14 @@ const cellTooltip = (cell, t) => {
   if (!cell || !cell.value) {
     return t("tooltips.cell.noData");
   }
-  if (cell.value.is_input) {
+  if (cell.value.isInput) {
     return t("tooltips.cell.input");
   }
-  if (cell.value.is_output) {
+  if (cell.value.isOutput) {
     return t("tooltips.cell.output");
+  }
+  if (isTopic(cell.value)) {
+    return cell.value.value;
   }
 
   return t("tooltips.cell.default");
@@ -71,16 +80,16 @@ const cellTooltip = (cell, t) => {
 
 const Table = props => {
   const {
-    periodView: { activity_items: activityItems },
+    periodView: { activity_items },
     setSelectedCell,
     selectedCell,
   } = props;
   const classes = useStyles(props);
   const { t } = useTranslation();
 
-  const columns = prepareHeaders(activityItems, t);
+  const columns = prepareHeaders(activity_items, t);
 
-  const data = prepareData(activityItems, t);
+  const data = prepareData(activity_items, t);
 
   const {
     headerGroups,
@@ -122,12 +131,19 @@ const Table = props => {
                 {row.cells.map(cell => {
                   const cellProps = cell.getCellProps();
                   return (
-                    <Tooltip title={cellTooltip(cell, t)}>
+                    <Tooltip
+                      title={cellTooltip(cell, t)}
+                      enterDelay={500}
+                      open={isTopic(cell.value) ? false : undefined}
+                    >
                       <TableCell
                         key={cell.value}
                         {...cellProps}
+                        tabIndex={isTopic(cell.value) ? undefined : "0"}
                         onClick={() => {
-                          setSelectedCell(cell.value);
+                          if (!isTopic(cell.value)) {
+                            setSelectedCell(cell.value);
+                          }
                         }}
                         classes={{
                           body: cellBg(

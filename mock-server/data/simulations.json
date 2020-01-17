@@ -1,79 +1,98 @@
 {
   "data": [
     {
-      "id": "1",
+      "id": "22967",
       "type": "invoicingJob",
       "attributes": {
-        "orgUnit": "AOsKyLAjVWH",
-        "orgUnitName": "COSPRO ECC KALEMIE 1",
-        "dhis2Period": "2016Q1",
-        "user": null,
-        "createdAt": "2019-11-21T08:51:41.010Z",
-        "processedAt": "2019-11-21T08:51:43.922Z",
-        "erroredAt": null,
-        "durationMs": 2872,
-        "status": "processed",
-        "lastError": null,
-        "sidekiqJobRef": null,
-        "isAlive": false,
-        "resultUrl": "http://localhost:4567/s3/results/1.json"
-      }
-    },
-    {
-      "id": "2",
-      "type": "invoicingJob",
-      "attributes": {
-        "orgUnit": "BOsKyLAjVWH",
-        "orgUnitName": "COSPRO ECC KALEMIE 2",
+        "orgUnit": "AhxtqyXQsC3",
+        "orgUnitName": "INSPOOL BIKORO 1",
         "dhis2Period": "2019Q2",
         "user": null,
-        "createdAt": "2019-11-21T08:51:41.010Z",
-        "processedAt": "2019-11-21T08:51:43.922Z",
+        "createdAt": "2019-06-18T09:46:56.861Z",
+        "processedAt": "2020-01-15T14:54:20.906Z",
         "erroredAt": null,
-        "durationMs": 2872,
+        "durationMs": 2656,
         "status": "processed",
         "lastError": null,
         "sidekiqJobRef": null,
         "isAlive": false,
-        "resultUrl": "http://localhost:4567/s3/results/2.json"
+        "resultUrl": "https://orbf-simulations-production.s3.eu-central-1.amazonaws.com/uWwahwmj2FoxGX4mp66KXUJ3?response-content-disposition=attachment%3B%20filename%3D%2258-ahxtqy_x_qs_c3-2019_q2.json%22%3B%20filename%2A%3DUTF-8%27%2758-ahxtqy_x_qs_c3-2019_q2.json&response-content-type=application%2Fgzip&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAS4KZU3S6BVPL2WUI%2F20200116%2Feu-central-1%2Fs3%2Faws4_request&X-Amz-Date=20200116T121944Z&X-Amz-Expires=300&X-Amz-SignedHeaders=host&X-Amz-Signature=3fe6fd6cee9702d5e9dd677bf3d07962754c7a703149206a2c6eee4df549f07d"
       }
     },
     {
-      "id": "3",
+      "id": "19370",
       "type": "invoicingJob",
       "attributes": {
-        "orgUnit": "COsKyLAjVWH",
-        "orgUnitName": "COSPRO With Error",
-        "dhis2Period": "2018Q1",
+        "orgUnit": "H92MLnQ7tYA",
+        "orgUnitName": "Equateur 1",
+        "dhis2Period": "2019Q2",
         "user": null,
-        "createdAt": "2019-11-21T08:51:41.010Z",
+        "createdAt": "2019-05-23T05:45:16.018Z",
+        "processedAt": "2020-01-15T14:54:18.243Z",
+        "erroredAt": null,
+        "durationMs": 2312,
+        "status": "processed",
+        "lastError": null,
+        "sidekiqJobRef": null,
+        "isAlive": false,
+        "resultUrl": "https://orbf-simulations-production.s3.eu-central-1.amazonaws.com/iqtNKR2qFqWiJqct5CBvte4Y?response-content-disposition=attachment%3B%20filename%3D%2258-h92_m_ln_q7t_ya-2019_q2.json%22%3B%20filename%2A%3DUTF-8%27%2758-h92_m_ln_q7t_ya-2019_q2.json&response-content-type=application%2Fgzip&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAS4KZU3S6BVPL2WUI%2F20200116%2Feu-central-1%2Fs3%2Faws4_request&X-Amz-Date=20200116T121944Z&X-Amz-Expires=300&X-Amz-SignedHeaders=host&X-Amz-Signature=856b0287ad4ccada0abb4282787e898ec7b6e1f2a7d1088641923171ba941235"
+      }
+    },
+    {
+      "id": "30024",
+      "type": "invoicingJob",
+      "attributes": {
+        "orgUnit": "cDw53Ej8rju",
+        "orgUnitName": null,
+        "dhis2Period": "2019Q4",
+        "user": null,
+        "createdAt": "2019-12-18T21:19:54.000Z",
         "processedAt": null,
-        "erroredAt": "2019-11-21T08:51:43.922Z",
-        "durationMs": 2872,
+        "erroredAt": "2020-01-15T14:54:25.244Z",
+        "durationMs": 1183,
         "status": "errored",
-        "lastError": "Failed to open TCP connection to dhis.example.com:80 (getaddrinfo: nodename nor servname provided, or not known)",
+        "lastError": "InvoiceSimulationWorker::Simulation::ErrorDuringSimulation: unknown orgunit 'cDw53Ej8rju'",
         "sidekiqJobRef": null,
         "isAlive": false,
         "resultUrl": null
       }
     },
     {
-      "id": "4",
+      "id": "15431",
       "type": "invoicingJob",
       "attributes": {
-        "orgUnit": "AOsKyLAjVWH",
-        "dhis2Period": "2018Q3",
-        "orgUnitName": "COSPRO (Pending)",
+        "orgUnit": "nfqd7CzY380",
+        "orgUnitName": "EP BOBANDA",
+        "dhis2Period": "2019Q2",
         "user": null,
-        "createdAt": "2019-11-21T08:51:41.010Z",
-        "processedAt": "",
+        "createdAt": "2019-04-29T11:07:34.803Z",
+        "processedAt": "2020-01-15T14:54:15.924Z",
         "erroredAt": null,
-        "durationMs": null,
-        "status": "enqueued",
+        "durationMs": 2782,
+        "status": "processed",
         "lastError": null,
         "sidekiqJobRef": null,
-        "isAlive": true,
-        "resultUrl": null
+        "isAlive": false,
+        "resultUrl": "https://orbf-simulations-production.s3.eu-central-1.amazonaws.com/Es7eBZYQzowwJh8WuvhrminY?response-content-disposition=attachment%3B%20filename%3D%2258-nfqd7_cz_y380-2019_q2.json%22%3B%20filename%2A%3DUTF-8%27%2758-nfqd7_cz_y380-2019_q2.json&response-content-type=application%2Fgzip&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAS4KZU3S6BVPL2WUI%2F20200116%2Feu-central-1%2Fs3%2Faws4_request&X-Amz-Date=20200116T121944Z&X-Amz-Expires=300&X-Amz-SignedHeaders=host&X-Amz-Signature=535596f8cc3ba2e6592873122708c70ead022eea32c9b0e6ff69322377020146"
+      }
+    },
+    {
+      "id": "25030",
+      "type": "invoicingJob",
+      "attributes": {
+        "orgUnit": "nfqd7CzY380",
+        "orgUnitName": "EP BOBANDA",
+        "dhis2Period": "2019Q3",
+        "user": null,
+        "createdAt": "2019-08-07T19:46:51.254Z",
+        "processedAt": "2020-01-15T14:54:24.053Z",
+        "erroredAt": null,
+        "durationMs": 3139,
+        "status": "processed",
+        "lastError": null,
+        "sidekiqJobRef": null,
+        "isAlive": false,
+        "resultUrl": "https://orbf-simulations-production.s3.eu-central-1.amazonaws.com/3atShNthRcwLM8Udv9Mz2rKX?response-content-disposition=attachment%3B%20filename%3D%2258-nfqd7_cz_y380-2019_q3.json%22%3B%20filename%2A%3DUTF-8%27%2758-nfqd7_cz_y380-2019_q3.json&response-content-type=application%2Fgzip&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAS4KZU3S6BVPL2WUI%2F20200116%2Feu-central-1%2Fs3%2Faws4_request&X-Amz-Date=20200116T121944Z&X-Amz-Expires=300&X-Amz-SignedHeaders=host&X-Amz-Signature=627515ad7391d20367f704b902b2ae6be2e7f15a6d7f19410ee0c714e80779e9"
       }
     }
   ]

@@ -1,0 +1,940 @@
+{
+  "data": [
+    {
+      "id": "80",
+      "type": "compound",
+      "attributes": {
+        "name": "Paque Paiement",
+        "frequency": "quarterly",
+        "stableId": "bf2a44dd-b41f-4ef5-91ae-e57e859a221e"
+      },
+      "relationships": {
+        "sets": {
+          "data": [
+            {
+              "id": "194",
+              "type": "set"
+            },
+            {
+              "id": "187",
+              "type": "set"
+            },
+            {
+              "id": "197",
+              "type": "set"
+            },
+            {
+              "id": "190",
+              "type": "set"
+            },
+            {
+              "id": "193",
+              "type": "set"
+            },
+            {
+              "id": "198",
+              "type": "set"
+            },
+            {
+              "id": "199",
+              "type": "set"
+            },
+            {
+              "id": "200",
+              "type": "set"
+            },
+            {
+              "id": "201",
+              "type": "set"
+            },
+            {
+              "id": "202",
+              "type": "set"
+            },
+            {
+              "id": "204",
+              "type": "set"
+            },
+            {
+              "id": "203",
+              "type": "set"
+            },
+            {
+              "id": "214",
+              "type": "set"
+            },
+            {
+              "id": "216",
+              "type": "set"
+            }
+          ]
+        },
+        "formulas": {
+          "data": [
+            {
+              "id": "1494",
+              "type": "formula"
+            },
+            {
+              "id": "1427",
+              "type": "formula"
+            },
+            {
+              "id": "1646",
+              "type": "formula"
+            },
+            {
+              "id": "1656",
+              "type": "formula"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "87",
+      "type": "compound",
+      "attributes": {
+        "name": "PTD Paiement",
+        "frequency": "quarterly",
+        "stableId": "7c775d8b-e830-431e-8e78-64b814db53c9"
+      },
+      "relationships": {
+        "sets": {
+          "data": [
+            {
+              "id": "222",
+              "type": "set"
+            },
+            {
+              "id": "235",
+              "type": "set"
+            },
+            {
+              "id": "228",
+              "type": "set"
+            },
+            {
+              "id": "227",
+              "type": "set"
+            },
+            {
+              "id": "231",
+              "type": "set"
+            },
+            {
+              "id": "234",
+              "type": "set"
+            },
+            {
+              "id": "236",
+              "type": "set"
+            },
+            {
+              "id": "237",
+              "type": "set"
+            },
+            {
+              "id": "230",
+              "type": "set"
+            },
+            {
+              "id": "232",
+              "type": "set"
+            },
+            {
+              "id": "221",
+              "type": "set"
+            },
+            {
+              "id": "226",
+              "type": "set"
+            }
+          ]
+        },
+        "formulas": {
+          "data": [
+            {
+              "id": "1699",
+              "type": "formula"
+            },
+            {
+              "id": "1698",
+              "type": "formula"
+            },
+            {
+              "id": "1772",
+              "type": "formula"
+            },
+            {
+              "id": "1829",
+              "type": "formula"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "92",
+      "type": "compound",
+      "attributes": {
+        "name": "PTSD Paiement",
+        "frequency": "quarterly",
+        "stableId": "73e8f128-578a-44e5-bebe-dd3cd3637a29"
+      },
+      "relationships": {
+        "sets": {
+          "data": [
+            {
+              "id": "247",
+              "type": "set"
+            },
+            {
+              "id": "248",
+              "type": "set"
+            },
+            {
+              "id": "249",
+              "type": "set"
+            },
+            {
+              "id": "250",
+              "type": "set"
+            },
+            {
+              "id": "239",
+              "type": "set"
+            },
+            {
+              "id": "240",
+              "type": "set"
+            },
+            {
+              "id": "241",
+              "type": "set"
+            },
+            {
+              "id": "242",
+              "type": "set"
+            },
+            {
+              "id": "243",
+              "type": "set"
+            },
+            {
+              "id": "244",
+              "type": "set"
+            },
+            {
+              "id": "245",
+              "type": "set"
+            },
+            {
+              "id": "246",
+              "type": "set"
+            },
+            {
+              "id": "251",
+              "type": "set"
+            },
+            {
+              "id": "252",
+              "type": "set"
+            },
+            {
+              "id": "253",
+              "type": "set"
+            },
+            {
+              "id": "254",
+              "type": "set"
+            },
+            {
+              "id": "255",
+              "type": "set"
+            }
+          ]
+        },
+        "formulas": {
+          "data": [
+            {
+              "id": "1978",
+              "type": "formula"
+            },
+            {
+              "id": "1976",
+              "type": "formula"
+            },
+            {
+              "id": "1972",
+              "type": "formula"
+            },
+            {
+              "id": "1977",
+              "type": "formula"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "93",
+      "type": "compound",
+      "attributes": {
+        "name": "INSPOOL paiement",
+        "frequency": "quarterly",
+        "stableId": "4da7f6c4-50bf-4ac8-9002-f3e273f4a1dd"
+      },
+      "relationships": {
+        "sets": {
+          "data": [
+            {
+              "id": "256",
+              "type": "set"
+            },
+            {
+              "id": "257",
+              "type": "set"
+            },
+            {
+              "id": "258",
+              "type": "set"
+            },
+            {
+              "id": "259",
+              "type": "set"
+            },
+            {
+              "id": "261",
+              "type": "set"
+            },
+            {
+              "id": "262",
+              "type": "set"
+            },
+            {
+              "id": "263",
+              "type": "set"
+            },
+            {
+              "id": "264",
+              "type": "set"
+            },
+            {
+              "id": "265",
+              "type": "set"
+            },
+            {
+              "id": "266",
+              "type": "set"
+            },
+            {
+              "id": "267",
+              "type": "set"
+            },
+            {
+              "id": "268",
+              "type": "set"
+            }
+          ]
+        },
+        "formulas": {
+          "data": [
+            {
+              "id": "2078",
+              "type": "formula"
+            },
+            {
+              "id": "2077",
+              "type": "formula"
+            },
+            {
+              "id": "2076",
+              "type": "formula"
+            },
+            {
+              "id": "2075",
+              "type": "formula"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "94",
+      "type": "compound",
+      "attributes": {
+        "name": "IPP paiement",
+        "frequency": "quarterly",
+        "stableId": "da207f02-ee1e-4221-a872-5fbb464dc969"
+      },
+      "relationships": {
+        "sets": {
+          "data": [
+            {
+              "id": "271",
+              "type": "set"
+            },
+            {
+              "id": "272",
+              "type": "set"
+            },
+            {
+              "id": "273",
+              "type": "set"
+            },
+            {
+              "id": "274",
+              "type": "set"
+            },
+            {
+              "id": "275",
+              "type": "set"
+            },
+            {
+              "id": "276",
+              "type": "set"
+            },
+            {
+              "id": "277",
+              "type": "set"
+            },
+            {
+              "id": "278",
+              "type": "set"
+            },
+            {
+              "id": "279",
+              "type": "set"
+            },
+            {
+              "id": "280",
+              "type": "set"
+            },
+            {
+              "id": "281",
+              "type": "set"
+            },
+            {
+              "id": "282",
+              "type": "set"
+            },
+            {
+              "id": "285",
+              "type": "set"
+            },
+            {
+              "id": "286",
+              "type": "set"
+            },
+            {
+              "id": "287",
+              "type": "set"
+            },
+            {
+              "id": "288",
+              "type": "set"
+            },
+            {
+              "id": "284",
+              "type": "set"
+            },
+            {
+              "id": "289",
+              "type": "set"
+            },
+            {
+              "id": "290",
+              "type": "set"
+            },
+            {
+              "id": "291",
+              "type": "set"
+            },
+            {
+              "id": "292",
+              "type": "set"
+            },
+            {
+              "id": "293",
+              "type": "set"
+            },
+            {
+              "id": "294",
+              "type": "set"
+            },
+            {
+              "id": "283",
+              "type": "set"
+            }
+          ]
+        },
+        "formulas": {
+          "data": [
+            {
+              "id": "2098",
+              "type": "formula"
+            },
+            {
+              "id": "2291",
+              "type": "formula"
+            },
+            {
+              "id": "2292",
+              "type": "formula"
+            },
+            {
+              "id": "2293",
+              "type": "formula"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "95",
+      "type": "compound",
+      "attributes": {
+        "name": "COSPRO paiement",
+        "frequency": "quarterly",
+        "stableId": "d9618843-a0e0-41cf-9ad8-51002a194215"
+      },
+      "relationships": {
+        "sets": {
+          "data": [
+            {
+              "id": "295",
+              "type": "set"
+            },
+            {
+              "id": "296",
+              "type": "set"
+            },
+            {
+              "id": "297",
+              "type": "set"
+            },
+            {
+              "id": "298",
+              "type": "set"
+            },
+            {
+              "id": "299",
+              "type": "set"
+            },
+            {
+              "id": "300",
+              "type": "set"
+            },
+            {
+              "id": "301",
+              "type": "set"
+            },
+            {
+              "id": "302",
+              "type": "set"
+            },
+            {
+              "id": "303",
+              "type": "set"
+            },
+            {
+              "id": "304",
+              "type": "set"
+            },
+            {
+              "id": "305",
+              "type": "set"
+            },
+            {
+              "id": "306",
+              "type": "set"
+            }
+          ]
+        },
+        "formulas": {
+          "data": [
+            {
+              "id": "2391",
+              "type": "formula"
+            },
+            {
+              "id": "2390",
+              "type": "formula"
+            },
+            {
+              "id": "2392",
+              "type": "formula"
+            },
+            {
+              "id": "2393",
+              "type": "formula"
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "included": [
+    {
+      "id": "1494",
+      "type": "formula",
+      "attributes": {
+        "id": 1494,
+        "code": "total_quality",
+        "description": "Total Qualité",
+        "exportableFormulaCode": null,
+        "expression": "round(b_total_subsidies + recup_total_subsidies, 2)",
+        "frequency": null,
+        "shortName": "Total Qualité",
+        "createdAt": "2019-04-23T12:02:50.731Z",
+        "updatedAt": "2019-05-15T09:44:01.771Z"
+      }
+    },
+    {
+      "id": "1427",
+      "type": "formula",
+      "attributes": {
+        "id": 1427,
+        "code": "total",
+        "description": "total",
+        "exportableFormulaCode": null,
+        "expression": "round(quantity_subsidies_obtained + global_quality + vc_total_subsidies , 2)",
+        "frequency": null,
+        "shortName": "total",
+        "createdAt": "2019-04-04T11:23:04.430Z",
+        "updatedAt": "2019-05-11T17:01:39.625Z"
+      }
+    },
+    {
+      "id": "1646",
+      "type": "formula",
+      "attributes": {
+        "id": 1646,
+        "code": "global_quality",
+        "description": "global_quality",
+        "exportableFormulaCode": null,
+        "expression": "round(total_quality + c_total_subsidies  + d_total_subsidies , 2)",
+        "frequency": null,
+        "shortName": "Qualité Globale",
+        "createdAt": "2019-05-11T16:41:29.416Z",
+        "updatedAt": "2019-05-15T07:31:54.436Z"
+      }
+    },
+    {
+      "id": "1656",
+      "type": "formula",
+      "attributes": {
+        "id": 1656,
+        "code": "b_total_subsidies",
+        "description": "b_total_subsidies",
+        "exportableFormulaCode": null,
+        "expression": "round(b1_total_subsidies + b2_total_subsidies + b3_total_subsidies \r\n+ b4_total_subsidies + b5_total_subsidies + b6_total_subsidies \r\n+ b7_total_subsidies + b8_total_subsidies + b9_total_subsidies\r\n, 2)",
+        "frequency": null,
+        "shortName": "b_total_subsidies",
+        "createdAt": "2019-05-15T09:44:01.783Z",
+        "updatedAt": "2019-05-15T09:44:01.783Z"
+      }
+    },
+    {
+      "id": "1699",
+      "type": "formula",
+      "attributes": {
+        "id": 1699,
+        "code": "total",
+        "description": "subside for all sections",
+        "exportableFormulaCode": null,
+        "expression": "a_subsidies_obtained + b_subsidies_obtained+ c_subsidies_obtained",
+        "frequency": null,
+        "shortName": "total",
+        "createdAt": "2019-05-23T08:56:38.810Z",
+        "updatedAt": "2019-06-03T08:49:52.643Z"
+      }
+    },
+    {
+      "id": "1698",
+      "type": "formula",
+      "attributes": {
+        "id": 1698,
+        "code": "a_subsidies_obtained",
+        "description": "PTD - Subsides obtenus pour la Section A",
+        "exportableFormulaCode": null,
+        "expression": "ptd_a1_subsidies_obtained + ptd_a2_subsidies_obtained + ptd_a3_subsidies_obtained + ptd_a4_subsidies_obtained + ptd_a5_subsidies_obtained",
+        "frequency": null,
+        "shortName": "PTD - Subsides obtenus pour la Section A",
+        "createdAt": "2019-05-22T14:10:22.756Z",
+        "updatedAt": "2019-05-28T08:39:45.207Z"
+      }
+    },
+    {
+      "id": "1772",
+      "type": "formula",
+      "attributes": {
+        "id": 1772,
+        "code": "b_subsidies_obtained",
+        "description": "PTD - Subsides obtenus pour la Section B",
+        "exportableFormulaCode": null,
+        "expression": "ptd_b1_subsidies_obtained + ptd_b2_subsidies_obtained +ptd_b3_subsidies_obtained",
+        "frequency": null,
+        "shortName": "PTD - Subsides obtenus pour la Section B",
+        "createdAt": "2019-05-29T09:03:50.029Z",
+        "updatedAt": "2019-05-29T09:03:50.029Z"
+      }
+    },
+    {
+      "id": "1829",
+      "type": "formula",
+      "attributes": {
+        "id": 1829,
+        "code": "c_subsidies_obtained",
+        "description": "PTD - Subsides obtenus pour la Section C",
+        "exportableFormulaCode": null,
+        "expression": "ptd_c1_subsidies_obtained + ptd_c2_subsidies_obtained + ptd_c3_subsidies_obtained + ptd_c4_subsidies_obtained",
+        "frequency": null,
+        "shortName": "PTD - Subsides obtenus pour la Section C",
+        "createdAt": "2019-06-03T08:49:52.650Z",
+        "updatedAt": "2019-06-03T08:49:52.650Z"
+      }
+    },
+    {
+      "id": "1978",
+      "type": "formula",
+      "attributes": {
+        "id": 1978,
+        "code": "total",
+        "description": "subside for all sections",
+        "exportableFormulaCode": null,
+        "expression": "pstd_a_subsidies_obtained + pstd_b_subsidies_obtained+ pstd_c_subsidies_obtained",
+        "frequency": null,
+        "shortName": "total",
+        "createdAt": "2019-06-11T10:03:15.980Z",
+        "updatedAt": "2019-06-11T10:03:15.980Z"
+      }
+    },
+    {
+      "id": "1976",
+      "type": "formula",
+      "attributes": {
+        "id": 1976,
+        "code": "pstd_a_subsidies_obtained",
+        "description": "PTSD - A Subsides Obtenus",
+        "exportableFormulaCode": null,
+        "expression": "pstd_a1_subsidies_obtained + pstd_a2_subsidies_obtained + \r\npstd_a3_subsidies_obtained + pstd_a4_subsidies_obtained +\r\n pstd_a5_subsidies_obtained + pstd_a6_subsidies_obtained",
+        "frequency": null,
+        "shortName": "PTSD - A Subsides Obtenus",
+        "createdAt": "2019-06-11T10:00:55.986Z",
+        "updatedAt": "2019-06-18T06:36:06.133Z"
+      }
+    },
+    {
+      "id": "1972",
+      "type": "formula",
+      "attributes": {
+        "id": 1972,
+        "code": "pstd_b_subsidies_obtained",
+        "description": "PTSD - B Subsides Obtenus",
+        "exportableFormulaCode": null,
+        "expression": "pstd_b1_subsidies_obtained + pstd_b2_subsidies_obtained + \r\npstd_b3_subsidies_obtained + pstd_b4_subsidies_obtained + pstd_b5_subsidies_obtained",
+        "frequency": null,
+        "shortName": "PTSD - B Subsides Obtenus",
+        "createdAt": "2019-06-11T09:42:46.569Z",
+        "updatedAt": "2019-06-18T06:36:06.145Z"
+      }
+    },
+    {
+      "id": "1977",
+      "type": "formula",
+      "attributes": {
+        "id": 1977,
+        "code": "pstd_c_subsidies_obtained",
+        "description": "PTSD - C Subsides Obtenus",
+        "exportableFormulaCode": null,
+        "expression": "pstd_c1_subsidies_obtained + pstd_c2_subsidies_obtained + \r\npstd_c3_subsidies_obtained +  pstd_c4_subsidies_obtained + \r\npstd_c5_subsidies_obtained + pstd_c6_subsidies_obtained",
+        "frequency": null,
+        "shortName": "PTSD - C Subsides Obtenus",
+        "createdAt": "2019-06-11T10:02:34.020Z",
+        "updatedAt": "2019-06-18T06:36:35.696Z"
+      }
+    },
+    {
+      "id": "2078",
+      "type": "formula",
+      "attributes": {
+        "id": 2078,
+        "code": "total",
+        "description": "subside for all sections",
+        "exportableFormulaCode": null,
+        "expression": "inspool_a_subsidies_obtained + inspool_b_subsidies_obtained+ inspool_c_subsidies_obtained",
+        "frequency": null,
+        "shortName": "total",
+        "createdAt": "2019-06-14T14:04:06.579Z",
+        "updatedAt": "2019-06-18T10:15:47.827Z"
+      }
+    },
+    {
+      "id": "2077",
+      "type": "formula",
+      "attributes": {
+        "id": 2077,
+        "code": "inspool_c_subsidies_obtained",
+        "description": "INSPOOL - Subsides obtenus pour la Section C",
+        "exportableFormulaCode": null,
+        "expression": "inspool_c1_subsidies_obtained \r\n+ inspool_c2_subsidies_obtained \r\n+ inspool_c3_subsidies_obtained \r\n+ inspool_c4_subsidies_obtained \r\n+ inspool_c5_subsidies_obtained",
+        "frequency": null,
+        "shortName": "INSPOOL - Subsides obtenus pour la Section C",
+        "createdAt": "2019-06-14T14:04:06.571Z",
+        "updatedAt": "2019-06-18T10:15:47.839Z"
+      }
+    },
+    {
+      "id": "2076",
+      "type": "formula",
+      "attributes": {
+        "id": 2076,
+        "code": "inspool_b_subsidies_obtained",
+        "description": "INSPOOL - Subsides obtenus pour la Section B",
+        "exportableFormulaCode": null,
+        "expression": "inspool_b1_subsidies_obtained + \r\ninspool_b2_subsidies_obtained + \r\ninspool_b3_subsidies_obtained +\r\ninspool_b4_subsidies_obtained +\r\ninspool_b5_subsidies_obtained +\r\ninspool_b6_subsidies_obtained",
+        "frequency": null,
+        "shortName": "INSPOOL - Subsides obtenus pour la Section B",
+        "createdAt": "2019-06-14T14:04:06.563Z",
+        "updatedAt": "2019-06-18T10:15:47.849Z"
+      }
+    },
+    {
+      "id": "2075",
+      "type": "formula",
+      "attributes": {
+        "id": 2075,
+        "code": "inspool_a_subsidies_obtained",
+        "description": "INSPOOL - Subsides obtenus pour la Section A",
+        "exportableFormulaCode": null,
+        "expression": "inspool_a1_subsidies_obtained",
+        "frequency": null,
+        "shortName": "INSPOOL - Subsides obtenus pour la Section A",
+        "createdAt": "2019-06-14T14:04:06.555Z",
+        "updatedAt": "2019-06-18T10:15:47.859Z"
+      }
+    },
+    {
+      "id": "2098",
+      "type": "formula",
+      "attributes": {
+        "id": 2098,
+        "code": "total",
+        "description": "total",
+        "exportableFormulaCode": null,
+        "expression": "ipp_a_subsidies_obtained + ipp_b_subsidies_obtained+ ipp_c_subsidies_obtained",
+        "frequency": null,
+        "shortName": "total",
+        "createdAt": "2019-06-26T05:48:57.525Z",
+        "updatedAt": "2019-06-26T15:25:30.472Z"
+      }
+    },
+    {
+      "id": "2291",
+      "type": "formula",
+      "attributes": {
+        "id": 2291,
+        "code": "ipp_a_subsidies_obtained",
+        "description": "IPP - Subsides obtenus pour la Section A",
+        "exportableFormulaCode": null,
+        "expression": "ipp_a1_subsidies_obtained + ipp_a2_subsidies_obtained +ipp_a3_subsidies_obtained +ipp_a4_subsidies_obtained",
+        "frequency": null,
+        "shortName": "IPP - Subsides obtenus pour la Section A",
+        "createdAt": "2019-06-26T15:25:30.483Z",
+        "updatedAt": "2019-06-26T15:25:30.483Z"
+      }
+    },
+    {
+      "id": "2292",
+      "type": "formula",
+      "attributes": {
+        "id": 2292,
+        "code": "ipp_b_subsidies_obtained",
+        "description": "IPP - Subsides obtenus pour la Section B",
+        "exportableFormulaCode": null,
+        "expression": "ipp_b1_subsidies_obtained + \r\nipp_b2_subsidies_obtained + \r\nipp_b3_subsidies_obtained +\r\nipp_b4_subsidies_obtained +\r\nipp_b5_subsidies_obtained +\r\nipp_b6_subsidies_obtained + ipp_b7_subsidies_obtained + \r\nipp_b8_subsidies_obtained + \r\nipp_b9_subsidies_obtained +\r\nipp_b10_subsidies_obtained +\r\nipp_b11_subsidies_obtained +\r\nipp_b12_subsidies_obtained + ipp_b13_subsidies_obtained +\r\nipp_b14_subsidies_obtained +\r\nipp_b15_subsidies_obtained + ipp_b16_subsidies_obtained",
+        "frequency": null,
+        "shortName": "IPP - Subsides obtenus pour la Section B",
+        "createdAt": "2019-06-26T15:25:30.490Z",
+        "updatedAt": "2019-06-26T15:25:30.490Z"
+      }
+    },
+    {
+      "id": "2293",
+      "type": "formula",
+      "attributes": {
+        "id": 2293,
+        "code": "ipp_c_subsidies_obtained",
+        "description": "IPP - Subsides obtenus pour la Section C",
+        "exportableFormulaCode": null,
+        "expression": "ipp_c1_subsidies_obtained \r\n+ ipp_c2_subsidies_obtained \r\n+ ipp_c3_subsidies_obtained \r\n+ ipp_c4_subsidies_obtained",
+        "frequency": null,
+        "shortName": "IPP - Subsides obtenus pour la Section C",
+        "createdAt": "2019-06-26T15:25:30.497Z",
+        "updatedAt": "2019-06-26T15:25:30.497Z"
+      }
+    },
+    {
+      "id": "2391",
+      "type": "formula",
+      "attributes": {
+        "id": 2391,
+        "code": "b_subsidies_obtained",
+        "description": "Section B - Subsides obtenus",
+        "exportableFormulaCode": null,
+        "expression": "cospro_b1_subsidies_obtained +\r\ncospro_b2_subsidies_obtained + \r\ncospro_b3_subsidies_obtained",
+        "frequency": null,
+        "shortName": "Section B - Subsides obtenus",
+        "createdAt": "2019-07-09T06:55:49.128Z",
+        "updatedAt": "2019-07-09T06:58:17.519Z"
+      }
+    },
+    {
+      "id": "2390",
+      "type": "formula",
+      "attributes": {
+        "id": 2390,
+        "code": "a_subsidies_obtained",
+        "description": "Section A - Subsides obtenus",
+        "exportableFormulaCode": null,
+        "expression": "cospro_a1_subsidies_obtained + \r\ncospro_a2_subsidies_obtained + \r\ncospro_a3_subsidies_obtained + \r\ncospro_a4_subsidies_obtained",
+        "frequency": null,
+        "shortName": "Section A - Subsides obtenus",
+        "createdAt": "2019-07-09T06:54:20.412Z",
+        "updatedAt": "2019-07-09T06:58:17.528Z"
+      }
+    },
+    {
+      "id": "2392",
+      "type": "formula",
+      "attributes": {
+        "id": 2392,
+        "code": "c_subsidies_obtained",
+        "description": "Section C - Subsides obtenus",
+        "exportableFormulaCode": null,
+        "expression": "cospro_c1_subsidies_obtained + \r\ncospro_c2_subsidies_obtained +\r\ncospro_c3_subsidies_obtained +\r\ncospro_c4_subsidies_obtained +\r\ncospro_c5_subsidies_obtained",
+        "frequency": null,
+        "shortName": "Section C - Subsides obtenus",
+        "createdAt": "2019-07-09T06:58:17.535Z",
+        "updatedAt": "2019-07-09T06:58:17.535Z"
+      }
+    },
+    {
+      "id": "2393",
+      "type": "formula",
+      "attributes": {
+        "id": 2393,
+        "code": "total",
+        "description": "total",
+        "exportableFormulaCode": null,
+        "expression": "a_subsidies_obtained +\r\nb_subsidies_obtained +\r\nc_subsidies_obtained",
+        "frequency": null,
+        "shortName": "total",
+        "createdAt": "2019-07-09T06:58:17.541Z",
+        "updatedAt": "2019-07-09T06:58:17.541Z"
+      }
+    }
+  ]
+}

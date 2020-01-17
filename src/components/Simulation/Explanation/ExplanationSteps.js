@@ -20,7 +20,7 @@ const ExplanationSteps = props => {
   // sometimes there no much steps, remove same expression (eg state eval 15 15 15 15 => 15)
   const steps = [
     props.item.expression,
-    props.item.instantiated_expression,
+    props.item.instantiatedExpression,
     props.item.substituted,
     props.item.solution,
   ].filter(onlyUnique);

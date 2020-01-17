@@ -3,23 +3,37 @@ import PropTypes from "prop-types";
 import { useTranslation } from "react-i18next";
 import { Formik } from "formik";
 import { connect } from "react-redux";
-import { FormControl, MenuItem, Button } from "@material-ui/core";
+import {
+  FormControl,
+  MenuItem,
+  Button,
+  FormControlLabel,
+  Checkbox,
+  makeStyles,
+} from "@material-ui/core";
 import { useHistory } from "react-router-dom";
 import queryString from "query-string";
 import SimpleSelect from "../Shared/SimpleSelect";
 import OrgUnitAsyncAutocomplete from "../Shared/OrgUnitAsyncAutocomplete";
 
+const useStyles = makeStyles(theme => ({
+  formControl: theme.formControl,
+}));
+
 export const SimulationFilters = props => {
   const { t } = useTranslation();
   const history = useHistory();
+  const classes = useStyles();
   const {
-    values: { periods, orgUnit },
+    values: { periods, orgUnit, sets, mockedValues },
     loading,
   } = props;
 
   const initialValues = {
     periods,
     orgUnit,
+    sets,
+    mockedValues,
   };
 
   return (
@@ -31,6 +45,18 @@ export const SimulationFilters = props => {
     >
       {({ values, handleChange, handleSubmit, setFieldValue }) => (
         <form onSubmit={handleSubmit}>
+          <FormControlLabel
+            className={classes.formControl}
+            control={
+              <Checkbox
+                inputProps={{ name: "mockedValues" }}
+                checked={values.mockedValues}
+                onChange={handleChange}
+                value={"true"}
+              />
+            }
+            label={t("filters.mockedValues")}
+          />
           <div>
             <SimpleSelect
               name="periods"

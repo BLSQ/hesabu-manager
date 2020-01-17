@@ -1,8 +1,14 @@
-import { Dialog, Typography, Slide } from "@material-ui/core";
+import {
+  Dialog,
+  Typography,
+  Slide,
+  FormControlLabel,
+  Switch,
+} from "@material-ui/core";
 import { ExpandableBottomSheet } from "@blsq/manager-ui";
 import React, { useState, useEffect, Fragment } from "react";
 import PropTypes from "prop-types";
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import { withTranslation } from "react-i18next";
 import isEmpty from "lodash/isEmpty";
 import { connect } from "react-redux";
@@ -22,16 +28,37 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 export const Simulation = props => {
   const classes = useStyles();
   const history = useHistory();
+  const location = useLocation();
   const [sideSheetOpen, setSideSheetOpen] = useState(false);
   const [bottomSheetOpen, setBottomSheetOpen] = useState(false);
-  const { selectedCell } = props;
 
-  const { errorMessage, t, open, simulation, loading } = props;
-  const handleToggleSideSheet = () => setSideSheetOpen(!sideSheetOpen);
+  const {
+    errorMessage,
+    t,
+    open,
+    simulation,
+    loading,
+    selectedCell,
+    polling,
+  } = props;
+
+  const handleToggleSideSheet = () => {
+    if (sideSheetOpen) {
+      if (selectedCell) {
+        setBottomSheetOpen(true);
+      }
+      setSideSheetOpen(false);
+    } else {
+      setBottomSheetOpen(false);
+      setSideSheetOpen(true);
+    }
+  };
   const openBottomSheet = () => setBottomSheetOpen(true);
   const closeBottomSheet = () => setBottomSheetOpen(false);
 
-  let title;
+  let title = simulation
+    ? `${simulation.orgUnitName} @ ${simulation.dhis2Period}`
+    : "...";
 
   useEffect(() => {
     if (selectedCell && !bottomSheetOpen) {
@@ -39,6 +66,10 @@ export const Simulation = props => {
     }
     // eslint-disable-next-line
   }, [selectedCell]);
+
+  const backLinkPath = (location.state || {}).referrer
+    ? location.state.referrer
+    : "/simulations";
 
   return (
     <Dialog
@@ -51,7 +82,7 @@ export const Simulation = props => {
         paperScrollPaper: classes.dialog,
       }}
     >
-      <TopBar fullscreen backLinkPath="/simulations">
+      <TopBar fullscreen backLinkPath={backLinkPath}>
         <Typography
           variant="h6"
           color="inherit"
@@ -59,16 +90,29 @@ export const Simulation = props => {
         >
           {title} {(simulation || {}).status}
         </Typography>
+        <FormControlLabel
+          control={
+            <Switch
+              checked={polling}
+              onChange={props.onPollingChange}
+              value={"polling"}
+            />
+          }
+          label={t("buttons.autoreload")}
+        />
         <FiltersToggleBtn
           variant="filters"
           className={classes.filtersBtn}
           onClick={handleToggleSideSheet}
         />
       </TopBar>
-      <PageContent fullscreen>
-        {simulation && simulation.attributes.status === "processed" && (
+      <PageContent fullscreen className={classes.content}>
+        {simulation && simulation.status === "processed" && (
           <Fragment>
-            <SimulationBlocks resultUrl={simulation.attributes.resultUrl} />
+            <SimulationBlocks
+              resultUrl={simulation.resultUrl}
+              searchQuery={props.valuesFromParams}
+            />
             <ExpandableBottomSheet
               open={bottomSheetOpen}
               onOpen={openBottomSheet}
@@ -88,7 +132,7 @@ export const Simulation = props => {
         title={t("simulation.sidesheet.title")}
         open={
           (!loading && !simulation) ||
-          (simulation && !simulation.attributes.resultUrl) ||
+          (simulation && !simulation.resultUrl) ||
           sideSheetOpen
         }
         onClose={handleToggleSideSheet}

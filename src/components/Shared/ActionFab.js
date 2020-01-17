@@ -3,6 +3,7 @@ import { Link, withRouter } from "react-router-dom";
 import React from "react";
 
 import Add from "@material-ui/icons/Add";
+import classNames from "classnames";
 
 const styles = theme => ({
   button: {
@@ -23,7 +24,7 @@ const ActionFab = props => {
       variant={extended ? "extended" : "round"}
       aria-label="Delete"
       color="secondary"
-      className={classes.button}
+      className={classNames(classes.button, props.className)}
       component={Link}
       to={props.to || `${match.url}/new`}
     >

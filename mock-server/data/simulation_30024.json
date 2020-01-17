@@ -1,0 +1,20 @@
+{
+  "data": {
+    "id": "30024",
+    "type": "invoicingJob",
+    "attributes": {
+      "orgUnit": "cDw53Ej8rju",
+      "dhis2Period": "2019Q4",
+      "user": null,
+      "createdAt": "2019-12-18T21:19:54.000Z",
+      "processedAt": null,
+      "erroredAt": "2020-01-15T14:54:25.244Z",
+      "durationMs": 1183,
+      "status": "errored",
+      "lastError": "InvoiceSimulationWorker::Simulation::ErrorDuringSimulation: unknown orgunit 'cDw53Ej8rju'",
+      "sidekiqJobRef": null,
+      "isAlive": false,
+      "resultUrl": "http://localhost:4567/s3/results/30024.json"
+    }
+  }
+}
