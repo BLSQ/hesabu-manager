@@ -22,7 +22,6 @@ const SetListItem = props => {
           className={classes.sectionTitle}
         >
           {name}
-          {id}
         </Typography>
         {topics.length && (
           <IconButton

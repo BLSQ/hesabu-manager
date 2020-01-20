@@ -6,6 +6,7 @@ import classNames from "classnames";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { fade } from "@material-ui/core";
+import { getIn } from "formik";
 import Table from "../Table";
 import { setSelectedCell } from "../../../../actions/ui";
 
@@ -23,7 +24,7 @@ const useStyles = makeStyles(theme => ({
       minWidth: 150,
     },
     cursor: "pointer",
-    "&:focus, &:active": {
+    "&:focus, &:active, &.current": {
       outlineColor: fade(theme.palette.primary.main, 0.1),
       color: theme.palette.text.primary,
       outlineWidth: 5,
@@ -33,7 +34,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const PeriodView = props => {
-  const { periodView, className } = props;
+  const { periodView, className, selectedCell } = props;
   const classes = useStyles();
 
   return (
@@ -43,7 +44,9 @@ const PeriodView = props => {
           <button
             onClick={() => props.setSelectedCell(item)}
             key={`key-number-${item.solution}-${index}`}
-            className={classes.keyNumbers}
+            className={classNames(classes.keyNumbers, {
+              current: getIn(selectedCell, "formula") === item.formula,
+            })}
           >
             <KeyNumberBlock
               text={humanize(item.formula)}
@@ -52,7 +55,7 @@ const PeriodView = props => {
           </button>
         ))}
       </div>
-      <Table periodView={periodView} />
+      <Table periodView={periodView} selectedCell={selectedCell} />
     </div>
   );
 };

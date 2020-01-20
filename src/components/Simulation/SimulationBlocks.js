@@ -5,6 +5,7 @@ import wretch from "wretch";
 import { CircularProgress, Typography, makeStyles } from "@material-ui/core";
 import { InfoBox } from "@blsq/manager-ui";
 import { useTranslation } from "react-i18next";
+import matchSorter from "match-sorter";
 import SimulationBlock from "./SimulationBlock";
 import EmptySection from "../EmptySection";
 
@@ -66,7 +67,11 @@ const SimulationBlocks = props => {
   const sets = Object.keys(setsByCode);
 
   const filteredSets = displayedSetCodes.length
-    ? sets.filter(setKey => displayedSetCodes.includes(getSetName(setKey)))
+    ? sets.filter(setKey => {
+        return matchSorter(displayedSetCodes, getSetName(setKey), {
+          threshold: matchSorter.rankings.CONTAINS,
+        }).length;
+      })
     : sets;
 
   if (!filteredSets.length) {

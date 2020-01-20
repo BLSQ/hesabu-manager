@@ -169,12 +169,7 @@ const Table = props => {
 };
 
 Table.propTypes = {
-  setSelectedCell: PropTypes.func,
   periodView: PropTypes.object,
 };
 
-const mapStateToProps = state => ({
-  selectedCell: state.ui.selectedCell,
-});
-
-export default connect(mapStateToProps, { setSelectedCell })(Table);
+export default connect(null, { setSelectedCell })(Table);
