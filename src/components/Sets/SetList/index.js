@@ -6,8 +6,9 @@ import EmptySection from "../../EmptySection";
 
 const SetList = props => {
   const { t } = useTranslation();
-  if (props.noItems) return <EmptySection resourceName={t("resources.set")} />;
-  if (!props.sets.length) return <p>No sets found</p>;
+  if (!props.loading && props.noItems)
+    return <EmptySection resourceName={t("resources.set")} />;
+  if (!props.loading && !props.sets.length) return <p>No sets found</p>;
   return (
     <div>
       {props.sets.map((set, index) => (
@@ -20,6 +21,7 @@ const SetList = props => {
 SetList.propTypes = {
   sets: PropTypes.arrayOf(PropTypes.object),
   noItems: PropTypes.bool,
+  loading: PropTypes.bool,
 };
 
 export default SetList;

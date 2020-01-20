@@ -1,4 +1,4 @@
-import { Typography, CircularProgress } from "@material-ui/core";
+import { Typography } from "@material-ui/core";
 
 import React, { Fragment, useState, useEffect } from "react";
 import { withTranslation, useTranslation } from "react-i18next";
@@ -13,6 +13,7 @@ import { formattedName } from "../../utils/textUtils";
 import { externalApi } from "../../actions/api";
 import ActionFab from "../../components/Shared/ActionFab";
 import { deserialize } from "../../utils/jsonApiUtils";
+import SectionLoading from "../../components/Shared/SectionLoading";
 
 const SimulationsContainer = () => {
   const classes = useStyles();
@@ -57,7 +58,7 @@ const SimulationsContainer = () => {
       </TopBar>
       <PageContent>
         {// #TODO replace with centered component
-        loading && <CircularProgress />}
+        loading && <SectionLoading />}
         {errorMessage && (
           <InfoBox name="simulations-fetch-errors" dismissable={false}>
             {errorMessage}

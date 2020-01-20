@@ -3,13 +3,14 @@ import { makeStyles } from "@material-ui/styles";
 import ReactDataSheet from "react-datasheet";
 import PropTypes from "prop-types";
 import { APPBAR_WITH_TABS_HEIGHT } from "../../constants/ui";
-
+import SectionLoading from "../../components/Shared/SectionLoading";
 const useStyles = makeStyles(theme => ({
-  root: {
+  root: props => ({
     marginTop: APPBAR_WITH_TABS_HEIGHT - theme.spacing(2),
-    marginLeft: theme.spacing(-2),
-    padding: theme.spacing(2),
-  },
+    marginLeft: props.loading ? 0 : theme.spacing(-2),
+    padding: props.loading ? 0 : theme.spacing(2),
+    width: props.loading ? " 100%" : "inherit",
+  }),
 }));
 
 function fakeColumGenerator(number, readOnly = false) {
@@ -71,11 +72,15 @@ const SetCurrentLevelContainer = props => {
   if (grid.length) {
     return (
       <div className={classes.root}>
-        <ReactDataSheet
-          data={grid}
-          valueRenderer={cell => cell.value}
-          attributesRenderer={cell => ({ "data-nowrap": cell.noWrap || {} })}
-        />
+        {props.loading ? (
+          <SectionLoading />
+        ) : (
+          <ReactDataSheet
+            data={grid}
+            valueRenderer={cell => cell.value}
+            attributesRenderer={cell => ({ "data-nowrap": cell.noWrap || {} })}
+          />
+        )}
       </div>
     );
   }

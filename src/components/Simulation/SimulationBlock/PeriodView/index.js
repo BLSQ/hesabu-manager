@@ -63,6 +63,7 @@ const PeriodView = props => {
 PeriodView.propTypes = {
   className: PropTypes.string,
   periodView: PropTypes.object,
+  selectedCell: PropTypes.object,
   setSelectedCell: PropTypes.func,
 };
 

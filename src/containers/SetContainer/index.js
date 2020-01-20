@@ -40,7 +40,7 @@ const useStyles = makeStyles(theme => ({
     flexDirection: "row",
   },
   simulationBtn: sideSheetOpen => ({
-    right: sideSheetOpen ? SIDEBAR_WIDTH + theme.spacing(2) : theme.spacing(2),
+    right: sideSheetOpen ? SIDEBAR_WIDTH + theme.spacing(4) : theme.spacing(4),
     transition: "all .1s 100ms ease-in-out",
   }),
 }));
@@ -51,10 +51,9 @@ const SetContainer = props => {
   const { t } = useTranslation();
   const [sideSheetOpen, setSideSheetOpen] = useState(false);
   const classes = useStyles(sideSheetOpen);
-
   const [loading, setLoading] = useState(false);
-  const [errorMessage, setErrorMessage] = useState(null);
   const [set, setSet] = useState({});
+  const { setId, open, match } = props;
 
   function simulationParams() {
     const prms = new URLSearchParams();
@@ -86,18 +85,14 @@ const SetContainer = props => {
           }).then(data => {
             setSet(data);
           });
-
-          setErrorMessage(null);
         })
         .catch(e => {
-          setErrorMessage(e.message);
           setLoading(false);
           setSet({});
+          console.log(e);
         });
     }
-  }, [props.setId]);
-
-  const { setId, open, match } = props;
+  }, [props.setId, open]);
 
   const currentTab = activeTab(setId, location.pathname);
   const handleToggleSideSheet = () => setSideSheetOpen(!sideSheetOpen);
@@ -124,7 +119,7 @@ const SetContainer = props => {
           color="inherit"
           className={classes.appBarHeader}
         >
-          {set.name}
+          {loading ? "…" : set.name}
         </Typography>
         <FiltersToggleBtn
           variant="info"
@@ -145,43 +140,52 @@ const SetContainer = props => {
             extended
             className={classes.simulationBtn}
           />
+
           <Switch>
             <Route
               path={`${match.url}/current_level`}
-              component={() => <SetCurrentLevelContainer set={set} />}
+              component={() => (
+                <SetCurrentLevelContainer set={set} loading={loading} />
+              )}
             />
             <Route
               path={`${match.url}/children`}
-              component={SetChildrenContainer}
+              component={() => (
+                <SetChildrenContainer set={set} loading={loading} />
+              )}
             />
             <Route
               path={`${match.url}/set_formulas`}
-              component={SetFormulasContainer}
+              component={() => (
+                <SetFormulasContainer set={set} loading={loading} />
+              )}
             />
           </Switch>
-          <SideSheet
-            hasTabs
-            title={t("set.sidesheet.title")}
-            open={sideSheetOpen}
-            onClose={handleToggleSideSheet}
-          >
-            <p>
-              <Chip label={formattedName(set.kind)} />
-            </p>
-            {!!set.orgUnitGroups.length && (
-              <SidebarBlock title={t("resources.orgUnitGroup_plural")}>
-                <span>{set.orgUnitGroups.map(group => group.id)}</span>
+          {!props.loading && (
+            <SideSheet
+              hasTabs
+              title={t("set.sidesheet.title")}
+              open={sideSheetOpen}
+              onClose={handleToggleSideSheet}
+            >
+              <p>
+                <Chip label={formattedName(set.kind)} />
+              </p>
+              {!!set.orgUnitGroups.length && (
+                <SidebarBlock title={t("resources.orgUnitGroup_plural")}>
+                  <span>{set.orgUnitGroups.map(group => group.id)}</span>
+                </SidebarBlock>
+              )}
+              {!!set.orgUnitGroupSets.length && (
+                <SidebarBlock title={t("resources.orgUnitGroupSet_plural")}>
+                  <p>{set.orgUnitGroupSets.map(group => group.id)}</p>
+                </SidebarBlock>
+              )}
+              <SidebarBlock title={t("set.frequency")}>
+                {set.frequency}
               </SidebarBlock>
-            )}
-            {!!set.orgUnitGroupSets.length && (
-              <SidebarBlock title={t("resources.orgUnitGroupSet_plural")}>
-                <p>{set.orgUnitGroupSets.map(group => group.id)}</p>
-              </SidebarBlock>
-            )}
-            <SidebarBlock title={t("set.frequency")}>
-              {set.frequency}
-            </SidebarBlock>
-          </SideSheet>
+            </SideSheet>
+          )}
         </>
       )}
     </Dialog>
