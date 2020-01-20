@@ -11,7 +11,7 @@ import TokenProvider from "./lib/TokenProvider";
 import store from "./store";
 
 if (process.env.NODE_ENV === "production") {
-  LogRocket.init(process.env.LOG_ROCKET_APP_ID);
+  LogRocket.init(process.env.REACT_APP_LOG_ROCKET_APP_ID);
 }
 const app = (
   <Provider store={store}>
