@@ -31,7 +31,7 @@ const ViewOnDhis2Btn = props => {
   if (isInput) {
     href = `${
       process.env.REACT_APP_DHIS2_URL
-    }dhis-web-maintenance/index.html#/edit/${camelCase(
+    }/dhis-web-maintenance/index.html#/edit/${camelCase(
       cell.state.kind,
     )}Section/${camelCase(cell.state.kind)}/${cell.state.ext_id}`;
   }
