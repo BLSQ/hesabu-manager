@@ -37,7 +37,7 @@ const ViewOnDhis2Btn = props => {
   }
 
   if (isOutput) {
-    href = `${process.env.REACT_APP_DHIS2_URL}dhis-web-maintenance/index.html#/edit/dataElementSection/dataElement/${cell.dhis2_data_element}`;
+    href = `${process.env.REACT_APP_DHIS2_URL}/dhis-web-maintenance/index.html#/edit/dataElementSection/dataElement/${cell.dhis2_data_element}`;
   }
 
   return (
