@@ -40,12 +40,27 @@ yarn build
 rm $APP.zip || true
 cd ./build && rm ./static/js/main.*.js.map && zip -r ../$APP.zip . && cd ..
 
-curl -vvv -H "Accept: application/json" \
-     -X POST -u "${DHIS2USER}:${DHIS2PASSWORD}" \
+printf "\nSubmitting app to ${DHIS2HOST}\n"
+curl -X POST -u "${DHIS2USER}:${DHIS2PASSWORD}" \
+     -H "Accept: application/json" \
      --compressed \
      -F file=@$APP.zip \
      "${DHIS2HOST}/api/apps"
 
-curl -X GET -u "${DHIS2USER}:${DHIS2PASSWORD}" \
+# I don't know exactly why we need to call the GET and the PUT
+# requests here, but if we don't the DHIS sometimes doesn't seem to
+# install the application.
+
+printf "\nRefreshing apps:\n"
+curl -sI -X GET -u "${DHIS2USER}:${DHIS2PASSWORD}" \
      -H "Accept: application/json" \
-     "${DHIS2HOST}/api/apps" | jq
+     "${DHIS2HOST}/api/apps" | head -n 1
+
+curl -sI -X PUT -u "${DHIS2USER}:${DHIS2PASSWORD}" \
+     -H "Accept: application/json" \
+     "${DHIS2HOST}/api/apps" | head -n 1
+
+printf "\nInstalled apps:\n"
+curl -s -X GET -u "${DHIS2USER}:${DHIS2PASSWORD}" \
+     -H "Accept: application/json" \
+     "${DHIS2HOST}/api/apps" | jq -r '[.[] | [.name, .version]][] | join(" - ")'
