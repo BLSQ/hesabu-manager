@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import groupBy from "lodash/groupBy";
 import PropTypes from "prop-types";
 import wretch from "wretch";
@@ -43,14 +43,6 @@ const SimulationBlocks = props => {
       });
   }, [props.resultUrl]);
 
-  if (loading) {
-    return <CircularProgress />;
-  }
-
-  if (error) {
-    return <p>{error}</p>;
-  }
-
   // Placeholder before future split async fetch of Periodviews
   // At least now the list can be filtered by code from url params
   // Which mean we can link to that url from the set edit page
@@ -66,19 +58,29 @@ const SimulationBlocks = props => {
 
   const sets = Object.keys(setsByCode);
 
-  const filteredSets = displayedSetCodes.length
-    ? sets.filter(setKey => {
-        return matchSorter(displayedSetCodes, getSetName(setKey), {
-          threshold: matchSorter.rankings.CONTAINS,
-        }).length;
-      })
-    : sets;
+  const filteredSets = useMemo(() => {
+    if (!displayedSetCodes.length) return sets;
+    return sets.filter(setKey => {
+      return matchSorter(displayedSetCodes, getSetName(setKey), {
+        threshold: matchSorter.rankings.CONTAINS,
+      }).length;
+    });
+  }, [sets, displayedSetCodes]);
+
+  if (loading) {
+    return <CircularProgress />;
+  }
+
+  if (error) {
+    return <p>{error}</p>;
+  }
 
   if (!filteredSets.length) {
     return (
       <EmptySection>
         <Typography variant="h6">{t("simulation.ohNo")}</Typography>
         <InfoBox
+          name="simulation-noSimulationForOrgUnit-warning"
           text={t("simulation.noSimulationForOrgUnit")}
           className={classes.spaced}
         />
@@ -96,6 +98,8 @@ const SimulationBlocks = props => {
 
 SimulationBlocks.propTypes = {
   periodViews: PropTypes.array,
+  resultUrl: PropTypes.string,
+  searchQuery: PropTypes.any,
 };
 
 export default SimulationBlocks;
