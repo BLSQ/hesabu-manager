@@ -4,6 +4,11 @@ import ReactDataSheet from "react-datasheet";
 import PropTypes from "prop-types";
 import { APPBAR_WITH_TABS_HEIGHT } from "../../constants/ui";
 import SectionLoading from "../../components/Shared/SectionLoading";
+import {
+  fakeColumGenerator,
+  fakeRowGenerator,
+} from "../../utils/dataGridUtils";
+
 const useStyles = makeStyles(theme => ({
   root: props => ({
     marginTop: APPBAR_WITH_TABS_HEIGHT - theme.spacing(2),
@@ -12,25 +17,6 @@ const useStyles = makeStyles(theme => ({
     width: props.loading ? " 100%" : "inherit",
   }),
 }));
-
-function fakeColumGenerator(number, readOnly = false) {
-  const items = [];
-  for (let index = 0; index < number; index++) {
-    items.push({
-      value: "",
-      readOnly,
-    });
-  }
-  return items;
-}
-
-function fakeRowGenerator(number, fakeColumn) {
-  const items = [];
-  for (let index = 0; index < number; index++) {
-    items.push(fakeColumn);
-  }
-  return items;
-}
 
 const SetCurrentLevelContainer = props => {
   const classes = useStyles(props);
