@@ -1,5 +1,5 @@
 import humanize from "string-humanize";
-import React from "react";
+import React, { useMemo } from "react";
 import {
   Table as MaterialTable,
   TableHead,
@@ -87,9 +87,15 @@ const Table = props => {
   const classes = useStyles(props);
   const { t } = useTranslation();
 
-  const columns = prepareHeaders(activity_items, t);
+  const columns = useMemo(() => prepareHeaders(activity_items, t), [
+    activity_items,
+    t,
+  ]);
 
-  const data = prepareData(activity_items, t);
+  const data = useMemo(() => prepareData(activity_items, t), [
+    activity_items,
+    t,
+  ]);
 
   const {
     headerGroups,
@@ -132,12 +138,12 @@ const Table = props => {
                   const cellProps = cell.getCellProps();
                   return (
                     <Tooltip
+                      key={`${cellProps.key}-tooltip-${cellProps.value}`}
                       title={cellTooltip(cell, t)}
                       enterDelay={500}
                       open={isTopic(cell.value) ? false : undefined}
                     >
                       <TableCell
-                        key={cell.value}
                         {...cellProps}
                         tabIndex={isTopic(cell.value) ? undefined : "0"}
                         onClick={() => {
