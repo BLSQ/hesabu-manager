@@ -61,7 +61,7 @@ const SetContainer = props => {
   return (
     <Set
       currentTab={currentTab}
-      open={true}
+      open={open}
       set={set}
       loading={loading}
       sideSheetOpen={sideSheetOpen}
