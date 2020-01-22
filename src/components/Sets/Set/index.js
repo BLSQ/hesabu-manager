@@ -135,7 +135,7 @@ Set.propTypes = {
   open: PropTypes.bool,
   set: PropTypes.object,
   sideSheetOpen: PropTypes.bool,
-  simulationParams: PropTypes.string,
+  simulationParams: PropTypes.object,
 };
 
 export default withRouter(Set);
