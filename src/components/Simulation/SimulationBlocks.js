@@ -20,7 +20,18 @@ const SimulationBlocks = props => {
   // #TODO add some loading states
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
-  const setsByCode = groupBy((data || {}).invoices, "code");
+  const sets = (data || {}).invoices || [];
+
+  // Placeholder to only display the selected org unit, in the future
+  // the backend should do this filtering for us.
+  const displayedOrgUnit = props.searchQuery.orgUnit || "";
+  const setsForOrgUnit = useMemo(() => {
+    return sets.filter(
+      ({ orgunit_ext_id }) => orgunit_ext_id === displayedOrgUnit,
+    );
+  }, [sets, displayedOrgUnit]);
+
+  const setsByCode = groupBy(setsForOrgUnit, "code");
 
   const classes = useStyles();
   const { t } = useTranslation();
@@ -56,16 +67,16 @@ const SimulationBlocks = props => {
     .split(",")
     .filter(i => i);
 
-  const sets = Object.keys(setsByCode);
+  const setCodes = Object.keys(setsByCode);
 
   const filteredSets = useMemo(() => {
-    if (!displayedSetCodes.length) return sets;
-    return sets.filter(setKey => {
+    if (!displayedSetCodes.length) return setCodes;
+    return setCodes.filter(setKey => {
       return matchSorter(displayedSetCodes, getSetName(setKey), {
         threshold: matchSorter.rankings.CONTAINS,
       }).length;
     });
-  }, [sets, displayedSetCodes]);
+  }, [setCodes, displayedSetCodes]);
 
   if (loading) {
     return <CircularProgress />;
