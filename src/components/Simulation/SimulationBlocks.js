@@ -20,7 +20,16 @@ const SimulationBlocks = props => {
   // #TODO add some loading states
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
-  const setsByCode = groupBy((data || {}).invoices, "code");
+  const invoices = (data || {}).invoices || [];
+
+  // Placeholder to only display the selected org unit, in the future
+  // the backend should do this filtering for us.
+  const displayedOrgUnit = props.searchQuery.orgUnit || "";
+  const invoicesForOrgUnit = invoices.filter(
+    ({ orgunit_ext_id }) => orgunit_ext_id == displayedOrgUnit,
+  );
+
+  const setsByCode = groupBy(invoicesForOrgUnit, "code");
 
   const classes = useStyles();
   const { t } = useTranslation();
