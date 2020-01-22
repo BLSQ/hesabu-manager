@@ -29,7 +29,7 @@ const Set = props => {
     location,
   } = props;
   const history = useHistory();
-  const classes = useStyles(sideSheetOpen);
+  const classes = useStyles(!loading && sideSheetOpen);
   const { t } = useTranslation();
   return (
     <Dialog

@@ -23,7 +23,7 @@ const SetListItem = props => {
         >
           {name}
         </Typography>
-        {topics.length && (
+        {!!topics.length && (
           <IconButton
             className={classes.expandBtn}
             onClick={() => setExpanded(!expanded)}

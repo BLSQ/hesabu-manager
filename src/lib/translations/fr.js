@@ -119,7 +119,7 @@ export default {
       },
       simulationResultStatus: {
         enqueued: {
-          title: "Vous n’avez pas encore du simulation avec ces paramètres",
+          title: "Vous n’avez pas encore de simulation avec ces paramètres",
           subtitle: "Votre simulation est en cours de génération",
         },
         errored: {
