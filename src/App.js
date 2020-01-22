@@ -1,16 +1,14 @@
 import { MuiThemeProvider, withStyles } from "@material-ui/core/styles";
-import React, { Component, Fragment } from "react";
+import React, { Component, Fragment, lazy } from "react";
 import { Redirect, Route, Switch, withRouter } from "react-router";
 import { receiveProject, requestProject } from "./actions/project";
 import PropTypes from "prop-types";
 import DateFnsUtils from "@date-io/date-fns";
 import Fade from "@material-ui/core/Fade";
 import { I18nextProvider } from "react-i18next";
-import Loadable from "react-loadable";
 import SnackBarContainer from "./components/SnackBar/SnackBarContainer";
 import { MuiPickersUtilsProvider } from "material-ui-pickers";
 import ResponsiveDrawers from "./components/Drawers/ResponsiveDrawers";
-import RouteLoading from "./components/Shared/RouteLoading";
 import { SnackbarProvider } from "notistack";
 import { connect } from "react-redux";
 import { externalApi } from "./actions/api";
@@ -23,33 +21,21 @@ import { CookiesProvider } from "react-cookie";
 import keymap from "./lib/shortcuts";
 import { ShortcutManager, Shortcuts } from "react-shortcuts";
 import HomeTour from "./components/HomeTour";
+import WaitingComponent from "./components/Shared/WaitingComponent";
 
 const shortcutManager = new ShortcutManager(keymap);
 
-const LoadableSetsContainer = Loadable({
-  loader: () => import("./containers/SetsContainer"),
-  loading: RouteLoading,
-});
-
-const LoadableCompoundsContainer = Loadable({
-  loader: () => import("./containers/CompoundsContainer"),
-  loading: RouteLoading,
-});
-
-const LoadableSimulationContainer = Loadable({
-  loader: () => import("./containers/SimulationContainer"),
-  loading: RouteLoading,
-});
-
-const LoadableSimulationsContainer = Loadable({
-  loader: () => import("./containers/SimulationsContainer"),
-  loading: RouteLoading,
-});
-
-const LoadableHelpContainer = Loadable({
-  loader: () => import("./containers/HelpContainer"),
-  loading: RouteLoading,
-});
+const LoadableSetsContainer = lazy(() => import("./containers/SetsContainer"));
+const LoadableCompoundsContainer = lazy(() =>
+  import("./containers/CompoundsContainer"),
+);
+const LoadableSimulationContainer = lazy(() =>
+  import("./containers/SimulationContainer"),
+);
+const LoadableSimulationsContainer = lazy(() =>
+  import("./containers/SimulationsContainer"),
+);
+const LoadableHelpContainer = lazy(() => import("./containers/HelpContainer"));
 
 const styles = () => ({
   root: {
@@ -157,33 +143,47 @@ class App extends Component {
                             <Route
                               exact
                               path="/sets"
-                              component={LoadableSetsContainer}
+                              component={WaitingComponent(
+                                LoadableSetsContainer,
+                              )}
                             />
                             <Route
                               path="/sets/:setId"
-                              component={LoadableSetsContainer}
+                              component={WaitingComponent(
+                                LoadableSetsContainer,
+                              )}
                             />
                             <Route
                               exact
                               path="/compounds"
-                              component={LoadableCompoundsContainer}
+                              component={WaitingComponent(
+                                LoadableCompoundsContainer,
+                              )}
                             />
                             <Route
                               path="/compounds/:compoundId"
-                              component={LoadableCompoundsContainer}
+                              component={WaitingComponent(
+                                LoadableCompoundsContainer,
+                              )}
                             />
                             <Route
                               exact
                               path="/simulations"
-                              component={LoadableSimulationsContainer}
+                              component={WaitingComponent(
+                                LoadableSimulationsContainer,
+                              )}
                             />
                             <Route
                               path="/simulation"
-                              component={LoadableSimulationContainer}
+                              component={WaitingComponent(
+                                LoadableSimulationContainer,
+                              )}
                             />
                             <Route
                               path="/help"
-                              component={LoadableHelpContainer}
+                              component={WaitingComponent(
+                                LoadableHelpContainer,
+                              )}
                             />
                           </Switch>
                         </div>
