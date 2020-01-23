@@ -116,6 +116,16 @@
         "shortName": "total",
         "createdAt": "2019-06-11T10:03:15.980Z",
         "updatedAt": "2019-06-11T10:03:15.980Z"
+      },
+      "relationships": {
+        "formulaMappings": {
+          "data": [
+            {
+              "id": "4603",
+              "type": "formulaMapping"
+            }
+          ]
+        }
       }
     },
     {
@@ -131,6 +141,16 @@
         "shortName": "PTSD - A Subsides Obtenus",
         "createdAt": "2019-06-11T10:00:55.986Z",
         "updatedAt": "2019-06-18T06:36:06.133Z"
+      },
+      "relationships": {
+        "formulaMappings": {
+          "data": [
+            {
+              "id": "4600",
+              "type": "formulaMapping"
+            }
+          ]
+        }
       }
     },
     {
@@ -146,6 +166,16 @@
         "shortName": "PTSD - B Subsides Obtenus",
         "createdAt": "2019-06-11T09:42:46.569Z",
         "updatedAt": "2019-06-18T06:36:06.145Z"
+      },
+      "relationships": {
+        "formulaMappings": {
+          "data": [
+            {
+              "id": "4601",
+              "type": "formulaMapping"
+            }
+          ]
+        }
       }
     },
     {
@@ -161,6 +191,16 @@
         "shortName": "PTSD - C Subsides Obtenus",
         "createdAt": "2019-06-11T10:02:34.020Z",
         "updatedAt": "2019-06-18T06:36:35.696Z"
+      },
+      "relationships": {
+        "formulaMappings": {
+          "data": [
+            {
+              "id": "4602",
+              "type": "formulaMapping"
+            }
+          ]
+        }
       }
     }
   ]
