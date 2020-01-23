@@ -134,21 +134,24 @@
         "stableId": "3bc66320-5edc-4a74-8da6-cf96ceb842e2"
       },
       "relationships": {
-        "inputs": {
+        "inputMappings": {
           "data": [
             {
               "id": "3976",
-              "type": "input"
+              "type": "inputMapping"
             },
             {
               "id": "4014",
-              "type": "input"
+              "type": "inputMapping"
             },
             {
               "id": "4016",
-              "type": "input"
+              "type": "inputMapping"
             }
           ]
+        },
+        "formulaMappings": {
+          "data": []
         }
       }
     },
@@ -164,17 +167,20 @@
         "stableId": "78f3519d-6d51-4c6e-a1a4-af52c13cc3d8"
       },
       "relationships": {
-        "inputs": {
+        "inputMappings": {
           "data": [
             {
               "id": "3977",
-              "type": "input"
+              "type": "inputMapping"
             },
             {
               "id": "4017",
-              "type": "input"
+              "type": "inputMapping"
             }
           ]
+        },
+        "formulaMappings": {
+          "data": []
         }
       }
     },
@@ -190,17 +196,195 @@
         "stableId": "fae70187-dd71-4c49-89ca-d91a602a02d3"
       },
       "relationships": {
-        "inputs": {
+        "inputMappings": {
           "data": [
             {
               "id": "3978",
-              "type": "input"
+              "type": "inputMapping"
             },
             {
               "id": "4018",
-              "type": "input"
+              "type": "inputMapping"
             }
           ]
+        },
+        "formulaMappings": {
+          "data": []
+        }
+      }
+    },
+    {
+      "id": "3976",
+      "type": "inputMapping",
+      "attributes": {
+        "formula": null,
+        "name": "B.2.1 Tableau noir ou vert avec craies dans chaque salle de classe ? - ver",
+        "origin": "dataValueSets",
+        "stableId": "2b7e0605-7941-4ea9-ac04-80231114be83",
+        "kind": "data_element"
+      },
+      "relationships": {
+        "externalRef": {
+          "data": {
+            "id": "sdiddRsreAX",
+            "type": "externalRef"
+          }
+        },
+        "input": {
+          "data": {
+            "id": "328",
+            "type": "input"
+          }
+        }
+      }
+    },
+    {
+      "id": "4014",
+      "type": "inputMapping",
+      "attributes": {
+        "formula": null,
+        "name": "B.2.1 Tableau noir ou vert avec craies dans chaque salle de classe - max points",
+        "origin": "dataValueSets",
+        "stableId": "f2f3b926-7b75-4530-8a5f-72c4dd3c211c",
+        "kind": "data_element"
+      },
+      "relationships": {
+        "externalRef": {
+          "data": {
+            "id": "luyzpAVOPdP",
+            "type": "externalRef"
+          }
+        },
+        "input": {
+          "data": {
+            "id": "330",
+            "type": "input"
+          }
+        }
+      }
+    },
+    {
+      "id": "4016",
+      "type": "inputMapping",
+      "attributes": {
+        "formula": null,
+        "name": "PBF - Budget Disponible Definition B.2",
+        "origin": "dataValueSets",
+        "stableId": "cae7b665-6778-4eff-bd87-9717dbb3ccb2",
+        "kind": "data_element"
+      },
+      "relationships": {
+        "externalRef": {
+          "data": {
+            "id": "GBwuX5AxzGT",
+            "type": "externalRef"
+          }
+        },
+        "input": {
+          "data": {
+            "id": "332",
+            "type": "input"
+          }
+        }
+      }
+    },
+    {
+      "id": "3977",
+      "type": "inputMapping",
+      "attributes": {
+        "formula": null,
+        "name": "B.2.2 Il y a des matériels didactiques affichés sur les murs de toutes les salles - ver",
+        "origin": "dataValueSets",
+        "stableId": "2f89596b-696b-4438-978b-487a945b273e",
+        "kind": "data_element"
+      },
+      "relationships": {
+        "externalRef": {
+          "data": {
+            "id": "B1jaNtJbauu",
+            "type": "externalRef"
+          }
+        },
+        "input": {
+          "data": {
+            "id": "328",
+            "type": "input"
+          }
+        }
+      }
+    },
+    {
+      "id": "4017",
+      "type": "inputMapping",
+      "attributes": {
+        "formula": null,
+        "name": "B.2.2 Il y a des matériels didactiques affichés sur les murs de toutes les salles - max points",
+        "origin": "dataValueSets",
+        "stableId": "6cdc55ff-abef-4a90-8241-933ab7115f3b",
+        "kind": "data_element"
+      },
+      "relationships": {
+        "externalRef": {
+          "data": {
+            "id": "oQZYVTe8Vkz",
+            "type": "externalRef"
+          }
+        },
+        "input": {
+          "data": {
+            "id": "330",
+            "type": "input"
+          }
+        }
+      }
+    },
+    {
+      "id": "3978",
+      "type": "inputMapping",
+      "attributes": {
+        "formula": null,
+        "name": "B.2.3 Nombre de pupitres de l'école - palier atteint - ver",
+        "origin": "dataValueSets",
+        "stableId": "bdb33446-e832-40c5-8fc4-25818520d4a2",
+        "kind": "data_element"
+      },
+      "relationships": {
+        "externalRef": {
+          "data": {
+            "id": "sMQ3FeuRqY3",
+            "type": "externalRef"
+          }
+        },
+        "input": {
+          "data": {
+            "id": "328",
+            "type": "input"
+          }
+        }
+      }
+    },
+    {
+      "id": "4018",
+      "type": "inputMapping",
+      "attributes": {
+        "formula": null,
+        "name": "B.2.3 Nombre de pupitres de l'école (donnez le nombre de pupitres disponibles) - max points",
+        "origin": "dataValueSets",
+        "stableId": "42754b25-19e3-480c-bcbe-5834881b8ae3",
+        "kind": "data_element"
+      },
+      "relationships": {
+        "externalRef": {
+          "data": {
+            "id": "Da7VMX4lJah",
+            "type": "externalRef"
+          }
+        },
+        "input": {
+          "data": {
+            "id": "330",
+            "type": "input"
+          }
         }
       }
     }

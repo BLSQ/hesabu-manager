@@ -170,21 +170,24 @@
         "stableId": "72273128-33c6-4f05-b698-54ded60e7157"
       },
       "relationships": {
-        "inputs": {
+        "inputMappings": {
           "data": [
             {
               "id": "4085",
-              "type": "input"
+              "type": "inputMapping"
             },
             {
               "id": "4086",
-              "type": "input"
+              "type": "inputMapping"
             },
             {
               "id": "4087",
-              "type": "input"
+              "type": "inputMapping"
             }
           ]
+        },
+        "formulaMappings": {
+          "data": []
         }
       }
     },
@@ -200,17 +203,20 @@
         "stableId": "78662736-5ee8-4a33-9322-8e6f4fe9845f"
       },
       "relationships": {
-        "inputs": {
+        "inputMappings": {
           "data": [
             {
               "id": "4088",
-              "type": "input"
+              "type": "inputMapping"
             },
             {
               "id": "4089",
-              "type": "input"
+              "type": "inputMapping"
             }
           ]
+        },
+        "formulaMappings": {
+          "data": []
         }
       }
     },
@@ -226,17 +232,20 @@
         "stableId": "57a61f77-ab0b-47e2-b730-966d6a3654c0"
       },
       "relationships": {
-        "inputs": {
+        "inputMappings": {
           "data": [
             {
               "id": "4090",
-              "type": "input"
+              "type": "inputMapping"
             },
             {
               "id": "4091",
-              "type": "input"
+              "type": "inputMapping"
             }
           ]
+        },
+        "formulaMappings": {
+          "data": []
         }
       }
     },
@@ -252,17 +261,20 @@
         "stableId": "078115ad-6e09-44db-a85c-deae5b120ac4"
       },
       "relationships": {
-        "inputs": {
+        "inputMappings": {
           "data": [
             {
               "id": "4092",
-              "type": "input"
+              "type": "inputMapping"
             },
             {
               "id": "4093",
-              "type": "input"
+              "type": "inputMapping"
             }
           ]
+        },
+        "formulaMappings": {
+          "data": []
         }
       }
     },
@@ -278,17 +290,20 @@
         "stableId": "dcabc92a-6c45-4874-ad28-fd9e2ff228b3"
       },
       "relationships": {
-        "inputs": {
+        "inputMappings": {
           "data": [
             {
               "id": "4094",
-              "type": "input"
+              "type": "inputMapping"
             },
             {
               "id": "4095",
-              "type": "input"
+              "type": "inputMapping"
             }
           ]
+        },
+        "formulaMappings": {
+          "data": []
         }
       }
     },
@@ -304,17 +319,20 @@
         "stableId": "8e57a999-662f-4dc7-a34c-10e16d0291e3"
       },
       "relationships": {
-        "inputs": {
+        "inputMappings": {
           "data": [
             {
               "id": "4096",
-              "type": "input"
+              "type": "inputMapping"
             },
             {
               "id": "4097",
-              "type": "input"
+              "type": "inputMapping"
             }
           ]
+        },
+        "formulaMappings": {
+          "data": []
         }
       }
     },
@@ -330,17 +348,20 @@
         "stableId": "95bb08cb-630b-4d1f-8ff7-0ffa663d40b3"
       },
       "relationships": {
-        "inputs": {
+        "inputMappings": {
           "data": [
             {
               "id": "4098",
-              "type": "input"
+              "type": "inputMapping"
             },
             {
               "id": "4099",
-              "type": "input"
+              "type": "inputMapping"
             }
           ]
+        },
+        "formulaMappings": {
+          "data": []
         }
       }
     },
@@ -356,17 +377,20 @@
         "stableId": "60f056f2-0142-4515-b10f-cd4475e751d8"
       },
       "relationships": {
-        "inputs": {
+        "inputMappings": {
           "data": [
             {
               "id": "4100",
-              "type": "input"
+              "type": "inputMapping"
             },
             {
               "id": "4101",
-              "type": "input"
+              "type": "inputMapping"
             }
           ]
+        },
+        "formulaMappings": {
+          "data": []
         }
       }
     },
@@ -382,17 +406,20 @@
         "stableId": "a4f93013-072f-4a4d-b91d-df97918e70ed"
       },
       "relationships": {
-        "inputs": {
+        "inputMappings": {
           "data": [
             {
               "id": "4102",
-              "type": "input"
+              "type": "inputMapping"
             },
             {
               "id": "4103",
-              "type": "input"
+              "type": "inputMapping"
             }
           ]
+        },
+        "formulaMappings": {
+          "data": []
         }
       }
     },
@@ -408,17 +435,20 @@
         "stableId": "88e17bfc-6f3d-4c78-971b-49614370638e"
       },
       "relationships": {
-        "inputs": {
+        "inputMappings": {
           "data": [
             {
               "id": "4104",
-              "type": "input"
+              "type": "inputMapping"
             },
             {
               "id": "4105",
-              "type": "input"
+              "type": "inputMapping"
             }
           ]
+        },
+        "formulaMappings": {
+          "data": []
         }
       }
     },
@@ -434,17 +464,20 @@
         "stableId": "a5a8ca8a-65fd-4282-9ad2-1eec3c04d229"
       },
       "relationships": {
-        "inputs": {
+        "inputMappings": {
           "data": [
             {
               "id": "4106",
-              "type": "input"
+              "type": "inputMapping"
             },
             {
               "id": "4107",
-              "type": "input"
+              "type": "inputMapping"
             }
           ]
+        },
+        "formulaMappings": {
+          "data": []
         }
       }
     },
@@ -460,17 +493,645 @@
         "stableId": "24e0d48b-0f60-4a9e-ba13-abcaae1f4c37"
       },
       "relationships": {
-        "inputs": {
+        "inputMappings": {
           "data": [
             {
               "id": "4108",
-              "type": "input"
+              "type": "inputMapping"
             },
             {
               "id": "4109",
-              "type": "input"
+              "type": "inputMapping"
             }
           ]
+        },
+        "formulaMappings": {
+          "data": []
+        }
+      }
+    },
+    {
+      "id": "4085",
+      "type": "inputMapping",
+      "attributes": {
+        "formula": null,
+        "name": "B.9.1 Règlement Intérieur existe et signé par tous les enseignants et affiché sur les murs de toutes les classes ? - max points",
+        "origin": "dataValueSets",
+        "stableId": "4d66d956-9edd-46de-9278-29ba8ed50cd9",
+        "kind": "data_element"
+      },
+      "relationships": {
+        "externalRef": {
+          "data": {
+            "id": "rMCY15LMkoF",
+            "type": "externalRef"
+          }
+        },
+        "input": {
+          "data": {
+            "id": "330",
+            "type": "input"
+          }
+        }
+      }
+    },
+    {
+      "id": "4086",
+      "type": "inputMapping",
+      "attributes": {
+        "formula": null,
+        "name": "B.9.1 Règlement Intérieur existe et signé par tous les enseignants et affiché sur les murs de toutes les classes ? - ver",
+        "origin": "dataValueSets",
+        "stableId": "3d836ea3-0eb0-43bb-81a7-7409c9911343",
+        "kind": "data_element"
+      },
+      "relationships": {
+        "externalRef": {
+          "data": {
+            "id": "vkPywyMACW2",
+            "type": "externalRef"
+          }
+        },
+        "input": {
+          "data": {
+            "id": "328",
+            "type": "input"
+          }
+        }
+      }
+    },
+    {
+      "id": "4087",
+      "type": "inputMapping",
+      "attributes": {
+        "formula": null,
+        "name": "PBF - Budget Disponible Definition - B.9 - Gouvernance Interne",
+        "origin": "dataValueSets",
+        "stableId": "5d1af6b4-7d12-4744-995b-d2ee5a9edd42",
+        "kind": "data_element"
+      },
+      "relationships": {
+        "externalRef": {
+          "data": {
+            "id": "nlezjuSEQTE",
+            "type": "externalRef"
+          }
+        },
+        "input": {
+          "data": {
+            "id": "332",
+            "type": "input"
+          }
+        }
+      }
+    },
+    {
+      "id": "4088",
+      "type": "inputMapping",
+      "attributes": {
+        "formula": null,
+        "name": "B.9.2.1 Existence de bon d'entrée caisse à jour - max points",
+        "origin": "dataValueSets",
+        "stableId": "0c6cb423-088a-4473-bd74-458cc9731894",
+        "kind": "data_element"
+      },
+      "relationships": {
+        "externalRef": {
+          "data": {
+            "id": "yKIfrruI8Lc",
+            "type": "externalRef"
+          }
+        },
+        "input": {
+          "data": {
+            "id": "330",
+            "type": "input"
+          }
+        }
+      }
+    },
+    {
+      "id": "4089",
+      "type": "inputMapping",
+      "attributes": {
+        "formula": null,
+        "name": "B.9.2.1 Existence de bon d'entrée caisse à jour - ver",
+        "origin": "dataValueSets",
+        "stableId": "0b71b6bf-8091-4a4b-a7f7-8456bb6f7004",
+        "kind": "data_element"
+      },
+      "relationships": {
+        "externalRef": {
+          "data": {
+            "id": "zPAH8oR1R4q",
+            "type": "externalRef"
+          }
+        },
+        "input": {
+          "data": {
+            "id": "328",
+            "type": "input"
+          }
+        }
+      }
+    },
+    {
+      "id": "4090",
+      "type": "inputMapping",
+      "attributes": {
+        "formula": null,
+        "name": "B.9.2.2 Existence de bon de sortie caisse à jour - max points",
+        "origin": "dataValueSets",
+        "stableId": "c7aa8a7d-0a24-456b-8c42-0334bb3ac307",
+        "kind": "data_element"
+      },
+      "relationships": {
+        "externalRef": {
+          "data": {
+            "id": "XYBcYPTjiXY",
+            "type": "externalRef"
+          }
+        },
+        "input": {
+          "data": {
+            "id": "330",
+            "type": "input"
+          }
+        }
+      }
+    },
+    {
+      "id": "4091",
+      "type": "inputMapping",
+      "attributes": {
+        "formula": null,
+        "name": "B.9.2.2 Existence de bon de sortie caisse à jour - ver",
+        "origin": "dataValueSets",
+        "stableId": "739aff51-8c16-44a6-a271-0c3873775a9a",
+        "kind": "data_element"
+      },
+      "relationships": {
+        "externalRef": {
+          "data": {
+            "id": "WoVpPfoavCY",
+            "type": "externalRef"
+          }
+        },
+        "input": {
+          "data": {
+            "id": "328",
+            "type": "input"
+          }
+        }
+      }
+    },
+    {
+      "id": "4092",
+      "type": "inputMapping",
+      "attributes": {
+        "formula": null,
+        "name": "B.9.2.3 Existence du livre de caisse à jour - max points",
+        "origin": "dataValueSets",
+        "stableId": "5ca3ed54-dbb0-4c4f-8a92-b157dfdfec80",
+        "kind": "data_element"
+      },
+      "relationships": {
+        "externalRef": {
+          "data": {
+            "id": "JzuFcGqaZu5",
+            "type": "externalRef"
+          }
+        },
+        "input": {
+          "data": {
+            "id": "330",
+            "type": "input"
+          }
+        }
+      }
+    },
+    {
+      "id": "4093",
+      "type": "inputMapping",
+      "attributes": {
+        "formula": null,
+        "name": "B.9.2.3 Existence du livre de caisse à jour - ver",
+        "origin": "dataValueSets",
+        "stableId": "a96531ad-be98-4390-898b-09337912fbb6",
+        "kind": "data_element"
+      },
+      "relationships": {
+        "externalRef": {
+          "data": {
+            "id": "GAnmaBOoTyR",
+            "type": "externalRef"
+          }
+        },
+        "input": {
+          "data": {
+            "id": "328",
+            "type": "input"
+          }
+        }
+      }
+    },
+    {
+      "id": "4094",
+      "type": "inputMapping",
+      "attributes": {
+        "formula": null,
+        "name": "B.9.2.4 Existence des classeurs des pièces justificatives - max points",
+        "origin": "dataValueSets",
+        "stableId": "0d1f28b7-b306-4fc4-a940-b74ca21a4a4e",
+        "kind": "data_element"
+      },
+      "relationships": {
+        "externalRef": {
+          "data": {
+            "id": "fsKHyj7N5T7",
+            "type": "externalRef"
+          }
+        },
+        "input": {
+          "data": {
+            "id": "330",
+            "type": "input"
+          }
+        }
+      }
+    },
+    {
+      "id": "4095",
+      "type": "inputMapping",
+      "attributes": {
+        "formula": null,
+        "name": "B.9.2.4 Existence des classeurs des pièces justificatives - ver",
+        "origin": "dataValueSets",
+        "stableId": "56367ada-371c-4324-b65b-ad3e17e0b9ad",
+        "kind": "data_element"
+      },
+      "relationships": {
+        "externalRef": {
+          "data": {
+            "id": "m2uvpTdWx7Z",
+            "type": "externalRef"
+          }
+        },
+        "input": {
+          "data": {
+            "id": "328",
+            "type": "input"
+          }
+        }
+      }
+    },
+    {
+      "id": "4096",
+      "type": "inputMapping",
+      "attributes": {
+        "formula": null,
+        "name": "B.9.2.5 Existence du rapport financier trimestriel signé - max points",
+        "origin": "dataValueSets",
+        "stableId": "2243131e-3d9b-4bcf-92df-06f30f7c380d",
+        "kind": "data_element"
+      },
+      "relationships": {
+        "externalRef": {
+          "data": {
+            "id": "AVdlo7JcBFV",
+            "type": "externalRef"
+          }
+        },
+        "input": {
+          "data": {
+            "id": "330",
+            "type": "input"
+          }
+        }
+      }
+    },
+    {
+      "id": "4097",
+      "type": "inputMapping",
+      "attributes": {
+        "formula": null,
+        "name": "B.9.2.5 Existence du rapport financier trimestriel signé - ver",
+        "origin": "dataValueSets",
+        "stableId": "fee18e13-b9f9-462f-8397-51be41fb33ae",
+        "kind": "data_element"
+      },
+      "relationships": {
+        "externalRef": {
+          "data": {
+            "id": "qOMHbA4lYmv",
+            "type": "externalRef"
+          }
+        },
+        "input": {
+          "data": {
+            "id": "328",
+            "type": "input"
+          }
+        }
+      }
+    },
+    {
+      "id": "4098",
+      "type": "inputMapping",
+      "attributes": {
+        "formula": null,
+        "name": "B.9.3 Présence des fiches d'évaluation des élèves par trimestre avec restitutions de l'enseignant et signée par un parent/tuteur - max points",
+        "origin": "dataValueSets",
+        "stableId": "3c808803-b180-458c-a935-30154b48fdcc",
+        "kind": "data_element"
+      },
+      "relationships": {
+        "externalRef": {
+          "data": {
+            "id": "PrcieEvId0t",
+            "type": "externalRef"
+          }
+        },
+        "input": {
+          "data": {
+            "id": "330",
+            "type": "input"
+          }
+        }
+      }
+    },
+    {
+      "id": "4099",
+      "type": "inputMapping",
+      "attributes": {
+        "formula": null,
+        "name": "B.9.3 Présence des fiches d'évaluation des élèves par trimestre avec restitutions de l'enseignant et signée par un parent/tuteur - ver",
+        "origin": "dataValueSets",
+        "stableId": "5252bd39-0cdd-48dd-80b5-c7333244e1b5",
+        "kind": "data_element"
+      },
+      "relationships": {
+        "externalRef": {
+          "data": {
+            "id": "P13XQ7EEAYK",
+            "type": "externalRef"
+          }
+        },
+        "input": {
+          "data": {
+            "id": "328",
+            "type": "input"
+          }
+        }
+      }
+    },
+    {
+      "id": "4100",
+      "type": "inputMapping",
+      "attributes": {
+        "formula": null,
+        "name": "B.9.4 Existence des statistiques scolaires complètes, promptes du dernier trimestre et transmises à la sous division - max points",
+        "origin": "dataValueSets",
+        "stableId": "6a84e275-7e8d-4fab-b6cd-598906eaee9e",
+        "kind": "data_element"
+      },
+      "relationships": {
+        "externalRef": {
+          "data": {
+            "id": "VPpFzvNIdBi",
+            "type": "externalRef"
+          }
+        },
+        "input": {
+          "data": {
+            "id": "330",
+            "type": "input"
+          }
+        }
+      }
+    },
+    {
+      "id": "4101",
+      "type": "inputMapping",
+      "attributes": {
+        "formula": null,
+        "name": "B.9.4 Existence des statistiques scolaires complètes, promptes du dernier trimestre et transmises à la sous division - ver",
+        "origin": "dataValueSets",
+        "stableId": "dfa524f0-d8fc-4e8a-8a44-91a0954777a1",
+        "kind": "data_element"
+      },
+      "relationships": {
+        "externalRef": {
+          "data": {
+            "id": "h4h7qsLaNIN",
+            "type": "externalRef"
+          }
+        },
+        "input": {
+          "data": {
+            "id": "328",
+            "type": "input"
+          }
+        }
+      }
+    },
+    {
+      "id": "4102",
+      "type": "inputMapping",
+      "attributes": {
+        "formula": null,
+        "name": "B.9.5 Tenue d'au moins 1 réunion mensuelle par l'équipe d'enseignants et directeur avec une liste de points d'action à améliorer - max points",
+        "origin": "dataValueSets",
+        "stableId": "5fce63ce-eebf-4ed3-b0c0-8844649f0fc4",
+        "kind": "data_element"
+      },
+      "relationships": {
+        "externalRef": {
+          "data": {
+            "id": "we6Ue6tPwEG",
+            "type": "externalRef"
+          }
+        },
+        "input": {
+          "data": {
+            "id": "330",
+            "type": "input"
+          }
+        }
+      }
+    },
+    {
+      "id": "4103",
+      "type": "inputMapping",
+      "attributes": {
+        "formula": null,
+        "name": "B.9.5 Tenue d'au moins 1 réunion mensuelle par l'équipe d'enseignants et directeur avec une liste de points d'action à améliorer - ver",
+        "origin": "dataValueSets",
+        "stableId": "c3f41479-fc29-4d54-b3da-b51841b40345",
+        "kind": "data_element"
+      },
+      "relationships": {
+        "externalRef": {
+          "data": {
+            "id": "iTk2MFCm6vO",
+            "type": "externalRef"
+          }
+        },
+        "input": {
+          "data": {
+            "id": "328",
+            "type": "input"
+          }
+        }
+      }
+    },
+    {
+      "id": "4104",
+      "type": "inputMapping",
+      "attributes": {
+        "formula": null,
+        "name": "B.9.6 Existence des rapports d’enquête communautaire réalisée par ASLO - max points",
+        "origin": "dataValueSets",
+        "stableId": "3555d1b3-262f-4c73-8d7a-29e476a0046c",
+        "kind": "data_element"
+      },
+      "relationships": {
+        "externalRef": {
+          "data": {
+            "id": "HUYSn5OW9ka",
+            "type": "externalRef"
+          }
+        },
+        "input": {
+          "data": {
+            "id": "330",
+            "type": "input"
+          }
+        }
+      }
+    },
+    {
+      "id": "4105",
+      "type": "inputMapping",
+      "attributes": {
+        "formula": null,
+        "name": "B.9.6 Existence des rapports d’enquête communautaire réalisée par ASLO - ver",
+        "origin": "dataValueSets",
+        "stableId": "57f4fc31-4cbf-4067-93b0-128aacaa429e",
+        "kind": "data_element"
+      },
+      "relationships": {
+        "externalRef": {
+          "data": {
+            "id": "mPbNKEdpT8B",
+            "type": "externalRef"
+          }
+        },
+        "input": {
+          "data": {
+            "id": "328",
+            "type": "input"
+          }
+        }
+      }
+    },
+    {
+      "id": "4106",
+      "type": "inputMapping",
+      "attributes": {
+        "formula": null,
+        "name": "B.9.7 Existence d'un plan de gestion des risques au sein de l'école - max points",
+        "origin": "dataValueSets",
+        "stableId": "a4f00c5f-1a57-460e-8be9-63b7228d5ee6",
+        "kind": "data_element"
+      },
+      "relationships": {
+        "externalRef": {
+          "data": {
+            "id": "JJGhHg9zCSR",
+            "type": "externalRef"
+          }
+        },
+        "input": {
+          "data": {
+            "id": "330",
+            "type": "input"
+          }
+        }
+      }
+    },
+    {
+      "id": "4107",
+      "type": "inputMapping",
+      "attributes": {
+        "formula": null,
+        "name": "B.9.7 Existence d'un plan de gestion des risques au sein de l'école - ver",
+        "origin": "dataValueSets",
+        "stableId": "b27bf8c0-7a3d-49a8-9e7c-90ee2c9ab3b1",
+        "kind": "data_element"
+      },
+      "relationships": {
+        "externalRef": {
+          "data": {
+            "id": "EHVh91iFr4F",
+            "type": "externalRef"
+          }
+        },
+        "input": {
+          "data": {
+            "id": "328",
+            "type": "input"
+          }
+        }
+      }
+    },
+    {
+      "id": "4108",
+      "type": "inputMapping",
+      "attributes": {
+        "formula": null,
+        "name": "B.9.8 Utilisation correcte de l'outil indice - max points",
+        "origin": "dataValueSets",
+        "stableId": "40e99978-998c-452b-ab84-8c3ccc8e8589",
+        "kind": "data_element"
+      },
+      "relationships": {
+        "externalRef": {
+          "data": {
+            "id": "aLi3GMO6dFo",
+            "type": "externalRef"
+          }
+        },
+        "input": {
+          "data": {
+            "id": "330",
+            "type": "input"
+          }
+        }
+      }
+    },
+    {
+      "id": "4109",
+      "type": "inputMapping",
+      "attributes": {
+        "formula": null,
+        "name": "B.9.8 Utilisation correcte de l'outil indice - ver",
+        "origin": "dataValueSets",
+        "stableId": "d1a3858b-d071-4864-8289-4da9748094df",
+        "kind": "data_element"
+      },
+      "relationships": {
+        "externalRef": {
+          "data": {
+            "id": "zfg6pHlNLVU",
+            "type": "externalRef"
+          }
+        },
+        "input": {
+          "data": {
+            "id": "328",
+            "type": "input"
+          }
         }
       }
     }

@@ -104,6 +104,16 @@
         "shortName": "Total Qualité",
         "createdAt": "2019-04-23T12:02:50.731Z",
         "updatedAt": "2019-05-15T09:44:01.771Z"
+      },
+      "relationships": {
+        "formulaMappings": {
+          "data": [
+            {
+              "id": "4026",
+              "type": "formulaMapping"
+            }
+          ]
+        }
       }
     },
     {
@@ -119,6 +129,16 @@
         "shortName": "total",
         "createdAt": "2019-04-04T11:23:04.430Z",
         "updatedAt": "2019-05-11T17:01:39.625Z"
+      },
+      "relationships": {
+        "formulaMappings": {
+          "data": [
+            {
+              "id": "4021",
+              "type": "formulaMapping"
+            }
+          ]
+        }
       }
     },
     {
@@ -134,6 +154,16 @@
         "shortName": "Qualité Globale",
         "createdAt": "2019-05-11T16:41:29.416Z",
         "updatedAt": "2019-05-15T07:31:54.436Z"
+      },
+      "relationships": {
+        "formulaMappings": {
+          "data": [
+            {
+              "id": "4160",
+              "type": "formulaMapping"
+            }
+          ]
+        }
       }
     },
     {
@@ -149,6 +179,16 @@
         "shortName": "b_total_subsidies",
         "createdAt": "2019-05-15T09:44:01.783Z",
         "updatedAt": "2019-05-15T09:44:01.783Z"
+      },
+      "relationships": {
+        "formulaMappings": {
+          "data": [
+            {
+              "id": "4184",
+              "type": "formulaMapping"
+            }
+          ]
+        }
       }
     }
   ]

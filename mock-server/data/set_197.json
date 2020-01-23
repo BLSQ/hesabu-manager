@@ -130,21 +130,24 @@
         "stableId": "37f0ddf4-b6a1-49a9-9ff6-7560cd907b8f"
       },
       "relationships": {
-        "inputs": {
+        "inputMappings": {
           "data": [
             {
               "id": "3998",
-              "type": "input"
+              "type": "inputMapping"
             },
             {
               "id": "4022",
-              "type": "input"
+              "type": "inputMapping"
             },
             {
               "id": "4023",
-              "type": "input"
+              "type": "inputMapping"
             }
           ]
+        },
+        "formulaMappings": {
+          "data": []
         }
       }
     },
@@ -160,17 +163,145 @@
         "stableId": "79b146ad-3b6a-4054-9667-f22510a3c621"
       },
       "relationships": {
-        "inputs": {
+        "inputMappings": {
           "data": [
             {
               "id": "3999",
-              "type": "input"
+              "type": "inputMapping"
             },
             {
               "id": "4024",
-              "type": "input"
+              "type": "inputMapping"
             }
           ]
+        },
+        "formulaMappings": {
+          "data": []
+        }
+      }
+    },
+    {
+      "id": "3998",
+      "type": "inputMapping",
+      "attributes": {
+        "formula": null,
+        "name": "B.4.1 Organisation des réunions d’unités pédagogiques au sein de l’école - palier atteint - ver",
+        "origin": "dataValueSets",
+        "stableId": "0403c5ca-e318-4349-afbf-a12f19e76fce",
+        "kind": "data_element"
+      },
+      "relationships": {
+        "externalRef": {
+          "data": {
+            "id": "u5fpv3DNY3V",
+            "type": "externalRef"
+          }
+        },
+        "input": {
+          "data": {
+            "id": "328",
+            "type": "input"
+          }
+        }
+      }
+    },
+    {
+      "id": "4022",
+      "type": "inputMapping",
+      "attributes": {
+        "formula": null,
+        "name": "B.4.1 Organisation des réunions d’unités pédagogiques au sein de l’école - max points",
+        "origin": "dataValueSets",
+        "stableId": "d4436d2f-b29d-43d6-8a5c-eb02ac0e3708",
+        "kind": "data_element"
+      },
+      "relationships": {
+        "externalRef": {
+          "data": {
+            "id": "t2bMQQPyQA2",
+            "type": "externalRef"
+          }
+        },
+        "input": {
+          "data": {
+            "id": "330",
+            "type": "input"
+          }
+        }
+      }
+    },
+    {
+      "id": "4023",
+      "type": "inputMapping",
+      "attributes": {
+        "formula": null,
+        "name": "PBF - Budget Disponible Definition - B.4",
+        "origin": "dataValueSets",
+        "stableId": "08e1ad37-e37f-4ae5-8fc1-a2d570dd3739",
+        "kind": "data_element"
+      },
+      "relationships": {
+        "externalRef": {
+          "data": {
+            "id": "qxIv469h7zP",
+            "type": "externalRef"
+          }
+        },
+        "input": {
+          "data": {
+            "id": "332",
+            "type": "input"
+          }
+        }
+      }
+    },
+    {
+      "id": "3999",
+      "type": "inputMapping",
+      "attributes": {
+        "formula": null,
+        "name": "B.4.2 Nombre de REP organisée pour le trimestre (Au moins une rencontre d’échange par mois entre les enseignants des écoles de proximité) - palier atteint - ver",
+        "origin": "dataValueSets",
+        "stableId": "4d07a0fc-2b85-4a4d-84b7-9f7aeaa71899",
+        "kind": "data_element"
+      },
+      "relationships": {
+        "externalRef": {
+          "data": {
+            "id": "DlJRjNb70kO",
+            "type": "externalRef"
+          }
+        },
+        "input": {
+          "data": {
+            "id": "328",
+            "type": "input"
+          }
+        }
+      }
+    },
+    {
+      "id": "4024",
+      "type": "inputMapping",
+      "attributes": {
+        "formula": null,
+        "name": "B.4.2 Nombre de REP organisée pour le trimestre (Au moins une rencontre d’échange par mois entre les enseignants des écoles de proximité) - max points",
+        "origin": "dataValueSets",
+        "stableId": "b06a83e8-f280-4815-870b-46a95e2a98fc",
+        "kind": "data_element"
+      },
+      "relationships": {
+        "externalRef": {
+          "data": {
+            "id": "KssGSa9LaaQ",
+            "type": "externalRef"
+          }
+        },
+        "input": {
+          "data": {
+            "id": "330",
+            "type": "input"
+          }
         }
       }
     }

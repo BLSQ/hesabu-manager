@@ -589,6 +589,16 @@
         "shortName": "Total Qualité",
         "createdAt": "2019-04-23T12:02:50.731Z",
         "updatedAt": "2019-05-15T09:44:01.771Z"
+      },
+      "relationships": {
+        "formulaMappings": {
+          "data": [
+            {
+              "id": "4026",
+              "type": "formulaMapping"
+            }
+          ]
+        }
       }
     },
     {
@@ -604,6 +614,16 @@
         "shortName": "total",
         "createdAt": "2019-04-04T11:23:04.430Z",
         "updatedAt": "2019-05-11T17:01:39.625Z"
+      },
+      "relationships": {
+        "formulaMappings": {
+          "data": [
+            {
+              "id": "4021",
+              "type": "formulaMapping"
+            }
+          ]
+        }
       }
     },
     {
@@ -619,6 +639,16 @@
         "shortName": "Qualité Globale",
         "createdAt": "2019-05-11T16:41:29.416Z",
         "updatedAt": "2019-05-15T07:31:54.436Z"
+      },
+      "relationships": {
+        "formulaMappings": {
+          "data": [
+            {
+              "id": "4160",
+              "type": "formulaMapping"
+            }
+          ]
+        }
       }
     },
     {
@@ -634,6 +664,16 @@
         "shortName": "b_total_subsidies",
         "createdAt": "2019-05-15T09:44:01.783Z",
         "updatedAt": "2019-05-15T09:44:01.783Z"
+      },
+      "relationships": {
+        "formulaMappings": {
+          "data": [
+            {
+              "id": "4184",
+              "type": "formulaMapping"
+            }
+          ]
+        }
       }
     },
     {
@@ -649,6 +689,16 @@
         "shortName": "total",
         "createdAt": "2019-05-23T08:56:38.810Z",
         "updatedAt": "2019-06-03T08:49:52.643Z"
+      },
+      "relationships": {
+        "formulaMappings": {
+          "data": [
+            {
+              "id": "4347",
+              "type": "formulaMapping"
+            }
+          ]
+        }
       }
     },
     {
@@ -664,6 +714,16 @@
         "shortName": "PTD - Subsides obtenus pour la Section A",
         "createdAt": "2019-05-22T14:10:22.756Z",
         "updatedAt": "2019-05-28T08:39:45.207Z"
+      },
+      "relationships": {
+        "formulaMappings": {
+          "data": [
+            {
+              "id": "4346",
+              "type": "formulaMapping"
+            }
+          ]
+        }
       }
     },
     {
@@ -679,6 +739,16 @@
         "shortName": "PTD - Subsides obtenus pour la Section B",
         "createdAt": "2019-05-29T09:03:50.029Z",
         "updatedAt": "2019-05-29T09:03:50.029Z"
+      },
+      "relationships": {
+        "formulaMappings": {
+          "data": [
+            {
+              "id": "4520",
+              "type": "formulaMapping"
+            }
+          ]
+        }
       }
     },
     {
@@ -694,6 +764,16 @@
         "shortName": "PTD - Subsides obtenus pour la Section C",
         "createdAt": "2019-06-03T08:49:52.650Z",
         "updatedAt": "2019-06-03T08:49:52.650Z"
+      },
+      "relationships": {
+        "formulaMappings": {
+          "data": [
+            {
+              "id": "4521",
+              "type": "formulaMapping"
+            }
+          ]
+        }
       }
     },
     {
@@ -709,6 +789,16 @@
         "shortName": "total",
         "createdAt": "2019-06-11T10:03:15.980Z",
         "updatedAt": "2019-06-11T10:03:15.980Z"
+      },
+      "relationships": {
+        "formulaMappings": {
+          "data": [
+            {
+              "id": "4603",
+              "type": "formulaMapping"
+            }
+          ]
+        }
       }
     },
     {
@@ -724,6 +814,16 @@
         "shortName": "PTSD - A Subsides Obtenus",
         "createdAt": "2019-06-11T10:00:55.986Z",
         "updatedAt": "2019-06-18T06:36:06.133Z"
+      },
+      "relationships": {
+        "formulaMappings": {
+          "data": [
+            {
+              "id": "4600",
+              "type": "formulaMapping"
+            }
+          ]
+        }
       }
     },
     {
@@ -739,6 +839,16 @@
         "shortName": "PTSD - B Subsides Obtenus",
         "createdAt": "2019-06-11T09:42:46.569Z",
         "updatedAt": "2019-06-18T06:36:06.145Z"
+      },
+      "relationships": {
+        "formulaMappings": {
+          "data": [
+            {
+              "id": "4601",
+              "type": "formulaMapping"
+            }
+          ]
+        }
       }
     },
     {
@@ -754,6 +864,16 @@
         "shortName": "PTSD - C Subsides Obtenus",
         "createdAt": "2019-06-11T10:02:34.020Z",
         "updatedAt": "2019-06-18T06:36:35.696Z"
+      },
+      "relationships": {
+        "formulaMappings": {
+          "data": [
+            {
+              "id": "4602",
+              "type": "formulaMapping"
+            }
+          ]
+        }
       }
     },
     {
@@ -769,6 +889,16 @@
         "shortName": "total",
         "createdAt": "2019-06-14T14:04:06.579Z",
         "updatedAt": "2019-06-18T10:15:47.827Z"
+      },
+      "relationships": {
+        "formulaMappings": {
+          "data": [
+            {
+              "id": "4684",
+              "type": "formulaMapping"
+            }
+          ]
+        }
       }
     },
     {
@@ -784,6 +914,16 @@
         "shortName": "INSPOOL - Subsides obtenus pour la Section C",
         "createdAt": "2019-06-14T14:04:06.571Z",
         "updatedAt": "2019-06-18T10:15:47.839Z"
+      },
+      "relationships": {
+        "formulaMappings": {
+          "data": [
+            {
+              "id": "4683",
+              "type": "formulaMapping"
+            }
+          ]
+        }
       }
     },
     {
@@ -799,6 +939,16 @@
         "shortName": "INSPOOL - Subsides obtenus pour la Section B",
         "createdAt": "2019-06-14T14:04:06.563Z",
         "updatedAt": "2019-06-18T10:15:47.849Z"
+      },
+      "relationships": {
+        "formulaMappings": {
+          "data": [
+            {
+              "id": "4682",
+              "type": "formulaMapping"
+            }
+          ]
+        }
       }
     },
     {
@@ -814,6 +964,16 @@
         "shortName": "INSPOOL - Subsides obtenus pour la Section A",
         "createdAt": "2019-06-14T14:04:06.555Z",
         "updatedAt": "2019-06-18T10:15:47.859Z"
+      },
+      "relationships": {
+        "formulaMappings": {
+          "data": [
+            {
+              "id": "4681",
+              "type": "formulaMapping"
+            }
+          ]
+        }
       }
     },
     {
@@ -829,6 +989,16 @@
         "shortName": "total",
         "createdAt": "2019-06-26T05:48:57.525Z",
         "updatedAt": "2019-06-26T15:25:30.472Z"
+      },
+      "relationships": {
+        "formulaMappings": {
+          "data": [
+            {
+              "id": "4695",
+              "type": "formulaMapping"
+            }
+          ]
+        }
       }
     },
     {
@@ -844,6 +1014,16 @@
         "shortName": "IPP - Subsides obtenus pour la Section A",
         "createdAt": "2019-06-26T15:25:30.483Z",
         "updatedAt": "2019-06-26T15:25:30.483Z"
+      },
+      "relationships": {
+        "formulaMappings": {
+          "data": [
+            {
+              "id": "4692",
+              "type": "formulaMapping"
+            }
+          ]
+        }
       }
     },
     {
@@ -859,6 +1039,16 @@
         "shortName": "IPP - Subsides obtenus pour la Section B",
         "createdAt": "2019-06-26T15:25:30.490Z",
         "updatedAt": "2019-06-26T15:25:30.490Z"
+      },
+      "relationships": {
+        "formulaMappings": {
+          "data": [
+            {
+              "id": "4693",
+              "type": "formulaMapping"
+            }
+          ]
+        }
       }
     },
     {
@@ -874,6 +1064,16 @@
         "shortName": "IPP - Subsides obtenus pour la Section C",
         "createdAt": "2019-06-26T15:25:30.497Z",
         "updatedAt": "2019-06-26T15:25:30.497Z"
+      },
+      "relationships": {
+        "formulaMappings": {
+          "data": [
+            {
+              "id": "4694",
+              "type": "formulaMapping"
+            }
+          ]
+        }
       }
     },
     {
@@ -889,6 +1089,16 @@
         "shortName": "Section B - Subsides obtenus",
         "createdAt": "2019-07-09T06:55:49.128Z",
         "updatedAt": "2019-07-09T06:58:17.519Z"
+      },
+      "relationships": {
+        "formulaMappings": {
+          "data": [
+            {
+              "id": "4775",
+              "type": "formulaMapping"
+            }
+          ]
+        }
       }
     },
     {
@@ -904,6 +1114,16 @@
         "shortName": "Section A - Subsides obtenus",
         "createdAt": "2019-07-09T06:54:20.412Z",
         "updatedAt": "2019-07-09T06:58:17.528Z"
+      },
+      "relationships": {
+        "formulaMappings": {
+          "data": [
+            {
+              "id": "4774",
+              "type": "formulaMapping"
+            }
+          ]
+        }
       }
     },
     {
@@ -919,6 +1139,16 @@
         "shortName": "Section C - Subsides obtenus",
         "createdAt": "2019-07-09T06:58:17.535Z",
         "updatedAt": "2019-07-09T06:58:17.535Z"
+      },
+      "relationships": {
+        "formulaMappings": {
+          "data": [
+            {
+              "id": "4776",
+              "type": "formulaMapping"
+            }
+          ]
+        }
       }
     },
     {
@@ -934,6 +1164,16 @@
         "shortName": "total",
         "createdAt": "2019-07-09T06:58:17.541Z",
         "updatedAt": "2019-07-09T06:58:17.541Z"
+      },
+      "relationships": {
+        "formulaMappings": {
+          "data": [
+            {
+              "id": "4814",
+              "type": "formulaMapping"
+            }
+          ]
+        }
       }
     }
   ]

@@ -134,21 +134,24 @@
         "stableId": "0b72fb08-1d8e-447a-b979-eab073f8742d"
       },
       "relationships": {
-        "inputs": {
+        "inputMappings": {
           "data": [
             {
               "id": "4002",
-              "type": "input"
+              "type": "inputMapping"
             },
             {
               "id": "4028",
-              "type": "input"
+              "type": "inputMapping"
             },
             {
               "id": "4029",
-              "type": "input"
+              "type": "inputMapping"
             }
           ]
+        },
+        "formulaMappings": {
+          "data": []
         }
       }
     },
@@ -164,17 +167,20 @@
         "stableId": "f4cd0ba1-9a99-4717-8c62-ff6f11f7f4b8"
       },
       "relationships": {
-        "inputs": {
+        "inputMappings": {
           "data": [
             {
               "id": "4003",
-              "type": "input"
+              "type": "inputMapping"
             },
             {
               "id": "4030",
-              "type": "input"
+              "type": "inputMapping"
             }
           ]
+        },
+        "formulaMappings": {
+          "data": []
         }
       }
     },
@@ -190,17 +196,195 @@
         "stableId": "9dcc2d93-bbd5-465d-a60c-369e691fbb9c"
       },
       "relationships": {
-        "inputs": {
+        "inputMappings": {
           "data": [
             {
               "id": "4004",
-              "type": "input"
+              "type": "inputMapping"
             },
             {
               "id": "4031",
-              "type": "input"
+              "type": "inputMapping"
             }
           ]
+        },
+        "formulaMappings": {
+          "data": []
+        }
+      }
+    },
+    {
+      "id": "4002",
+      "type": "inputMapping",
+      "attributes": {
+        "formula": null,
+        "name": "B.6.1 Les manuels scolaires par élève et par branche (Mathématique et Français) sont disponibles - ver",
+        "origin": "dataValueSets",
+        "stableId": "6ee79151-52e0-4bbf-a12a-2b03a984228b",
+        "kind": "data_element"
+      },
+      "relationships": {
+        "externalRef": {
+          "data": {
+            "id": "uMFsm2ZYbsC",
+            "type": "externalRef"
+          }
+        },
+        "input": {
+          "data": {
+            "id": "328",
+            "type": "input"
+          }
+        }
+      }
+    },
+    {
+      "id": "4028",
+      "type": "inputMapping",
+      "attributes": {
+        "formula": null,
+        "name": "B.6.1 Les manuels scolaires par élève et par branche (Mathématique et Français) sont disponibles - max points",
+        "origin": "dataValueSets",
+        "stableId": "5fb5d581-4b83-42d0-a302-30e427721984",
+        "kind": "data_element"
+      },
+      "relationships": {
+        "externalRef": {
+          "data": {
+            "id": "fToPRfewn9T",
+            "type": "externalRef"
+          }
+        },
+        "input": {
+          "data": {
+            "id": "330",
+            "type": "input"
+          }
+        }
+      }
+    },
+    {
+      "id": "4029",
+      "type": "inputMapping",
+      "attributes": {
+        "formula": null,
+        "name": "PBF - Budget Disponible Definition - B.6",
+        "origin": "dataValueSets",
+        "stableId": "2c0a7181-c76d-4afa-9c60-98ed9b4a9129",
+        "kind": "data_element"
+      },
+      "relationships": {
+        "externalRef": {
+          "data": {
+            "id": "U0uvkOdIREu",
+            "type": "externalRef"
+          }
+        },
+        "input": {
+          "data": {
+            "id": "332",
+            "type": "input"
+          }
+        }
+      }
+    },
+    {
+      "id": "4003",
+      "type": "inputMapping",
+      "attributes": {
+        "formula": null,
+        "name": "B.6.2 Tous les élèves retirent et remettent les livres en bon état - ver",
+        "origin": "dataValueSets",
+        "stableId": "be0a75a9-15ba-4446-858c-dfe95f847d32",
+        "kind": "data_element"
+      },
+      "relationships": {
+        "externalRef": {
+          "data": {
+            "id": "lps8iF8toan",
+            "type": "externalRef"
+          }
+        },
+        "input": {
+          "data": {
+            "id": "328",
+            "type": "input"
+          }
+        }
+      }
+    },
+    {
+      "id": "4030",
+      "type": "inputMapping",
+      "attributes": {
+        "formula": null,
+        "name": "B.6.2 Tous les élèves retirent et remettent les livres en bon état - max points",
+        "origin": "dataValueSets",
+        "stableId": "b497cb23-b0ff-42cb-9adc-8bc12b23edb7",
+        "kind": "data_element"
+      },
+      "relationships": {
+        "externalRef": {
+          "data": {
+            "id": "VCBz9piDZfA",
+            "type": "externalRef"
+          }
+        },
+        "input": {
+          "data": {
+            "id": "330",
+            "type": "input"
+          }
+        }
+      }
+    },
+    {
+      "id": "4004",
+      "type": "inputMapping",
+      "attributes": {
+        "formula": null,
+        "name": "B.6.3 Pourcentage des parents ou membres de famille qui assistent les élèves à faire le devoir à domicile (Signature des parents/membres familles dans les cahiers de devoir) - palier atteint - ver",
+        "origin": "dataValueSets",
+        "stableId": "54c756fe-5163-44da-ae90-dbabfba18a94",
+        "kind": "data_element"
+      },
+      "relationships": {
+        "externalRef": {
+          "data": {
+            "id": "qOHmxkZLbId",
+            "type": "externalRef"
+          }
+        },
+        "input": {
+          "data": {
+            "id": "328",
+            "type": "input"
+          }
+        }
+      }
+    },
+    {
+      "id": "4031",
+      "type": "inputMapping",
+      "attributes": {
+        "formula": null,
+        "name": "B.6.3 Pourcentage des parents ou membres de famille qui assistent les élèves à faire le devoir à domicile (Signature des parents/membres familles dans les cahiers de devoir) - max points",
+        "origin": "dataValueSets",
+        "stableId": "1d463929-4fba-4691-bc7d-e7a15cde3c40",
+        "kind": "data_element"
+      },
+      "relationships": {
+        "externalRef": {
+          "data": {
+            "id": "Iaug8NP10dR",
+            "type": "externalRef"
+          }
+        },
+        "input": {
+          "data": {
+            "id": "330",
+            "type": "input"
+          }
         }
       }
     }

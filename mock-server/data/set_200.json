@@ -126,21 +126,99 @@
         "stableId": "a3e1d112-c933-4769-9ce1-38d7acc79327"
       },
       "relationships": {
-        "inputs": {
+        "inputMappings": {
           "data": [
             {
               "id": "4005",
-              "type": "input"
+              "type": "inputMapping"
             },
             {
               "id": "4032",
-              "type": "input"
+              "type": "inputMapping"
             },
             {
               "id": "4033",
-              "type": "input"
+              "type": "inputMapping"
             }
           ]
+        },
+        "formulaMappings": {
+          "data": []
+        }
+      }
+    },
+    {
+      "id": "4005",
+      "type": "inputMapping",
+      "attributes": {
+        "formula": null,
+        "name": "B.7.1 Tous les cahiers de devoir des élèves sont contrôlés par l’enseignant - ver",
+        "origin": "dataValueSets",
+        "stableId": "3c8e1e8f-965a-414b-ac92-f1777649e066",
+        "kind": "data_element"
+      },
+      "relationships": {
+        "externalRef": {
+          "data": {
+            "id": "aJXDQE8Oj97",
+            "type": "externalRef"
+          }
+        },
+        "input": {
+          "data": {
+            "id": "328",
+            "type": "input"
+          }
+        }
+      }
+    },
+    {
+      "id": "4032",
+      "type": "inputMapping",
+      "attributes": {
+        "formula": null,
+        "name": "B.7.1 Tous les cahiers de devoir des élèves sont contrôlés par l’enseignant - max points",
+        "origin": "dataValueSets",
+        "stableId": "20662520-b64d-464e-8c98-adf05bbf113d",
+        "kind": "data_element"
+      },
+      "relationships": {
+        "externalRef": {
+          "data": {
+            "id": "JpyREr6XHzW",
+            "type": "externalRef"
+          }
+        },
+        "input": {
+          "data": {
+            "id": "330",
+            "type": "input"
+          }
+        }
+      }
+    },
+    {
+      "id": "4033",
+      "type": "inputMapping",
+      "attributes": {
+        "formula": null,
+        "name": "PBF - Budget Disponible Definition - B.7",
+        "origin": "dataValueSets",
+        "stableId": "58b97665-2b82-4857-bff5-28632aee655d",
+        "kind": "data_element"
+      },
+      "relationships": {
+        "externalRef": {
+          "data": {
+            "id": "UQuH209Qy5n",
+            "type": "externalRef"
+          }
+        },
+        "input": {
+          "data": {
+            "id": "332",
+            "type": "input"
+          }
         }
       }
     }
