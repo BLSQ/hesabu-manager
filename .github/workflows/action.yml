@@ -4,7 +4,7 @@ on: push
 jobs:
   deploy:
     runs-on: ubuntu-latest
-
+    if: github.ref == 'refs/heads/develop'
     steps:
       - uses: actions/checkout@master
 
