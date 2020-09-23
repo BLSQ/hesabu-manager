@@ -127,7 +127,8 @@
     "prettier-eslint": "^9.0.0",
     "prettier-eslint-cli": "^5.0.0",
     "remark-slug": "^5.1.2",
-    "semantic-release": "^16.0.1"
+    "semantic-release": "^16.0.1",
+    "aws-sdk": "^2.758.0"
   },
   "browserslist": [
     ">0.2%",
