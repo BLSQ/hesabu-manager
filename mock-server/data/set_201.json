@@ -126,21 +126,99 @@
         "stableId": "e0fc8ef6-3a60-4d17-8771-f1790a2eb763"
       },
       "relationships": {
-        "inputs": {
+        "inputMappings": {
           "data": [
             {
               "id": "4082",
-              "type": "input"
+              "type": "inputMapping"
             },
             {
               "id": "4083",
-              "type": "input"
+              "type": "inputMapping"
             },
             {
               "id": "4084",
-              "type": "input"
+              "type": "inputMapping"
             }
           ]
+        },
+        "formulaMappings": {
+          "data": []
+        }
+      }
+    },
+    {
+      "id": "4082",
+      "type": "inputMapping",
+      "attributes": {
+        "formula": null,
+        "name": "B.8 - Total max points",
+        "origin": "dataValueSets",
+        "stableId": "d08402dc-7624-4349-8903-db3a00b32449",
+        "kind": "data_element"
+      },
+      "relationships": {
+        "externalRef": {
+          "data": {
+            "id": "EQtIvPlNTWq",
+            "type": "externalRef"
+          }
+        },
+        "input": {
+          "data": {
+            "id": "330",
+            "type": "input"
+          }
+        }
+      }
+    },
+    {
+      "id": "4083",
+      "type": "inputMapping",
+      "attributes": {
+        "formula": null,
+        "name": "PBF - Budget Disponible Definition - B.8 - Collaboration parents-école",
+        "origin": "dataValueSets",
+        "stableId": "af351803-e7d4-40bd-a8ba-df9d0df9214c",
+        "kind": "data_element"
+      },
+      "relationships": {
+        "externalRef": {
+          "data": {
+            "id": "wWz9w5BVsZX",
+            "type": "externalRef"
+          }
+        },
+        "input": {
+          "data": {
+            "id": "332",
+            "type": "input"
+          }
+        }
+      }
+    },
+    {
+      "id": "4084",
+      "type": "inputMapping",
+      "attributes": {
+        "formula": null,
+        "name": "B.8 - Palier atteint - ver",
+        "origin": "dataValueSets",
+        "stableId": "9865532d-ce18-4319-8a66-abc93155e50f",
+        "kind": "data_element"
+      },
+      "relationships": {
+        "externalRef": {
+          "data": {
+            "id": "YNobeQtXR2i",
+            "type": "externalRef"
+          }
+        },
+        "input": {
+          "data": {
+            "id": "328",
+            "type": "input"
+          }
         }
       }
     }

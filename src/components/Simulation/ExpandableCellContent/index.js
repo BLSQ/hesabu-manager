@@ -78,7 +78,7 @@ const ExpandableCellContent = props => {
   return (
     <div className={classes.root}>
       <Typography variant="h6" className={classes.title}>
-        {humanize(cell.key)}
+        {humanize(cell.key || cell.formula)}
       </Typography>
       <ViewOnDhis2Btn cell={cell} />
       {cell.expression && (

@@ -96,6 +96,16 @@
         "shortName": "total",
         "createdAt": "2019-06-14T14:04:06.579Z",
         "updatedAt": "2019-06-18T10:15:47.827Z"
+      },
+      "relationships": {
+        "formulaMappings": {
+          "data": [
+            {
+              "id": "4684",
+              "type": "formulaMapping"
+            }
+          ]
+        }
       }
     },
     {
@@ -111,6 +121,16 @@
         "shortName": "INSPOOL - Subsides obtenus pour la Section C",
         "createdAt": "2019-06-14T14:04:06.571Z",
         "updatedAt": "2019-06-18T10:15:47.839Z"
+      },
+      "relationships": {
+        "formulaMappings": {
+          "data": [
+            {
+              "id": "4683",
+              "type": "formulaMapping"
+            }
+          ]
+        }
       }
     },
     {
@@ -126,6 +146,16 @@
         "shortName": "INSPOOL - Subsides obtenus pour la Section B",
         "createdAt": "2019-06-14T14:04:06.563Z",
         "updatedAt": "2019-06-18T10:15:47.849Z"
+      },
+      "relationships": {
+        "formulaMappings": {
+          "data": [
+            {
+              "id": "4682",
+              "type": "formulaMapping"
+            }
+          ]
+        }
       }
     },
     {
@@ -141,6 +171,16 @@
         "shortName": "INSPOOL - Subsides obtenus pour la Section A",
         "createdAt": "2019-06-14T14:04:06.555Z",
         "updatedAt": "2019-06-18T10:15:47.859Z"
+      },
+      "relationships": {
+        "formulaMappings": {
+          "data": [
+            {
+              "id": "4681",
+              "type": "formulaMapping"
+            }
+          ]
+        }
       }
     }
   ]

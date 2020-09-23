@@ -28,6 +28,7 @@ const Compounds = props => {
     compounds,
     filteredCompounds,
     sideSheetOpen,
+    loading,
   } = props;
 
   return (
@@ -53,6 +54,7 @@ const Compounds = props => {
       </TopBar>
       <PageContent>
         <CompoundsList
+          loading={loading}
           compounds={filteredCompounds}
           noItems={!compounds.length}
         />
@@ -75,13 +77,14 @@ const Compounds = props => {
 };
 
 Compounds.propTypes = {
+  compounds: PropTypes.array,
   filteredCompounds: PropTypes.array,
   handleToggleSearch: PropTypes.func,
   handleToggleSideSheet: PropTypes.func,
+  loading: PropTypes.bool,
   query: PropTypes.string,
   searchOpen: PropTypes.bool,
   setQuery: PropTypes.func,
-  compounds: PropTypes.array,
   sideSheetOpen: PropTypes.bool,
 };
 

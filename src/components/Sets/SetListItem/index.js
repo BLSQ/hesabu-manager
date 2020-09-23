@@ -22,9 +22,8 @@ const SetListItem = props => {
           className={classes.sectionTitle}
         >
           {name}
-          {id}
         </Typography>
-        {topics.length && (
+        {!!topics.length && (
           <IconButton
             className={classes.expandBtn}
             onClick={() => setExpanded(!expanded)}
@@ -40,7 +39,7 @@ const SetListItem = props => {
           className={classes.groupChip}
         />
       ))}
-      {expanded && topics.length && (
+      {expanded && !!topics.length && (
         <Typography variant="subtitle1" className={classes.description}>
           {topics.map(topic => topic.name).join(", ")}
         </Typography>

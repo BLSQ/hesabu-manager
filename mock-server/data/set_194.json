@@ -130,21 +130,24 @@
         "stableId": "88ff5257-e8ec-458d-acbb-9fd92a38ae8b"
       },
       "relationships": {
-        "inputs": {
+        "inputMappings": {
           "data": [
             {
               "id": "3996",
-              "type": "input"
+              "type": "inputMapping"
             },
             {
               "id": "4019",
-              "type": "input"
+              "type": "inputMapping"
             },
             {
               "id": "4020",
-              "type": "input"
+              "type": "inputMapping"
             }
           ]
+        },
+        "formulaMappings": {
+          "data": []
         }
       }
     },
@@ -160,17 +163,145 @@
         "stableId": "d779bf48-9862-4eb4-9c3a-586fcf1ae8c4"
       },
       "relationships": {
-        "inputs": {
+        "inputMappings": {
           "data": [
             {
               "id": "3997",
-              "type": "input"
+              "type": "inputMapping"
             },
             {
               "id": "4021",
-              "type": "input"
+              "type": "inputMapping"
             }
           ]
+        },
+        "formulaMappings": {
+          "data": []
+        }
+      }
+    },
+    {
+      "id": "3996",
+      "type": "inputMapping",
+      "attributes": {
+        "formula": null,
+        "name": "B.3.6 Taux de ponctualité - palier atteint - ver",
+        "origin": "dataValueSets",
+        "stableId": "dcefa2bb-ebc7-4a75-a8ca-c785dc579500",
+        "kind": "data_element"
+      },
+      "relationships": {
+        "externalRef": {
+          "data": {
+            "id": "ZzzjoD2q1Xu",
+            "type": "externalRef"
+          }
+        },
+        "input": {
+          "data": {
+            "id": "328",
+            "type": "input"
+          }
+        }
+      }
+    },
+    {
+      "id": "4019",
+      "type": "inputMapping",
+      "attributes": {
+        "formula": null,
+        "name": "PBF - Budget Disponible Definition - B.3",
+        "origin": "dataValueSets",
+        "stableId": "994737ed-7acb-4236-b9f1-1db090924986",
+        "kind": "data_element"
+      },
+      "relationships": {
+        "externalRef": {
+          "data": {
+            "id": "G4oHS9v1us0",
+            "type": "externalRef"
+          }
+        },
+        "input": {
+          "data": {
+            "id": "332",
+            "type": "input"
+          }
+        }
+      }
+    },
+    {
+      "id": "4020",
+      "type": "inputMapping",
+      "attributes": {
+        "formula": null,
+        "name": "B.3.6 Taux de ponctualité - max points",
+        "origin": "dataValueSets",
+        "stableId": "80059247-1a10-4f65-be01-d90cc76698d6",
+        "kind": "data_element"
+      },
+      "relationships": {
+        "externalRef": {
+          "data": {
+            "id": "NdEL1Y2y8wj",
+            "type": "externalRef"
+          }
+        },
+        "input": {
+          "data": {
+            "id": "330",
+            "type": "input"
+          }
+        }
+      }
+    },
+    {
+      "id": "3997",
+      "type": "inputMapping",
+      "attributes": {
+        "formula": null,
+        "name": "B.3.5 Taux de régularité - palier atteint - ver",
+        "origin": "dataValueSets",
+        "stableId": "526370d7-dd8e-4652-81cc-9a35776904d7",
+        "kind": "data_element"
+      },
+      "relationships": {
+        "externalRef": {
+          "data": {
+            "id": "m8ugULHOjxw",
+            "type": "externalRef"
+          }
+        },
+        "input": {
+          "data": {
+            "id": "328",
+            "type": "input"
+          }
+        }
+      }
+    },
+    {
+      "id": "4021",
+      "type": "inputMapping",
+      "attributes": {
+        "formula": null,
+        "name": "B.3.5 Taux de régularité - max points",
+        "origin": "dataValueSets",
+        "stableId": "29bf8620-2b60-45ef-9cf5-4b4d46ed4735",
+        "kind": "data_element"
+      },
+      "relationships": {
+        "externalRef": {
+          "data": {
+            "id": "TwzBOU47iuU",
+            "type": "externalRef"
+          }
+        },
+        "input": {
+          "data": {
+            "id": "330",
+            "type": "input"
+          }
         }
       }
     }

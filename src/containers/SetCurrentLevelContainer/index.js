@@ -3,33 +3,20 @@ import { makeStyles } from "@material-ui/styles";
 import ReactDataSheet from "react-datasheet";
 import PropTypes from "prop-types";
 import { APPBAR_WITH_TABS_HEIGHT } from "../../constants/ui";
+import SectionLoading from "../../components/Shared/SectionLoading";
+import {
+  fakeColumGenerator,
+  fakeRowGenerator,
+} from "../../utils/dataGridUtils";
 
 const useStyles = makeStyles(theme => ({
-  root: {
+  root: props => ({
     marginTop: APPBAR_WITH_TABS_HEIGHT - theme.spacing(2),
-    marginLeft: theme.spacing(-2),
-    padding: theme.spacing(2),
-  },
+    marginLeft: props.loading ? 0 : theme.spacing(-2),
+    padding: props.loading ? 0 : theme.spacing(2),
+    width: props.loading ? " 100%" : "inherit",
+  }),
 }));
-
-function fakeColumGenerator(number, readOnly = false) {
-  const items = [];
-  for (let index = 0; index < number; index++) {
-    items.push({
-      value: "",
-      readOnly,
-    });
-  }
-  return items;
-}
-
-function fakeRowGenerator(number, fakeColumn) {
-  const items = [];
-  for (let index = 0; index < number; index++) {
-    items.push(fakeColumn);
-  }
-  return items;
-}
 
 const SetCurrentLevelContainer = props => {
   const classes = useStyles(props);
@@ -71,11 +58,15 @@ const SetCurrentLevelContainer = props => {
   if (grid.length) {
     return (
       <div className={classes.root}>
-        <ReactDataSheet
-          data={grid}
-          valueRenderer={cell => cell.value}
-          attributesRenderer={cell => ({ "data-nowrap": cell.noWrap || {} })}
-        />
+        {props.loading ? (
+          <SectionLoading />
+        ) : (
+          <ReactDataSheet
+            data={grid}
+            valueRenderer={cell => cell.value}
+            attributesRenderer={cell => ({ "data-nowrap": cell.noWrap || {} })}
+          />
+        )}
       </div>
     );
   }

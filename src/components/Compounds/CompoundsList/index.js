@@ -6,9 +6,10 @@ import EmptySection from "../../EmptySection";
 
 const CompoundsList = props => {
   const { t } = useTranslation();
-  if (props.noItems)
+  if (!props.loading && props.noItems)
     return <EmptySection resourceName={t("resources.compound")} />;
-  if (!props.compounds.length) return <p>No compounds found</p>;
+  if (!props.loading && !props.compounds.length)
+    return <p>No compounds found</p>;
   return (
     <div>
       {props.compounds.map((set, index) => (
@@ -21,6 +22,7 @@ const CompoundsList = props => {
 CompoundsList.propTypes = {
   compounds: PropTypes.arrayOf(PropTypes.object),
   noItems: PropTypes.bool,
+  loading: PropTypes.bool,
 };
 
 export default CompoundsList;

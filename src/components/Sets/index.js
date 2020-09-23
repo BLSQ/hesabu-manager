@@ -1,5 +1,5 @@
 import React, { Fragment } from "react";
-import { Typography, CircularProgress } from "@material-ui/core";
+import { Typography } from "@material-ui/core";
 import { useTranslation } from "react-i18next";
 import { InfoBox } from "@blsq/manager-ui";
 import PropTypes from "prop-types";
@@ -14,6 +14,7 @@ import SetContainer from "../../containers/SetContainer";
 import useStyles from "./styles";
 import { formattedName } from "../../utils/textUtils";
 import SetsFilters from "./SetsFilters";
+import SectionLoading from "../Shared/SectionLoading";
 
 const Sets = props => {
   const classes = useStyles(props);
@@ -64,16 +65,18 @@ const Sets = props => {
         />
       </TopBar>
       <PageContent>
-        {loading && <CircularProgress />}
+        {loading && <SectionLoading />}
+        {!loading && (
+          <InfoBox name="hesabu-sets-infobox" className={classes.infoBox}>
+            {t("sets.index.infoBox")}
+          </InfoBox>
+        )}
         {errorMessage && (
           <InfoBox name="sets-fetch-errors" dismissable={false}>
             {errorMessage}
           </InfoBox>
         )}
-        <InfoBox name="hesabu-sets-infobox" className={classes.infoBox}>
-          {t("sets.index.infoBox")}
-        </InfoBox>
-        <SetList sets={filteredSets} noItems={!sets.length} />
+        <SetList sets={filteredSets} noItems={!sets.length} loading={loading} />
         <SetContainer open={modalOpen} setId={setId} />
       </PageContent>
       <SideSheet

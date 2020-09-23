@@ -174,21 +174,24 @@
         "stableId": "70c62d76-376c-4547-bb0e-ecca0e799725"
       },
       "relationships": {
-        "inputs": {
+        "inputMappings": {
           "data": [
             {
               "id": "3848",
-              "type": "input"
+              "type": "inputMapping"
             },
             {
               "id": "3849",
-              "type": "input"
+              "type": "inputMapping"
             },
             {
               "id": "3852",
-              "type": "input"
+              "type": "inputMapping"
             }
           ]
+        },
+        "formulaMappings": {
+          "data": []
         }
       }
     },
@@ -204,21 +207,24 @@
         "stableId": "a0783b4f-f983-463c-b14f-b4e6a1301647"
       },
       "relationships": {
-        "inputs": {
+        "inputMappings": {
           "data": [
             {
               "id": "3850",
-              "type": "input"
+              "type": "inputMapping"
             },
             {
               "id": "3851",
-              "type": "input"
+              "type": "inputMapping"
             },
             {
               "id": "3853",
-              "type": "input"
+              "type": "inputMapping"
             }
           ]
+        },
+        "formulaMappings": {
+          "data": []
         }
       }
     },
@@ -234,21 +240,24 @@
         "stableId": "2e4aa95d-40b8-4f92-8c63-bc95f9fd6a98"
       },
       "relationships": {
-        "inputs": {
+        "inputMappings": {
           "data": [
             {
               "id": "3854",
-              "type": "input"
+              "type": "inputMapping"
             },
             {
               "id": "3855",
-              "type": "input"
+              "type": "inputMapping"
             },
             {
               "id": "3856",
-              "type": "input"
+              "type": "inputMapping"
             }
           ]
+        },
+        "formulaMappings": {
+          "data": []
         }
       }
     },
@@ -264,21 +273,24 @@
         "stableId": "3e70a255-d16b-4b98-86b3-0f7d68d9e9ad"
       },
       "relationships": {
-        "inputs": {
+        "inputMappings": {
           "data": [
             {
               "id": "3857",
-              "type": "input"
+              "type": "inputMapping"
             },
             {
               "id": "3858",
-              "type": "input"
+              "type": "inputMapping"
             },
             {
               "id": "3863",
-              "type": "input"
+              "type": "inputMapping"
             }
           ]
+        },
+        "formulaMappings": {
+          "data": []
         }
       }
     },
@@ -294,21 +306,24 @@
         "stableId": "5a4a9ed8-0fd8-440a-bca6-3fef783c4c66"
       },
       "relationships": {
-        "inputs": {
+        "inputMappings": {
           "data": [
             {
               "id": "3859",
-              "type": "input"
+              "type": "inputMapping"
             },
             {
               "id": "3860",
-              "type": "input"
+              "type": "inputMapping"
             },
             {
               "id": "3864",
-              "type": "input"
+              "type": "inputMapping"
             }
           ]
+        },
+        "formulaMappings": {
+          "data": []
         }
       }
     },
@@ -324,21 +339,24 @@
         "stableId": "42bab832-a90f-466b-9464-b8cb6c1f254e"
       },
       "relationships": {
-        "inputs": {
+        "inputMappings": {
           "data": [
             {
               "id": "3861",
-              "type": "input"
+              "type": "inputMapping"
             },
             {
               "id": "3862",
-              "type": "input"
+              "type": "inputMapping"
             },
             {
               "id": "3865",
-              "type": "input"
+              "type": "inputMapping"
             }
           ]
+        },
+        "formulaMappings": {
+          "data": []
         }
       }
     },
@@ -354,21 +372,24 @@
         "stableId": "bb102ac5-50b3-4fb0-bd6e-a3679f61e69d"
       },
       "relationships": {
-        "inputs": {
+        "inputMappings": {
           "data": [
             {
               "id": "3866",
-              "type": "input"
+              "type": "inputMapping"
             },
             {
               "id": "3867",
-              "type": "input"
+              "type": "inputMapping"
             },
             {
               "id": "3878",
-              "type": "input"
+              "type": "inputMapping"
             }
           ]
+        },
+        "formulaMappings": {
+          "data": []
         }
       }
     },
@@ -384,21 +405,24 @@
         "stableId": "0af37adb-ccaf-4883-a3ff-609b379d6004"
       },
       "relationships": {
-        "inputs": {
+        "inputMappings": {
           "data": [
             {
               "id": "3868",
-              "type": "input"
+              "type": "inputMapping"
             },
             {
               "id": "3869",
-              "type": "input"
+              "type": "inputMapping"
             },
             {
               "id": "3879",
-              "type": "input"
+              "type": "inputMapping"
             }
           ]
+        },
+        "formulaMappings": {
+          "data": []
         }
       }
     },
@@ -414,21 +438,24 @@
         "stableId": "0c57d55b-bd3d-4226-9a52-21765c0e51ff"
       },
       "relationships": {
-        "inputs": {
+        "inputMappings": {
           "data": [
             {
               "id": "3870",
-              "type": "input"
+              "type": "inputMapping"
             },
             {
               "id": "3871",
-              "type": "input"
+              "type": "inputMapping"
             },
             {
               "id": "3880",
-              "type": "input"
+              "type": "inputMapping"
             }
           ]
+        },
+        "formulaMappings": {
+          "data": []
         }
       }
     },
@@ -444,21 +471,24 @@
         "stableId": "1e76535f-3dde-4dfe-a80c-467d2ebd0272"
       },
       "relationships": {
-        "inputs": {
+        "inputMappings": {
           "data": [
             {
               "id": "3872",
-              "type": "input"
+              "type": "inputMapping"
             },
             {
               "id": "3873",
-              "type": "input"
+              "type": "inputMapping"
             },
             {
               "id": "3881",
-              "type": "input"
+              "type": "inputMapping"
             }
           ]
+        },
+        "formulaMappings": {
+          "data": []
         }
       }
     },
@@ -474,21 +504,24 @@
         "stableId": "b5a58216-bc27-4bcd-b76e-84e3b02ae3de"
       },
       "relationships": {
-        "inputs": {
+        "inputMappings": {
           "data": [
             {
               "id": "3874",
-              "type": "input"
+              "type": "inputMapping"
             },
             {
               "id": "3875",
-              "type": "input"
+              "type": "inputMapping"
             },
             {
               "id": "3882",
-              "type": "input"
+              "type": "inputMapping"
             }
           ]
+        },
+        "formulaMappings": {
+          "data": []
         }
       }
     },
@@ -504,21 +537,924 @@
         "stableId": "493305b4-14fd-42b6-b920-b192a3e11e92"
       },
       "relationships": {
-        "inputs": {
+        "inputMappings": {
           "data": [
             {
               "id": "3876",
-              "type": "input"
+              "type": "inputMapping"
             },
             {
               "id": "3877",
-              "type": "input"
+              "type": "inputMapping"
             },
             {
               "id": "3883",
-              "type": "input"
+              "type": "inputMapping"
             }
           ]
+        },
+        "formulaMappings": {
+          "data": []
+        }
+      }
+    },
+    {
+      "id": "3848",
+      "type": "inputMapping",
+      "attributes": {
+        "formula": null,
+        "name": "Effectifs - Vérifié - Fille, 1ère année",
+        "origin": "dataValueSets",
+        "stableId": "1b2c9acf-bce4-49e3-a22a-ab79581053e3",
+        "kind": "data_element_coc"
+      },
+      "relationships": {
+        "externalRef": {
+          "data": {
+            "id": "rYVb2bQlURu.UTXVZzPwGjA",
+            "type": "externalRef"
+          }
+        },
+        "input": {
+          "data": {
+            "id": "320",
+            "type": "input"
+          }
+        }
+      }
+    },
+    {
+      "id": "3849",
+      "type": "inputMapping",
+      "attributes": {
+        "formula": null,
+        "name": "Effectifs - Déclaré - Fille, 1ère année",
+        "origin": "dataValueSets",
+        "stableId": "2d5ff1a0-0635-40f7-839a-e999948fac5c",
+        "kind": "data_element_coc"
+      },
+      "relationships": {
+        "externalRef": {
+          "data": {
+            "id": "KgBGVpWCXvN.UTXVZzPwGjA",
+            "type": "externalRef"
+          }
+        },
+        "input": {
+          "data": {
+            "id": "321",
+            "type": "input"
+          }
+        }
+      }
+    },
+    {
+      "id": "3852",
+      "type": "inputMapping",
+      "attributes": {
+        "formula": null,
+        "name": "Fille, 1ère année - PU config",
+        "origin": "dataValueSets",
+        "stableId": "524f2d70-c679-41f9-8def-29c4dd563d74",
+        "kind": "data_element"
+      },
+      "relationships": {
+        "externalRef": {
+          "data": {
+            "id": "Y2DAc1eDwUT",
+            "type": "externalRef"
+          }
+        },
+        "input": {
+          "data": {
+            "id": "322",
+            "type": "input"
+          }
+        }
+      }
+    },
+    {
+      "id": "3850",
+      "type": "inputMapping",
+      "attributes": {
+        "formula": null,
+        "name": "Effectifs - Déclaré - Fille, 2ème année",
+        "origin": "dataValueSets",
+        "stableId": "67f2569a-ed8c-4751-ab7c-1a7c471ca605",
+        "kind": "data_element_coc"
+      },
+      "relationships": {
+        "externalRef": {
+          "data": {
+            "id": "KgBGVpWCXvN.MH7HanPmz6V",
+            "type": "externalRef"
+          }
+        },
+        "input": {
+          "data": {
+            "id": "321",
+            "type": "input"
+          }
+        }
+      }
+    },
+    {
+      "id": "3851",
+      "type": "inputMapping",
+      "attributes": {
+        "formula": null,
+        "name": "Effectifs - Vérifié - Fille, 2ème année",
+        "origin": "dataValueSets",
+        "stableId": "2a93d536-0e69-474f-a4e7-cfeaf2e4070b",
+        "kind": "data_element_coc"
+      },
+      "relationships": {
+        "externalRef": {
+          "data": {
+            "id": "rYVb2bQlURu.MH7HanPmz6V",
+            "type": "externalRef"
+          }
+        },
+        "input": {
+          "data": {
+            "id": "320",
+            "type": "input"
+          }
+        }
+      }
+    },
+    {
+      "id": "3853",
+      "type": "inputMapping",
+      "attributes": {
+        "formula": null,
+        "name": "Fille, 2e année - PU config",
+        "origin": "dataValueSets",
+        "stableId": "958cd1c5-fbe2-401a-b75c-bb7bc74c768c",
+        "kind": "data_element"
+      },
+      "relationships": {
+        "externalRef": {
+          "data": {
+            "id": "Pa6GYruYOAD",
+            "type": "externalRef"
+          }
+        },
+        "input": {
+          "data": {
+            "id": "322",
+            "type": "input"
+          }
+        }
+      }
+    },
+    {
+      "id": "3854",
+      "type": "inputMapping",
+      "attributes": {
+        "formula": null,
+        "name": "Effectifs - Déclaré - Fille, 3ème année",
+        "origin": "dataValueSets",
+        "stableId": "9b266cef-db5b-42ad-8297-2f666864bce6",
+        "kind": "data_element_coc"
+      },
+      "relationships": {
+        "externalRef": {
+          "data": {
+            "id": "KgBGVpWCXvN.DfjHgHCnnSG",
+            "type": "externalRef"
+          }
+        },
+        "input": {
+          "data": {
+            "id": "321",
+            "type": "input"
+          }
+        }
+      }
+    },
+    {
+      "id": "3855",
+      "type": "inputMapping",
+      "attributes": {
+        "formula": null,
+        "name": "Effectifs - Vérifié - Fille, 3ème année",
+        "origin": "dataValueSets",
+        "stableId": "111f9dc5-e3da-403b-9012-5ed63e02d6d9",
+        "kind": "data_element_coc"
+      },
+      "relationships": {
+        "externalRef": {
+          "data": {
+            "id": "rYVb2bQlURu.DfjHgHCnnSG",
+            "type": "externalRef"
+          }
+        },
+        "input": {
+          "data": {
+            "id": "320",
+            "type": "input"
+          }
+        }
+      }
+    },
+    {
+      "id": "3856",
+      "type": "inputMapping",
+      "attributes": {
+        "formula": null,
+        "name": "Fille, 3e année - PU config",
+        "origin": "dataValueSets",
+        "stableId": "93ed6c48-dc2f-4e6d-b78b-2c3dde9635cf",
+        "kind": "data_element"
+      },
+      "relationships": {
+        "externalRef": {
+          "data": {
+            "id": "L2J2hX9Xgiy",
+            "type": "externalRef"
+          }
+        },
+        "input": {
+          "data": {
+            "id": "322",
+            "type": "input"
+          }
+        }
+      }
+    },
+    {
+      "id": "3857",
+      "type": "inputMapping",
+      "attributes": {
+        "formula": null,
+        "name": "Effectifs - Déclaré - Fille, 4ème année",
+        "origin": "dataValueSets",
+        "stableId": "63d5c3f9-f906-4923-9d7f-52aadfb349ae",
+        "kind": "data_element_coc"
+      },
+      "relationships": {
+        "externalRef": {
+          "data": {
+            "id": "KgBGVpWCXvN.dQyVk3a8ZRK",
+            "type": "externalRef"
+          }
+        },
+        "input": {
+          "data": {
+            "id": "321",
+            "type": "input"
+          }
+        }
+      }
+    },
+    {
+      "id": "3858",
+      "type": "inputMapping",
+      "attributes": {
+        "formula": null,
+        "name": "Effectifs - Vérifié - Fille, 4ème année",
+        "origin": "dataValueSets",
+        "stableId": "8da78be5-ba2e-46a7-8f2e-16a12f98215f",
+        "kind": "data_element_coc"
+      },
+      "relationships": {
+        "externalRef": {
+          "data": {
+            "id": "rYVb2bQlURu.dQyVk3a8ZRK",
+            "type": "externalRef"
+          }
+        },
+        "input": {
+          "data": {
+            "id": "320",
+            "type": "input"
+          }
+        }
+      }
+    },
+    {
+      "id": "3863",
+      "type": "inputMapping",
+      "attributes": {
+        "formula": null,
+        "name": "Fille, 4e année - PU config",
+        "origin": "dataValueSets",
+        "stableId": "9be67f66-2b70-4c93-a600-0779ed2d6cbb",
+        "kind": "data_element"
+      },
+      "relationships": {
+        "externalRef": {
+          "data": {
+            "id": "obu1vV8wetK",
+            "type": "externalRef"
+          }
+        },
+        "input": {
+          "data": {
+            "id": "322",
+            "type": "input"
+          }
+        }
+      }
+    },
+    {
+      "id": "3859",
+      "type": "inputMapping",
+      "attributes": {
+        "formula": null,
+        "name": "Effectifs - Déclaré - Fille, 5ème année",
+        "origin": "dataValueSets",
+        "stableId": "85a1135b-80ad-409c-bc22-daae5a3d0590",
+        "kind": "data_element_coc"
+      },
+      "relationships": {
+        "externalRef": {
+          "data": {
+            "id": "KgBGVpWCXvN.Opzj9ZD5orM",
+            "type": "externalRef"
+          }
+        },
+        "input": {
+          "data": {
+            "id": "321",
+            "type": "input"
+          }
+        }
+      }
+    },
+    {
+      "id": "3860",
+      "type": "inputMapping",
+      "attributes": {
+        "formula": null,
+        "name": "Effectifs - Vérifié - Fille, 5ème année",
+        "origin": "dataValueSets",
+        "stableId": "3b01d844-5168-495a-b17f-271748551afb",
+        "kind": "data_element_coc"
+      },
+      "relationships": {
+        "externalRef": {
+          "data": {
+            "id": "rYVb2bQlURu.Opzj9ZD5orM",
+            "type": "externalRef"
+          }
+        },
+        "input": {
+          "data": {
+            "id": "320",
+            "type": "input"
+          }
+        }
+      }
+    },
+    {
+      "id": "3864",
+      "type": "inputMapping",
+      "attributes": {
+        "formula": null,
+        "name": "Fille, 5e année - PU config",
+        "origin": "dataValueSets",
+        "stableId": "cc508377-37e6-4f7f-8c8b-312da5fb0d54",
+        "kind": "data_element"
+      },
+      "relationships": {
+        "externalRef": {
+          "data": {
+            "id": "mDyOJdGFblz",
+            "type": "externalRef"
+          }
+        },
+        "input": {
+          "data": {
+            "id": "322",
+            "type": "input"
+          }
+        }
+      }
+    },
+    {
+      "id": "3861",
+      "type": "inputMapping",
+      "attributes": {
+        "formula": null,
+        "name": "Effectifs - Déclaré - Fille, 6ème année",
+        "origin": "dataValueSets",
+        "stableId": "5e20fce1-52f6-4583-a3b3-dd8e99084803",
+        "kind": "data_element_coc"
+      },
+      "relationships": {
+        "externalRef": {
+          "data": {
+            "id": "KgBGVpWCXvN.XdGVoLRUbXN",
+            "type": "externalRef"
+          }
+        },
+        "input": {
+          "data": {
+            "id": "321",
+            "type": "input"
+          }
+        }
+      }
+    },
+    {
+      "id": "3862",
+      "type": "inputMapping",
+      "attributes": {
+        "formula": null,
+        "name": "Effectifs - Vérifié - Fille, 6ème année",
+        "origin": "dataValueSets",
+        "stableId": "c991e8e2-6366-4884-88e6-b789782a2f78",
+        "kind": "data_element_coc"
+      },
+      "relationships": {
+        "externalRef": {
+          "data": {
+            "id": "rYVb2bQlURu.XdGVoLRUbXN",
+            "type": "externalRef"
+          }
+        },
+        "input": {
+          "data": {
+            "id": "320",
+            "type": "input"
+          }
+        }
+      }
+    },
+    {
+      "id": "3865",
+      "type": "inputMapping",
+      "attributes": {
+        "formula": null,
+        "name": "Fille, 6e année - PU config",
+        "origin": "dataValueSets",
+        "stableId": "113d01e6-6ca7-44d0-a2de-aa276906d012",
+        "kind": "data_element"
+      },
+      "relationships": {
+        "externalRef": {
+          "data": {
+            "id": "KgaSXwVTbsP",
+            "type": "externalRef"
+          }
+        },
+        "input": {
+          "data": {
+            "id": "322",
+            "type": "input"
+          }
+        }
+      }
+    },
+    {
+      "id": "3866",
+      "type": "inputMapping",
+      "attributes": {
+        "formula": null,
+        "name": "Effectifs - Déclaré - Garçon, 1ère année",
+        "origin": "dataValueSets",
+        "stableId": "8c9d6eca-0050-45a1-9177-3f11491a1549",
+        "kind": "data_element_coc"
+      },
+      "relationships": {
+        "externalRef": {
+          "data": {
+            "id": "KgBGVpWCXvN.kzM8keD9QHw",
+            "type": "externalRef"
+          }
+        },
+        "input": {
+          "data": {
+            "id": "321",
+            "type": "input"
+          }
+        }
+      }
+    },
+    {
+      "id": "3867",
+      "type": "inputMapping",
+      "attributes": {
+        "formula": null,
+        "name": "Effectifs - Vérifié - Garçon, 1ère année",
+        "origin": "dataValueSets",
+        "stableId": "9e83c317-00eb-48b8-afac-e37ad5462ffb",
+        "kind": "data_element_coc"
+      },
+      "relationships": {
+        "externalRef": {
+          "data": {
+            "id": "rYVb2bQlURu.kzM8keD9QHw",
+            "type": "externalRef"
+          }
+        },
+        "input": {
+          "data": {
+            "id": "320",
+            "type": "input"
+          }
+        }
+      }
+    },
+    {
+      "id": "3878",
+      "type": "inputMapping",
+      "attributes": {
+        "formula": null,
+        "name": "Garçon, 1ère année - PU config",
+        "origin": "dataValueSets",
+        "stableId": "17cc3c2d-c833-471d-8bcf-965127898e83",
+        "kind": "data_element"
+      },
+      "relationships": {
+        "externalRef": {
+          "data": {
+            "id": "F4aTxtzg4hb",
+            "type": "externalRef"
+          }
+        },
+        "input": {
+          "data": {
+            "id": "322",
+            "type": "input"
+          }
+        }
+      }
+    },
+    {
+      "id": "3868",
+      "type": "inputMapping",
+      "attributes": {
+        "formula": null,
+        "name": "Effectifs - Déclaré - Garçon, 2ème année",
+        "origin": "dataValueSets",
+        "stableId": "94c310f3-c988-4636-8be2-bad6d9654bd6",
+        "kind": "data_element_coc"
+      },
+      "relationships": {
+        "externalRef": {
+          "data": {
+            "id": "KgBGVpWCXvN.wAQLv6OU2dV",
+            "type": "externalRef"
+          }
+        },
+        "input": {
+          "data": {
+            "id": "321",
+            "type": "input"
+          }
+        }
+      }
+    },
+    {
+      "id": "3869",
+      "type": "inputMapping",
+      "attributes": {
+        "formula": null,
+        "name": "Effectifs - Vérifié - Garçon, 2ème année",
+        "origin": "dataValueSets",
+        "stableId": "a024e6ea-44f7-4c59-ab9d-18d9152d3cfa",
+        "kind": "data_element_coc"
+      },
+      "relationships": {
+        "externalRef": {
+          "data": {
+            "id": "rYVb2bQlURu.wAQLv6OU2dV",
+            "type": "externalRef"
+          }
+        },
+        "input": {
+          "data": {
+            "id": "320",
+            "type": "input"
+          }
+        }
+      }
+    },
+    {
+      "id": "3879",
+      "type": "inputMapping",
+      "attributes": {
+        "formula": null,
+        "name": "Garçon, 2e année - PU config",
+        "origin": "dataValueSets",
+        "stableId": "e4ccb098-cda9-4961-b87d-9a15b792f8fc",
+        "kind": "data_element"
+      },
+      "relationships": {
+        "externalRef": {
+          "data": {
+            "id": "O0kfPrt3jkl",
+            "type": "externalRef"
+          }
+        },
+        "input": {
+          "data": {
+            "id": "322",
+            "type": "input"
+          }
+        }
+      }
+    },
+    {
+      "id": "3870",
+      "type": "inputMapping",
+      "attributes": {
+        "formula": null,
+        "name": "Effectifs - Déclaré - Garçon, 3ème année",
+        "origin": "dataValueSets",
+        "stableId": "a96f8102-dc4f-41f9-b9cd-a9507d507952",
+        "kind": "data_element_coc"
+      },
+      "relationships": {
+        "externalRef": {
+          "data": {
+            "id": "KgBGVpWCXvN.A9nEIRv7yW1",
+            "type": "externalRef"
+          }
+        },
+        "input": {
+          "data": {
+            "id": "321",
+            "type": "input"
+          }
+        }
+      }
+    },
+    {
+      "id": "3871",
+      "type": "inputMapping",
+      "attributes": {
+        "formula": null,
+        "name": "Effectifs - Vérifié - Garçon, 3ème année",
+        "origin": "dataValueSets",
+        "stableId": "84bed66d-f820-40ec-94f1-83bed0ca3b4a",
+        "kind": "data_element_coc"
+      },
+      "relationships": {
+        "externalRef": {
+          "data": {
+            "id": "rYVb2bQlURu.A9nEIRv7yW1",
+            "type": "externalRef"
+          }
+        },
+        "input": {
+          "data": {
+            "id": "320",
+            "type": "input"
+          }
+        }
+      }
+    },
+    {
+      "id": "3880",
+      "type": "inputMapping",
+      "attributes": {
+        "formula": null,
+        "name": "Garçon, 3e année - PU config",
+        "origin": "dataValueSets",
+        "stableId": "c50d733e-1a85-4c6b-aac3-bec94e0d9d7f",
+        "kind": "data_element"
+      },
+      "relationships": {
+        "externalRef": {
+          "data": {
+            "id": "x4XBgI1ViXB",
+            "type": "externalRef"
+          }
+        },
+        "input": {
+          "data": {
+            "id": "322",
+            "type": "input"
+          }
+        }
+      }
+    },
+    {
+      "id": "3872",
+      "type": "inputMapping",
+      "attributes": {
+        "formula": null,
+        "name": "Effectifs - Déclaré - Garçon, 4ème année",
+        "origin": "dataValueSets",
+        "stableId": "a24a6d1b-3ebd-47ae-91b9-7dc1e439b7f1",
+        "kind": "data_element_coc"
+      },
+      "relationships": {
+        "externalRef": {
+          "data": {
+            "id": "KgBGVpWCXvN.ejBSDcp6NvA",
+            "type": "externalRef"
+          }
+        },
+        "input": {
+          "data": {
+            "id": "321",
+            "type": "input"
+          }
+        }
+      }
+    },
+    {
+      "id": "3873",
+      "type": "inputMapping",
+      "attributes": {
+        "formula": null,
+        "name": "Effectifs - Vérifié - Garçon, 4ème année",
+        "origin": "dataValueSets",
+        "stableId": "98ca2b94-df7d-4787-8000-b000c913c8d8",
+        "kind": "data_element_coc"
+      },
+      "relationships": {
+        "externalRef": {
+          "data": {
+            "id": "rYVb2bQlURu.ejBSDcp6NvA",
+            "type": "externalRef"
+          }
+        },
+        "input": {
+          "data": {
+            "id": "320",
+            "type": "input"
+          }
+        }
+      }
+    },
+    {
+      "id": "3881",
+      "type": "inputMapping",
+      "attributes": {
+        "formula": null,
+        "name": "Garçon, 4e année - PU config",
+        "origin": "dataValueSets",
+        "stableId": "43e150f1-43f7-45d6-867a-ae3192b18b58",
+        "kind": "data_element"
+      },
+      "relationships": {
+        "externalRef": {
+          "data": {
+            "id": "yDxtqvScKWs",
+            "type": "externalRef"
+          }
+        },
+        "input": {
+          "data": {
+            "id": "322",
+            "type": "input"
+          }
+        }
+      }
+    },
+    {
+      "id": "3874",
+      "type": "inputMapping",
+      "attributes": {
+        "formula": null,
+        "name": "Effectifs - Déclaré - Garçon, 5ème année",
+        "origin": "dataValueSets",
+        "stableId": "74049d24-944f-47fa-908f-e119a159f291",
+        "kind": "data_element_coc"
+      },
+      "relationships": {
+        "externalRef": {
+          "data": {
+            "id": "KgBGVpWCXvN.mQvCrIht3K6",
+            "type": "externalRef"
+          }
+        },
+        "input": {
+          "data": {
+            "id": "321",
+            "type": "input"
+          }
+        }
+      }
+    },
+    {
+      "id": "3875",
+      "type": "inputMapping",
+      "attributes": {
+        "formula": null,
+        "name": "Effectifs - Vérifié - Garçon, 5ème année",
+        "origin": "dataValueSets",
+        "stableId": "74e193a9-f8b7-4090-853d-837c76abffbc",
+        "kind": "data_element_coc"
+      },
+      "relationships": {
+        "externalRef": {
+          "data": {
+            "id": "rYVb2bQlURu.mQvCrIht3K6",
+            "type": "externalRef"
+          }
+        },
+        "input": {
+          "data": {
+            "id": "320",
+            "type": "input"
+          }
+        }
+      }
+    },
+    {
+      "id": "3882",
+      "type": "inputMapping",
+      "attributes": {
+        "formula": null,
+        "name": "Garçon, 5e année - PU config",
+        "origin": "dataValueSets",
+        "stableId": "1c5fc710-396b-4c23-a908-3f680c24e103",
+        "kind": "data_element"
+      },
+      "relationships": {
+        "externalRef": {
+          "data": {
+            "id": "JDCzEDUvBF3",
+            "type": "externalRef"
+          }
+        },
+        "input": {
+          "data": {
+            "id": "322",
+            "type": "input"
+          }
+        }
+      }
+    },
+    {
+      "id": "3876",
+      "type": "inputMapping",
+      "attributes": {
+        "formula": null,
+        "name": "Effectifs - Déclaré - Garçon, 6ème année",
+        "origin": "dataValueSets",
+        "stableId": "853a35ab-0119-49af-b906-717a0d15bb3b",
+        "kind": "data_element_coc"
+      },
+      "relationships": {
+        "externalRef": {
+          "data": {
+            "id": "KgBGVpWCXvN.egm5rOCk7dw",
+            "type": "externalRef"
+          }
+        },
+        "input": {
+          "data": {
+            "id": "321",
+            "type": "input"
+          }
+        }
+      }
+    },
+    {
+      "id": "3877",
+      "type": "inputMapping",
+      "attributes": {
+        "formula": null,
+        "name": "Effectifs - Vérifié - Garçon, 6ème année",
+        "origin": "dataValueSets",
+        "stableId": "5d229141-8cfe-4fa8-b376-f95b971be142",
+        "kind": "data_element_coc"
+      },
+      "relationships": {
+        "externalRef": {
+          "data": {
+            "id": "rYVb2bQlURu.egm5rOCk7dw",
+            "type": "externalRef"
+          }
+        },
+        "input": {
+          "data": {
+            "id": "320",
+            "type": "input"
+          }
+        }
+      }
+    },
+    {
+      "id": "3883",
+      "type": "inputMapping",
+      "attributes": {
+        "formula": null,
+        "name": "Garçon, 6e année - PU config",
+        "origin": "dataValueSets",
+        "stableId": "4913ce93-f2b8-4fb2-820c-e980a1a2d512",
+        "kind": "data_element"
+      },
+      "relationships": {
+        "externalRef": {
+          "data": {
+            "id": "l8aNXhnolKf",
+            "type": "externalRef"
+          }
+        },
+        "input": {
+          "data": {
+            "id": "322",
+            "type": "input"
+          }
         }
       }
     }
