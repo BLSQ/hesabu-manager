@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+#
+# This script will deploy a production build (handled by
+# `react-scripts build`) to the DHIS specified in $DHIS2HOST. Since
+# we're using ENV-variables in our application, we need to make sure a
+# .env.production is found in this directory.
+#
+# Usage:
+#
+#      script/release
+
+
+export APP=Hesabu
+
+yarn build
+rm $APP.zip || true
+cd ./build && rm ./static/js/main.*.js.map && zip -r ../$APP.zip . && cd ..
