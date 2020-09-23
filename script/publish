@@ -1,3 +1,6 @@
+#!/usr/bin/env node
+// assume AWS_ACCESS_KEY and AWS_SECRET_ACCESS_KEY are available as env variable
+
 const path = require("path");
 const fs = require("fs");
 const AWS = require("aws-sdk");
