@@ -12,7 +12,7 @@ jobs:
         uses: actions/setup-node@v1
         with:
             node-version: 12.x
-      - run: sudo apt-get update && apt-get install -y zip
+      - run: sudo apt-get update && sudo apt-get install -y zip
       - run: yarn install
       - run: ./script/release
       - run: nodejs ./script/publish.js
