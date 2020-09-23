@@ -15,7 +15,7 @@ const uploadFile = (file, bucketName, region) => {
   const fileStream = fs.createReadStream(file);
   fileStream.on("error", function(err) {
     console.log("File Error", err);
-    exit(-1);
+    process.exit(-1);
   });
   uploadParams.Body = fileStream;
   uploadParams.Key = path.basename(file);
@@ -24,11 +24,11 @@ const uploadFile = (file, bucketName, region) => {
   s3.upload(uploadParams, function(err, data) {
     if (err) {
       console.log("Error", err);
-      exit(-1);
+      process.exit(-1);
     }
     if (data) {
       console.log("Upload Success", data.Location);
-      exit(0);
+      process.exit(0);
     }
   });
 };
