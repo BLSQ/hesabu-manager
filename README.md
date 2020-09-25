@@ -15,6 +15,46 @@ It will become the new frontend to the existing [Hesabu API](https://github.com/
 
 # Development
 
+## create a .env
+
+### .env to point to a prod dhis2 and prod hesabu api
+
+```bash
+REACT_APP_DHIS2_URL=
+REACT_APP_USER=
+REACT_APP_PASSWORD=
+```
+
+### .env to point to a prod dhis2 and local hesabu api
+
+```bash
+REACT_APP_DHIS2_URL=
+REACT_APP_USER=
+REACT_APP_PASSWORD=
+
+REACT_APP_API_URL=http://localhost:3001/api
+REACT_APP_API_TOKEN=<<your_project_token>>
+```
+
+## .env to point to a play dhis2 and mock hesabu api
+
+```bash
+REACT_APP_DHIS2_URL=https://play.dhis2.org/2.30
+REACT_APP_USER=admin
+REACT_APP_PASSWORD=district
+
+REACT_APP_API_URL=http://localhost:4567/api
+REACT_APP_API_TOKEN=<<unused>>
+```
+
+Don't forget to start the mock server (ruby required)
+
+```bash
+cd ../mock-server
+bundle install
+bundle exec ruby app.rb
+```
+
 ## Getting started
 
 Run the app. This a [CRA](https://github.com/facebook/create-react-app) app, so all standard commands works as expected.
@@ -47,4 +87,6 @@ If you want to avoid this hook, run with `HUSKY_SKIP_HOOKS=1`, and run `yarn for
 
 # Deploy
 
-TODO
+- except for debugging purpose don't deploy individually, or from your laptop.
+- the cra app is build based on the `development` branch by github actions and published to s3
+- the deployment of this s3 artefact is done via a rake task in the `orbf2` [repository](https://github.com/blsq/orbf2) to target all the dhis2 configured in the database.
