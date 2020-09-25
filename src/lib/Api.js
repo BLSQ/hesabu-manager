@@ -53,9 +53,7 @@ class Api {
   projectTokenAndUrl = () => {
     return getInstance().then(d2 => {
       return d2.dataStore.get("hesabu").then(namespace => {
-        return namespace.get("hesabu").then(value => {
-          return value;
-        });
+        return namespace.get("hesabu");
       });
     });
   };
