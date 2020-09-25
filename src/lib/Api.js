@@ -12,6 +12,7 @@ class Api {
     this.user = process.env.REACT_APP_USER;
     this.password = process.env.REACT_APP_PASSWORD;
     this.ignoredStores = [""];
+    this.initialize();
   }
 
   /**
@@ -49,13 +50,10 @@ class Api {
     return this;
   }
 
-  projectToken = () => {
+  projectTokenAndUrl = () => {
     return getInstance().then(d2 => {
-      return d2.dataStore.get("blsq-dataviz").then(namespace => {
-        console.log(namespace);
-        return namespace.get(window.tokenName).then(value => {
-          return value["token"];
-        });
+      return d2.dataStore.get("hesabu").then(namespace => {
+        return namespace.get("hesabu");
       });
     });
   };
