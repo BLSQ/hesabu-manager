@@ -20,7 +20,6 @@ const useStyles = makeStyles(theme => ({
 const ViewOnDhis2Btn = props => {
   const { cell } = props;
   const classes = useStyles(props);
-  const { t } = useTranslation();
   const [identifiableObject, setIdentifiableObject] = useState(undefined);
 
   const isInput = !!cell.state;
