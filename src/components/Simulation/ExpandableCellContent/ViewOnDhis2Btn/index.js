@@ -1,10 +1,7 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { Button, makeStyles } from "@material-ui/core";
-import { useTranslation } from "react-i18next";
 import { Dhis2Icon } from "@blsq/manager-ui";
-
-import camelCase from "lodash/camelCase";
 
 import Api from "../../../../lib/Api";
 
@@ -70,7 +67,7 @@ const ViewOnDhis2Btn = props => {
     };
 
     fetchData();
-  }, [cell]);
+  }, [cell, isInput, isOutput]);
 
   if (!isInput && !isOutput) {
     return null;
