@@ -1,4 +1,4 @@
-name: Add build and publish Bucket
+name: Build and publish to s3 bucket
 on: push
 
 jobs:
@@ -12,7 +12,12 @@ jobs:
         with:
             node-version: 12.x
       - run: yarn install
-      - run: yarn test:coverage
+      - uses: paambaati/codeclimate-action@v2.2.4
+            env:
+                CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
+            with:
+                coverageCommand: yarn test:coverage
+
 
   deploy:
     runs-on: ubuntu-latest
