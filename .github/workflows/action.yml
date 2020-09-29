@@ -13,7 +13,8 @@ jobs:
             node-version: 12.x
       - run: yarn install
       - run: yarn test:coverage
-      - uses: paambaati/codeclimate-action@v2.7.1
+      - name: Test & publish code coverage
+        uses: paambaati/codeclimate-action@v2.7.1
         env:
             CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
             DEBUG: true
