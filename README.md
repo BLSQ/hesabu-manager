@@ -1,6 +1,6 @@
 # Bluesquare hesabu manager
 
-[![Codeship Status for BLSQ/hesabu-manager](https://app.codeship.com/projects/26ac2980-f254-0137-7e72-028602bdcca6/status?branch=master)](https://app.codeship.com/projects/375752) [![Maintainability](https://api.codeclimate.com/v1/badges/172b174db9e2461c41bc/maintainability)](https://codeclimate.com/github/BLSQ/hesabu-manager/maintainability)
+[https://github.com/BLSQ/hesabu-manager/workflows/Build%20and%20publish%20to%20s3%20bucket/badge.svg](https://github.com/BLSQ/hesabu-manager/actions) [![Maintainability](https://api.codeclimate.com/v1/badges/172b174db9e2461c41bc/maintainability)](https://codeclimate.com/github/BLSQ/hesabu-manager/maintainability)
 
 Is a dhis2 (react) app to manage a blsq hesabu project. It connects to the Hesabu api and allows you to manage your Hesabu from within DHIS2.
 
