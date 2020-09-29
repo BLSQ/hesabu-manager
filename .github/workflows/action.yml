@@ -2,6 +2,18 @@ name: Add build and publish Bucket
 on: push
 
 jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+
+      - name: Use Node.js 12.x
+        uses: actions/setup-node@v1
+        with:
+            node-version: 12.x
+      - run: yarn install
+      - run: yarn test:coverage
+
   deploy:
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/develop'

@@ -41,6 +41,10 @@ export default {
           shortcuts: "Shortcuts",
         },
       },
+      topic: {
+        name: "Name",
+        code: "Code",
+      },
       cellExplanation: {
         noSelectedCell: "Please select a cell to see related information",
         tabs: {

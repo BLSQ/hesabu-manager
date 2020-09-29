@@ -40,7 +40,7 @@ const prepareHeaders = (collection, t) => {
 };
 
 const prepareData = items => {
-  return items.sort((a, b) => sortCollator.compare(a.key, b.key));
+  return items.sort((a, b) => sortCollator.compare(a.meta.key, b.meta.key));
 };
 
 function isTopic(cellValue) {
@@ -72,7 +72,13 @@ const cellTooltip = (cell, t) => {
     return t("tooltips.cell.output");
   }
   if (isTopic(cell.value)) {
-    return cell.value.value;
+    return (
+      <div>
+        {t("topic.code")} : {cell.value.key}
+        <br />
+        {t("topic.name")} : {cell.value.value}
+      </div>
+    );
   }
 
   return t("tooltips.cell.default");
@@ -141,7 +147,6 @@ const Table = props => {
                       key={`${cellProps.key}-tooltip-${cellProps.value}`}
                       title={cellTooltip(cell, t)}
                       enterDelay={500}
-                      open={isTopic(cell.value) ? false : undefined}
                     >
                       <TableCell
                         {...cellProps}
