@@ -13,10 +13,10 @@ jobs:
             node-version: 12.x
       - run: yarn install
       - uses: paambaati/codeclimate-action@v2.2.4
-            env:
-                CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
-            with:
-                coverageCommand: yarn test:coverage
+        env:
+            CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
+        with:
+            coverageCommand: yarn test:coverage
 
 
   deploy:
