@@ -6,21 +6,21 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
-
       - name: Use Node.js 12.x
         uses: actions/setup-node@v1
         with:
             node-version: 12.x
       - run: yarn install
-      - run: yarn test:coverage
-      - name: Test & publish code coverage
-        uses: paambaati/codeclimate-action@v2.7.1
+      - run: curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > "./cc-test-reporter"
+      - run: chmod +x "./cc-test-reporter"
+      - run: cc-test-reporter before-build
         env:
             CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
-            DEBUG: true
-        with:
-            coverageCommand: yarn test:coverage
-            debug: true
+      - run: yarn test:coverage
+      - run: cc-test-reporter after-build --exit-code $?
+        env:
+            CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
+
 
 
   deploy:
@@ -28,7 +28,6 @@ jobs:
     if: github.ref == 'refs/heads/develop'
     steps:
       - uses: actions/checkout@master
-
       - name: Use Node.js 12.x
         uses: actions/setup-node@v1
         with:
