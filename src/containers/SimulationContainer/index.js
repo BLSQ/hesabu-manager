@@ -42,7 +42,13 @@ class SimulationContainer extends Component {
       }, 2000);
     }
 
-    if (this.props.location.search !== prevProps.location.search) {
+    const search = queryString.parse(this.props.location.search);
+    const previousSearch = queryString.parse(prevProps.location.search);
+
+    if (
+      previousSearch.periods !== search.periods ||
+      previousSearch.orgUnit !== search.orgUnit
+    ) {
       this.fetchSimulation();
     }
   }

@@ -1,11 +1,12 @@
 import wretch from "wretch";
 import { RECEIVE_TOKEN, RECEIVE_TOKEN_ERROR } from "../constants/types";
-
+import store from "../store";
 import i18n from "../lib/i18n";
 
-export const receiveToken = token => ({
+export const receiveToken = ({ token, url }) => ({
   type: RECEIVE_TOKEN,
   token,
+  url,
 });
 
 export const receiveTokenError = error => ({
@@ -14,18 +15,20 @@ export const receiveTokenError = error => ({
 });
 
 export const externalApi = () => {
-  // TODO: Fetch token from Dhis instead of baking it in at compile time
-  // const state = store.getState();
-  // const { token } = state.api;
-  const token = process.env.REACT_APP_API_TOKEN;
+  const state = store.getState();
+  const { token, url } = state.api;
+
+  const finalUrl = process.env.REACT_APP_API_URL || `${url}/api`;
+  const finalToken = process.env.REACT_APP_API_TOKEN || token;
+
   const headers = {
     "Accept-Language": i18n.language,
     Accept: "application/vnd.api+json;version=2",
-    "X-Token": token,
+    "X-Token": finalToken,
   };
 
   return wretch()
-    .url(process.env.REACT_APP_API_URL)
+    .url(finalUrl)
     .headers(headers)
     .options({ encoding: "same-origin", headers });
 };

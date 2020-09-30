@@ -116,6 +116,7 @@
     "@semantic-release/commit-analyzer": "^7.0.0",
     "@semantic-release/git": "^8.0.0",
     "@semantic-release/release-notes-generator": "^7.3.4",
+    "aws-sdk": "^2.758.0",
     "eslint-config-airbnb": "^18.0.1",
     "eslint-config-prettier": "^6.4.0",
     "eslint-plugin-import": "^2.18.2",
