@@ -3,7 +3,6 @@ import { makeStyles } from "@material-ui/styles";
 import ReactDataSheet from "react-datasheet";
 import PropTypes from "prop-types";
 import { APPBAR_WITH_TABS_HEIGHT } from "../../constants/ui";
-import { getIn } from "formik";
 import SectionLoading from "../../components/Shared/SectionLoading";
 import {
   fakeColumGenerator,
@@ -17,10 +16,15 @@ import {
   Button,
   DialogContentText,
   Chip,
+  Grid,
+  Typography,
+  Tooltip,
 } from "@material-ui/core";
 import CloudDownload from "@material-ui/icons/CloudDownload";
 import CheckCircle from "@material-ui/icons/CheckCircle";
+import RemoveCircleOutlineIcon from "@material-ui/icons/RemoveCircleOutline";
 import Transition from "../../components/Shared/Transition";
+import humanize from "string-humanize";
 
 const useStyles = makeStyles(theme => ({
   root: props => ({
@@ -31,38 +35,102 @@ const useStyles = makeStyles(theme => ({
   }),
 }));
 
-const DialogEditor = props => {
-  console.log("rpops", props);
-
+const DialogEditor = ({ cell }) => {
   return (
     <Dialog open={true} TransitionComponent={Transition}>
-      <DialogTitle id="form-dialog-title">
-        {props.cell.inputMapping.name}
-      </DialogTitle>
+      <DialogTitle id="form-dialog-title">{cell.inputMapping.name}</DialogTitle>
       <DialogContent>
         <DialogContentText>
-          <Chip label={props.cell.inputMapping.kind} />
-          <p>
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quae, quia
-            natus nesciunt necessitatibus exercitationem inventore autem
-            consectetur modi voluptas blanditiis nam incidunt esse debitis
-            veniam similique repellat eveniet architecto ullam?
-          </p>
+          <Grid container spacing={2}>
+            <Grid item>
+              <Chip label={cell.inputMapping.kind} />
+            </Grid>
+            <Grid item>
+              <Chip label={cell.inputMapping.origin} />
+            </Grid>
+          </Grid>
         </DialogContentText>
       </DialogContent>
       <DialogActions>
         <Button color="primary">Cancel</Button>
-        <Button color="primary">Subscribe</Button>
+        <Button color="primary">Ok</Button>
       </DialogActions>
     </Dialog>
   );
 };
 
+const userFormulaViewerStyles = makeStyles(theme => ({
+  tooltipCustomWidth: {
+    width: 1800,
+    maxWidth: 1800,
+  },
+}));
+
+const FormulaViewer = ({ value }) => {
+  const formula = value;
+  const classes = userFormulaViewerStyles();
+  return (
+    <Tooltip
+      title={
+        <div className={classes.tooltipCustomWidth}>
+          <pre>
+            {formula.code} := {"\n"}
+            {"\t"}
+            {formula.expression}{" "}
+          </pre>
+          <br />
+          {formula.shortName}
+          {formula.description}
+          <br />
+          {formula.frequency}
+          {formula.exportable_formula_code && (
+            <span>Exportable if : {formula.exportable_formula_code}</span>
+          )}
+          <br />
+        </div>
+      }
+    >
+      <Typography>{humanize(formula.code)}</Typography>
+    </Tooltip>
+  );
+};
+
+const FormulaMappingViewer = props => {
+  const formulaMapping = props.value;
+
+  return formulaMapping ? (
+    <Tooltip title={formulaMapping.externalReference}>
+      <CloudDownload />
+    </Tooltip>
+  ) : (
+    <RemoveCircleOutlineIcon />
+  );
+};
+
+const InputMappingViewer = props => {
+  const inputMapping = props.value;
+
+  return inputMapping ? (
+    <Tooltip
+      title={
+        <div>
+          {inputMapping.name} {inputMapping.origin}
+        </div>
+      }
+    >
+      <CheckCircle />
+    </Tooltip>
+  ) : (
+    <RemoveCircleOutlineIcon />
+  );
+};
+
 const SetCurrentLevelContainer = props => {
   const classes = useStyles(props);
-  const { topics, inputs } = props.set;
+  const { topics, inputs, topicFormulas } = props.set;
   const safeTopics = topics || [];
   const safeInputs = inputs || [];
+  const safeTopicFormulas = topicFormulas || [];
 
   const findInputMapping = (input, inputMappings) => {
     return inputMappings.find(
@@ -75,6 +143,12 @@ const SetCurrentLevelContainer = props => {
       { value: "", disableEvents: true, readOnly: true },
       ...safeInputs.map(input => ({
         value: input.name,
+        disableEvents: true,
+        readOnly: true,
+      })),
+      ...safeTopicFormulas.map(formula => ({
+        value: formula,
+        valueViewer: FormulaViewer,
         disableEvents: true,
         readOnly: true,
       })),
@@ -95,10 +169,19 @@ const SetCurrentLevelContainer = props => {
         const inputMapping = findInputMapping(input, topic.inputMappings);
 
         return {
-          value: getIn(inputMapping, "name"),
+          value: inputMapping,
           inputMapping,
-          valueViewer: inputMapping ? CheckCircle : CloudDownload,
+          valueViewer: InputMappingViewer,
           dataEditor: DialogEditor,
+        };
+      }),
+      ...safeTopicFormulas.map(formula => {
+        const formulaMapping = formula.formulaMappings.find(
+          mapping => mapping.topicId == topic.id, //TODO why some string and some int ?
+        );
+        return {
+          value: formulaMapping,
+          valueViewer: FormulaMappingViewer,
         };
       }),
       ...fakeColumGenerator(10),
