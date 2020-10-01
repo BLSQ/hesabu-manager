@@ -1,20 +1,31 @@
-import { DHIS2_RECEIVE_DE, DHIS2_REQUEST_DE } from "../constants/types";
+import { DHIS2_REQUEST_DE, DHIS2_RECEIVE_DE } from "../constants/types";
 
-function api(
+function dhis2(
   state = {
-    token: null,
-    error: null,
+    dataElements: null,
+    indicators: null,
+    categoryOptionCombos: null,
+    status: null,
   },
   action,
 ) {
   switch (action.type) {
-    case RECEIVE_TOKEN:
-      return { ...state, token: action.token, url: action.url };
-    case RECEIVE_TOKEN_ERROR:
-      return { ...state, error: action.error };
+    case DHIS2_RECEIVE_DE:
+      return {
+        ...state,
+        status: "LOADED",
+        dataElements: action.dataElements,
+        indicators: action.indicators,
+        categoryOptionCombos: action.categoryOptionCombos,
+      };
+    case DHIS2_REQUEST_DE:
+      return {
+        ...state,
+        status: "LOADING",
+      };
     default:
       return state;
   }
 }
 
-export default api;
+export default dhis2;

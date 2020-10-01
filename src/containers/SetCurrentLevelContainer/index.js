@@ -26,6 +26,8 @@ import RemoveCircleOutlineIcon from "@material-ui/icons/RemoveCircleOutline";
 import Transition from "../../components/Shared/Transition";
 import humanize from "string-humanize";
 
+import { dhis2LookupElement } from "../../lib/dhis2Lookups";
+
 const useStyles = makeStyles(theme => ({
   root: props => ({
     marginTop: APPBAR_WITH_TABS_HEIGHT - theme.spacing(2),
@@ -34,8 +36,75 @@ const useStyles = makeStyles(theme => ({
     width: props.loading ? " 100%" : "inherit",
   }),
 }));
+const FieldValue = ({ field, value }) => {
+  return (
+    <Grid container spacing={4}>
+      <Grid item>
+        <Typography>{humanize(field)}:</Typography>
+      </Grid>
+      <Grid item>
+        <Typography>
+          <b>{value}</b>
+        </Typography>
+      </Grid>
+    </Grid>
+  );
+};
+const Dhis2ElementDetails = ({ dhis2Object }) => {
+  return (
+    <Grid container spacing={2} direction="column">
+      <Grid item>{dhis2Object && dhis2Object.name}</Grid>
+      {dhis2Object &&
+        dhis2Object.dimensionItemType === "DATA_ELEMENT" && [
+          dhis2Object.categoryOptionCombo && (
+            <FieldValue
+              field="categoryOptionCombo"
+              value={dhis2Object.categoryOptionCombo.name}
+            />
+          ),
+          <FieldValue field="valueType" value={dhis2Object.valueType} />,
+          <FieldValue
+            field="aggregationType"
+            value={dhis2Object.aggregationType}
+          />,
+        ]}
+      {dhis2Object && dhis2Object.dimensionItemType === "INDICATOR" && (
+        <FieldValue field="numerator" value={dhis2Object.numerator} />
+      )}
+    </Grid>
+  );
+};
 
-const DialogEditor = ({ cell }) => {
+const FormulaMappingDialogEditor = ({ cell }) => {
+  const formulaMapping = cell.value;
+
+  let dhis2Object = formulaMapping
+    ? dhis2LookupElement(formulaMapping.externalReference)
+    : undefined;
+
+  return (
+    <Dialog open={true} TransitionComponent={Transition}>
+      <DialogTitle id="form-dialog-title">
+        {dhis2Object && dhis2Object.name}
+      </DialogTitle>
+      <DialogContent>
+        <DialogContentText>
+          {dhis2Object === undefined && <Typography>Nothing mapped</Typography>}
+          {dhis2Object && <Dhis2ElementDetails dhis2Object={dhis2Object} />}
+        </DialogContentText>
+      </DialogContent>
+      <DialogActions>
+        <Button color="primary">Cancel</Button>
+        <Button color="primary">Ok</Button>
+      </DialogActions>
+    </Dialog>
+  );
+};
+
+const InputMappingDialogEditor = ({ cell }) => {
+  const inputMapping = cell.inputMapping;
+  let dhis2Object = dhis2LookupElement(inputMapping.externalReference);
+
   return (
     <Dialog open={true} TransitionComponent={Transition}>
       <DialogTitle id="form-dialog-title">{cell.inputMapping.name}</DialogTitle>
@@ -48,7 +117,13 @@ const DialogEditor = ({ cell }) => {
             <Grid item>
               <Chip label={cell.inputMapping.origin} />
             </Grid>
+            {cell.inputMapping.externalReference && (
+              <Grid item>
+                <Chip label={cell.inputMapping.externalReference} />
+              </Grid>
+            )}
           </Grid>
+          <Dhis2ElementDetails dhis2Object={dhis2Object} />
         </DialogContentText>
       </DialogContent>
       <DialogActions>
@@ -97,9 +172,18 @@ const FormulaViewer = ({ value }) => {
 
 const FormulaMappingViewer = props => {
   const formulaMapping = props.value;
+  let dataElement = dhis2LookupElement(formulaMapping.externalReference);
 
   return formulaMapping ? (
-    <Tooltip title={formulaMapping.externalReference}>
+    <Tooltip
+      title={
+        <div>
+          {dataElement && dataElement.name}
+          <br></br>
+          {formulaMapping.externalReference}
+        </div>
+      }
+    >
       <CloudDownload />
     </Tooltip>
   ) : (
@@ -172,7 +256,7 @@ const SetCurrentLevelContainer = props => {
           value: inputMapping,
           inputMapping,
           valueViewer: InputMappingViewer,
-          dataEditor: DialogEditor,
+          dataEditor: InputMappingDialogEditor,
         };
       }),
       ...safeTopicFormulas.map(formula => {
@@ -182,6 +266,7 @@ const SetCurrentLevelContainer = props => {
         return {
           value: formulaMapping,
           valueViewer: FormulaMappingViewer,
+          dataEditor: FormulaMappingDialogEditor,
         };
       }),
       ...fakeColumGenerator(10),
