@@ -177,7 +177,7 @@ const SetCurrentLevelContainer = props => {
       }),
       ...safeTopicFormulas.map(formula => {
         const formulaMapping = formula.formulaMappings.find(
-          mapping => mapping.topicId == topic.id, //TODO why some string and some int ?
+          mapping => mapping.topicId === topic.id,
         );
         return {
           value: formulaMapping,
