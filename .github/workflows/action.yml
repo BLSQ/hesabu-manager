@@ -1,19 +1,38 @@
-name: Add build and publish Bucket
+name: Build and publish to s3 bucket
 on: push
 
 jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - name: Use Node.js 12.x
+        uses: actions/setup-node@v1
+        with:
+            node-version: 12.x
+      - run: yarn install
+      - run: curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > "./cc-test-reporter"
+      - run: chmod +x "./cc-test-reporter"
+      - run: ./cc-test-reporter before-build
+        env:
+            CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
+      - run: yarn test:coverage
+      - run: ./cc-test-reporter after-build --exit-code $?
+        env:
+            CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
+
   deploy:
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/develop'
     steps:
       - uses: actions/checkout@master
-
       - name: Use Node.js 12.x
         uses: actions/setup-node@v1
         with:
             node-version: 12.x
       - run: sudo apt-get update && sudo apt-get install -y zip
       - run: yarn install
+      - run: yarn run semantic-release
       - run: ./script/release
       - run: ./script/publish
         env:

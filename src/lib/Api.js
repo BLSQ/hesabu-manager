@@ -50,6 +50,8 @@ class Api {
     return this;
   }
 
+  instance = () => getInstance().then(d2 => d2.Api.getApi());
+
   projectTokenAndUrl = () => {
     return getInstance().then(d2 => {
       return d2.dataStore.get("hesabu").then(namespace => {
