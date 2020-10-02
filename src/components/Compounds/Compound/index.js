@@ -11,11 +11,11 @@ import PropTypes from "prop-types";
 import { useTranslation } from "react-i18next";
 import TopBar from "../../Shared/TopBar";
 import PageContent from "../../Shared/PageContent";
-import FlatCard from "../../Shared/FlatCard";
 import SideSheet from "../../SideSheet";
 import SidebarBlock from "../../Shared/SidebarBlock";
 import { formattedName } from "../../../utils/textUtils";
 import FiltersToggleBtn from "../../FiltersToggleBtn";
+import Formulas from "../../../components/Formula/Formulas";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -35,19 +35,18 @@ const Compound = props => {
   const history = useHistory();
   const classes = useStyles();
   const {
+    compound,
     open,
     name,
     formulas,
     loading,
     errorMessage,
-    match,
     frequency,
     sideSheetOpen,
     onSideSheetClose,
     onToggleSideSheet,
     sets,
   } = props;
-  const handleDelete = () => alert("this is not yet implemented");
   const { t } = useTranslation();
   const filteredSets = (sets || []).filter(s => s);
 
@@ -72,17 +71,7 @@ const Compound = props => {
         <PageContent fullscreen>
           {loading && <CircularProgress />}
           {errorMessage && <p>{errorMessage}</p>}
-          <div className={classes.formulaWrapper}>
-            {(formulas || []).map((formula, i) => (
-              <FlatCard
-                key={`formula-${i}`}
-                to={`${match.url}/edit`}
-                onDelete={handleDelete}
-              >
-                {formula.description}
-              </FlatCard>
-            ))}
-          </div>
+          <Formulas formulas={formulas} parent={compound} />
         </PageContent>
         <SideSheet
           title={t("compound.sidesheet.title")}

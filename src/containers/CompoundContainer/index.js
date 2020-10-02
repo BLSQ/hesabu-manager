@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import Compound from "../../components/Compounds/Compound";
 import { deserialize } from "../../utils/jsonApiUtils";
 import { externalApi } from "../../actions/api";
+import Dhis2DataElementsProvider from "../Dhis2DataElementsProvider";
 
 const CompoundContainer = props => {
   const { open } = props;
@@ -37,15 +38,18 @@ const CompoundContainer = props => {
   }, [props.compoundId, open]);
 
   return (
-    <Compound
-      open={open}
-      loading={loading}
-      errorMessage={errorMessage}
-      {...compound}
-      sideSheetOpen={sideSheetOpen}
-      onSideSheetClose={() => setSideSheetOpen(false)}
-      onToggleSideSheet={() => setSideSheetOpen(!sideSheetOpen)}
-    />
+    <Dhis2DataElementsProvider>
+      <Compound
+        open={open}
+        loading={loading}
+        errorMessage={errorMessage}
+        compound={compound}
+        {...compound}
+        sideSheetOpen={sideSheetOpen}
+        onSideSheetClose={() => setSideSheetOpen(false)}
+        onToggleSideSheet={() => setSideSheetOpen(!sideSheetOpen)}
+      />
+    </Dhis2DataElementsProvider>
   );
 };
 

@@ -16,6 +16,7 @@ const useStyles = makeStyles(() => ({
   root: {
     background: "#F5F5F5",
     boxShadow: "none",
+    height: "100%",
   },
 }));
 
@@ -36,12 +37,16 @@ const FlatCard = props => {
         </CardContent>
       </CardActionArea>
       <CardActions>
-        <Button size="small" color="primary" component={Link} to={props.to}>
-          {t("buttons.edit")}
-        </Button>
-        <Button size="small" color="primary" onClick={props.onDelete}>
-          {t("buttons.delete")}
-        </Button>
+        {false && (
+          <>
+            <Button size="small" color="primary" component={Link} to={props.to}>
+              {t("buttons.edit")}
+            </Button>
+            <Button size="small" color="primary" onClick={props.onDelete}>
+              {t("buttons.delete")}
+            </Button>
+          </>
+        )}
       </CardActions>
     </Card>
   );
