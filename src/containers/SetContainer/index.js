@@ -6,6 +6,7 @@ import { activeTab } from "../../lib/setHelpers";
 import { externalApi } from "../../actions/api";
 import { deserialize } from "../../utils/jsonApiUtils";
 import Set from "../../components/Sets/Set";
+import Dhis2DataElementsProvider from "../Dhis2DataElementsProvider";
 
 const SetContainer = props => {
   const location = useLocation();
@@ -59,16 +60,18 @@ const SetContainer = props => {
   const handleToggleSideSheet = () => setSideSheetOpen(!sideSheetOpen);
 
   return (
-    <Set
-      currentTab={currentTab}
-      open={open}
-      set={set}
-      loading={loading}
-      sideSheetOpen={sideSheetOpen}
-      handleToggleSideSheet={handleToggleSideSheet}
-      simulationParams={simulationParams()}
-      location={location}
-    />
+    <Dhis2DataElementsProvider>
+      <Set
+        currentTab={currentTab}
+        open={open}
+        set={set}
+        loading={loading}
+        sideSheetOpen={sideSheetOpen}
+        handleToggleSideSheet={handleToggleSideSheet}
+        simulationParams={simulationParams()}
+        location={location}
+      />
+    </Dhis2DataElementsProvider>
   );
 };
 
