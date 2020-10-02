@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import Api from "../lib/Api";
 import { useStore } from "react-redux";
@@ -45,7 +45,11 @@ const Dhis2DataElementsProvider = props => {
     };
     fetchDataElements();
   }, [dispatch, store]);
-  return props.children;
+  return store.getState().dhis2.status === "LOADED" ? (
+    props.children
+  ) : (
+    <span>Loading...</span>
+  );
 };
 
 export default Dhis2DataElementsProvider;
