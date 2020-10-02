@@ -39,10 +39,10 @@ const useStyles = makeStyles(theme => ({
 const FieldValue = ({ field, value }) => {
   return (
     <Grid container spacing={4}>
-      <Grid item>
+      <Grid item xs={5}>
         <Typography>{humanize(field)}:</Typography>
       </Grid>
-      <Grid item>
+      <Grid item xs={5}>
         <Typography>
           <b>{value}</b>
         </Typography>
