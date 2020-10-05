@@ -34,6 +34,7 @@
     "logrocket": "^1.0.3",
     "match-sorter": "^4.0.2",
     "material-ui-pickers": "^2.2.4",
+    "mermaid": "^8.8.1",
     "notistack": "^0.9.5",
     "prop-types": "^15.7.2",
     "query-string": "^6.9.0",

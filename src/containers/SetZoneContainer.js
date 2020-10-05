@@ -12,7 +12,6 @@ const useStyles = makeStyles(theme => ({
 
 const SetZoneContainer = props => {
   const classes = useStyles(props);
-  debugger;
 
   return (
     <div className={classes.root}>

@@ -1,5 +1,7 @@
 import React from "react";
 import { makeStyles } from "@material-ui/styles";
+import Mermaid from "../Shared/Mermaid";
+import { formulasToMermaid } from "./utils";
 import ReactDataSheet from "react-datasheet";
 import PropTypes from "prop-types";
 import { APPBAR_WITH_TABS_HEIGHT } from "../../constants/ui";
@@ -9,6 +11,7 @@ import {
   fakeRowGenerator,
 } from "../../utils/dataGridUtils";
 import {
+  Switch,
   Dialog,
   DialogTitle,
   DialogContent,
@@ -220,6 +223,12 @@ const TopicBasedFormulas = props => {
   const safeInputs = inputs;
   const safeTopicFormulas = formulas || [];
 
+  const [showGraph, setShowGraph] = React.useState(false);
+
+  const handleChange = event => {
+    setShowGraph(event.target.checked);
+  };
+
   const findInputMapping = (input, inputMappings) => {
     return inputMappings.find(
       inputMapping => inputMapping.input && inputMapping.input.id === input.id,
@@ -292,12 +301,32 @@ const TopicBasedFormulas = props => {
         {props.loading ? (
           <SectionLoading />
         ) : (
-          <ReactDataSheet
-            data={grid}
-            cellRenderer={CellRenderer}
-            valueRenderer={cell => cell.value}
-            attributesRenderer={cell => ({ "data-nowrap": cell.noWrap || {} })}
-          />
+          <div>
+            <Switch
+              color="primary"
+              name="show graph"
+              title="show graph"
+              checked={showGraph}
+              onChange={handleChange}
+              inputProps={{ "aria-label": "primary checkbox" }}
+            />
+            {showGraph && (
+              <Mermaid
+                id="graph1"
+                content={formulasToMermaid(formulas, undefined)}
+              />
+            )}
+            {!showGraph && (
+              <ReactDataSheet
+                data={grid}
+                cellRenderer={CellRenderer}
+                valueRenderer={cell => cell.value}
+                attributesRenderer={cell => ({
+                  "data-nowrap": cell.noWrap || {},
+                })}
+              />
+            )}
+          </div>
         )}
       </div>
     );
