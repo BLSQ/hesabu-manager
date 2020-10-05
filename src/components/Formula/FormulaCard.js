@@ -8,6 +8,7 @@ import FlatCard from "../Shared/FlatCard";
 import { dhis2LookupElement } from "../../lib/dhis2Lookups";
 
 const FormulaCard = ({ formula, parent }) => {
+  debugger;
   const dhis2Element =
     formula.formulaMappings && formula.formulaMappings[0]
       ? dhis2LookupElement(formula.formulaMappings[0].externalReference)

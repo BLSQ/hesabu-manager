@@ -10,6 +10,8 @@ import Tabs from "./Tabs";
 import SetChildrenContainer from "../../../containers/SetChildrenContainer";
 import SetCurrentLevelContainer from "../../../containers/SetCurrentLevelContainer";
 import SetFormulasContainer from "../../../containers/SetFormulasContainer";
+import SetZoneTopicContainer from "../../../containers/SetZoneTopicContainer";
+import SetZoneContainer from "../../../containers/SetZoneContainer";
 import { formattedName } from "../../../utils/textUtils";
 import SidebarBlock from "../../Shared/SidebarBlock";
 import ActionFab from "../../Shared/ActionFab";
@@ -77,7 +79,7 @@ const Set = props => {
 
           <Switch>
             <Route
-              path={`${match.url}/current_level`}
+              path={`${match.url}/topic_formulas`}
               component={() => (
                 <SetCurrentLevelContainer set={set} loading={loading} />
               )}
@@ -87,6 +89,16 @@ const Set = props => {
               component={() => (
                 <SetChildrenContainer set={set} loading={loading} />
               )}
+            />
+            <Route
+              path={`${match.url}/zone_topic`}
+              component={() => (
+                <SetZoneTopicContainer set={set} loading={loading} />
+              )}
+            />
+            <Route
+              path={`${match.url}/zone`}
+              component={() => <SetZoneContainer set={set} loading={loading} />}
             />
             <Route
               path={`${match.url}/set_formulas`}
