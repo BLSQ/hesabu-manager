@@ -30,4 +30,6 @@ i18n.use(LanguageDetector).init({
   },
 });
 
+// To test the fr locale : i18n.changeLanguage("fr")
+
 export default i18n;
