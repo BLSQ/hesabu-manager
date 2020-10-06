@@ -22,6 +22,8 @@ const knownFunctions = new Set([
   "-",
   "/",
   "*",
+  "and",
+  "or",
 ]);
 
 function isNumeric(str) {
@@ -34,7 +36,9 @@ function isNumeric(str) {
 export const dependencies = expression => {
   const tokens = expression
     .toLowerCase()
-    .split(/[%({}\(\)\+\-\*\,/=<>]/gi)
+    .split(" and ")
+    .flatMap(s => s.split(" or "))
+    .flatMap(s => s.split(/[%({}\(\)\+\-\*\,/=<>]/gi))
     .map(s => s.trim());
 
   const tokensWithoutFunctionsAndConstants = tokens.filter(
@@ -55,7 +59,9 @@ export const formulasToMermaid = (formulas, parent) => {
   for (const formula of formulas) {
     graph.push(`class ${formula.code} current`);
     graph.push(
-      `${formula.code}${shape[0]}"${formula.code} <br> ${formula.expression}"${shape[1]}`,
+      `${formula.code}${shape[0]}"${
+        formula.code
+      } <br> ${formula.expression.split("\n").join("<br>")}"${shape[1]}`,
     );
   }
   graph.push("classDef current fill:#f96;");
