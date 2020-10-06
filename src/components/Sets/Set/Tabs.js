@@ -27,19 +27,34 @@ function SetTabs(props) {
       }}
     >
       <Tab
-        label={t("set.tabs.currentLevel")}
+        label={t("set.tabs.topicFormulas.label")}
+        title={t("set.tabs.topicFormulas.tooltip")}
         component={Link}
-        to={`${match.url}/current_level`}
+        to={`${match.url}/topic_formulas`}
       />
       <Tab
-        label={t("set.tabs.children")}
+        label={t("set.tabs.setFormulas.label")}
+        title={t("set.tabs.setFormulas.tooltip")}
+        component={Link}
+        to={`${match.url}/set_formulas`}
+      />
+      <Tab
+        label={t("set.tabs.childrenFormulas.label")}
+        title={t("set.tabs.childrenFormulas.tooltip")}
         component={Link}
         to={`${match.url}/children`}
       />
       <Tab
-        label={t("set.tabs.setFormulas")}
+        label={t("set.tabs.zoneTopicFormulas.label")}
+        title={t("set.tabs.zoneTopicFormulas.tooltip")}
         component={Link}
-        to={`${match.url}/set_formulas`}
+        to={`${match.url}/zone_topic`}
+      />
+      <Tab
+        label={t("set.tabs.zoneFormulas.label")}
+        title={t("set.tabs.zoneFormulas.tooltip")}
+        component={Link}
+        to={`${match.url}/zone`}
       />
     </Tabs>
   );

@@ -10,14 +10,22 @@ const SetListItem = props => {
   const classes = styles();
   const [expanded, setExpanded] = useState(false);
 
-  const { name, orgUnitGroups, id, topics } = props;
+  const {
+    name,
+    orgUnitGroups,
+    id,
+    topics,
+    kind,
+    frequency,
+    description,
+  } = props;
 
   return (
     <div className={classes.root}>
       <div className={classes.header}>
         <Typography
           component={Link}
-          to={`/sets/${id}/current_level`}
+          to={`/sets/${id}/topic_formulas`}
           variant="subtitle1"
           className={classes.sectionTitle}
         >
@@ -32,6 +40,8 @@ const SetListItem = props => {
           </IconButton>
         )}
       </div>
+      <Chip label={kind} className={classes.groupChip} />
+      <Chip label={frequency} className={classes.groupChip} />
       {orgUnitGroups.map((group, index) => (
         <Chip
           key={`${index}-group`}
@@ -39,6 +49,7 @@ const SetListItem = props => {
           className={classes.groupChip}
         />
       ))}
+      <Typography>{description}</Typography>
       {expanded && !!topics.length && (
         <Typography variant="subtitle1" className={classes.description}>
           {topics.map(topic => topic.name).join(", ")}

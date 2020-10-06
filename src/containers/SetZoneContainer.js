@@ -1,7 +1,7 @@
 import React from "react";
 import { makeStyles } from "@material-ui/styles";
-import Formulas from "../../components/Formula/Formulas";
-import { APPBAR_WITH_TABS_HEIGHT } from "../../constants/ui";
+import Formulas from "../components/Formula/Formulas";
+import { APPBAR_WITH_TABS_HEIGHT } from "../constants/ui";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -10,15 +10,16 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const SetFormulasContainer = props => {
+const SetZoneContainer = props => {
   const classes = useStyles(props);
+
   return (
     <div className={classes.root}>
-      <Formulas formulas={props.set.setFormulas} parent={props.set} />
+      <Formulas formulas={props.set.zoneFormulas} parent={props.set} />
     </div>
   );
 };
 
-SetFormulasContainer.propTypes = {};
+SetZoneContainer.propTypes = {};
 
-export default SetFormulasContainer;
+export default SetZoneContainer;

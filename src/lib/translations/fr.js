@@ -75,10 +75,30 @@ export default {
       },
       set: {
         frequency: "Fréquence",
+
         tabs: {
-          currentLevel: "Niveau actuel",
-          children: " Enfants",
-          setFormulas: "Formules du set",
+          topicFormulas: {
+            label: "Topic",
+            tooltip: "Mapping des entrées et des formules par Topic ",
+          },
+          setFormulas: {
+            label: "Formules du Set",
+            tooltip: "Aggrégation des formules liées aux Topics",
+          },
+          childrenFormulas: {
+            label: "Formules des Enfants",
+            tooltip: "If multi-entity groupset package. Prefer zone package",
+          },
+          zoneFormulas: {
+            label: "Formules de la Zone",
+            tooltip:
+              "Aggrégation au niveau de l'entité principale/zone des formules du Set des entités cibles ",
+          },
+          zoneTopicFormulas: {
+            label: "Formules de la Zone par topic",
+            tooltip:
+              "Aggrégation par topic au niveau de l'entité principale/zone par topic sur les entités cibles",
+          },
         },
         sidesheet: {
           title: "Information",
