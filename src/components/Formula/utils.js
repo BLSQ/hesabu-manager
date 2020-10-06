@@ -31,11 +31,18 @@ function isNumeric(str) {
   ); // ...and ensure strings of whitespace fail
 }
 
-export const dependencies = expression =>
-  expression
+export const dependencies = expression => {
+  const tokens = expression
     .toLowerCase()
-    .split(/[%({}\(\)\+\-\*\,/=]/gi)
-    .filter(s => !knownFunctions.has(s) && s.trim() !== "" && !isNumeric(s));
+    .split(/[%({}\(\)\+\-\*\,/=<>]/gi)
+    .map(s => s.trim());
+
+  const tokensWithoutFunctionsAndConstants = tokens.filter(
+    s => !knownFunctions.has(s) && s.trim() !== "" && !isNumeric(s),
+  );
+
+  return Array.from(new Set(tokensWithoutFunctionsAndConstants));
+};
 
 export const formulasToMermaid = (formulas, parent) => {
   const graph = ["graph TD"];

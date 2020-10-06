@@ -12,6 +12,10 @@ class Mermaid extends Component {
     mermaid.mermaidAPI.initialize({
       startOnLoad: false,
       securitylevel: "loose",
+      htmlLabels: true,
+      flowchart: {
+        htmlLabels: true,
+      },
     });
   }
 
@@ -21,7 +25,6 @@ class Mermaid extends Component {
         this.setState({ svg });
       });
     } catch (error) {
-      debugger;
       this.setState({ error });
     }
   }
