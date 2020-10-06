@@ -25,6 +25,20 @@ describe("formula utils", () => {
     expect(dependencies(formula2.expression)).toEqual(["claimed", "verified"]);
   });
 
+  it("dependencies AND OR", () => {
+    expect(
+      dependencies(`if(denomination==0,
+        if(indicator_parameter_1_is_null ==1 AND indicator_parameter_2_is_null==1,0,1),
+        if(indicator_denominator_is_null ==1 OR indicator_parameter_1_is_null ==1,0,1)
+        )`),
+    ).toEqual([
+      "denomination",
+      "indicator_parameter_1_is_null",
+      "indicator_parameter_2_is_null",
+      "indicator_denominator_is_null",
+    ]);
+  });
+
   it("formulasToMermaid", () => {
     expect(formulasToMermaid(formulas, undefined)).toEqual(
       `
