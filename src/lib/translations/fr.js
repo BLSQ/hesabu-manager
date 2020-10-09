@@ -28,6 +28,7 @@ export default {
         sidesheet: {
           title: "Compound info",
         },
+        sets: "Sets",
       },
       noData: "N/D",
       emptySection: {

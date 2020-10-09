@@ -6,7 +6,7 @@ import {
   makeStyles,
   CircularProgress,
 } from "@material-ui/core";
-import { useHistory, withRouter } from "react-router-dom";
+import { useHistory, withRouter, Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { useTranslation } from "react-i18next";
 import TopBar from "../../Shared/TopBar";
@@ -15,7 +15,7 @@ import SideSheet from "../../SideSheet";
 import SidebarBlock from "../../Shared/SidebarBlock";
 import { formattedName } from "../../../utils/textUtils";
 import FiltersToggleBtn from "../../FiltersToggleBtn";
-import Formulas from "../../../components/Formula/Formulas";
+import Formulas from "../../Formula/Formulas";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -48,7 +48,6 @@ const Compound = props => {
     sets,
   } = props;
   const { t } = useTranslation();
-  const filteredSets = (sets || []).filter(s => s);
 
   return (
     <Dialog
@@ -74,18 +73,32 @@ const Compound = props => {
           <Formulas formulas={formulas} parent={compound} />
         </PageContent>
         <SideSheet
+          variant="big"
           title={t("compound.sidesheet.title")}
           open={sideSheetOpen}
           onClose={onSideSheetClose}
         >
-          {!!filteredSets.length && (
-            <SidebarBlock title={formattedName(t("resources.set_plural"))}>
-              <span>{filteredSets.map(set => set?.id)}</span>
-            </SidebarBlock>
-          )}
           {frequency && (
             <SidebarBlock title={formattedName(t(`compound.frequency`))}>
               {t(`periodicity.${frequency}`)}
+            </SidebarBlock>
+          )}
+          {sets && (
+            <SidebarBlock title={formattedName(t(`compound.sets`))}>
+              {sets
+                .sort((a, b) => a.name.localeCompare(b.name))
+                .map(set => (
+                  <div key={`set-${set.id}`}>
+                    <Typography
+                      component={Link}
+                      to={`/sets/${set.id}`}
+                      color="inherit"
+                      title={set.frequency}
+                    >
+                      {set.name}
+                    </Typography>
+                  </div>
+                ))}
             </SidebarBlock>
           )}
         </SideSheet>
