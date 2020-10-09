@@ -9,9 +9,8 @@ import { formattedName } from "../../../utils/textUtils";
 
 const CompoundsListItem = props => {
   const classes = styles();
-  const { name, id, formulas, frequency } = props;
+  const { name, id, formulas, frequency, sets } = props;
   const { t } = useTranslation();
-
   return (
     <div className={classes.root}>
       <Typography
@@ -26,8 +25,22 @@ const CompoundsListItem = props => {
         <Typography component="li" variant="body2">
           {formattedName(t(`periodicity.${frequency}`))}
         </Typography>
-        <Typography component="li" variant="body2">
+        <Typography
+          component="li"
+          variant="body2"
+          title={formulas.map(s => s.code).join("\n")}
+        >
           {formulas.length} {t("resources.formula", { count: formulas.length })}
+        </Typography>
+        <Typography
+          component="li"
+          variant="body2"
+          title={sets
+            .map(s => s.name)
+            .sort()
+            .join("\n")}
+        >
+          {formulas.length} {t("resources.set", { count: sets.length })}
         </Typography>
       </HorizontalBulletList>
     </div>

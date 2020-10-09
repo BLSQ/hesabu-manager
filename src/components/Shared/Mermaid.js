@@ -43,7 +43,12 @@ class Mermaid extends Component {
       return <div>Loading...</div>;
     }
 
-    return <div dangerouslySetInnerHTML={{ __html: this.state.svg }} />;
+    return (
+      <div
+        dangerouslySetInnerHTML={{ __html: this.state.svg }}
+        style={{ width: "100%" }}
+      />
+    );
   }
 }
 

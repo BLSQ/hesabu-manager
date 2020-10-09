@@ -25,10 +25,11 @@ export default {
         mockedValues: "Mocked values",
       },
       compound: {
-        frequency: "Fréquency",
+        frequency: "Frequency",
         sidesheet: {
           title: "Compound info",
         },
+        sets: "Sets",
       },
       noData: "N/A",
       emptySection: {
