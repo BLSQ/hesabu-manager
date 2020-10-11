@@ -13,7 +13,7 @@ const FormulaCard = ({ formula, parent }) => {
       ? dhis2LookupElement(formula.formulaMappings[0].externalReference)
       : undefined;
   return (
-    <FlatCard key={formula.code}>
+    <FlatCard key={formula.code} to={`/formulas/${formula.id}`}>
       <CardHeader title={humanize(formula.code)}>
         <Typography variant="h4">{}</Typography>
       </CardHeader>

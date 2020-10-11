@@ -51,6 +51,11 @@ const LoadableHelpContainer = Loadable({
   loading: RouteLoading,
 });
 
+const LoadableFormulaContainer = Loadable({
+  loader: () => import("./containers/FormulaContainer"),
+  loading: RouteLoading,
+});
+
 const styles = () => ({
   root: {
     flexGrow: 1,
@@ -154,6 +159,11 @@ class App extends Component {
                           {pathname === "/" && <Redirect to="/sets" />}
                           {/* AB: Make this relate to drawer items? */}
                           <Switch>
+                            <Route
+                              exact
+                              path="/formulas/:formulaId"
+                              component={LoadableFormulaContainer}
+                            />
                             <Route
                               exact
                               path="/sets"
