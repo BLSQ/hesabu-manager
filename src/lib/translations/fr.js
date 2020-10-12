@@ -53,7 +53,7 @@ export default {
       },
       periodicity: {
         monthly: "mensuel",
-        quarterly: "semestriel",
+        quarterly: "trimestriel",
         yearly: "annuel",
       },
       resources: {

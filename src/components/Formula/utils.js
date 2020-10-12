@@ -38,6 +38,8 @@ export const dependencies = expression => {
     .toLowerCase()
     .split(" and ")
     .flatMap(s => s.split(" or "))
+    .flatMap(s => s.split("&&"))
+    .flatMap(s => s.split("||"))
     .flatMap(s => s.split(/[%({}\(\)\+\-\*\,/=<>]/gi))
     .map(s => s.trim());
 
