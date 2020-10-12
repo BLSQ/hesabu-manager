@@ -39,6 +39,19 @@ describe("formula utils", () => {
     ]);
   });
 
+  it("dependencies && ||", () => {
+    expect(
+      dependencies(`IF(ccss_percentage < 90 || ccss_offenses_count == 0,
+        IF(ccss_offenses_count == 1, 50,
+        IF(ccss_offenses_count >= 2, 100, 0)
+        ),IF(ccss_percentage >= 90 && ccss_percentage < 95,IF(ccss_offenses_count == 1, 20,
+          IF(ccss_offenses_count == 2, 50,
+          IF(ccss_offenses_count == 3, 100, 0)
+          )
+         ),0))`),
+    ).toEqual(["ccss_percentage", "ccss_offenses_count"]);
+  });
+
   it("formulasToMermaid", () => {
     expect(formulasToMermaid(formulas, undefined)).toEqual(
       `
