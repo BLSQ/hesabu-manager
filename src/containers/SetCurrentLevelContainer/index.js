@@ -4,13 +4,13 @@ import PropTypes from "prop-types";
 import TopicBasedFormulas from "../../components/Formula/TopicBasedFormulas";
 
 const SetCurrentLevelContainer = props => {
-  const { topics, inputs, topicFormulas } = props.set;
-
+  const { topics, inputs, topicFormulas, topicDecisionTables } = props.set;
   return (
     <TopicBasedFormulas
       topics={topics}
       inputs={inputs}
       formulas={topicFormulas}
+      decisionTables={topicDecisionTables}
     ></TopicBasedFormulas>
   );
 };

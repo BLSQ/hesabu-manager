@@ -6,6 +6,7 @@ import ReactDataSheet from "react-datasheet";
 import PropTypes from "prop-types";
 import { APPBAR_WITH_TABS_HEIGHT } from "../../constants/ui";
 import SectionLoading from "../../components/Shared/SectionLoading";
+import PapaParse from "papaparse";
 import {
   fakeColumGenerator,
   fakeRowGenerator,
@@ -38,6 +39,10 @@ const useStyles = makeStyles(theme => ({
     padding: props.loading ? 0 : theme.spacing(2),
     width: props.loading ? " 100%" : "inherit",
   }),
+  customWidth: {
+    maxWidth: "1500px",
+    maxHeight: "100vh",
+  },
 }));
 const FieldValue = ({ field, value }) => {
   return (
@@ -218,10 +223,18 @@ const CellRenderer = props => {
 
 const TopicBasedFormulas = props => {
   const classes = useStyles(props);
-  const { topics, inputs, formulas } = props;
+  const { topics, inputs, formulas, decisionTables } = props;
   const safeTopics = topics || [];
   const safeInputs = inputs;
   const safeTopicFormulas = formulas || [];
+  const safeDecisionTables = decisionTables || [];
+
+  safeDecisionTables.forEach(
+    decisionTable =>
+      (decisionTable.parsedContent = PapaParse.parse(decisionTable.content, {
+        header: true,
+      })),
+  );
 
   const [showGraph, setShowGraph] = React.useState(false);
 
@@ -246,6 +259,35 @@ const TopicBasedFormulas = props => {
           <span style={{ fontStyle: "italic" }}>{v.cell.value}</span>
         ),
       })),
+      ...safeDecisionTables.flatMap(decisionTable => {
+        return decisionTable.outHeaders.map(header => ({
+          value: { header, decisionTable },
+          disableEvents: true,
+          readOnly: true,
+          valueViewer: v => (
+            <Tooltip
+              classes={{ tooltip: classes.customWidth }}
+              title={
+                <div>
+                  IN :{v.cell.value.decisionTable.inHeaders.join(" , ")}{" "}
+                  <br></br>
+                  OUT : {v.cell.value.decisionTable.outHeaders.join(" , ")}{" "}
+                  <br></br>
+                  Decision table (
+                  {v.cell.value.decisionTable.content.split("\n").length -
+                    1}{" "}
+                  lines):
+                  <pre>{v.cell.value.decisionTable.content}</pre>
+                </div>
+              }
+            >
+              <span style={{ fontStyle: "italic" }}>
+                {humanize(v.cell.value.header)}*
+              </span>
+            </Tooltip>
+          ),
+        }));
+      }),
       ...safeTopicFormulas.map(formula => ({
         value: formula,
         valueViewer: FormulaViewer,
@@ -275,6 +317,33 @@ const TopicBasedFormulas = props => {
           valueViewer: InputMappingViewer,
           dataEditor: InputMappingDialogEditor,
         };
+      }),
+      ...safeDecisionTables.flatMap(decisionTable => {
+        return decisionTable.outHeaders.map(header => ({
+          value: { header, decisionTable },
+          disableEvents: true,
+          readOnly: true,
+          valueViewer: v => (
+            <Tooltip
+              classes={{ tooltip: classes.customWidth }}
+              title={
+                <div>
+                  <pre>
+                    {PapaParse.unparse(
+                      v.cell.value.decisionTable.parsedContent.data.filter(
+                        r =>
+                          r["in:activity_code"] === topic.code ||
+                          r["in:activity_code"] === "*",
+                      ),
+                    )}
+                  </pre>
+                </div>
+              }
+            >
+              <RemoveCircleOutlineIcon />
+            </Tooltip>
+          ),
+        }));
       }),
       ...safeTopicFormulas.map(formula => {
         const formulaMapping = formula.formulaMappings.find(
