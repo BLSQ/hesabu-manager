@@ -65,7 +65,7 @@ const SimulationBlocks = props => {
       });
       setDisplayableOrgUnits(uniqBy(orgunits, "id"));
     }
-  }, [props.resultUrl]);
+  }, [props.simulationResults]);
 
   // Placeholder before future split async fetch of Periodviews
   // At least now the list can be filtered by code from url params
@@ -100,6 +100,11 @@ const SimulationBlocks = props => {
           text={t("simulation.noSimulationForOrgUnit")}
           className={classes.spaced}
         />
+        <Typography>
+          {props.simulationResults.request.warnings} <br></br>
+          {props.simulationResults.invoices.length == 0 &&
+            "The org unit doesn't match the package groups"}
+        </Typography>
       </EmptySection>
     );
   }

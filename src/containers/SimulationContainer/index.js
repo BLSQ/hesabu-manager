@@ -74,7 +74,7 @@ class SimulationContainer extends Component {
             newState["simulation"] = data;
           }
           this.setState(newState);
-          if (newState.simulation.resultUrl) {
+          if (newState.simulation && newState.simulation.resultUrl) {
             let loadingState = {
               ...this.state,
               loading: true,
