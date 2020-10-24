@@ -86,7 +86,7 @@ const ExpandableCellContent = props => {
           <ExpandableCellTabs onChange={handleChange} value={value} />
           {value === 0 && <Editor value={cell.expression} />}
           {value === 1 && <Editor value={cell.substituted} />}
-          {value === 2 && <Editor value={cell.instantiatedExpression} />}
+          {value === 2 && <Editor value={cell.instantiated_expression} />}
         </Fragment>
       )}
     </div>

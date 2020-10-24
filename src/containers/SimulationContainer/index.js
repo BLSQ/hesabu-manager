@@ -7,12 +7,14 @@ import styles from "./styles";
 import Simulation from "../../components/Simulation";
 import { externalApi } from "../../actions/api";
 import { deserialize } from "../../utils/jsonApiUtils";
+import wretch from "wretch";
 
 class SimulationContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      loading: true,
+      simulationResults: undefined,
+      loading: false,
       forcePolling: false,
       errorMessage: undefined,
       simulation: undefined,
@@ -72,6 +74,36 @@ class SimulationContainer extends Component {
             newState["simulation"] = data;
           }
           this.setState(newState);
+          if (newState.simulation.resultUrl) {
+            let loadingState = {
+              ...this.state,
+              loading: true,
+            };
+            this.setState(loadingState);
+            wretch()
+              .errorType("json")
+              .options({ encoding: "same-origin" }, false)
+              .url(newState.simulation.resultUrl)
+              .get()
+              .json(response => {
+                let newState = {
+                  ...this.state,
+                  loading: false,
+
+                  simulationResults: response,
+                };
+                this.setState(newState);
+              })
+              .catch(e => {
+                let newState = {
+                  loading: false,
+                  polling: false,
+                  errorMessage: e.message,
+                  status: undefined,
+                };
+                this.setState(newState);
+              });
+          }
         });
       })
       .catch(e => {
@@ -89,14 +121,24 @@ class SimulationContainer extends Component {
   };
 
   render() {
-    const { loading, simulation, errorMessage, forcePolling } = this.state;
+    const {
+      loading,
+      simulation,
+      errorMessage,
+      forcePolling,
+      simulationResults,
+    } = this.state;
     const valuesFromParams = queryString.parse(this.props.location.search);
 
+    if (simulationResults) {
+      debugger;
+    }
     return (
       <Simulation
         errorMessage={errorMessage}
         loading={loading}
         simulation={simulation}
+        simulationResults={simulationResults}
         valuesFromParams={valuesFromParams}
         polling={this.state.polling || forcePolling}
         onPollingChange={this.handlePollingChange}

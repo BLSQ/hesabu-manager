@@ -4,6 +4,7 @@ import {
   Slide,
   FormControlLabel,
   Switch,
+  CircularProgress,
 } from "@material-ui/core";
 import { ExpandableBottomSheet } from "@blsq/manager-ui";
 import React, { useState, useEffect, Fragment } from "react";
@@ -37,6 +38,7 @@ export const Simulation = props => {
     t,
     open,
     simulation,
+    simulationResults,
     loading,
     selectedCell,
     polling,
@@ -64,8 +66,9 @@ export const Simulation = props => {
     if (selectedCell && !bottomSheetOpen) {
       setBottomSheetOpen(true);
     }
+
     // eslint-disable-next-line
-  }, [selectedCell]);
+  }, [selectedCell, simulation]);
 
   const backLinkPath = (location.state || {}).referrer
     ? location.state.referrer
@@ -107,11 +110,14 @@ export const Simulation = props => {
         />
       </TopBar>
       <PageContent fullscreen className={classes.content}>
+        {loading && <span>Loading...</span>}
+        {errorMessage}
         {simulation && simulation.status === "processed" && (
           <Fragment>
             <SimulationBlocks
               resultUrl={simulation.resultUrl}
               searchQuery={props.valuesFromParams}
+              simulationResults={simulationResults}
             />
             <ExpandableBottomSheet
               open={bottomSheetOpen}

@@ -32,10 +32,6 @@ const useStyles = makeStyles(theme => ({
 const SimulationBlocks = props => {
   let location = useLocation();
   let history = useHistory();
-  const [data, setData] = useState(undefined);
-  // #TODO add some loading states
-  const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(false);
 
   const displayedOrgUnitInput =
     props.searchQuery.displayedOrgUnit || props.searchQuery.orgUnit || "";
@@ -45,7 +41,7 @@ const SimulationBlocks = props => {
   );
 
   const [displayableOrgUnits, setDisplayableOrgUnits] = useState([]);
-  const sets = (data || {}).invoices || [];
+  const sets = (props.simulationResults || {}).invoices || [];
 
   // Placeholder to only display the selected org unit, in the future
   // the backend should do this filtering for us.
@@ -60,29 +56,15 @@ const SimulationBlocks = props => {
   const classes = useStyles();
   const { t } = useTranslation();
   useEffect(() => {
-    setLoading(true);
-    wretch()
-      .errorType("json")
-      .options({ encoding: "same-origin" }, false)
-      .url(props.resultUrl)
-      .get()
-      .json(response => {
-        setLoading(false);
-        const orgunits = response.invoices.map(invoice => {
-          return {
-            id: invoice.orgunit_ext_id,
-            name: invoice.orgunit_name,
-          };
-        });
-        setDisplayableOrgUnits(uniqBy(orgunits, "id"));
-        setData(response);
-        setError(null);
-      })
-      .catch(e => {
-        setError(e.message);
-        setLoading(false);
-        setData(undefined);
+    if (props.simulationResults) {
+      const orgunits = props.simulationResults.invoices.map(invoice => {
+        return {
+          id: invoice.orgunit_ext_id,
+          name: invoice.orgunit_name,
+        };
       });
+      setDisplayableOrgUnits(uniqBy(orgunits, "id"));
+    }
   }, [props.resultUrl]);
 
   // Placeholder before future split async fetch of Periodviews
@@ -107,17 +89,9 @@ const SimulationBlocks = props => {
         threshold: matchSorter.rankings.CONTAINS,
       }).length;
     });
-  }, [setCodes, displayedSetCodes]);
+  }, [setCodes, displayedSetCodes, props.simulationResults]);
 
-  if (loading) {
-    return <CircularProgress />;
-  }
-
-  if (error) {
-    return <p>{error}</p>;
-  }
-
-  if (!filteredSets.length) {
+  if (!filteredSets.length && props.simulationResults) {
     return (
       <EmptySection>
         <Typography variant="h6">{t("simulation.ohNo")}</Typography>
@@ -173,6 +147,7 @@ const SimulationBlocks = props => {
 SimulationBlocks.propTypes = {
   periodViews: PropTypes.array,
   resultUrl: PropTypes.string,
+  simulationResults: PropTypes.object,
   searchQuery: PropTypes.any,
 };
 
