@@ -62,7 +62,7 @@ const Editor = props => (
 );
 
 const ExpandableCellContent = props => {
-  const { cell } = props;
+  const { cell, usedBy } = props;
   const [value, setValue] = React.useState(0);
   const classes = useStyles(props);
   const { t } = useTranslation();
@@ -80,6 +80,17 @@ const ExpandableCellContent = props => {
       <Typography variant="h6" className={classes.title}>
         {humanize(cell.key || cell.formula)}
       </Typography>
+      {usedBy && (
+        <React.Fragment>
+          {cell.key} is used by :{" "}
+          <ul>
+            {usedBy.map(u => (
+              <li>{u}</li>
+            ))}
+          </ul>
+          <br></br>{" "}
+        </React.Fragment>
+      )}
       <ViewOnDhis2Btn cell={cell} />
       {cell.expression && (
         <Fragment>

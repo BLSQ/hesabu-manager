@@ -9,6 +9,34 @@ import { externalApi } from "../../actions/api";
 import { deserialize } from "../../utils/jsonApiUtils";
 import wretch from "wretch";
 
+import { dependencies } from "../../components/Formula/utils";
+
+const toLookups = simulationResults => {
+  const indexedItems = {};
+  const reverseDependencies = {};
+
+  simulationResults.invoices.forEach(invoice => {
+    invoice.total_items.forEach(item => (indexedItems[item.key] = item));
+    invoice.activity_items.forEach(item => {
+      Object.values(item).forEach(v => {
+        indexedItems[v.key] = v;
+
+        if (v.instantiated_expression) {
+          const deps = dependencies(v.instantiated_expression);
+
+          deps.forEach(dep => {
+            if (reverseDependencies[dep] == undefined) {
+              reverseDependencies[dep] = [];
+            }
+            reverseDependencies[dep].push(v.key);
+          });
+        }
+      });
+    });
+  });
+  return { reverseDependencies, indexedItems };
+};
+
 class SimulationContainer extends Component {
   constructor(props) {
     super(props);
@@ -86,6 +114,8 @@ class SimulationContainer extends Component {
               .url(newState.simulation.resultUrl)
               .get()
               .json(response => {
+                response["lookups"] = toLookups(response);
+
                 let newState = {
                   ...this.state,
                   loading: false,
@@ -130,9 +160,6 @@ class SimulationContainer extends Component {
     } = this.state;
     const valuesFromParams = queryString.parse(this.props.location.search);
 
-    if (simulationResults) {
-      debugger;
-    }
     return (
       <Simulation
         errorMessage={errorMessage}

@@ -3,13 +3,8 @@ import { useHistory, useLocation } from "react-router-dom";
 import uniqBy from "lodash/uniqBy";
 import groupBy from "lodash/groupBy";
 import PropTypes from "prop-types";
-import wretch from "wretch";
-import {
-  CircularProgress,
-  Typography,
-  makeStyles,
-  Grid,
-} from "@material-ui/core";
+
+import { Typography, makeStyles, Grid } from "@material-ui/core";
 import { InfoBox } from "@blsq/manager-ui";
 import { useTranslation } from "react-i18next";
 import matchSorter from "match-sorter";

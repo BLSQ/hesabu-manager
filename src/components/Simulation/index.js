@@ -74,6 +74,14 @@ export const Simulation = props => {
     ? location.state.referrer
     : "/simulations";
 
+  let usedBy = undefined;
+  if (selectedCell) {
+    const k =
+      "quantity_pma_14_1_cpon_mere_et_enfant_difference_percentage_for_WX4WFV3mzuR_and_202007";
+    usedBy = simulationResults.lookups.reverseDependencies[selectedCell.key];
+    debugger;
+  }
+
   return (
     <Dialog
       fullScreen
@@ -124,7 +132,7 @@ export const Simulation = props => {
               onOpen={openBottomSheet}
               onClose={closeBottomSheet}
             >
-              <ExpandableCellContent cell={selectedCell} />
+              <ExpandableCellContent cell={selectedCell} usedBy={usedBy} />
             </ExpandableBottomSheet>
           </Fragment>
         )}

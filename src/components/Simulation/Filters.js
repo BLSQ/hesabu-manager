@@ -25,7 +25,7 @@ export const SimulationFilters = props => {
   const history = useHistory();
   const classes = useStyles();
   const {
-    values: { periods, orgUnit, sets, mockedValues },
+    values: { periods, orgUnit, sets, mockedValues, force },
     loading,
   } = props;
 
@@ -76,6 +76,18 @@ export const SimulationFilters = props => {
               defaultValue={values.orgUnit}
             />
           </div>
+          <FormControlLabel
+            className={classes.formControl}
+            control={
+              <Checkbox
+                inputProps={{ name: "force" }}
+                checked={values.force}
+                onChange={handleChange}
+                value={"strong"}
+              />
+            }
+            label={t("filters.force")}
+          />
           <FormControl tag="div">
             <Button
               variant="contained"

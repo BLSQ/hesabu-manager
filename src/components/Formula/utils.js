@@ -35,8 +35,9 @@ function isNumeric(str) {
 
 export const dependencies = expression => {
   const tokens = expression
-    .toLowerCase()
     .split(" and ")
+    .flatMap(s => s.split(" AND "))
+    .flatMap(s => s.split(" OR "))
     .flatMap(s => s.split(" or "))
     .flatMap(s => s.split("&&"))
     .flatMap(s => s.split("||"))
@@ -44,7 +45,8 @@ export const dependencies = expression => {
     .map(s => s.trim());
 
   const tokensWithoutFunctionsAndConstants = tokens.filter(
-    s => !knownFunctions.has(s) && s.trim() !== "" && !isNumeric(s),
+    s =>
+      !knownFunctions.has(s.toLowerCase()) && s.trim() !== "" && !isNumeric(s),
   );
 
   return Array.from(new Set(tokensWithoutFunctionsAndConstants));
@@ -54,7 +56,7 @@ export const formulasToMermaid = (formulas, parent) => {
   const graph = ["graph TD"];
   for (const formula of formulas) {
     for (const dependency of dependencies(formula.expression)) {
-      graph.push(`${formula.code} --> ${dependency}`);
+      graph.push(`${dependency} --> ${formula.code}`);
     }
   }
   const shape = ["(", ")"];
