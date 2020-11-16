@@ -18,6 +18,8 @@ const knownFunctions = new Set([
   "score_table",
   "strlen",
   "cal_days_in_month",
+  "eval_array",
+  "array",
   "+",
   "-",
   "/",
@@ -41,6 +43,8 @@ export const dependencies = expression => {
     .flatMap(s => s.split(" or "))
     .flatMap(s => s.split("&&"))
     .flatMap(s => s.split("||"))
+    .flatMap(s => s.split('"'))
+    .flatMap(s => s.split("'"))
     .flatMap(s => s.split(/[%({}\(\)\+\-\*\,/=<>]/gi))
     .map(s => s.trim());
 
@@ -50,6 +54,10 @@ export const dependencies = expression => {
   );
 
   return Array.from(new Set(tokensWithoutFunctionsAndConstants));
+};
+
+export const escapeQuotes = str => {
+  return str.split('"').join("&bdquo;");
 };
 
 export const formulasToMermaid = (formulas, parent) => {
@@ -63,9 +71,9 @@ export const formulasToMermaid = (formulas, parent) => {
   for (const formula of formulas) {
     graph.push(`class ${formula.code} current`);
     graph.push(
-      `${formula.code}${shape[0]}"${
-        formula.code
-      } <br> ${formula.expression.split("\n").join("<br>")}"${shape[1]}`,
+      `${formula.code}${shape[0]}"${formula.code} <br> ${escapeQuotes(
+        formula.expression.split("\n").join("<br>"),
+      )}"${shape[1]}`,
     );
   }
   graph.push("classDef current fill:#f96;");

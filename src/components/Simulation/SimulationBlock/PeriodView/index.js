@@ -7,12 +7,17 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { fade } from "@material-ui/core";
 import { getIn } from "formik";
+import green from "@material-ui/core/colors/green";
 import Table from "../Table";
 import { setSelectedCell } from "../../../../actions/ui";
 
 const useStyles = makeStyles(theme => ({
   root: {
     marginBottom: theme.spacing(8),
+  },
+  is_output: {
+    background: fade(green[50], 0.5),
+    color: green[900],
   },
   keyNumbers: {
     margin: theme.spacing(0, 2, 2, 0),
@@ -40,20 +45,23 @@ const PeriodView = props => {
   return (
     <div className={classNames(classes.root, className)}>
       <div className={classes.keyNumbersContainer}>
-        {periodView.total_items.map((item, index) => (
-          <button
-            onClick={() => props.setSelectedCell(item)}
-            key={`key-number-${item.solution}-${index}`}
-            className={classNames(classes.keyNumbers, {
-              current: getIn(selectedCell, "formula") === item.formula,
-            })}
-          >
-            <KeyNumberBlock
-              text={humanize(item.formula)}
-              value={item.solution}
-            />
-          </button>
-        ))}
+        {periodView.total_items.map((item, index) => {
+          return (
+            <button
+              onClick={() => props.setSelectedCell(item)}
+              key={`key-number-${item.solution}-${index}`}
+              className={classNames(classes.keyNumbers, {
+                current: getIn(selectedCell, "formula") === item.formula,
+              })}
+            >
+              <KeyNumberBlock
+                text={humanize(item.formula)}
+                value={item.solution}
+                className={item.is_output !== null ? classes.is_output : ""}
+              />
+            </button>
+          );
+        })}
       </div>
       <Table periodView={periodView} selectedCell={selectedCell} />
     </div>

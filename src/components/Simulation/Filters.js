@@ -76,6 +76,7 @@ export const SimulationFilters = props => {
               defaultValue={values.orgUnit}
             />
           </div>
+          {/*
           <FormControlLabel
             className={classes.formControl}
             control={
@@ -88,6 +89,7 @@ export const SimulationFilters = props => {
             }
             label={t("filters.force")}
           />
+          */}
           <FormControl tag="div">
             <Button
               variant="contained"

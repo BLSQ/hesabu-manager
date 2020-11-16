@@ -15,25 +15,28 @@ const toLookups = simulationResults => {
   const indexedItems = {};
   const reverseDependencies = {};
 
-  simulationResults.invoices.forEach(invoice => {
-    invoice.total_items.forEach(item => (indexedItems[item.key] = item));
-    invoice.activity_items.forEach(item => {
-      Object.values(item).forEach(v => {
-        indexedItems[v.key] = v;
+  const enabled = false;
+  if (enabled) {
+    simulationResults.invoices.forEach(invoice => {
+      invoice.total_items.forEach(item => (indexedItems[item.key] = item));
+      invoice.activity_items.forEach(item => {
+        Object.values(item).forEach(v => {
+          indexedItems[v.key] = v;
 
-        if (v.instantiated_expression) {
-          const deps = dependencies(v.instantiated_expression);
+          if (v.instantiated_expression) {
+            const deps = dependencies(v.instantiated_expression);
 
-          deps.forEach(dep => {
-            if (reverseDependencies[dep] == undefined) {
-              reverseDependencies[dep] = [];
-            }
-            reverseDependencies[dep].push(v.key);
-          });
-        }
+            deps.forEach(dep => {
+              if (reverseDependencies[dep] == undefined) {
+                reverseDependencies[dep] = [];
+              }
+              reverseDependencies[dep].push(v.key);
+            });
+          }
+        });
       });
     });
-  });
+  }
   return { reverseDependencies, indexedItems };
 };
 

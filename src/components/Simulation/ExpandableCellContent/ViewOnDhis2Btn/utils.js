@@ -1,4 +1,5 @@
 import Api from "../../../../lib/Api";
+import _ from "lodash";
 
 export const dhis2UiUrl = (id, href, baseUrl) => {
   let dhis2UiUrl;
@@ -34,10 +35,14 @@ export const fetchIdentifiableObject = async (cell, isInput, isOutput) => {
     }
   }
 
-  if (isOutput) {
+  if (isOutput && cell.dhis2_data_element) {
     dhis2Object = await api.get(
       `identifiableObjects/${cell.dhis2_data_element}`,
     );
+  }
+
+  if (_.isString(cell.is_output)) {
+    dhis2Object = await api.get(`identifiableObjects/${cell.is_output}`);
   }
 
   if (dhis2Object) {

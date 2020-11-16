@@ -40,7 +40,7 @@ const ViewOnDhis2Btn = props => {
     fetchData();
   }, [cell, isInput, isOutput]);
 
-  if (!isInput && !isOutput) {
+  if (identifiableObject == undefined) {
     return null;
   }
 
