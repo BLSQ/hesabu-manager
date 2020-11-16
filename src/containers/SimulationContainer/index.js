@@ -7,12 +7,45 @@ import styles from "./styles";
 import Simulation from "../../components/Simulation";
 import { externalApi } from "../../actions/api";
 import { deserialize } from "../../utils/jsonApiUtils";
+import wretch from "wretch";
+
+import { dependencies } from "../../components/Formula/utils";
+
+const toLookups = simulationResults => {
+  const indexedItems = {};
+  const reverseDependencies = {};
+
+  const enabled = false;
+  if (enabled) {
+    simulationResults.invoices.forEach(invoice => {
+      invoice.total_items.forEach(item => (indexedItems[item.key] = item));
+      invoice.activity_items.forEach(item => {
+        Object.values(item).forEach(v => {
+          indexedItems[v.key] = v;
+
+          if (v.instantiated_expression) {
+            const deps = dependencies(v.instantiated_expression);
+
+            deps.forEach(dep => {
+              if (reverseDependencies[dep] == undefined) {
+                reverseDependencies[dep] = [];
+              }
+              reverseDependencies[dep].push(v.key);
+            });
+          }
+        });
+      });
+    });
+  }
+  return { reverseDependencies, indexedItems };
+};
 
 class SimulationContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      loading: true,
+      simulationResults: undefined,
+      loading: false,
       forcePolling: false,
       errorMessage: undefined,
       simulation: undefined,
@@ -72,6 +105,38 @@ class SimulationContainer extends Component {
             newState["simulation"] = data;
           }
           this.setState(newState);
+          if (newState.simulation && newState.simulation.resultUrl) {
+            let loadingState = {
+              ...this.state,
+              loading: true,
+            };
+            this.setState(loadingState);
+            wretch()
+              .errorType("json")
+              .options({ encoding: "same-origin" }, false)
+              .url(newState.simulation.resultUrl)
+              .get()
+              .json(response => {
+                response["lookups"] = toLookups(response);
+
+                let newState = {
+                  ...this.state,
+                  loading: false,
+
+                  simulationResults: response,
+                };
+                this.setState(newState);
+              })
+              .catch(e => {
+                let newState = {
+                  loading: false,
+                  polling: false,
+                  errorMessage: e.message,
+                  status: undefined,
+                };
+                this.setState(newState);
+              });
+          }
         });
       })
       .catch(e => {
@@ -89,7 +154,13 @@ class SimulationContainer extends Component {
   };
 
   render() {
-    const { loading, simulation, errorMessage, forcePolling } = this.state;
+    const {
+      loading,
+      simulation,
+      errorMessage,
+      forcePolling,
+      simulationResults,
+    } = this.state;
     const valuesFromParams = queryString.parse(this.props.location.search);
 
     return (
@@ -97,6 +168,7 @@ class SimulationContainer extends Component {
         errorMessage={errorMessage}
         loading={loading}
         simulation={simulation}
+        simulationResults={simulationResults}
         valuesFromParams={valuesFromParams}
         polling={this.state.polling || forcePolling}
         onPollingChange={this.handlePollingChange}

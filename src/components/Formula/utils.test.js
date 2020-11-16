@@ -52,14 +52,45 @@ describe("formula utils", () => {
     ).toEqual(["ccss_percentage", "ccss_offenses_count"]);
   });
 
+  it("dependencies eval_array", () => {
+    expect(
+      dependencies(`
+  sum(
+    eval_array(
+       "exhaustif", array(%{exhaustivity_fosa_values}),
+       "category",array(%{med_category_fosa_values}),
+       "if(exhaustif == 100 and category ==1, 1, 0)"
+     )
+ )`),
+    ).toEqual([
+      "exhaustif",
+      "exhaustivity_fosa_values",
+      "category",
+      "med_category_fosa_values",
+    ]);
+  });
+
+  it("dependencies eval_array", () => {
+    expect(
+      dependencies(`
+     eval_array('valid_meds',array(%{stock_presence_fosa_validity_check_values}),'presence_values', array(%{stock_presence_fosa_values}),'valid_meds*presence_values')
+  `),
+    ).toEqual([
+      "valid_meds",
+      "stock_presence_fosa_validity_check_values",
+      "presence_values",
+      "stock_presence_fosa_values",
+    ]);
+  });
+
   it("formulasToMermaid", () => {
     expect(formulasToMermaid(formulas, undefined)).toEqual(
       `
 graph TD
-quantity --> difference_percentage
-quantity --> verified
-difference_percentage --> claimed
-difference_percentage --> verified
+difference_percentage --> quantity
+verified --> quantity
+claimed --> difference_percentage
+verified --> difference_percentage
 class quantity current
 quantity("quantity <br> IF (ABS(difference_percentage) <= 10, verified , 0.0)")
 class difference_percentage current

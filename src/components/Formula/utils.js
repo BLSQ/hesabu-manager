@@ -18,6 +18,8 @@ const knownFunctions = new Set([
   "score_table",
   "strlen",
   "cal_days_in_month",
+  "eval_array",
+  "array",
   "+",
   "-",
   "/",
@@ -35,35 +37,43 @@ function isNumeric(str) {
 
 export const dependencies = expression => {
   const tokens = expression
-    .toLowerCase()
     .split(" and ")
+    .flatMap(s => s.split(" AND "))
+    .flatMap(s => s.split(" OR "))
     .flatMap(s => s.split(" or "))
     .flatMap(s => s.split("&&"))
     .flatMap(s => s.split("||"))
+    .flatMap(s => s.split('"'))
+    .flatMap(s => s.split("'"))
     .flatMap(s => s.split(/[%({}\(\)\+\-\*\,/=<>]/gi))
     .map(s => s.trim());
 
   const tokensWithoutFunctionsAndConstants = tokens.filter(
-    s => !knownFunctions.has(s) && s.trim() !== "" && !isNumeric(s),
+    s =>
+      !knownFunctions.has(s.toLowerCase()) && s.trim() !== "" && !isNumeric(s),
   );
 
   return Array.from(new Set(tokensWithoutFunctionsAndConstants));
+};
+
+export const escapeQuotes = str => {
+  return str.split('"').join("&bdquo;");
 };
 
 export const formulasToMermaid = (formulas, parent) => {
   const graph = ["graph TD"];
   for (const formula of formulas) {
     for (const dependency of dependencies(formula.expression)) {
-      graph.push(`${formula.code} --> ${dependency}`);
+      graph.push(`${dependency} --> ${formula.code}`);
     }
   }
   const shape = ["(", ")"];
   for (const formula of formulas) {
     graph.push(`class ${formula.code} current`);
     graph.push(
-      `${formula.code}${shape[0]}"${
-        formula.code
-      } <br> ${formula.expression.split("\n").join("<br>")}"${shape[1]}`,
+      `${formula.code}${shape[0]}"${formula.code} <br> ${escapeQuotes(
+        formula.expression.split("\n").join("<br>"),
+      )}"${shape[1]}`,
     );
   }
   graph.push("classDef current fill:#f96;");
