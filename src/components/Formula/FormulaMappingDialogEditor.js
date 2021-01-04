@@ -52,7 +52,7 @@ const FormulaMappingDialogEditor = props => {
     };
     if (formulaMapping == undefined) {
       const resp = await externalApi()
-        .url(`/formula_mappings`)
+        .url("/formula_mappings")
         .post(payload)
         .json();
     } else {
