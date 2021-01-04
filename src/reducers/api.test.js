@@ -8,6 +8,7 @@ describe("api reducer", () => {
     expect(reducer(undefined, {})).toEqual({
       token: null,
       error: null,
+      user: null,
     });
   });
 
