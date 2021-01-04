@@ -4,6 +4,7 @@ export default {
     translations: {
       autocomplete: {
         orgUnits: "Choose an org unit",
+        deCoc: "Choose a data element",
       },
       buttons: {
         autoreload: "Auto reload",

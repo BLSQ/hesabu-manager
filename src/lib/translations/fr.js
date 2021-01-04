@@ -3,6 +3,7 @@ export default {
     translations: {
       autocomplete: {
         orgUnits: "Choisissez une unité d’organisation",
+        deCoc: "Choisissez un élément de donnée",
       },
       buttons: {
         autoreload: "Rafraichissement auto",

@@ -7,6 +7,7 @@ import PropTypes from "prop-types";
 import { APPBAR_WITH_TABS_HEIGHT } from "../../constants/ui";
 import SectionLoading from "../../components/Shared/SectionLoading";
 import PapaParse from "papaparse";
+import DataElementComboAutocomplete from "../Shared/DataElementComboAutocomplete";
 import {
   fakeColumGenerator,
   fakeRowGenerator,
@@ -29,7 +30,7 @@ import CheckCircle from "@material-ui/icons/CheckCircle";
 import RemoveCircleOutlineIcon from "@material-ui/icons/RemoveCircleOutline";
 import Transition from "../../components/Shared/Transition";
 import humanize from "string-humanize";
-
+import { externalApi } from "../../actions/api";
 import { dhis2LookupElement } from "../../lib/dhis2Lookups";
 
 const useStyles = makeStyles(theme => ({
@@ -83,62 +84,181 @@ const Dhis2ElementDetails = ({ dhis2Object }) => {
   );
 };
 
-const FormulaMappingDialogEditor = ({ cell }) => {
-  const formulaMapping = cell.value;
+const useStylesFormMapping = makeStyles(() => ({
+  paper: { minWidth: "500px", minHeight: "500px" },
+}));
 
-  let dhis2Object = formulaMapping
-    ? dhis2LookupElement(formulaMapping.externalReference)
-    : undefined;
+const FormulaMappingDialogEditor = props => {
+  const classes = useStylesFormMapping();
+  const cell = props.cell;
+  const formulaMapping = cell.value.formulaMapping;
+  const [newExternalReference, setNewExternalReference] = React.useState(
+    formulaMapping ? formulaMapping.externalReference : "",
+  );
+  const [dhis2Object, setDhis2Object] = React.useState(
+    formulaMapping ? dhis2LookupElement(newExternalReference) : undefined,
+  );
+
+  const [open, setOpen] = React.useState(true);
+
+  const handleChange = (_e, v) => {
+    if (v) {
+      setNewExternalReference(v.id);
+      setDhis2Object(dhis2LookupElement(v.id));
+    }
+  };
+
+  const handleConfirm = async () => {
+    if (cell.value.formulaMapping == undefined) {
+      // CREATE
+      try {
+        const resp = await externalApi()
+          .url(`/formula_mappings`)
+          .post({
+            data: {
+              attributes: {
+                topicId: cell.value.topic.id,
+                formulaId: cell.value.formula.id,
+                externalReference: newExternalReference,
+              },
+            },
+          })
+          .json();
+        setOpen(!open);
+        window.location.reload();
+      } catch (error) {
+        console.log(error);
+      }
+    } else {
+      const resp = await externalApi()
+        .url(`/formula_mappings/${cell.value.formulaMapping.id}`)
+        .put({
+          data: {
+            attributes: {
+              topicId: cell.value.topic.id,
+              formulaId: cell.value.formula.id,
+              externalReference: newExternalReference,
+            },
+          },
+        })
+        .json();
+
+      setOpen(!open);
+      window.location.reload();
+    }
+  };
+  const deleteMapping = async () => {
+    const resp = await externalApi()
+      .url(`/formula_mappings/${cell.value.formulaMapping.id}`)
+      .delete()
+      .res();
+    setOpen(!open);
+    window.location.reload();
+  };
+
+  const modified = cell.value.formulaMapping
+    ? cell.value.formulaMapping.externalReference !== newExternalReference
+    : newExternalReference;
+  const onClick = () => {
+    setOpen(!open);
+  };
 
   return (
-    <Dialog open={true} TransitionComponent={Transition}>
+    <Dialog
+      disableBackdropClick
+      open={open}
+      TransitionComponent={Transition}
+      classes={{ paper: classes.paper }}
+    >
       <DialogTitle id="form-dialog-title">
-        {dhis2Object && dhis2Object.name}
+        <b>Mapping out</b>
+        <br></br>
+        <ul>
+          {cell.value.formula.shortName} - {cell.value.topic.name} <br></br>
+          {dhis2Object && dhis2Object.name} <br></br>
+          {newExternalReference}
+        </ul>
       </DialogTitle>
       <DialogContent>
         <DialogContentText>
-          {dhis2Object === undefined && <Typography>Nothing mapped</Typography>}
+          <DataElementComboAutocomplete
+            onChange={handleChange}
+            defaultInputValue={[
+              cell.value.formula.shortName,
+              cell.value.topic.name,
+            ].join(" - ")}
+          ></DataElementComboAutocomplete>
           {dhis2Object && <Dhis2ElementDetails dhis2Object={dhis2Object} />}
         </DialogContentText>
+        {cell.value.formulaMapping && (
+          <Button color="secondary" onClick={deleteMapping}>
+            Delete
+          </Button>
+        )}
       </DialogContent>
       <DialogActions>
-        <Button color="primary">Cancel</Button>
-        <Button color="primary">Ok</Button>
+        <Button color="primary" onClick={onClick}>
+          Cancel
+        </Button>
+        <Button color="primary" onClick={handleConfirm} disabled={!modified}>
+          Ok
+        </Button>
       </DialogActions>
     </Dialog>
   );
 };
 
 const InputMappingDialogEditor = ({ cell }) => {
+  const classes = useStylesFormMapping();
   const inputMapping = cell.inputMapping;
+  const [open, setOpen] = React.useState(true);
+
+  const onClick = () => {
+    setOpen(!open);
+  };
+
   let dhis2Object = dhis2LookupElement(inputMapping.externalReference);
 
   return (
-    <Dialog open={true} TransitionComponent={Transition}>
-      <DialogTitle id="form-dialog-title">{cell.inputMapping.name}</DialogTitle>
-      <DialogContent>
-        <DialogContentText>
-          <Grid container spacing={2}>
-            <Grid item>
-              <Chip label={cell.inputMapping.kind} />
-            </Grid>
-            <Grid item>
-              <Chip label={cell.inputMapping.origin} />
-            </Grid>
-            {cell.inputMapping.externalReference && (
+    <div>
+      <Dialog
+        open={open}
+        TransitionComponent={Transition}
+        disableEscapeKeyDown={true}
+        disableBackdropClick={true}
+        classes={{ paper: classes.paper }}
+      >
+        <DialogTitle id="form-dialog-title">
+          {cell.inputMapping.name}
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            <Grid container spacing={2}>
               <Grid item>
-                <Chip label={cell.inputMapping.externalReference} />
+                <Chip label={cell.inputMapping.kind} />
               </Grid>
-            )}
-          </Grid>
-          <Dhis2ElementDetails dhis2Object={dhis2Object} />
-        </DialogContentText>
-      </DialogContent>
-      <DialogActions>
-        <Button color="primary">Cancel</Button>
-        <Button color="primary">Ok</Button>
-      </DialogActions>
-    </Dialog>
+              <Grid item>
+                <Chip label={cell.inputMapping.origin} />
+              </Grid>
+              {cell.inputMapping.externalReference && (
+                <Grid item>
+                  <Chip label={cell.inputMapping.externalReference} />
+                </Grid>
+              )}
+            </Grid>
+            <Dhis2ElementDetails dhis2Object={dhis2Object} />
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button color="primary" onClick={onClick}>
+            Cancel
+          </Button>
+          <Button color="primary" onClick={onClick}>
+            Ok
+          </Button>
+        </DialogActions>
+      </Dialog>
+    </div>
   );
 };
 
@@ -179,16 +299,20 @@ const FormulaViewer = ({ value }) => {
 };
 
 const FormulaMappingViewer = props => {
-  const formulaMapping = props.value;
-  let dataElement = dhis2LookupElement(formulaMapping.externalReference);
+  const mapping = props.value;
+  let dataElement = dhis2LookupElement(
+    mapping.formulaMapping
+      ? mapping.formulaMapping.externalReference
+      : undefined,
+  );
 
-  return formulaMapping ? (
+  return mapping.formulaMapping ? (
     <Tooltip
       title={
         <div>
           {dataElement && dataElement.name}
           <br></br>
-          {formulaMapping.externalReference}
+          {mapping.formulaMapping.externalReference}
         </div>
       }
     >
@@ -350,7 +474,11 @@ const TopicBasedFormulas = props => {
           mapping => mapping.topicId === topic.id,
         );
         return {
-          value: formulaMapping,
+          value: {
+            formulaMapping: formulaMapping,
+            formula: formula,
+            topic: topic,
+          },
           valueViewer: FormulaMappingViewer,
           dataEditor: FormulaMappingDialogEditor,
         };
@@ -387,6 +515,7 @@ const TopicBasedFormulas = props => {
             )}
             {!showGraph && (
               <ReactDataSheet
+                disablePageClick={true}
                 data={grid}
                 cellRenderer={CellRenderer}
                 valueRenderer={cell => cell.value}

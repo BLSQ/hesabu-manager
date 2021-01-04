@@ -8,8 +8,9 @@ import Api from "./Api";
 class TokenProvider extends Component {
   componentDidMount() {
     Api.projectTokenAndUrl()
-      .then(config => {
-        this.props.receiveToken(config);
+      .then(async config => {
+        const user = await Api.currentUser();
+        this.props.receiveToken({ ...config, user: user });
       })
       .catch(e => {
         this.props.receiveTokenError(e.message);
