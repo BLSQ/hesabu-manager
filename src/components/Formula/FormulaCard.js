@@ -6,12 +6,20 @@ import CloudDownload from "@material-ui/icons/CloudDownload";
 import RemoveCircleOutlineIcon from "@material-ui/icons/RemoveCircleOutline";
 import FlatCard from "../Shared/FlatCard";
 import { dhis2LookupElement } from "../../lib/dhis2Lookups";
+import FormulaMappingDialogEditor from "./FormulaMappingDialogEditor";
 
 const FormulaCard = ({ formula, parent }) => {
   const dhis2Element =
     formula.formulaMappings && formula.formulaMappings[0]
       ? dhis2LookupElement(formula.formulaMappings[0].externalReference)
       : undefined;
+  const [editMapping, setEditMapping] = React.useState(false);
+  const cell = {
+    value: {
+      formula,
+      formulaMapping: formula.formulaMappings && formula.formulaMappings[0],
+    },
+  };
   return (
     <FlatCard key={formula.code} to={`/formulas/${formula.id}`}>
       <CardHeader title={humanize(formula.code)}>
@@ -31,16 +39,20 @@ const FormulaCard = ({ formula, parent }) => {
                 </div>
               }
             >
-              <CloudDownload />
+              <CloudDownload onClick={() => setEditMapping(!editMapping)} />
             </Tooltip>
           ) : (
             <div>
-              <RemoveCircleOutlineIcon />
+              <RemoveCircleOutlineIcon
+                onClick={() => setEditMapping(!editMapping)}
+              />
             </div>
           )}
         </Grid>
       </Grid>
-
+      {editMapping && (
+        <FormulaMappingDialogEditor cell={cell}></FormulaMappingDialogEditor>
+      )}
       <pre
         style={{
           whiteSpace: "pre-wrap",

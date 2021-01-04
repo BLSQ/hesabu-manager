@@ -7,7 +7,7 @@ import PropTypes from "prop-types";
 import { APPBAR_WITH_TABS_HEIGHT } from "../../constants/ui";
 import SectionLoading from "../../components/Shared/SectionLoading";
 import PapaParse from "papaparse";
-import DataElementComboAutocomplete from "../Shared/DataElementComboAutocomplete";
+
 import {
   fakeColumGenerator,
   fakeRowGenerator,
@@ -30,8 +30,10 @@ import CheckCircle from "@material-ui/icons/CheckCircle";
 import RemoveCircleOutlineIcon from "@material-ui/icons/RemoveCircleOutline";
 import Transition from "../../components/Shared/Transition";
 import humanize from "string-humanize";
-import { externalApi } from "../../actions/api";
+
 import { dhis2LookupElement } from "../../lib/dhis2Lookups";
+import Dhis2ElementDetails from "./Dhis2ElementDetails";
+import FormulaMappingDialogEditor from "./FormulaMappingDialogEditor";
 
 const useStyles = makeStyles(theme => ({
   root: props => ({
@@ -45,168 +47,10 @@ const useStyles = makeStyles(theme => ({
     maxHeight: "100vh",
   },
 }));
-const FieldValue = ({ field, value }) => {
-  return (
-    <Grid container spacing={4}>
-      <Grid item xs={5}>
-        <Typography>{humanize(field)}:</Typography>
-      </Grid>
-      <Grid item xs={5}>
-        <Typography>
-          <b>{value}</b>
-        </Typography>
-      </Grid>
-    </Grid>
-  );
-};
-const Dhis2ElementDetails = ({ dhis2Object }) => {
-  return (
-    <Grid container spacing={2} direction="column">
-      <Grid item>{dhis2Object && dhis2Object.name}</Grid>
-      {dhis2Object &&
-        dhis2Object.dimensionItemType === "DATA_ELEMENT" && [
-          dhis2Object.categoryOptionCombo && (
-            <FieldValue
-              field="categoryOptionCombo"
-              value={dhis2Object.categoryOptionCombo.name}
-            />
-          ),
-          <FieldValue field="valueType" value={dhis2Object.valueType} />,
-          <FieldValue
-            field="aggregationType"
-            value={dhis2Object.aggregationType}
-          />,
-        ]}
-      {dhis2Object && dhis2Object.dimensionItemType === "INDICATOR" && (
-        <FieldValue field="numerator" value={dhis2Object.numerator} />
-      )}
-    </Grid>
-  );
-};
 
 const useStylesFormMapping = makeStyles(() => ({
   paper: { minWidth: "500px", minHeight: "500px" },
 }));
-
-const FormulaMappingDialogEditor = props => {
-  const classes = useStylesFormMapping();
-  const cell = props.cell;
-  const formulaMapping = cell.value.formulaMapping;
-  const [newExternalReference, setNewExternalReference] = React.useState(
-    formulaMapping ? formulaMapping.externalReference : "",
-  );
-  const [dhis2Object, setDhis2Object] = React.useState(
-    formulaMapping ? dhis2LookupElement(newExternalReference) : undefined,
-  );
-
-  const [open, setOpen] = React.useState(true);
-
-  const handleChange = (_e, v) => {
-    if (v) {
-      setNewExternalReference(v.id);
-      setDhis2Object(dhis2LookupElement(v.id));
-    }
-  };
-
-  const handleConfirm = async () => {
-    if (cell.value.formulaMapping == undefined) {
-      // CREATE
-      try {
-        const resp = await externalApi()
-          .url(`/formula_mappings`)
-          .post({
-            data: {
-              attributes: {
-                topicId: cell.value.topic.id,
-                formulaId: cell.value.formula.id,
-                externalReference: newExternalReference,
-              },
-            },
-          })
-          .json();
-        setOpen(!open);
-        window.location.reload();
-      } catch (error) {
-        console.log(error);
-      }
-    } else {
-      const resp = await externalApi()
-        .url(`/formula_mappings/${cell.value.formulaMapping.id}`)
-        .put({
-          data: {
-            attributes: {
-              topicId: cell.value.topic.id,
-              formulaId: cell.value.formula.id,
-              externalReference: newExternalReference,
-            },
-          },
-        })
-        .json();
-
-      setOpen(!open);
-      window.location.reload();
-    }
-  };
-  const deleteMapping = async () => {
-    const resp = await externalApi()
-      .url(`/formula_mappings/${cell.value.formulaMapping.id}`)
-      .delete()
-      .res();
-    setOpen(!open);
-    window.location.reload();
-  };
-
-  const modified = cell.value.formulaMapping
-    ? cell.value.formulaMapping.externalReference !== newExternalReference
-    : newExternalReference;
-  const onClick = () => {
-    setOpen(!open);
-  };
-
-  return (
-    <Dialog
-      disableBackdropClick
-      open={open}
-      TransitionComponent={Transition}
-      classes={{ paper: classes.paper }}
-    >
-      <DialogTitle id="form-dialog-title">
-        <b>Mapping out</b>
-        <br></br>
-        <ul>
-          {cell.value.formula.shortName} - {cell.value.topic.name} <br></br>
-          {dhis2Object && dhis2Object.name} <br></br>
-          {newExternalReference}
-        </ul>
-      </DialogTitle>
-      <DialogContent>
-        <DialogContentText>
-          <DataElementComboAutocomplete
-            onChange={handleChange}
-            defaultInputValue={[
-              cell.value.formula.shortName,
-              cell.value.topic.name,
-            ].join(" - ")}
-          ></DataElementComboAutocomplete>
-          {dhis2Object && <Dhis2ElementDetails dhis2Object={dhis2Object} />}
-        </DialogContentText>
-        {cell.value.formulaMapping && (
-          <Button color="secondary" onClick={deleteMapping}>
-            Delete
-          </Button>
-        )}
-      </DialogContent>
-      <DialogActions>
-        <Button color="primary" onClick={onClick}>
-          Cancel
-        </Button>
-        <Button color="primary" onClick={handleConfirm} disabled={!modified}>
-          Ok
-        </Button>
-      </DialogActions>
-    </Dialog>
-  );
-};
 
 const InputMappingDialogEditor = ({ cell }) => {
   const classes = useStylesFormMapping();
