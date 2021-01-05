@@ -174,7 +174,7 @@ export default {
         reloadPage: "A new version is available! Please refresh the page.",
       },
       first_setup: {
-        title: "Premier setup",
+        title: "First setup",
       },
       shortcuts: {
         title: "Help — Shortcuts",

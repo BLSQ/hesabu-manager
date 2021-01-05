@@ -179,7 +179,7 @@ export default {
           "Pas beaucoup de raccourcis pour l'instant mais ceux-ci devraient déjà accélérer votre navigation:",
       },
       first_setup: {
-        title: "First setup",
+        title: "Premier setup",
       },
       tours: {
         welcome: {
