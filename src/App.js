@@ -56,6 +56,11 @@ const LoadableFormulaContainer = Loadable({
   loading: RouteLoading,
 });
 
+const LoadableFirstSetupContainer = Loadable({
+  loader: () => import("./containers/FirstSetupContainer"),
+  loading: RouteLoading,
+});
+
 const styles = () => ({
   root: {
     flexGrow: 1,
@@ -190,6 +195,10 @@ class App extends Component {
                             <Route
                               path="/simulation"
                               component={LoadableSimulationContainer}
+                            />
+                            <Route
+                              path="/first-setup"
+                              component={LoadableFirstSetupContainer}
                             />
                             <Route
                               path="/help"

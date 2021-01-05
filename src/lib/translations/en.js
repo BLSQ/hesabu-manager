@@ -41,6 +41,7 @@ export default {
         help: {
           main: "Help",
           shortcuts: "Shortcuts",
+          first_setup: "First setup",
         },
       },
       topic: {
@@ -171,6 +172,9 @@ export default {
       },
       snackBars: {
         reloadPage: "A new version is available! Please refresh the page.",
+      },
+      first_setup: {
+        title: "Premier setup",
       },
       shortcuts: {
         title: "Help — Shortcuts",

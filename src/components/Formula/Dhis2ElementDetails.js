@@ -32,6 +32,7 @@ const Dhis2ElementDetails = ({ dhis2Object }) => {
               value={dhis2Object.categoryOptionCombo.name}
             />
           ),
+          <FieldValue field="id" value={dhis2Object.id} />,
           <FieldValue field="valueType" value={dhis2Object.valueType} />,
           <FieldValue
             field="aggregationType"

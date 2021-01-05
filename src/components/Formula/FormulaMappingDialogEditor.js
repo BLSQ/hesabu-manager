@@ -4,7 +4,7 @@ import DataElementComboAutocomplete from "../Shared/DataElementComboAutocomplete
 import { dhis2LookupElement } from "../../lib/dhis2Lookups";
 import Transition from "../../components/Shared/Transition";
 import Dhis2ElementDetails from "./Dhis2ElementDetails";
-import { externalApi } from "../../actions/api";
+import { externalApi, canEdit } from "../../actions/api";
 import {
   Dialog,
   DialogTitle,
@@ -19,6 +19,7 @@ const useStylesFormMapping = makeStyles(() => ({
 }));
 
 const FormulaMappingDialogEditor = props => {
+  const userCanEdit = canEdit();
   const classes = useStylesFormMapping();
   const cell = props.cell;
   const formulaMapping = cell.value.formulaMapping;
@@ -97,15 +98,17 @@ const FormulaMappingDialogEditor = props => {
       </DialogTitle>
       <DialogContent>
         <DialogContentText>
-          <DataElementComboAutocomplete
-            onChange={handleDeCocChange}
-            defaultInputValue={defaultSearch}
-          ></DataElementComboAutocomplete>
+          {userCanEdit && (
+            <DataElementComboAutocomplete
+              onChange={handleDeCocChange}
+              defaultInputValue={defaultSearch}
+            ></DataElementComboAutocomplete>
+          )}
           <div>
             {dhis2Object && <Dhis2ElementDetails dhis2Object={dhis2Object} />}
           </div>
         </DialogContentText>
-        {formulaMapping && (
+        {formulaMapping && userCanEdit && (
           <Button color="secondary" onClick={deleteMapping}>
             Delete
           </Button>
@@ -115,9 +118,11 @@ const FormulaMappingDialogEditor = props => {
         <Button color="primary" onClick={justClose}>
           Cancel
         </Button>
-        <Button color="primary" onClick={createOrUpdate} disabled={!modified}>
-          Ok
-        </Button>
+        {userCanEdit && (
+          <Button color="primary" onClick={createOrUpdate} disabled={!modified}>
+            Ok
+          </Button>
+        )}
       </DialogActions>
     </Dialog>
   );

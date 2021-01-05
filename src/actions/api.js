@@ -34,3 +34,9 @@ export const externalApi = () => {
     .headers(headers)
     .options({ encoding: "same-origin", headers });
 };
+
+export const canEdit = () => {
+  const state = store.getState();
+  const { user } = state.api;
+  return user.canEdit;
+};

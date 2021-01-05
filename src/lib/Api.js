@@ -53,7 +53,11 @@ class Api {
   instance = () => getInstance().then(d2 => d2.Api.getApi());
 
   currentUser() {
-    return getInstance().then(d2 => d2.currentUser);
+    return getInstance().then(d2 => {
+      return d2.Api.getApi().get("me", {
+        fields: ":all,userCredentials[userRoles[id,name]]",
+      });
+    });
   }
 
   projectTokenAndUrl = () => {
