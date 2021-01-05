@@ -14,10 +14,8 @@ export const createAdminRole = async () => {
     const response = await dhis2Api
       .post("userRoles", userRole)
       .catch(resp => resp);
-    debugger;
     alert(JSON.stringify(response));
   } catch (error) {
-    debugger;
     alert("Something went wrong. Are you admin ? ", error);
   }
 };
