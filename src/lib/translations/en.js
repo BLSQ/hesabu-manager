@@ -4,6 +4,7 @@ export default {
     translations: {
       autocomplete: {
         orgUnits: "Choose an org unit",
+        deCoc: "Choose a data element",
       },
       buttons: {
         autoreload: "Auto reload",
@@ -40,6 +41,7 @@ export default {
         help: {
           main: "Help",
           shortcuts: "Shortcuts",
+          first_setup: "First setup",
         },
       },
       topic: {
@@ -170,6 +172,9 @@ export default {
       },
       snackBars: {
         reloadPage: "A new version is available! Please refresh the page.",
+      },
+      first_setup: {
+        title: "First setup",
       },
       shortcuts: {
         title: "Help — Shortcuts",

@@ -52,6 +52,14 @@ class Api {
 
   instance = () => getInstance().then(d2 => d2.Api.getApi());
 
+  currentUser() {
+    return getInstance().then(d2 => {
+      return d2.Api.getApi().get("me", {
+        fields: ":all,userCredentials[userRoles[id,name]]",
+      });
+    });
+  }
+
   projectTokenAndUrl = () => {
     return getInstance().then(d2 => {
       return d2.dataStore.get("hesabu").then(namespace => {

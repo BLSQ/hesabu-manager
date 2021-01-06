@@ -4,12 +4,18 @@ function api(
   state = {
     token: null,
     error: null,
+    user: null,
   },
   action,
 ) {
   switch (action.type) {
     case RECEIVE_TOKEN:
-      return { ...state, token: action.token, url: action.url };
+      return {
+        ...state,
+        token: action.token,
+        url: action.url,
+        user: action.user,
+      };
     case RECEIVE_TOKEN_ERROR:
       return { ...state, error: action.error };
     default:

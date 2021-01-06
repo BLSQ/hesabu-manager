@@ -59,6 +59,10 @@ function DrawerItems(props) {
           name: formattedName(t("drawerItems.help.shortcuts")),
           to: "/help/shortcuts",
         },
+        {
+          name: formattedName(t("drawerItems.help.first_setup")),
+          to: "/first-setup",
+        },
       ],
     },
   ];

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import Api from "../lib/Api";
 import { useStore } from "react-redux";
@@ -35,20 +35,22 @@ const loadData = async () => {
 const Dhis2DataElementsProvider = props => {
   const dispatch = useDispatch();
   const store = useStore();
+  const [status, setStatus] = useState(store.getState().dhis2.status);
   useEffect(() => {
     const fetchDataElements = async () => {
       if (store.getState().dhis2.status === null) {
         dispatch(dhis2RequestDe());
 
         dispatch(dhis2ReceiveDe(await loadData()));
+        setStatus("LOADED");
       }
     };
     fetchDataElements();
   }, [dispatch, store]);
-  return store.getState().dhis2.status === "LOADED" ? (
+  return status == "LOADED" ? (
     props.children
   ) : (
-    <span>Loading...</span>
+    <span>Loading data elements... {store.getState().dhis2.status}</span>
   );
 };
 

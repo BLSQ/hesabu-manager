@@ -3,6 +3,7 @@ export default {
     translations: {
       autocomplete: {
         orgUnits: "Choisissez une unité d’organisation",
+        deCoc: "Choisissez un élément de donnée",
       },
       buttons: {
         autoreload: "Rafraichissement auto",
@@ -39,6 +40,7 @@ export default {
         help: {
           main: "Aide",
           shortcuts: "Racourcis",
+          first_setup: "Premier setup",
         },
       },
       cellExplanation: {
@@ -175,6 +177,9 @@ export default {
         title: "Aide — Raccourcis",
         intro:
           "Pas beaucoup de raccourcis pour l'instant mais ceux-ci devraient déjà accélérer votre navigation:",
+      },
+      first_setup: {
+        title: "Premier setup",
       },
       tours: {
         welcome: {
