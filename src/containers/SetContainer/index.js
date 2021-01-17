@@ -26,33 +26,37 @@ const SetContainer = props => {
     return prms.toString();
   }
 
+  const reloadData = () => {
+    setLoading(true);
+    externalApi()
+      .errorType("json")
+      .url(`/sets/${props.setId}`)
+      .get()
+      .json(response => {
+        setLoading(false);
+        deserialize(response, {
+          simulationOrgUnit: {
+            valueForRelationship(relationship) {
+              return {
+                id: relationship.id,
+                type: relationship.type,
+              };
+            },
+          },
+        }).then(data => {
+          setSet(data);
+        });
+      })
+      .catch(e => {
+        setLoading(false);
+        setSet({});
+        console.log(e);
+      });
+  };
+
   useEffect(() => {
     if (open) {
-      setLoading(true);
-      externalApi()
-        .errorType("json")
-        .url(`/sets/${props.setId}`)
-        .get()
-        .json(response => {
-          setLoading(false);
-          deserialize(response, {
-            simulationOrgUnit: {
-              valueForRelationship(relationship) {
-                return {
-                  id: relationship.id,
-                  type: relationship.type,
-                };
-              },
-            },
-          }).then(data => {
-            setSet(data);
-          });
-        })
-        .catch(e => {
-          setLoading(false);
-          setSet({});
-          console.log(e);
-        });
+      reloadData();
     }
   }, [props.setId, open]);
 
@@ -70,6 +74,7 @@ const SetContainer = props => {
         handleToggleSideSheet={handleToggleSideSheet}
         simulationParams={simulationParams()}
         location={location}
+        onSave={reloadData}
       />
     </Dhis2DataElementsProvider>
   );

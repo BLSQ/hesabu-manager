@@ -8,6 +8,7 @@ const SetChildrenContainer = props => {
 
   return (
     <TopicBasedFormulas
+      set={props.set}
       topics={topics}
       inputs={[]}
       formulas={zoneTopicFormulas}
