@@ -7,6 +7,7 @@ import FiltersToggleBtn from "../../FiltersToggleBtn";
 import TopBar from "../../Shared/TopBar";
 import SideSheet from "../../SideSheet";
 import Tabs from "./Tabs";
+import ImportTopicsContainer from "./ImportTopicsContainer";
 import SetChildrenContainer from "../../../containers/SetChildrenContainer";
 import SetCurrentLevelContainer from "../../../containers/SetCurrentLevelContainer";
 import SetFormulasContainer from "../../../containers/SetFormulasContainer";
@@ -29,6 +30,7 @@ const Set = props => {
     handleToggleSideSheet,
     simulationParams,
     location,
+    onSave,
   } = props;
   const history = useHistory();
   const classes = useStyles(!loading && sideSheetOpen);
@@ -80,8 +82,19 @@ const Set = props => {
           <Switch>
             <Route
               path={`${match.url}/topic_formulas`}
+              exact={true}
               component={() => (
                 <SetCurrentLevelContainer set={set} loading={loading} />
+              )}
+            />
+            <Route
+              path={`${match.url}/topic_formulas/import`}
+              component={() => (
+                <ImportTopicsContainer
+                  set={set}
+                  loading={loading}
+                  onSave={onSave}
+                />
               )}
             />
             <Route
@@ -141,6 +154,7 @@ const Set = props => {
 Set.propTypes = {
   currentTab: PropTypes.number,
   handleToggleSideSheet: PropTypes.func,
+  onSave: PropTypes.func,
   loading: PropTypes.bool,
   location: PropTypes.object,
   match: PropTypes.object,

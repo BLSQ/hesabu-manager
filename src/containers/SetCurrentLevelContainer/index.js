@@ -7,6 +7,7 @@ const SetCurrentLevelContainer = props => {
   const { topics, inputs, topicFormulas, topicDecisionTables } = props.set;
   return (
     <TopicBasedFormulas
+      set={props.set}
       topics={topics}
       inputs={inputs}
       formulas={topicFormulas}

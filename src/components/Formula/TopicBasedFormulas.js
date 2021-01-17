@@ -7,7 +7,7 @@ import PropTypes from "prop-types";
 import { APPBAR_WITH_TABS_HEIGHT } from "../../constants/ui";
 import SectionLoading from "../../components/Shared/SectionLoading";
 import PapaParse from "papaparse";
-
+import AddIcon from "@material-ui/icons/Add";
 import {
   fakeColumGenerator,
   fakeRowGenerator,
@@ -191,7 +191,7 @@ const CellRenderer = props => {
 
 const TopicBasedFormulas = props => {
   const classes = useStyles(props);
-  const { topics, inputs, formulas, decisionTables } = props;
+  const { topics, inputs, formulas, decisionTables, set } = props;
   const safeTopics = topics || [];
   const safeInputs = inputs;
   const safeTopicFormulas = formulas || [];
@@ -329,6 +329,21 @@ const TopicBasedFormulas = props => {
       }),
       ...fakeColumGenerator(10),
     ]),
+    [
+      {
+        value: "ADD",
+        valueViewer: v => (
+          <Button
+            href={"./index.html#/sets/" + set.id + "/topic_formulas/import"}
+          >
+            <AddIcon></AddIcon>
+          </Button>
+        ),
+
+        readOnly: true,
+      },
+    ],
+    ,
     ...fakeRowGenerator(
       50,
       fakeColumGenerator(safeInputs.length + 11, false),
