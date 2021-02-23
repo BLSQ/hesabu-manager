@@ -15,6 +15,21 @@ describe("formula utils", () => {
   const formulas = [formula, formula2];
 
   it("dependencies remove if comparison constant", () => {
+    expect(
+      dependencies(
+        "if(baq_trim == 0 AND baq_apply ==1 AND actif_baq !=1,if( is_last_month==1,nombre_baq*valeur_du_baq,0),0)",
+      ),
+    ).toEqual([
+      "baq_trim",
+      "baq_apply",
+      "actif_baq",
+      "is_last_month",
+      "nombre_baq",
+      "valeur_du_baq",
+    ]);
+  });
+
+  it("dependencies remove if comparison constant", () => {
     expect(dependencies(formula.expression)).toEqual([
       "difference_percentage",
       "verified",

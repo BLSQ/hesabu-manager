@@ -41,6 +41,7 @@ export const dependencies = expression => {
     .flatMap(s => s.split(" AND "))
     .flatMap(s => s.split(" OR "))
     .flatMap(s => s.split(" or "))
+    .flatMap(s => s.split("!="))
     .flatMap(s => s.split("&&"))
     .flatMap(s => s.split("||"))
     .flatMap(s => s.split('"'))
