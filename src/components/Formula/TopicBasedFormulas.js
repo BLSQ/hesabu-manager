@@ -278,11 +278,14 @@ const TopicBasedFormulas = props => {
     ...defaultGrid,
     ...safeTopics.map(topic => [
       {
-        value: topic.name,
+        value: topic,
         readOnly: true,
         disableEvents: true,
         noWrap: true,
         style: { backgroundColor: "yellow" },
+        valueViewer: topic => {
+          return <span title={topic.value.code}>{topic.value.name}</span>;
+        },
       },
       ...safeInputs.map(input => {
         const inputMapping = findInputMapping(input, topic.inputMappings);
