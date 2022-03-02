@@ -30,7 +30,7 @@ export default {
         sidesheet: {
           title: "Compound info",
         },
-        sets: "Sets",
+        sets: "Projects",
       },
       noData: "N/A",
       emptySection: {
@@ -63,14 +63,14 @@ export default {
         yearly: "yearly",
       },
       resources: {
-        set: "set",
-        set_plural: "sets",
+        set: "project",
+        set_plural: "projects",
         compound: "compound",
         compound_plural: "compounds",
         orgUnitGroup: "Organisation unit group",
         orgUnitGroup_plural: "Organisation unit groups",
-        orgUnitGroupSet: "Organisation unit group set",
-        orgUnitGroupSet_plural: "Organisation unit group sets",
+        orgUnitGroupSet: "Organisation unit group project",
+        orgUnitGroupSet_plural: "Organisation unit group projects",
         simulation: "simulation",
         simulation_plural: "simulations",
         orgUnit: "organisation unit",
@@ -84,12 +84,12 @@ export default {
         frequency: "Frequency",
         tabs: {
           topicFormulas: {
-            label: "Topic",
-            tooltip: "Input mapping and per topic formulas",
+            label: "Activity",
+            tooltip: "Input mapping and per activity formulas",
           },
           setFormulas: {
-            label: "Set formulas",
-            tooltip: "Aggregation of the topic formulas",
+            label: "Project formulas",
+            tooltip: "Aggregation of the activity formulas",
           },
           childrenFormulas: {
             label: "Children formulas",
@@ -101,9 +101,9 @@ export default {
               "Aggregation at main orgunit/zone level of target entities setFormulas",
           },
           zoneTopicFormulas: {
-            label: "Zone topic formulas",
+            label: "Zone activity formulas",
             tooltip:
-              "Aggregation per topic at main orgunit/zone level of target entities topic formulas",
+              "Aggregation per activity at main orgunit/zone level of target entities activity formulas",
           },
         },
         sidesheet: {
@@ -113,7 +113,7 @@ export default {
       sets: {
         index: {
           infoBox:
-            "Sets are the blocks of your final report. Each set will output one or two tables depending on the type. If you want to make computations with data from multiple sets, create project formulas and they will appear at the end of your report. At any moment, you can see a representation of the report in the simulations page.",
+            "Projects are the blocks of your final report. Each project will output one or two tables depending on the type. If you want to make computations with data from multiple projects, create project formulas and they will appear at the end of your report. At any moment, you can see a representation of the report in the simulations page.",
         },
       },
       simulation: {
@@ -122,7 +122,7 @@ export default {
         },
         ohNo: "Oh no",
         noSimulationForOrgUnit:
-          "It looks like there is no set associated with this organization unit.",
+          "It looks like there is no project associated with this organization unit.",
       },
       simulationForm: {
         projectVersion: {
@@ -187,19 +187,19 @@ export default {
           content:
             "In order to better reflect the diversity of our projects, we have opted for a new nomenclature compared to the old hesabu. This introductory tour will review these new concepts. The exact mapping of terms can be found in the help section.",
           sets: {
-            title: "The sets",
+            title: "The projects",
             content:
-              "Sets are collections of topics. Each set will produce one or two tables during the simulation depending on its type. You can use inputs from various sources to feed formulas which can then be exported to dhis2 and/or reused in compounds.",
+              "Projects are collections of activities. Each project will produce one or two tables during the simulation depending on its type. You can use inputs from various sources to feed formulas which can then be exported to dhis2 and/or reused in compounds.",
           },
           compounds: {
             title: "The compounds",
             content:
-              "Compounds allow you to create and group new formulas by combining existing formulas from several different sets.",
+              "Compounds allow you to create and group new formulas by combining existing formulas from several different projects.",
           },
           simulations: {
             title: "The simulations",
             content:
-              "For the moment, simulations are still limited to one organization unit and one period. However, they can now self-recharge. This will allow you to automatically recreate a simulation as soon as you make a change to your set or compound.",
+              "For the moment, simulations are still limited to one organization unit and one period. However, they can now self-recharge. This will allow you to automatically recreate a simulation as soon as you make a change to your project or compound.",
           },
         },
       },
