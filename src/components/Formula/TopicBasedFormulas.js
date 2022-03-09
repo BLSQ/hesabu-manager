@@ -232,28 +232,36 @@ const TopicBasedFormulas = props => {
           value: { header, decisionTable },
           disableEvents: true,
           readOnly: true,
-          valueViewer: v => (
-            <Tooltip
-              classes={{ tooltip: classes.customWidth }}
-              title={
-                <div>
-                  IN :{v.cell.value.decisionTable.inHeaders.join(" , ")}{" "}
-                  <br></br>
-                  OUT : {v.cell.value.decisionTable.outHeaders.join(" , ")}{" "}
-                  <br></br>
-                  Decision table (
-                  {v.cell.value.decisionTable.content.split("\n").length -
-                    1}{" "}
-                  lines):
-                  <pre>{v.cell.value.decisionTable.content}</pre>
-                </div>
-              }
-            >
-              <span style={{ fontStyle: "italic" }}>
-                {humanize(v.cell.value.header)}*
-              </span>
-            </Tooltip>
-          ),
+          valueViewer: v => {
+            debugger;
+            return (
+              <Tooltip
+                classes={{ tooltip: classes.customWidth }}
+                title={
+                  <div>
+                    {decisionTable.startPeriod || "?"} {" -> "}
+                    {decisionTable.endPeriod || "?"}
+                    <br></br>
+                    IN :{v.cell.value.decisionTable.inHeaders.join(" , ")}{" "}
+                    <br></br>
+                    OUT : {v.cell.value.decisionTable.outHeaders.join(
+                      " , ",
+                    )}{" "}
+                    <br></br>
+                    Decision table (
+                    {v.cell.value.decisionTable.content.split("\n").length -
+                      1}{" "}
+                    lines):
+                    <pre>{v.cell.value.decisionTable.content}</pre>
+                  </div>
+                }
+              >
+                <span style={{ fontStyle: "italic" }}>
+                  {humanize(v.cell.value.header)}*
+                </span>
+              </Tooltip>
+            );
+          },
         }));
       }),
       ...safeTopicFormulas.map(formula => ({
@@ -270,11 +278,14 @@ const TopicBasedFormulas = props => {
     ...defaultGrid,
     ...safeTopics.map(topic => [
       {
-        value: topic.name,
+        value: topic,
         readOnly: true,
         disableEvents: true,
         noWrap: true,
         style: { backgroundColor: "yellow" },
+        valueViewer: topic => {
+          return <span title={topic.value.code}>{topic.value.name}</span>;
+        },
       },
       ...safeInputs.map(input => {
         const inputMapping = findInputMapping(input, topic.inputMappings);
@@ -296,6 +307,8 @@ const TopicBasedFormulas = props => {
               classes={{ tooltip: classes.customWidth }}
               title={
                 <div>
+                  {decisionTable.startPeriod || "?"} {" -> "}
+                  {decisionTable.endPeriod || "?"}
                   <pre>
                     {PapaParse.unparse(
                       v.cell.value.decisionTable.parsedContent.data.filter(
