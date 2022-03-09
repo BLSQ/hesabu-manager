@@ -6,6 +6,7 @@ import classNames from "classnames";
 import Header from "../Header";
 import useStyles from "./styles";
 import PeriodView from "./PeriodView";
+import { dhis2LookupCategoryOptionCombo } from "../../../lib/dhis2Lookups";
 
 function a11yProps(index, title) {
   const tag = kebabCase(title);
@@ -13,6 +14,16 @@ function a11yProps(index, title) {
     id: `${tag}-tab-${index}`,
     "aria-controls": `${tag}-tabpanel-${index}`,
   };
+}
+
+function generateLabel(periodView) {
+  return (
+    (periodView.coc_ext_id &&
+      `${periodView.period} - ${
+        dhis2LookupCategoryOptionCombo(periodView.coc_ext_id).name
+      }`) ||
+    `${periodView.period}`
+  );
 }
 
 const SimulationBlock = props => {
@@ -23,7 +34,6 @@ const SimulationBlock = props => {
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
-
   return (
     <div className={classes.root}>
       <Header title={title} />
@@ -38,7 +48,7 @@ const SimulationBlock = props => {
           return (
             <Tab
               key={`${kebabCase(title)}-tab-${index}`}
-              label={periodView.period}
+              label={generateLabel(periodView)}
               {...a11yProps(index, title)}
             />
           );

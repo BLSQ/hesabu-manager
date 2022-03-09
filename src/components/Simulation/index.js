@@ -22,6 +22,7 @@ import PageContent from "../Shared/PageContent";
 import useStyles from "./styles";
 import ExpandableCellContent from "./ExpandableCellContent";
 import SimulationResultStatus from "./SimulationResultStatus";
+import Dhis2DataElementsProvider from "../../containers/Dhis2DataElementsProvider";
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
@@ -118,7 +119,7 @@ export const Simulation = props => {
         {loading && <span>Loading...</span>}
         {errorMessage}
         {simulation && simulation.status === "processed" && (
-          <Fragment>
+          <Dhis2DataElementsProvider>
             <SimulationBlocks
               resultUrl={simulation.resultUrl}
               searchQuery={props.valuesFromParams}
@@ -131,7 +132,7 @@ export const Simulation = props => {
             >
               <ExpandableCellContent cell={selectedCell} usedBy={usedBy} />
             </ExpandableBottomSheet>
-          </Fragment>
+          </Dhis2DataElementsProvider>
         )}
         <SimulationResultStatus
           newSim={isEmpty(props.valuesFromParams)}
