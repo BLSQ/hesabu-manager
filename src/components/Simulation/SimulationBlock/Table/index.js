@@ -1,5 +1,5 @@
 import humanize from "string-humanize";
-import React, { useMemo } from "react";
+import React, { useMemo, useState, useEffect } from "react";
 import {
   Table as MaterialTable,
   TableHead,
@@ -114,6 +114,22 @@ const Table = props => {
     data,
   });
 
+  const [displayedRows, setDisplayedRows] = useState(rows);
+
+  let filteredRows;
+  filteredRows = columns.some(c => c.Header === "Visible")
+    ? rows.filter(row => row.values.visible.value === "1")
+    : rows;
+  filteredRows = columns.some(c => c.Header === "Order")
+    ? filteredRows.sort((a, b) => b.values.order.value - a.values.order.value)
+    : filteredRows;
+
+  useEffect(() => {
+    if (filteredRows.length > 0) {
+      setDisplayedRows(filteredRows);
+    }
+  }, []);
+
   if (!columns.length) {
     return null;
   }
@@ -136,7 +152,7 @@ const Table = props => {
           ))}
         </TableHead>
         <TableBody {...getTableBodyProps()}>
-          {rows.map((row, i) => {
+          {displayedRows.map((row, i) => {
             prepareRow(row);
             return (
               <TableRow key={i} {...row.getRowProps()}>
