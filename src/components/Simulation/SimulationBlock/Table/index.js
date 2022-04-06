@@ -125,9 +125,7 @@ const Table = props => {
     : filteredRows;
 
   useEffect(() => {
-    if (filteredRows.length > 0) {
-      setDisplayedRows(filteredRows);
-    }
+    setDisplayedRows(filteredRows);
   }, []);
 
   if (!columns.length) {
