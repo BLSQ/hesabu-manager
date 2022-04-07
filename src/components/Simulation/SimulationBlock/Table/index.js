@@ -1,6 +1,8 @@
 import humanize from "string-humanize";
 import React, { useMemo, useState, useEffect } from "react";
 import {
+  Checkbox,
+  FormControlLabel,
   Table as MaterialTable,
   TableHead,
   TableCell,
@@ -92,6 +94,7 @@ const Table = props => {
   } = props;
   const classes = useStyles(props);
   const { t } = useTranslation();
+  const [showAll, setShowAll] = useState(false);
 
   const columns = useMemo(() => prepareHeaders(activity_items, t), [
     activity_items,
@@ -113,20 +116,21 @@ const Table = props => {
     columns,
     data,
   });
-
   const [displayedRows, setDisplayedRows] = useState(rows);
-
   let filteredRows;
-  filteredRows = columns.some(c => c.Header === "Visible")
-    ? rows.filter(row => row.values.visible.value === "1")
-    : rows;
+  filteredRows =
+    columns.some(c => c.Header === "Visible") && !showAll
+      ? rows.filter(row => row.values.visible.value === "1")
+      : rows;
   filteredRows = columns.some(c => c.Header === "Order")
     ? filteredRows.sort((a, b) => b.values.order.value - a.values.order.value)
     : filteredRows;
 
+  const showToggle = columns.some(c => c.Header === "Visible");
+
   useEffect(() => {
     setDisplayedRows(filteredRows);
-  }, []);
+  }, [showAll]);
 
   if (!columns.length) {
     return null;
@@ -134,6 +138,19 @@ const Table = props => {
 
   return (
     <div className={classes.root}>
+      {showToggle && (
+        <FormControlLabel
+          control={
+            <Checkbox
+              color="primary"
+              checked={showAll === true}
+              onChange={event => setShowAll(event.target.checked)}
+              value={showAll}
+            />
+          }
+          label="Show all"
+        />
+      )}
       <MaterialTable {...getTableProps()} className={classes.table}>
         <TableHead>
           {headerGroups.map((headerGroup, index) => (
