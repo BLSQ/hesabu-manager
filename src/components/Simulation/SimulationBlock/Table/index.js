@@ -117,16 +117,20 @@ const Table = props => {
     data,
   });
   const [displayedRows, setDisplayedRows] = useState(rows);
-  let filteredRows;
-  filteredRows =
-    columns.some(c => c.Header === "Visible") && !showAll
-      ? rows.filter(row => row.values.visible.value === "1")
-      : rows;
-  filteredRows = columns.some(c => c.Header === "Order")
-    ? filteredRows.sort((a, b) => b.values.order.value - a.values.order.value)
-    : filteredRows;
 
-  const showToggle = columns.some(c => c.Header === "Visible");
+  const showableToggle = columns.some(c => c.accessor === "visible");
+  const isOrderable = columns.some(c => c.accessor === "order");
+
+  let filteredRows = rows;
+  if (showableToggle && !showAll) {
+    filteredRows = rows.filter(row => row.values.visible.value === "1");
+  }
+  if (isOrderable) {
+    filteredRows = filteredRows.sort(
+      (a, b) =>
+        parseFloat(a.values.order.value) - parseFloat(b.values.order.value),
+    );
+  }
 
   useEffect(() => {
     setDisplayedRows(filteredRows);
@@ -138,7 +142,7 @@ const Table = props => {
 
   return (
     <div className={classes.root}>
-      {showToggle && (
+      {showableToggle && (
         <FormControlLabel
           control={
             <Checkbox
@@ -149,6 +153,7 @@ const Table = props => {
             />
           }
           label="Show all"
+          style={{ float: "right" }}
         />
       )}
       <MaterialTable {...getTableProps()} className={classes.table}>
