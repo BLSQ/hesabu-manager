@@ -1,6 +1,8 @@
 import humanize from "string-humanize";
-import React, { useMemo } from "react";
+import React, { useMemo, useState, useEffect } from "react";
 import {
+  Checkbox,
+  FormControlLabel,
   Table as MaterialTable,
   TableHead,
   TableCell,
@@ -92,6 +94,7 @@ const Table = props => {
   } = props;
   const classes = useStyles(props);
   const { t } = useTranslation();
+  const [showAll, setShowAll] = useState(false);
 
   const columns = useMemo(() => prepareHeaders(activity_items, t), [
     activity_items,
@@ -113,6 +116,25 @@ const Table = props => {
     columns,
     data,
   });
+  const [displayedRows, setDisplayedRows] = useState(rows);
+
+  const showableToggle = columns.some(c => c.accessor === "visible");
+  const isOrderable = columns.some(c => c.accessor === "order");
+
+  let filteredRows = rows;
+  if (showableToggle && !showAll) {
+    filteredRows = rows.filter(row => row.values.visible.value === "1");
+  }
+  if (isOrderable) {
+    filteredRows = filteredRows.sort(
+      (a, b) =>
+        parseFloat(a.values.order.value) - parseFloat(b.values.order.value),
+    );
+  }
+
+  useEffect(() => {
+    setDisplayedRows(filteredRows);
+  }, [showAll]);
 
   if (!columns.length) {
     return null;
@@ -120,6 +142,20 @@ const Table = props => {
 
   return (
     <div className={classes.root}>
+      {showableToggle && (
+        <FormControlLabel
+          control={
+            <Checkbox
+              color="primary"
+              checked={showAll === true}
+              onChange={event => setShowAll(event.target.checked)}
+              value={showAll}
+            />
+          }
+          label="Show all"
+          style={{ float: "right" }}
+        />
+      )}
       <MaterialTable {...getTableProps()} className={classes.table}>
         <TableHead>
           {headerGroups.map((headerGroup, index) => (
@@ -136,7 +172,7 @@ const Table = props => {
           ))}
         </TableHead>
         <TableBody {...getTableBodyProps()}>
-          {rows.map((row, i) => {
+          {displayedRows.map((row, i) => {
             prepareRow(row);
             return (
               <TableRow key={i} {...row.getRowProps()}>
