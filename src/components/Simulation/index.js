@@ -90,10 +90,10 @@ export const Simulation = props => {
 
   const period = props.valuesFromParams.periods;
 
-  // "/reports/:period/:orgUnitId"
-
+  // in path is  "#/reports/:period/:orgUnitId"
+  // relative so 3 dir up (api/apps/Hesabu)
   const linkToInvoiceApp =
-    invoiceAppPath + "/reports/" + period + "/" + orgUnitId;
+    "/../../.." + invoiceAppPath + "#/reports/" + period + "/" + orgUnitId;
 
   const backLinkPath = (location.state || {}).referrer
     ? location.state.referrer
