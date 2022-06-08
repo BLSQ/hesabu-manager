@@ -158,6 +158,8 @@ export default {
         toggleFilters: "Montrez / cachez les filtres",
         toggleSearch: "Afficher / masquer la recherche",
         toggleInfo: "Afficher / masquer les infos",
+        goToInvoiceApp: "Accéder aux factures de l'orgunit dans l'Invoice App",
+        goToOrbf2: "Accéder aux simulations dans ORBF2",
         cell: {
           noData: "Pas de données disponibles",
           input: "Ceci est une entrée. Cliquez pour voir les détails",

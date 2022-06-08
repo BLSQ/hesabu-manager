@@ -159,6 +159,9 @@ export default {
         toggleFilters: "Show/Hide filters",
         toggleSearch: "Show/Hide search",
         toggleInfo: "Show / hide info",
+        goToInvoiceApp:
+          "Navigate to the invoices for the orgunit in the Invoice App",
+        goToOrbf2: "Navigate to the simulations in ORBF2",
         cell: {
           noData: "No data available",
           input: "This is an input. Click to see details",
