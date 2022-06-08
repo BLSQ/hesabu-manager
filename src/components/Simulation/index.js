@@ -92,6 +92,21 @@ export const Simulation = props => {
     "/" +
     orgUnitId;
 
+  const hesabuProject = useSelector(state => state.project);
+
+  // https://orbf2.bluesquare.org/setup/projects/108/invoices/new?entity=mPz1RWOQB0l&quarter=2&year=2022
+  const splitPeriod = period.split("Q");
+  const linkToOrbf2Simulations =
+    apiConfig.url +
+    "/setup/projects/" +
+    hesabuProject.id +
+    "/invoices/new?entity=" +
+    orgUnitId +
+    "&quarter=" +
+    splitPeriod[1] +
+    "&year=" +
+    splitPeriod[0];
+
   const backLinkPath = (location.state || {}).referrer
     ? location.state.referrer
     : "/simulations";
@@ -135,7 +150,7 @@ export const Simulation = props => {
 
         <Typography color="inherit" className={classes.appLinks}>
           <Tooltip title={t("tooltips.goToOrbf2")}>
-            <Button color="inherit" href={apiConfig.url}>
+            <Button color="inherit" href={linkToOrbf2Simulations}>
               ORBF2
             </Button>
           </Tooltip>
