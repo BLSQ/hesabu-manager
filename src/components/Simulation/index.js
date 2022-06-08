@@ -14,7 +14,7 @@ import PropTypes from "prop-types";
 import { useHistory, useLocation } from "react-router-dom";
 import { withTranslation } from "react-i18next";
 import isEmpty from "lodash/isEmpty";
-import { connect } from "react-redux";
+import { connect, useSelector } from "react-redux";
 import TopBar from "../Shared/TopBar";
 import FiltersToggleBtn from "../FiltersToggleBtn";
 import SimulationBlocks from "./SimulationBlocks";
@@ -37,8 +37,6 @@ export const Simulation = props => {
   const location = useLocation();
   const [sideSheetOpen, setSideSheetOpen] = useState(false);
   const [bottomSheetOpen, setBottomSheetOpen] = useState(false);
-  const [invoiceAppPath, setInvoiceAppPath] = useState(null);
-  const [orbf2Path, setOrbf2Path] = useState(null);
 
   const {
     errorMessage,
@@ -69,18 +67,12 @@ export const Simulation = props => {
     ? `${simulation.orgUnitName} @ ${simulation.dhis2Period}`
     : "...";
 
+  const apiConfig = useSelector(state => state.api);
+
   useEffect(() => {
     if (selectedCell && !bottomSheetOpen) {
       setBottomSheetOpen(true);
     }
-
-    Api.projectTokenAndUrl().then(async config => {
-      const invoicePath = await config.invoiceAppPath;
-      const orbf2Path = await config.url;
-      setInvoiceAppPath(invoicePath);
-      setOrbf2Path(orbf2Path);
-    });
-
     // eslint-disable-next-line
   }, [selectedCell, simulation]);
 
@@ -93,7 +85,12 @@ export const Simulation = props => {
   // in path is  "#/reports/:period/:orgUnitId"
   // relative so 3 dir up (api/apps/Hesabu)
   const linkToInvoiceApp =
-    "/../../.." + invoiceAppPath + "#/reports/" + period + "/" + orgUnitId;
+    "/../../.." +
+    apiConfig.invoiceAppPath +
+    "#/reports/" +
+    period +
+    "/" +
+    orgUnitId;
 
   const backLinkPath = (location.state || {}).referrer
     ? location.state.referrer
@@ -138,7 +135,7 @@ export const Simulation = props => {
 
         <Typography color="inherit" className={classes.appLinks}>
           <Tooltip title={t("tooltips.goToOrbf2")}>
-            <Button color="inherit" href={orbf2Path}>
+            <Button color="inherit" href={apiConfig.url}>
               ORBF2
             </Button>
           </Tooltip>
