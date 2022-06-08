@@ -5,6 +5,8 @@ import {
   FormControlLabel,
   Switch,
   CircularProgress,
+  Button,
+  Tooltip,
 } from "@material-ui/core";
 import { ExpandableBottomSheet } from "@blsq/manager-ui";
 import React, { useState, useEffect, Fragment } from "react";
@@ -23,6 +25,8 @@ import useStyles from "./styles";
 import ExpandableCellContent from "./ExpandableCellContent";
 import SimulationResultStatus from "./SimulationResultStatus";
 import Dhis2DataElementsProvider from "../../containers/Dhis2DataElementsProvider";
+import Api from "../../lib/Api";
+
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
@@ -33,6 +37,8 @@ export const Simulation = props => {
   const location = useLocation();
   const [sideSheetOpen, setSideSheetOpen] = useState(false);
   const [bottomSheetOpen, setBottomSheetOpen] = useState(false);
+  const [invoiceAppPath, setInvoiceAppPath] = useState(null);
+  const [orbf2Path, setOrbf2Path] = useState(null);
 
   const {
     errorMessage,
@@ -68,8 +74,26 @@ export const Simulation = props => {
       setBottomSheetOpen(true);
     }
 
+    Api.projectTokenAndUrl().then(async config => {
+      const invoicePath = await config.invoiceAppPath;
+      const orbf2Path = await config.url;
+      setInvoiceAppPath(invoicePath);
+      setOrbf2Path(orbf2Path);
+    });
+
     // eslint-disable-next-line
   }, [selectedCell, simulation]);
+
+  const orgUnitId = props.valuesFromParams.displayedOrgUnit
+    ? props.valuesFromParams.displayedOrgUnit
+    : props.valuesFromParams.orgUnit;
+
+  const period = props.valuesFromParams.periods;
+
+  // "/reports/:period/:orgUnitId"
+
+  const linkToInvoiceApp =
+    invoiceAppPath + "/reports/" + period + "/" + orgUnitId;
 
   const backLinkPath = (location.state || {}).referrer
     ? location.state.referrer
@@ -91,7 +115,11 @@ export const Simulation = props => {
         paperScrollPaper: classes.dialog,
       }}
     >
-      <TopBar fullscreen backLinkPath={backLinkPath}>
+      <TopBar
+        fullscreen
+        backLinkPath={backLinkPath}
+        searchQuery={props.valuesFromParams}
+      >
         <Typography
           variant="h6"
           color="inherit"
@@ -99,6 +127,23 @@ export const Simulation = props => {
         >
           {title} {(simulation || {}).status}
         </Typography>
+
+        <Typography color="inherit" className={classes.appLinks}>
+          <Tooltip title={t("tooltips.goToInvoiceApp")}>
+            <Button color="inherit" href={"." + linkToInvoiceApp}>
+              Invoice App
+            </Button>
+          </Tooltip>
+        </Typography>
+
+        <Typography color="inherit" className={classes.appLinks}>
+          <Tooltip title={t("tooltips.goToOrbf2")}>
+            <Button color="inherit" href={orbf2Path}>
+              ORBF2
+            </Button>
+          </Tooltip>
+        </Typography>
+
         <FormControlLabel
           control={
             <Switch
