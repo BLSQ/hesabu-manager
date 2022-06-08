@@ -15,6 +15,8 @@ function api(
         token: action.token,
         url: action.url,
         user: action.user,
+        invoiceAppPath: action.invoiceAppPath,
+        programId: action.programId,
       };
     case RECEIVE_TOKEN_ERROR:
       return { ...state, error: action.error };

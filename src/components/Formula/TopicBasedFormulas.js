@@ -233,7 +233,6 @@ const TopicBasedFormulas = props => {
           disableEvents: true,
           readOnly: true,
           valueViewer: v => {
-            debugger;
             return (
               <Tooltip
                 classes={{ tooltip: classes.customWidth }}

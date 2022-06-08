@@ -5,6 +5,8 @@ import {
   FormControlLabel,
   Switch,
   CircularProgress,
+  Button,
+  Tooltip,
 } from "@material-ui/core";
 import { ExpandableBottomSheet } from "@blsq/manager-ui";
 import React, { useState, useEffect, Fragment } from "react";
@@ -12,7 +14,7 @@ import PropTypes from "prop-types";
 import { useHistory, useLocation } from "react-router-dom";
 import { withTranslation } from "react-i18next";
 import isEmpty from "lodash/isEmpty";
-import { connect } from "react-redux";
+import { connect, useSelector } from "react-redux";
 import TopBar from "../Shared/TopBar";
 import FiltersToggleBtn from "../FiltersToggleBtn";
 import SimulationBlocks from "./SimulationBlocks";
@@ -23,6 +25,8 @@ import useStyles from "./styles";
 import ExpandableCellContent from "./ExpandableCellContent";
 import SimulationResultStatus from "./SimulationResultStatus";
 import Dhis2DataElementsProvider from "../../containers/Dhis2DataElementsProvider";
+import Api from "../../lib/Api";
+
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
@@ -63,13 +67,45 @@ export const Simulation = props => {
     ? `${simulation.orgUnitName} @ ${simulation.dhis2Period}`
     : "...";
 
+  const apiConfig = useSelector(state => state.api);
+
   useEffect(() => {
     if (selectedCell && !bottomSheetOpen) {
       setBottomSheetOpen(true);
     }
-
     // eslint-disable-next-line
   }, [selectedCell, simulation]);
+
+  const orgUnitId = props.valuesFromParams.displayedOrgUnit
+    ? props.valuesFromParams.displayedOrgUnit
+    : props.valuesFromParams.orgUnit;
+
+  const period = props.valuesFromParams.periods;
+
+  // in path is  "#/reports/:period/:orgUnitId"
+  // relative so 3 dir up (api/apps/Hesabu)
+  const linkToInvoiceApp =
+    "/../../.." +
+    apiConfig.invoiceAppPath +
+    "#/reports/" +
+    period +
+    "/" +
+    orgUnitId;
+
+  const hesabuProject = useSelector(state => state.project);
+
+  // https://orbf2.bluesquare.org/setup/projects/108/invoices/new?entity=mPz1RWOQB0l&quarter=2&year=2022
+  const splitPeriod = period.split("Q");
+  const linkToOrbf2Simulations =
+    apiConfig.url +
+    "/setup/projects/" +
+    hesabuProject.id +
+    "/invoices/new?entity=" +
+    orgUnitId +
+    "&quarter=" +
+    splitPeriod[1] +
+    "&year=" +
+    splitPeriod[0];
 
   const backLinkPath = (location.state || {}).referrer
     ? location.state.referrer
@@ -91,7 +127,11 @@ export const Simulation = props => {
         paperScrollPaper: classes.dialog,
       }}
     >
-      <TopBar fullscreen backLinkPath={backLinkPath}>
+      <TopBar
+        fullscreen
+        backLinkPath={backLinkPath}
+        searchQuery={props.valuesFromParams}
+      >
         <Typography
           variant="h6"
           color="inherit"
@@ -99,6 +139,23 @@ export const Simulation = props => {
         >
           {title} {(simulation || {}).status}
         </Typography>
+
+        <Typography color="inherit" className={classes.appLinks}>
+          <Tooltip title={t("tooltips.goToInvoiceApp")}>
+            <Button color="inherit" href={"." + linkToInvoiceApp}>
+              Invoice App
+            </Button>
+          </Tooltip>
+        </Typography>
+
+        <Typography color="inherit" className={classes.appLinks}>
+          <Tooltip title={t("tooltips.goToOrbf2")}>
+            <Button color="inherit" href={linkToOrbf2Simulations}>
+              ORBF2
+            </Button>
+          </Tooltip>
+        </Typography>
+
         <FormControlLabel
           control={
             <Switch

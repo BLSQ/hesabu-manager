@@ -10,6 +10,9 @@ const useStyles = makeStyles(theme => ({
   filtersBtn: {
     marginLeft: theme.spacing(1),
   },
+  appLinks: {
+    marginRight: theme.spacing(2),
+  },
   spinner: {
     marginTop: theme.spacing(20),
   },

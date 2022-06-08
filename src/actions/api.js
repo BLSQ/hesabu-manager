@@ -3,8 +3,16 @@ import { RECEIVE_TOKEN, RECEIVE_TOKEN_ERROR } from "../constants/types";
 import store from "../store";
 import i18n from "../lib/i18n";
 
-export const receiveToken = ({ token, url, user }) => ({
+export const receiveToken = ({
+  token,
+  url,
+  invoiceAppPath,
+  programId,
+  user,
+}) => ({
   type: RECEIVE_TOKEN,
+  invoiceAppPath,
+  programId,
   token,
   user,
   url,
