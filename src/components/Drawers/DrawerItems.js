@@ -8,13 +8,16 @@ import {
 import React, { Fragment } from "react";
 import ListIcon from "@material-ui/icons/List";
 import FunctionsIcon from "@material-ui/icons/Functions";
+import { useSelector } from "react-redux";
 import ExitIcon from "@material-ui/icons/ExitToApp";
 import HelpIcon from "@material-ui/icons/HelpOutline";
 import SyncIcon from "@material-ui/icons/Sync";
+import ReceiptIcon from "@material-ui/icons/Receipt";
 import { useTranslation } from "react-i18next";
 import { HesabuLogo, NestedAccordionMenu } from "@blsq/manager-ui";
 import { Link, withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
+import Api from "../../lib/Api";
 import { formattedName } from "../../utils/textUtils";
 
 const useStyles = makeStyles(theme => ({
@@ -66,6 +69,8 @@ function DrawerItems(props) {
       ],
     },
   ];
+  const apiConfig = useSelector(state => state.api);
+  const linkToInvoiceApp = `/../../..${apiConfig.invoiceAppPath}`;
   return (
     <Fragment>
       <HesabuLogo className={classes.logo} />
@@ -74,6 +79,19 @@ function DrawerItems(props) {
         currentPath={props.location.pathname}
         link={Link}
       />
+      <List>
+        <ListItem
+          className="invoice-app"
+          href={linkToInvoiceApp}
+          component="a"
+          button
+        >
+          <ListItemIcon>
+            <ReceiptIcon />
+          </ListItemIcon>
+          <ListItemText primary={"Invoice App"} />
+        </ListItem>
+      </List>
       <List className={classes.exitBtn}>
         <ListItem
           className="back-to-dhis2"
