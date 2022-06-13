@@ -81,31 +81,32 @@ export const Simulation = props => {
     : props.valuesFromParams.orgUnit;
 
   const period = props.valuesFromParams.periods;
-
+  const hesabuProject = useSelector(state => state.project);
+  let linkToInvoiceApp;
+  let linkToOrbf2Simulations;
   // in path is  "#/reports/:period/:orgUnitId"
   // relative so 3 dir up (api/apps/Hesabu)
-  const linkToInvoiceApp =
-    "/../../.." +
-    apiConfig.invoiceAppPath +
-    "#/reports/" +
-    period +
-    "/" +
-    orgUnitId;
-
-  const hesabuProject = useSelector(state => state.project);
-
-  // https://orbf2.bluesquare.org/setup/projects/108/invoices/new?entity=mPz1RWOQB0l&quarter=2&year=2022
-  const splitPeriod = period.split("Q");
-  const linkToOrbf2Simulations =
-    apiConfig.url +
-    "/setup/projects/" +
-    hesabuProject.id +
-    "/invoices/new?entity=" +
-    orgUnitId +
-    "&quarter=" +
-    splitPeriod[1] +
-    "&year=" +
-    splitPeriod[0];
+  if (period) {
+    linkToInvoiceApp =
+      "/../../.." +
+      apiConfig.invoiceAppPath +
+      "#/reports/" +
+      period +
+      "/" +
+      orgUnitId;
+    // https://orbf2.bluesquare.org/setup/projects/108/invoices/new?entity=mPz1RWOQB0l&quarter=2&year=2022
+    const splitPeriod = period ? period.split("Q") : undefined;
+    linkToOrbf2Simulations =
+      apiConfig.url +
+      "/setup/projects/" +
+      hesabuProject.id +
+      "/invoices/new?entity=" +
+      orgUnitId +
+      "&quarter=" +
+      splitPeriod[1] +
+      "&year=" +
+      splitPeriod[0];
+  }
 
   const backLinkPath = (location.state || {}).referrer
     ? location.state.referrer
@@ -140,21 +141,25 @@ export const Simulation = props => {
           {title} {(simulation || {}).status}
         </Typography>
 
-        <Typography color="inherit" className={classes.appLinks}>
-          <Tooltip title={t("tooltips.goToInvoiceApp")}>
-            <Button color="inherit" href={"." + linkToInvoiceApp}>
-              Invoice App
-            </Button>
-          </Tooltip>
-        </Typography>
+        {period && (
+          <>
+            <Typography color="inherit" className={classes.appLinks}>
+              <Tooltip title={t("tooltips.goToInvoiceApp")}>
+                <Button color="inherit" href={"." + linkToInvoiceApp}>
+                  Invoice App
+                </Button>
+              </Tooltip>
+            </Typography>
 
-        <Typography color="inherit" className={classes.appLinks}>
-          <Tooltip title={t("tooltips.goToOrbf2")}>
-            <Button color="inherit" href={linkToOrbf2Simulations}>
-              ORBF2
-            </Button>
-          </Tooltip>
-        </Typography>
+            <Typography color="inherit" className={classes.appLinks}>
+              <Tooltip title={t("tooltips.goToOrbf2")}>
+                <Button color="inherit" href={linkToOrbf2Simulations}>
+                  ORBF2
+                </Button>
+              </Tooltip>
+            </Typography>
+          </>
+        )}
 
         <FormControlLabel
           control={
