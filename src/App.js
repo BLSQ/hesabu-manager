@@ -166,7 +166,7 @@ class App extends Component {
                           <Switch>
                             <Route
                               exact
-                              path="/formulas/:formulaId"
+                              path="/sets/:setId/topic_formulas/:formulaId"
                               component={LoadableFormulaContainer}
                             />
                             <Route
