@@ -23,6 +23,13 @@ import { CookiesProvider } from "react-cookie";
 import keymap from "./lib/shortcuts";
 import { ShortcutManager, Shortcuts } from "react-shortcuts";
 import HomeTour from "./components/HomeTour";
+import {
+  useQuery,
+  useMutation,
+  useQueryClient,
+  QueryClient,
+  QueryClientProvider,
+} from "react-query";
 
 const shortcutManager = new ShortcutManager(keymap);
 
@@ -71,6 +78,8 @@ const styles = () => ({
     minHeight: "100vh",
   },
 });
+
+const queryClient = new QueryClient();
 
 class App extends Component {
   constructor(props) {
@@ -132,89 +141,93 @@ class App extends Component {
     } = this.props;
 
     return (
-      <I18nextProvider i18n={i18n}>
-        <CookiesProvider>
-          <MuiPickersUtilsProvider utils={DateFnsUtils}>
-            <MuiThemeProvider theme={theme}>
-              <SnackbarProvider
-                dense
-                maxSnack={2}
-                autoHideDuration={3000}
-                anchorOrigin={{
-                  vertical: "bottom",
-                  horizontal: "center",
-                }}
-              >
-                <Shortcuts
-                  name="APP"
-                  global
-                  handler={this.handleShortcuts}
-                  targetNodeSelector="body"
+      <QueryClientProvider client={queryClient}>
+        <I18nextProvider i18n={i18n}>
+          <CookiesProvider>
+            <MuiPickersUtilsProvider utils={DateFnsUtils}>
+              <MuiThemeProvider theme={theme}>
+                <SnackbarProvider
+                  dense
+                  maxSnack={2}
+                  autoHideDuration={3000}
+                  anchorOrigin={{
+                    vertical: "bottom",
+                    horizontal: "center",
+                  }}
                 >
-                  {this.props.project.id && (
-                    <Fragment>
-                      <SnackBarContainer />
-                      <HomeTour />
-                      <Fade in={this.state.visible}>
-                        <div className={classes.root}>
-                          <ResponsiveDrawers
-                            handleDrawerToggle={() => this.props.toggleDrawer()}
-                            open={this.props.drawerOpen}
-                          />
-                          {pathname === "/" && <Redirect to="/sets" />}
-                          {/* AB: Make this relate to drawer items? */}
-                          <Switch>
-                            <Route
-                              exact
-                              path="/sets/:setId/topic_formulas/:formulaId"
-                              component={LoadableFormulaContainer}
+                  <Shortcuts
+                    name="APP"
+                    global
+                    handler={this.handleShortcuts}
+                    targetNodeSelector="body"
+                  >
+                    {this.props.project.id && (
+                      <Fragment>
+                        <SnackBarContainer />
+                        <HomeTour />
+                        <Fade in={this.state.visible}>
+                          <div className={classes.root}>
+                            <ResponsiveDrawers
+                              handleDrawerToggle={() =>
+                                this.props.toggleDrawer()
+                              }
+                              open={this.props.drawerOpen}
                             />
-                            <Route
-                              exact
-                              path="/sets"
-                              component={LoadableSetsContainer}
-                            />
-                            <Route
-                              path="/sets/:setId"
-                              component={LoadableSetsContainer}
-                            />
-                            <Route
-                              exact
-                              path="/compounds"
-                              component={LoadableCompoundsContainer}
-                            />
-                            <Route
-                              path="/compounds/:compoundId"
-                              component={LoadableCompoundsContainer}
-                            />
-                            <Route
-                              exact
-                              path="/simulations"
-                              component={LoadableSimulationsContainer}
-                            />
-                            <Route
-                              path="/simulation"
-                              component={LoadableSimulationContainer}
-                            />
-                            <Route
-                              path="/first-setup"
-                              component={LoadableFirstSetupContainer}
-                            />
-                            <Route
-                              path="/help"
-                              component={LoadableHelpContainer}
-                            />
-                          </Switch>
-                        </div>
-                      </Fade>
-                    </Fragment>
-                  )}
-                </Shortcuts>
-              </SnackbarProvider>
-            </MuiThemeProvider>
-          </MuiPickersUtilsProvider>
-        </CookiesProvider>
-      </I18nextProvider>
+                            {pathname === "/" && <Redirect to="/sets" />}
+                            {/* AB: Make this relate to drawer items? */}
+                            <Switch>
+                              <Route
+                                exact
+                                path="/sets/:setId/topic_formulas/:formulaId"
+                                component={LoadableFormulaContainer}
+                              />
+                              <Route
+                                exact
+                                path="/sets"
+                                component={LoadableSetsContainer}
+                              />
+                              <Route
+                                path="/sets/:setId"
+                                component={LoadableSetsContainer}
+                              />
+                              <Route
+                                exact
+                                path="/compounds"
+                                component={LoadableCompoundsContainer}
+                              />
+                              <Route
+                                path="/compounds/:compoundId"
+                                component={LoadableCompoundsContainer}
+                              />
+                              <Route
+                                exact
+                                path="/simulations"
+                                component={LoadableSimulationsContainer}
+                              />
+                              <Route
+                                path="/simulation"
+                                component={LoadableSimulationContainer}
+                              />
+                              <Route
+                                path="/first-setup"
+                                component={LoadableFirstSetupContainer}
+                              />
+                              <Route
+                                path="/help"
+                                component={LoadableHelpContainer}
+                              />
+                            </Switch>
+                          </div>
+                        </Fade>
+                      </Fragment>
+                    )}
+                  </Shortcuts>
+                </SnackbarProvider>
+              </MuiThemeProvider>
+            </MuiPickersUtilsProvider>
+          </CookiesProvider>
+        </I18nextProvider>
+      </QueryClientProvider>
     );
   }
 }
