@@ -22,6 +22,7 @@ import {
   DialogContentText,
   Chip,
   Grid,
+  Link,
   Typography,
   Tooltip,
 } from "@material-ui/core";
@@ -34,6 +35,7 @@ import humanize from "string-humanize";
 import { dhis2LookupElement } from "../../lib/dhis2Lookups";
 import Dhis2ElementDetails from "./Dhis2ElementDetails";
 import FormulaMappingDialogEditor from "./FormulaMappingDialogEditor";
+import FormulaViewer from "./FormulaViewer";
 
 const useStyles = makeStyles(theme => ({
   root: props => ({
@@ -113,34 +115,43 @@ const userFormulaViewerStyles = makeStyles(theme => ({
   },
 }));
 
-const FormulaViewer = ({ value }) => {
-  const formula = value;
-  const classes = userFormulaViewerStyles();
-  return (
-    <Tooltip
-      title={
-        <div className={classes.tooltipCustomWidth}>
-          <pre>
-            {formula.code} := {"\n"}
-            {"\t"}
-            {formula.expression}{" "}
-          </pre>
-          <br />
-          {formula.shortName}
-          {formula.description}
-          <br />
-          {formula.frequency}
-          {formula.exportable_formula_code && (
-            <span>Exportable if : {formula.exportable_formula_code}</span>
-          )}
-          <br />
-        </div>
-      }
-    >
-      <Typography>{humanize(formula.code)}</Typography>
-    </Tooltip>
-  );
-};
+//extract into component
+// const FormulaViewer = ({ value, index }) => {
+//   const formula = value;
+//   const classes = userFormulaViewerStyles();
+//   return (
+//     <Tooltip
+//       title={
+//         <div className={classes.tooltipCustomWidth}>
+//           <pre>
+//             {formula.code} := {"\n"}
+//             {"\t"}
+//             {formula.expression}{" "}
+//           </pre>
+//           <br />
+//           {formula.shortName}
+//           {formula.description}
+//           <br />
+//           {formula.frequency}
+//           {formula.exportable_formula_code && (
+//             <span>Exportable if : {formula.exportable_formula_code}</span>
+//           )}
+//           <br />
+//         </div>
+//       }
+//     >
+//       {/* {index && (
+//         <Typography>{humanize(formula.code)}</Typography>
+//       )} */}
+
+//       {/* {!index && (
+//         <Link href={"." + formula.id}>
+//           <Typography>{humanize(formula.code)}</Typography>
+//         </Link>
+//       )} */}
+//     </Tooltip>
+//   );
+// };
 
 const FormulaMappingViewer = props => {
   const mapping = props.value;
@@ -215,7 +226,6 @@ const TopicBasedFormulas = props => {
       inputMapping => inputMapping.input && inputMapping.input.id === input.id,
     );
   };
-
   const defaultGrid = [
     [
       { value: "", disableEvents: true, readOnly: true },
@@ -263,16 +273,23 @@ const TopicBasedFormulas = props => {
           },
         }));
       }),
-      ...safeTopicFormulas.map(formula => ({
+      ...safeTopicFormulas.map((formula, index) => ({
         value: formula,
-        valueViewer: FormulaViewer,
-        disableEvents: true,
         readOnly: true,
+        disableEvents: true,
+        valueViewer: formula => {
+          return (
+            <FormulaViewer
+              formula={formula}
+              index={index}
+              classes={userFormulaViewerStyles()}
+            />
+          );
+        },
       })),
       ...fakeColumGenerator(10, true),
     ],
   ];
-
   const grid = [
     ...defaultGrid,
     ...safeTopics.map(topic => [
