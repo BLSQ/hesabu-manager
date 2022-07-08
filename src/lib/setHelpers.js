@@ -8,7 +8,7 @@ export const activeTab = (id, pathname) => {
       return 2;
     case `/sets/${id}/zone_topic`:
       return 3;
-    case `/sets/${id}/zone`:
+    case `/sets/${id}/zone_formulas`:
       return 4;
     default:
       return 0;

@@ -110,7 +110,7 @@ const Set = props => {
               )}
             />
             <Route
-              path={`${match.url}/zone`}
+              path={`${match.url}/zone_formulas`}
               component={() => <SetZoneContainer set={set} loading={loading} />}
             />
             <Route

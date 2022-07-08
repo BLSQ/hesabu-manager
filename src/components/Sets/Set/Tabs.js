@@ -54,7 +54,7 @@ function SetTabs(props) {
         label={t("set.tabs.zoneFormulas.label")}
         title={t("set.tabs.zoneFormulas.tooltip")}
         component={Link}
-        to={`${match.url}/zone`}
+        to={`${match.url}/zone_formulas`}
       />
     </Tabs>
   );

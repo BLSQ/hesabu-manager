@@ -12,10 +12,7 @@ const FormulaContainer = props => {
   const { t } = useTranslation();
   const { match } = props;
   debugger;
-  const formulaType =
-    match.path.split("/")[3] === "set_formulas"
-      ? "set_formulas"
-      : "topic_formulas";
+  const formulaType = match.path.split("/")[3];
   const loadSetQuery = useQuery(["loadSet"], async () => {
     const response = await externalApi()
       .errorType("json")
