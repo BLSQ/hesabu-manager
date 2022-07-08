@@ -183,6 +183,11 @@ class App extends Component {
                               />
                               <Route
                                 exact
+                                path="/sets/:setId/set_formulas/:formulaId"
+                                component={LoadableFormulaContainer}
+                              />
+                              <Route
+                                exact
                                 path="/sets"
                                 component={LoadableSetsContainer}
                               />

@@ -11,11 +11,16 @@ import { externalApi } from "../actions/api";
 const FormulaContainer = props => {
   const { t } = useTranslation();
   const { match } = props;
+  debugger;
+  const formulaType =
+    match.path.split("/")[3] === "set_formulas"
+      ? "set_formulas"
+      : "topic_formulas";
   const loadSetQuery = useQuery(["loadSet"], async () => {
     const response = await externalApi()
       .errorType("json")
       .url(
-        `/sets/${match.params.setId}/topic_formulas/${match.params.formulaId}`,
+        `/sets/${match.params.setId}/${formulaType}/${match.params.formulaId}`,
       )
       .get()
       .json();
