@@ -15,7 +15,7 @@ const CompoundsListItem = props => {
     <div className={classes.root}>
       <Typography
         component={Link}
-        to={`/compounds/${id}`}
+        to={`/compounds/${id}/compound_formulas`}
         variant="subtitle1"
         className={classes.sectionTitle}
       >

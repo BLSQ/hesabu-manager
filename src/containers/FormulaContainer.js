@@ -11,14 +11,14 @@ import { externalApi } from "../actions/api";
 const FormulaContainer = props => {
   const { t } = useTranslation();
   const { match } = props;
-  debugger;
   const formulaType = match.path.split("/")[3];
-  const loadSetQuery = useQuery(["loadSet"], async () => {
+  const parent = match.path.split("/")[1];
+  const parentId =
+    parent === "sets" ? match.params.setId : match.params.compoundId;
+  const loadFormulaQuery = useQuery(["loadFormula"], async () => {
     const response = await externalApi()
       .errorType("json")
-      .url(
-        `/sets/${match.params.setId}/${formulaType}/${match.params.formulaId}`,
-      )
+      .url(`/${parent}/${parentId}/${formulaType}/${match.params.formulaId}`)
       .get()
       .json();
     const formula = response?.data;
@@ -32,12 +32,12 @@ const FormulaContainer = props => {
         </Typography>
       </TopBar>
       <PageContent>
-        {loadSetQuery.data && (
+        {loadFormulaQuery.data && (
           <FormulaPage
-            formula={loadSetQuery.data}
-            exportableIfs={loadSetQuery.data.exportableIfs}
-            availableVariables={loadSetQuery.data.availableVariables}
-            mockValues={loadSetQuery.data.mockValues}
+            formula={loadFormulaQuery.data}
+            exportableIfs={loadFormulaQuery.data.exportableIfs}
+            availableVariables={loadFormulaQuery.data.availableVariables}
+            mockValues={loadFormulaQuery.data.mockValues}
           ></FormulaPage>
         )}
       </PageContent>

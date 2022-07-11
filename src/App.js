@@ -216,7 +216,11 @@ class App extends Component {
                                 component={LoadableCompoundsContainer}
                               />
                               <Route
-                                path="/compounds/:compoundId"
+                                path="/compounds/:compoundId/compound_formulas/:formulaId"
+                                component={LoadableFormulaContainer}
+                              />
+                              <Route
+                                path="/compounds/:compoundId/compound_formulas"
                                 component={LoadableCompoundsContainer}
                               />
                               <Route
