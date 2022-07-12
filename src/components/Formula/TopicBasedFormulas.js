@@ -115,44 +115,6 @@ const userFormulaViewerStyles = makeStyles(theme => ({
   },
 }));
 
-//extract into component
-// const FormulaViewer = ({ value, index }) => {
-//   const formula = value;
-//   const classes = userFormulaViewerStyles();
-//   return (
-//     <Tooltip
-//       title={
-//         <div className={classes.tooltipCustomWidth}>
-//           <pre>
-//             {formula.code} := {"\n"}
-//             {"\t"}
-//             {formula.expression}{" "}
-//           </pre>
-//           <br />
-//           {formula.shortName}
-//           {formula.description}
-//           <br />
-//           {formula.frequency}
-//           {formula.exportable_formula_code && (
-//             <span>Exportable if : {formula.exportable_formula_code}</span>
-//           )}
-//           <br />
-//         </div>
-//       }
-//     >
-//       {/* {index && (
-//         <Typography>{humanize(formula.code)}</Typography>
-//       )} */}
-
-//       {/* {!index && (
-//         <Link href={"." + formula.id}>
-//           <Typography>{humanize(formula.code)}</Typography>
-//         </Link>
-//       )} */}
-//     </Tooltip>
-//   );
-// };
-
 const FormulaMappingViewer = props => {
   const mapping = props.value;
   let dataElement = dhis2LookupElement(
