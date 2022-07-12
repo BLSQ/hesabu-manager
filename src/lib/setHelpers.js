@@ -4,9 +4,9 @@ export const activeTab = (id, pathname) => {
       return 0;
     case `/sets/${id}/set_formulas`:
       return 1;
-    case `/sets/${id}/children`:
+    case `/sets/${id}/children_formulas`:
       return 2;
-    case `/sets/${id}/zone_topic`:
+    case `/sets/${id}/zone_topic_formulas`:
       return 3;
     case `/sets/${id}/zone_formulas`:
       return 4;
