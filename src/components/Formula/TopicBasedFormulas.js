@@ -324,11 +324,15 @@ const TopicBasedFormulas = props => {
       {
         value: "ADD",
         valueViewer: v => (
-          <Button
-            href={"./index.html#/sets/" + set.id + "/topic_formulas/import"}
-          >
-            <AddIcon></AddIcon>
-          </Button>
+          <>
+            {set && (
+              <Button
+                href={"./index.html#/sets/" + set.id + "/topic_formulas/import"}
+              >
+                <AddIcon></AddIcon>
+              </Button>
+            )}
+          </>
         ),
 
         readOnly: true,
