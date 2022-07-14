@@ -7,6 +7,7 @@ import PageContent from "../components/Shared/PageContent";
 import TopBar from "../components/Shared/TopBar";
 import { formattedName } from "../utils/textUtils";
 import { externalApi } from "../actions/api";
+import { deserialize } from "../utils/jsonApiUtils";
 
 const FormulaContainer = props => {
   const { t } = useTranslation();
@@ -15,15 +16,18 @@ const FormulaContainer = props => {
   const parent = match.path.split("/")[1];
   const parentId =
     parent === "sets" ? match.params.setId : match.params.compoundId;
-  const loadFormulaQuery = useQuery(["loadFormula"], async () => {
-    const response = await externalApi()
-      .errorType("json")
-      .url(`/${parent}/${parentId}/${formulaType}/${match.params.formulaId}`)
-      .get()
-      .json();
-    const formula = response?.data;
-    return formula?.attributes;
-  });
+  const loadFormulaQuery = useQuery(
+    ["loadFormula", match.params.formulaId],
+    async () => {
+      const response = await externalApi()
+        .errorType("json")
+        .url(`/${parent}/${parentId}/${formulaType}/${match.params.formulaId}`)
+        .get()
+        .json();
+      const formula = await deserialize(response);
+      return formula;
+    },
+  );
   return (
     <Fragment>
       <TopBar>
