@@ -13,13 +13,15 @@ import "ace-builds/src-noconflict/mode-ruby";
 import "ace-builds/src-noconflict/theme-monokai";
 import { makeStyles } from "@material-ui/core/styles";
 import PropTypes from "prop-types";
-import { dependencies } from "./utils";
+import { Link } from "react-router-dom";
 
 import "./editor.css";
 import languageTools, {
   setCompleters,
   addCompleter,
 } from "ace-builds/src-noconflict/ext-language_tools";
+import { DriveEtaOutlined } from "@material-ui/icons";
+import { dependencies } from "./utils";
 
 const Editor = ({ value, availableVariables }) => {
   useEffect(() => {
@@ -162,6 +164,42 @@ const FormulaPage = ({
               />
             </Grid>
           ))}
+
+          <Grid item>
+            {formula.usedFormulas && formula.usedFormulas.length > 0 && (
+              <div>
+                <Typography>
+                  <b>Formulas used:</b>
+                </Typography>
+                {formula.usedFormulas.map(usedFormula => (
+                  <div key={usedFormula}>
+                    <Link
+                      to={`/${usedFormula.parentKind}/${usedFormula.parentId}/${usedFormula.kind}/${usedFormula.id}`}
+                    >
+                      {usedFormula.code}
+                    </Link>
+                  </div>
+                ))}
+              </div>
+            )}
+
+            {formula.usedByFormulas && formula.usedByFormulas.length > 0 && (
+              <div>
+                <Typography>
+                  <b>Formula used in:</b>
+                </Typography>
+                {formula.usedByFormulas.map(usedByFormula => (
+                  <div key={usedByFormula}>
+                    <Link
+                      to={`/${usedByFormula.parentKind}/${usedByFormula.parentId}/${usedByFormula.kind}/${usedByFormula.id}`}
+                    >
+                      {usedByFormula.code}
+                    </Link>
+                  </div>
+                ))}
+              </div>
+            )}
+          </Grid>
         </Grid>
       </Grid>
     </Grid>
