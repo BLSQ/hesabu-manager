@@ -13,6 +13,19 @@ It will become the new frontend to the existing [Hesabu API](https://github.com/
 - [Hesabu Ruby Solver](https://github.com/blsq/hesabu)
 - [Hesabu Golang Solver](https://github.com/blsq/hesabu-go)
 
+# Wording equivalence
+
+Some wording have been reviewed to be less "pbf" or "invoice" oriented. Here are some equivalence
+
+|     orbf2      | hesabu-manager | description |
+| :------------: | :------------: | ----------- |
+|     state      |     input      |             |
+|    activity    |     topic      |             |
+|    package     |      set       |             |
+|  payment rule  |    compound    |             |
+| decision table | decision table |             |
+|   simulation   |   simulation   |             |
+
 # Development
 
 ## create a .env
