@@ -20,8 +20,7 @@ import languageTools, {
   setCompleters,
   addCompleter,
 } from "ace-builds/src-noconflict/ext-language_tools";
-import { DriveEtaOutlined } from "@material-ui/icons";
-import { dependencies } from "./utils";
+import FormulaTester from "./FormulaTester";
 
 const Editor = ({ value, availableVariables }) => {
   useEffect(() => {
@@ -146,25 +145,7 @@ const FormulaPage = ({
 
       <Grid item xs={4}>
         <Grid container spacing={4} direction="column">
-          <Grid item>
-            <Typography>
-              <b>Formula tester</b>
-            </Typography>
-            <Typography variant="h5" color="primary">
-              123456
-            </Typography>
-          </Grid>
-          {dependencies(formula.expression).map(dependency => (
-            <Grid item key={dependency}>
-              <TextField
-                label={dependency}
-                variant="outlined"
-                fullWidth
-                value={mockValues[dependency]}
-              />
-            </Grid>
-          ))}
-
+          <FormulaTester formula={formula} mockValues={mockValues} />
           <Grid item>
             {formula.usedFormulas && formula.usedFormulas.length > 0 && (
               <div>
