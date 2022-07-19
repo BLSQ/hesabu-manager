@@ -1,83 +1,51 @@
 import React, { Fragment } from "react";
 import { Typography } from "@material-ui/core";
 import { useTranslation } from "react-i18next";
+import { useQuery } from "react-query";
 import FormulaPage from "../components/Formula/FormulaPage";
 import PageContent from "../components/Shared/PageContent";
 import TopBar from "../components/Shared/TopBar";
 import { formattedName } from "../utils/textUtils";
+import { externalApi } from "../actions/api";
+import { deserialize } from "../utils/jsonApiUtils";
 
 const FormulaContainer = props => {
   const { t } = useTranslation();
+  const { match } = props;
+  const formulaType = match.path.split("/")[3];
+  const parent = match.path.split("/")[1];
+  const parentId =
+    parent === "sets" ? match.params.setId : match.params.compoundId;
+  const loadFormulaQuery = useQuery(
+    ["loadFormula", match.params.formulaId],
+    async () => {
+      const response = await externalApi()
+        .errorType("json")
+        .url(`/${parent}/${parentId}/${formulaType}/${match.params.formulaId}`)
+        .get()
+        .json();
+      const formula = await deserialize(response);
+      return formula;
+    },
+  );
+  const backLinkPath = `/${parent}/${parentId}/${formulaType}`;
   return (
     <Fragment>
-      <TopBar>
+      <TopBar backLinkPath={backLinkPath}>
         <Typography variant="h6" color="inherit">
-          {formattedName(t("resources.formula"))}
+          {formattedName(t("resources.formula"))}{" "}
+          {": " + loadFormulaQuery.data?.code}
         </Typography>
       </TopBar>
       <PageContent>
-        <FormulaPage
-          formula={{
-            code: "Payment",
-            shortName: "pay",
-            expression:
-              "quantity_subsidies + ((quality_score/100) * quantity_subsidies)",
-            frequency: "monthly",
-            description:
-              "Pma payment monthly quantity plus a prorata of the quality score",
-            exportableIf: null,
-          }}
-          exportableIfs={["exportable_quality_and_quantity"]}
-          availableVariables={[
-            "%{eczs_cas_current_quarter_values}",
-            "%{eczs_temoins_current_quarter_values}",
-            "%{subsides_trimestriels_current_cycle_values}",
-            "%{subsides_trimestriels_current_quarter_quarterly_values}",
-            "%{subsides_trimestriels_eczs_cas_current_quarter_values}",
-            "%{subsides_trimestriels_eczs_temoins_current_quarter_values}",
-            "%{subsides_trimestriels_is_null_last_1_quarters_exclusive_window_values}",
-            "%{subsides_trimestriels_is_null_last_1_quarters_window_values}",
-            "%{subsides_trimestriels_is_null_last_2_quarters_exclusive_window_values}",
-            "%{subsides_trimestriels_is_null_last_2_quarters_window_values}",
-            "%{subsides_trimestriels_is_null_last_3_quarters_exclusive_window_values}",
-            "%{subsides_trimestriels_is_null_last_3_quarters_window_values}",
-            "%{subsides_trimestriels_is_null_last_4_quarters_exclusive_window_values}",
-            "%{subsides_trimestriels_is_null_last_4_quarters_window_values}",
-            "%{subsides_trimestriels_last_1_quarters_exclusive_window_values}",
-            "%{subsides_trimestriels_last_1_quarters_window_values}",
-            "%{subsides_trimestriels_last_2_quarters_exclusive_window_values}",
-            "%{subsides_trimestriels_last_2_quarters_window_values}",
-            "%{subsides_trimestriels_last_3_quarters_exclusive_window_values}",
-            "%{subsides_trimestriels_last_3_quarters_window_values}",
-            "%{subsides_trimestriels_last_4_quarters_exclusive_window_values}",
-            "%{subsides_trimestriels_last_4_quarters_window_values}",
-            "%{subsides_trimestriels_previous_year_same_quarter_values}",
-            "%{subsides_trimestriels_previous_year_values}",
-            "eczs_cas",
-            "eczs_temoins",
-            "eczs_type",
-            "month_of_quarter",
-            "month_of_year",
-            "quarter_of_year",
-            "subsides_trimestriels",
-            "subsides_trimestriels_eczs_cas",
-            "subsides_trimestriels_eczs_temoins",
-            "subsides_trimestriels_is_null",
-            "subsides_trimestriels_level_1",
-            "subsides_trimestriels_level_1_quarterly",
-            "subsides_trimestriels_level_2",
-            "subsides_trimestriels_level_2_quarterly",
-            "subsides_trimestriels_level_3",
-            "subsides_trimestriels_level_3_quarterly",
-            "subsides_trimestriels_level_4",
-            "subsides_trimestriels_level_4_quarterly",
-            "subsides_trimestriels_level_5",
-            "subsides_trimestriels_level_5_quarterly",
-            "subsides_trimestriels_zone_main_orgunit",
-            "year",
-          ]}
-          mockValues={{ quantity_subsidies: "45105", quality_score: "12.5" }}
-        ></FormulaPage>
+        {loadFormulaQuery.data && (
+          <FormulaPage
+            formula={loadFormulaQuery.data}
+            exportableIfs={loadFormulaQuery.data.exportableIfs}
+            availableVariables={loadFormulaQuery.data.availableVariables}
+            mockValues={loadFormulaQuery.data.mockValues}
+          ></FormulaPage>
+        )}
       </PageContent>
     </Fragment>
   );

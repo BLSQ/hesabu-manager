@@ -1,8 +1,16 @@
 import React from "react";
-import { Grid, Chip, Typography, Tooltip, CardHeader } from "@material-ui/core";
+import {
+  Grid,
+  Chip,
+  Typography,
+  Tooltip,
+  CardHeader,
+  Link,
+} from "@material-ui/core";
 
 import humanize from "string-humanize";
 import CloudDownload from "@material-ui/icons/CloudDownload";
+import EditIcon from "@material-ui/icons/Edit";
 import RemoveCircleOutlineIcon from "@material-ui/icons/RemoveCircleOutline";
 import FlatCard from "../Shared/FlatCard";
 import { dhis2LookupElement } from "../../lib/dhis2Lookups";
@@ -65,7 +73,17 @@ const FormulaCard = ({ formula, parent }) => {
         {"\t"}
         {formula.expression}{" "}
       </pre>
-      <Typography>{formula.description}</Typography>
+      <Grid container spacing={4} justify="space-between">
+        <Grid item>
+          <Typography>{formula.description}</Typography>
+        </Grid>
+        <Grid item>
+          {/* probably need click to make sure page is reloaded */}
+          <Link href={`${window.location}/${formula.id}`}>
+            <EditIcon />
+          </Link>
+        </Grid>
+      </Grid>
       {formula.exportableFormulaCode && (
         <span>
           Exportable if : <code>{formula.exportableFormulaCode}</code>

@@ -7,21 +7,27 @@ import {
   InputLabel,
   Typography,
 } from "@material-ui/core";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import AceEditor from "react-ace";
 import "ace-builds/src-noconflict/mode-ruby";
 import "ace-builds/src-noconflict/theme-monokai";
 import { makeStyles } from "@material-ui/core/styles";
 import PropTypes from "prop-types";
-import { dependencies } from "./utils";
+import { Link } from "react-router-dom";
 
 import "./editor.css";
 import languageTools, {
   setCompleters,
   addCompleter,
 } from "ace-builds/src-noconflict/ext-language_tools";
+import FormulaTester from "./FormulaTester";
+import { update } from "lodash";
 
-const Editor = ({ value, availableVariables }) => {
+const Editor = ({ value, availableVariables, updateExpression }) => {
+  const sendExpressionToParent = newValue => {
+    updateExpression(newValue);
+  };
+
   useEffect(() => {
     setCompleters([languageTools.snippetCompleter]);
     addCompleter({
@@ -42,6 +48,7 @@ const Editor = ({ value, availableVariables }) => {
       mode="ruby"
       theme="monokai"
       fontSize={16}
+      onChange={event => sendExpressionToParent(event)}
       value={value}
       wrapEnabled
       minLines={10}
@@ -56,6 +63,32 @@ const Editor = ({ value, availableVariables }) => {
   );
 };
 
+const Formulas = ({ label, formulas }) => {
+  return (
+    <>
+      {formulas.length > 0 && (
+        <div>
+          <Typography>
+            <b>{label}</b>
+          </Typography>
+          <ul>
+            {formulas.map(formula => (
+              <div key={formula.code}>
+                <Link
+                  to={`/${formula.parentKind}/${formula.parentId}/${formula.kind}/${formula.id}`}
+                  style={{ "text-decoration": "none" }}
+                  title={`${formula.code} := ${formula.expression}\n\n${formula.description}\n${formula.kind}`}
+                >
+                  <pre>{formula.code}</pre>
+                </Link>
+              </div>
+            ))}
+          </ul>
+        </div>
+      )}
+    </>
+  );
+};
 const useStyles = makeStyles(theme => ({
   formControl: {
     minWidth: 240,
@@ -69,6 +102,14 @@ const FormulaPage = ({
   availableVariables,
 }) => {
   const classes = useStyles();
+  const [formulaToUse, setFormulaToUse] = useState(formula);
+
+  const updateExpression = newFormula => {
+    debugger;
+    formulaToUse.expression = newFormula;
+    setFormulaToUse({ ...formulaToUse });
+  };
+
   return (
     <Grid container spacing={4} wrap="wrap">
       <Grid item xs={8} sm={6}>
@@ -135,8 +176,9 @@ const FormulaPage = ({
 
           <Grid item>
             <Editor
-              value={formula.expression || ""}
+              value={formulaToUse.expression || ""}
               availableVariables={availableVariables}
+              updateExpression={updateExpression}
             />
           </Grid>
         </Grid>
@@ -144,24 +186,19 @@ const FormulaPage = ({
 
       <Grid item xs={4}>
         <Grid container spacing={4} direction="column">
+          <FormulaTester
+            formula={formulaToUse}
+            key={formulaToUse.expression}
+            mockValues={mockValues}
+          />
           <Grid item>
-            <Typography>
-              <b>Formula tester</b>
-            </Typography>
-            <Typography variant="h5" color="primary">
-              123456
-            </Typography>
+            <Formulas label="Formulas used:" formulas={formula.usedFormulas} />
+
+            <Formulas
+              label="Formula used in:"
+              formulas={formula.usedByFormulas}
+            />
           </Grid>
-          {dependencies(formula.expression).map(dependency => (
-            <Grid item key={dependency}>
-              <TextField
-                label={dependency}
-                variant="outlined"
-                fullWidth
-                value={mockValues[dependency]}
-              />
-            </Grid>
-          ))}
         </Grid>
       </Grid>
     </Grid>
