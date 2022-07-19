@@ -7,7 +7,7 @@ import {
   InputLabel,
   Typography,
 } from "@material-ui/core";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import AceEditor from "react-ace";
 import "ace-builds/src-noconflict/mode-ruby";
 import "ace-builds/src-noconflict/theme-monokai";
@@ -21,8 +21,13 @@ import languageTools, {
   addCompleter,
 } from "ace-builds/src-noconflict/ext-language_tools";
 import FormulaTester from "./FormulaTester";
+import { update } from "lodash";
 
-const Editor = ({ value, availableVariables }) => {
+const Editor = ({ value, availableVariables, updateExpression }) => {
+  const sendExpressionToParent = newValue => {
+    updateExpression(newValue);
+  };
+
   useEffect(() => {
     setCompleters([languageTools.snippetCompleter]);
     addCompleter({
@@ -43,6 +48,7 @@ const Editor = ({ value, availableVariables }) => {
       mode="ruby"
       theme="monokai"
       fontSize={16}
+      onChange={event => sendExpressionToParent(event)}
       value={value}
       wrapEnabled
       minLines={10}
@@ -96,6 +102,14 @@ const FormulaPage = ({
   availableVariables,
 }) => {
   const classes = useStyles();
+  const [formulaToUse, setFormulaToUse] = useState(formula);
+
+  const updateExpression = newFormula => {
+    debugger;
+    formulaToUse.expression = newFormula;
+    setFormulaToUse({ ...formulaToUse });
+  };
+
   return (
     <Grid container spacing={4} wrap="wrap">
       <Grid item xs={8} sm={6}>
@@ -162,8 +176,9 @@ const FormulaPage = ({
 
           <Grid item>
             <Editor
-              value={formula.expression || ""}
+              value={formulaToUse.expression || ""}
               availableVariables={availableVariables}
+              updateExpression={updateExpression}
             />
           </Grid>
         </Grid>
@@ -171,7 +186,11 @@ const FormulaPage = ({
 
       <Grid item xs={4}>
         <Grid container spacing={4} direction="column">
-          <FormulaTester formula={formula} mockValues={mockValues} />
+          <FormulaTester
+            formula={formulaToUse}
+            key={formulaToUse.expression}
+            mockValues={mockValues}
+          />
           <Grid item>
             <Formulas label="Formulas used:" formulas={formula.usedFormulas} />
 
