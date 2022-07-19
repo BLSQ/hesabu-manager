@@ -28,9 +28,10 @@ const FormulaContainer = props => {
       return formula;
     },
   );
+  const backLinkPath = `/${parent}/${parentId}/${formulaType}`;
   return (
     <Fragment>
-      <TopBar>
+      <TopBar backLinkPath={backLinkPath}>
         <Typography variant="h6" color="inherit">
           {formattedName(t("resources.formula"))}
         </Typography>
