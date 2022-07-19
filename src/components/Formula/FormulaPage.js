@@ -57,6 +57,32 @@ const Editor = ({ value, availableVariables }) => {
   );
 };
 
+const Formulas = ({ label, formulas }) => {
+  return (
+    <>
+      {formulas.length > 0 && (
+        <div>
+          <Typography>
+            <b>Formula used in:</b>
+          </Typography>
+          <ul>
+            {formulas.map(formula => (
+              <div key={formula.code}>
+                <Link
+                  to={`/${formula.parentKind}/${formula.parentId}/${formula.kind}/${formula.id}`}
+                  style={{ "text-decoration": "none" }}
+                  title={`${formula.code} := ${formula.expression}\n\n${formula.description}\n${formula.kind}`}
+                >
+                  <pre>{formula.code}</pre>
+                </Link>
+              </div>
+            ))}
+          </ul>
+        </div>
+      )}
+    </>
+  );
+};
 const useStyles = makeStyles(theme => ({
   formControl: {
     minWidth: 240,
@@ -147,45 +173,12 @@ const FormulaPage = ({
         <Grid container spacing={4} direction="column">
           <FormulaTester formula={formula} mockValues={mockValues} />
           <Grid item>
-            {formula.usedFormulas && formula.usedFormulas.length > 0 && (
-              <div>
-                <Typography>
-                  <b>Formulas used:</b>
-                </Typography>
-                <ul>
-                  {formula.usedFormulas.map(usedFormula => (
-                    <div key={usedFormula}>
-                      <Link
-                        to={`/${usedFormula.parentKind}/${usedFormula.parentId}/${usedFormula.kind}/${usedFormula.id}`}
-                        style={{ "text-decoration": "none" }}
-                      >
-                        <pre>{usedFormula.code}</pre>
-                      </Link>
-                    </div>
-                  ))}
-                </ul>
-              </div>
-            )}
+            <Formulas label="Formulas used:" formulas={formula.usedFormulas} />
 
-            {formula.usedByFormulas && formula.usedByFormulas.length > 0 && (
-              <div>
-                <Typography>
-                  <b>Formula used in:</b>
-                </Typography>
-                <ul>
-                  {formula.usedByFormulas.map(usedByFormula => (
-                    <div key={usedByFormula}>
-                      <Link
-                        to={`/${usedByFormula.parentKind}/${usedByFormula.parentId}/${usedByFormula.kind}/${usedByFormula.id}`}
-                        style={{ "text-decoration": "none" }}
-                      >
-                        <pre>{usedByFormula.code}</pre>
-                      </Link>
-                    </div>
-                  ))}
-                </ul>
-              </div>
-            )}
+            <Formulas
+              label="Formula used in:"
+              formulas={formula.usedByFormulas}
+            />
           </Grid>
         </Grid>
       </Grid>
