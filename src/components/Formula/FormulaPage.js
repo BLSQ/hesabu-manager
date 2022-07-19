@@ -152,15 +152,18 @@ const FormulaPage = ({
                 <Typography>
                   <b>Formulas used:</b>
                 </Typography>
-                {formula.usedFormulas.map(usedFormula => (
-                  <div key={usedFormula}>
-                    <Link
-                      to={`/${usedFormula.parentKind}/${usedFormula.parentId}/${usedFormula.kind}/${usedFormula.id}`}
-                    >
-                      {usedFormula.code}
-                    </Link>
-                  </div>
-                ))}
+                <ul>
+                  {formula.usedFormulas.map(usedFormula => (
+                    <div key={usedFormula}>
+                      <Link
+                        to={`/${usedFormula.parentKind}/${usedFormula.parentId}/${usedFormula.kind}/${usedFormula.id}`}
+                        style={{ "text-decoration": "none" }}
+                      >
+                        <pre>{usedFormula.code}</pre>
+                      </Link>
+                    </div>
+                  ))}
+                </ul>
               </div>
             )}
 
@@ -169,15 +172,18 @@ const FormulaPage = ({
                 <Typography>
                   <b>Formula used in:</b>
                 </Typography>
-                {formula.usedByFormulas.map(usedByFormula => (
-                  <div key={usedByFormula}>
-                    <Link
-                      to={`/${usedByFormula.parentKind}/${usedByFormula.parentId}/${usedByFormula.kind}/${usedByFormula.id}`}
-                    >
-                      {usedByFormula.code}
-                    </Link>
-                  </div>
-                ))}
+                <ul>
+                  {formula.usedByFormulas.map(usedByFormula => (
+                    <div key={usedByFormula}>
+                      <Link
+                        to={`/${usedByFormula.parentKind}/${usedByFormula.parentId}/${usedByFormula.kind}/${usedByFormula.id}`}
+                        style={{ "text-decoration": "none" }}
+                      >
+                        <pre>{usedByFormula.code}</pre>
+                      </Link>
+                    </div>
+                  ))}
+                </ul>
               </div>
             )}
           </Grid>
