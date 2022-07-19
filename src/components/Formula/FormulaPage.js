@@ -160,7 +160,7 @@ const FormulaPage = ({
                   <Select
                     labelId="formula-frequency-label"
                     id="frequency"
-                    value={formula.exportableIf}
+                    value={formula.exportableFormulaCode}
                     displayEmpty={true}
                   >
                     {exportableIfs.map(ifcode => (
