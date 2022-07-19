@@ -33,7 +33,8 @@ const FormulaContainer = props => {
     <Fragment>
       <TopBar backLinkPath={backLinkPath}>
         <Typography variant="h6" color="inherit">
-          {formattedName(t("resources.formula"))}
+          {formattedName(t("resources.formula"))}{" "}
+          {": " + loadFormulaQuery.data?.code}
         </Typography>
       </TopBar>
       <PageContent>

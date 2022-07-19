@@ -63,7 +63,7 @@ const Formulas = ({ label, formulas }) => {
       {formulas.length > 0 && (
         <div>
           <Typography>
-            <b>Formula used in:</b>
+            <b>{label}</b>
           </Typography>
           <ul>
             {formulas.map(formula => (
