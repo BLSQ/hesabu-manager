@@ -140,8 +140,8 @@ const FormulaPage = ({
             />
           </Grid>
           <Grid item>
-            <Grid container spacing={4}>
-              <Grid item xs={3}>
+            <Grid container spacing={8}>
+              <Grid item xs={4}>
                 <FormControl className={classes.formControl}>
                   <InputLabel id="formula-frequency">Frequency</InputLabel>
                   <Select
@@ -154,7 +154,7 @@ const FormulaPage = ({
                   </Select>
                 </FormControl>
               </Grid>
-              <Grid item xs={3}>
+              <Grid item xs={4}>
                 <FormControl className={classes.formControl}>
                   <InputLabel id="formula-frequency">Exportable if</InputLabel>
                   <Select
