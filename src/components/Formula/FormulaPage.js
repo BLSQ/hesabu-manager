@@ -95,8 +95,8 @@ const FormulaPage = ({
             />
           </Grid>
           <Grid item>
-            <Grid container spacing={8}>
-              <Grid item xs={4}>
+            <div style={{ display: "flex", gap: "20px", flexWrap: "wrap" }}>
+              <div>
                 <FormControl className={classes.formControl}>
                   <InputLabel id="formula-frequency">Frequency</InputLabel>
                   <Select
@@ -108,8 +108,9 @@ const FormulaPage = ({
                     <MenuItem value={"quarterly"}>Quarterly</MenuItem>
                   </Select>
                 </FormControl>
-              </Grid>
-              <Grid item xs={4}>
+              </div>
+
+              <div>
                 <FormControl className={classes.formControl}>
                   <InputLabel id="formula-frequency">Exportable if</InputLabel>
                   <Select
@@ -125,8 +126,8 @@ const FormulaPage = ({
                     ))}
                   </Select>
                 </FormControl>
-              </Grid>
-            </Grid>
+              </div>
+            </div>
           </Grid>
 
           <Grid item>
