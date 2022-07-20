@@ -8,9 +8,13 @@ import languageTools, {
   addCompleter,
 } from "ace-builds/src-noconflict/ext-language_tools";
 
-const FormulaEditor = ({ value, availableVariables, updateExpression }) => {
-  const sendExpressionToParent = newValue => {
-    updateExpression(newValue);
+const FormulaEditor = ({
+  value,
+  availableVariables,
+  handleAttributeChange,
+}) => {
+  const sendExpressionToParent = (newValue, attribute) => {
+    handleAttributeChange(newValue, attribute);
   };
 
   useEffect(() => {
@@ -33,7 +37,7 @@ const FormulaEditor = ({ value, availableVariables, updateExpression }) => {
       mode="ruby"
       theme="monokai"
       fontSize={16}
-      onChange={event => sendExpressionToParent(event)}
+      onChange={event => sendExpressionToParent(event, "expression")}
       value={value}
       wrapEnabled
       minLines={10}

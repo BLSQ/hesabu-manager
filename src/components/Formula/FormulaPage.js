@@ -1,4 +1,5 @@
 import {
+  Button,
   Grid,
   FormControl,
   TextField,
@@ -7,7 +8,10 @@ import {
   InputLabel,
   Typography,
 } from "@material-ui/core";
-import React, { useState } from "react";
+import CheckIcon from "@material-ui/icons/Check";
+import ErrorIcon from "@material-ui/icons/Error";
+import React, { useEffect, useState } from "react";
+import { useMutation } from "react-query";
 import { makeStyles } from "@material-ui/core/styles";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
@@ -16,6 +20,9 @@ import "./editor.css";
 import FormulaTester from "./FormulaTester";
 import { update } from "lodash";
 import FormulaEditor from "./FormulaEditor";
+
+import { externalApi, canEdit } from "../../actions/api";
+import { deserialize } from "../../utils/jsonApiUtils";
 
 const Formulas = ({ label, formulas }) => {
   return (
@@ -55,13 +62,59 @@ const FormulaPage = ({
   exportableIfs,
   mockValues,
   availableVariables,
+  match,
 }) => {
   const classes = useStyles();
-  const [formulaToUse, setFormulaToUse] = useState(formula);
 
-  const updateExpression = newFormula => {
-    formulaToUse.expression = newFormula;
+  const [formulaToUse, setFormulaToUse] = useState(formula);
+  const [attributesToUpdate, setAttributesToUpdate] = useState({
+    shortName: formulaToUse.shortName,
+    description: formulaToUse.description,
+    expression: formulaToUse.expression,
+  });
+  const [editingAttributes, setEditingAttributes] = useState(false);
+
+  const userCanEdit = canEdit();
+  const formulaType = match.path.split("/")[3];
+  const parent = match.path.split("/")[1];
+  const parentId =
+    parent === "sets" ? match.params.setId : match.params.compoundId;
+
+  const handleUpdateMutation = useMutation(
+    async () => {
+      const payload = {
+        data: {
+          id: formula.id,
+          attributes: attributesToUpdate,
+        },
+      };
+
+      let resp = await externalApi()
+        .url(`/${parent}/${parentId}/${formulaType}/${match.params.formulaId}`)
+        .put(payload)
+        .json();
+
+      resp = await deserialize(resp);
+      return resp;
+    },
+    {
+      onSuccess: resp => {
+        setFormulaToUse(resp);
+      },
+      // onError: (error) => {
+      //   console.log("error");
+      //   const deserializedError = await deserialize(error)
+      //   console.log(deserializedError);
+      // },
+    },
+  );
+
+  const handleAttributeChange = (value, attribute) => {
+    attributesToUpdate[attribute] = value;
+    formulaToUse[attribute] = value;
+    setAttributesToUpdate({ ...attributesToUpdate });
     setFormulaToUse({ ...formulaToUse });
+    setEditingAttributes(true);
   };
 
   return (
@@ -74,6 +127,9 @@ const FormulaPage = ({
               variant="outlined"
               fullWidth
               value={formula.code}
+              InputProps={{
+                readOnly: true,
+              }}
             />
           </Grid>
           <Grid item>
@@ -81,7 +137,10 @@ const FormulaPage = ({
               label={"Short name"}
               variant="outlined"
               fullWidth
-              value={formula.shortName}
+              value={formulaToUse.shortName}
+              onChange={event =>
+                handleAttributeChange(event.target.value, "shortName")
+              }
             />
           </Grid>
 
@@ -90,7 +149,10 @@ const FormulaPage = ({
               label={"Description"}
               variant="outlined"
               fullWidth
-              value={formula.description}
+              value={formulaToUse.description}
+              onChange={event =>
+                handleAttributeChange(event.target.value, "description")
+              }
             />
           </Grid>
           <Grid item>
@@ -101,7 +163,10 @@ const FormulaPage = ({
                   <Select
                     labelId="formula-frequency-label"
                     id="frequency"
-                    value={formula.frequency}
+                    value={formulaToUse.frequency}
+                    onChange={event =>
+                      handleAttributeChange(event.target.value, "frequency")
+                    }
                   >
                     <MenuItem value={"monthly"}>Monthly</MenuItem>
                     <MenuItem value={"quarterly"}>Quarterly</MenuItem>
@@ -115,8 +180,14 @@ const FormulaPage = ({
                   <Select
                     labelId="formula-frequency-label"
                     id="frequency"
-                    value={formula.exportableFormulaCode}
+                    value={formulaToUse.exportableFormulaCode}
                     displayEmpty={true}
+                    onChange={event =>
+                      handleAttributeChange(
+                        event.target.value,
+                        "exportableFormulaCode",
+                      )
+                    }
                   >
                     {exportableIfs.map(ifcode => (
                       <MenuItem key={ifcode} value={ifcode}>
@@ -133,10 +204,23 @@ const FormulaPage = ({
             <FormulaEditor
               value={formulaToUse.expression || ""}
               availableVariables={availableVariables}
-              updateExpression={updateExpression}
+              handleAttributeChange={handleAttributeChange}
             />
           </Grid>
         </Grid>
+        <br></br>
+        <br></br>
+        {userCanEdit && (
+          <Button
+            variant="outlined"
+            disabled={!editingAttributes}
+            onClick={() => handleUpdateMutation.mutate()}
+          >
+            Save
+          </Button>
+        )}
+        {userCanEdit && handleUpdateMutation?.isSuccess && <CheckIcon />}
+        {userCanEdit && handleUpdateMutation?.isError && <ErrorIcon />}
       </Grid>
 
       <Grid item xs={4}>

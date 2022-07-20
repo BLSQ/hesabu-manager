@@ -44,6 +44,7 @@ const FormulaContainer = props => {
             exportableIfs={loadFormulaQuery.data.exportableIfs}
             availableVariables={loadFormulaQuery.data.availableVariables}
             mockValues={loadFormulaQuery.data.mockValues}
+            match={match}
           ></FormulaPage>
         )}
       </PageContent>
