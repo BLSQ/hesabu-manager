@@ -60,7 +60,6 @@ const FormulaPage = ({
   const [formulaToUse, setFormulaToUse] = useState(formula);
 
   const updateExpression = newFormula => {
-    debugger;
     formulaToUse.expression = newFormula;
     setFormulaToUse({ ...formulaToUse });
   };
