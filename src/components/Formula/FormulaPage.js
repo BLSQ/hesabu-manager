@@ -55,6 +55,12 @@ const useStyles = makeStyles(theme => ({
   formControl: {
     minWidth: 240,
   },
+  errorText: {
+    color: "#f44336",
+  },
+  iconPadding: {
+    padding: "10px",
+  },
 }));
 
 const FormulaPage = ({
@@ -73,6 +79,7 @@ const FormulaPage = ({
     expression: formulaToUse.expression,
   });
   const [editingAttributes, setEditingAttributes] = useState(false);
+  const [validationErrors, setValidationErrors] = useState({});
 
   const userCanEdit = canEdit();
   const formulaType = match.path.split("/")[3];
@@ -100,12 +107,16 @@ const FormulaPage = ({
     {
       onSuccess: resp => {
         setFormulaToUse(resp);
+        setValidationErrors({});
       },
-      // onError: (error) => {
-      //   console.log("error");
-      //   const deserializedError = await deserialize(error)
-      //   console.log(deserializedError);
-      // },
+      onError: error => {
+        let resp = error.json;
+        resp = resp.errors[0];
+        const attribute = Object.keys(resp.details)[0];
+        const message = resp.message;
+        validationErrors[attribute] = message;
+        setValidationErrors({ ...validationErrors });
+      },
     },
   );
 
@@ -146,7 +157,9 @@ const FormulaPage = ({
 
           <Grid item>
             <TextField
+              error={validationErrors["description"]}
               label={"Description"}
+              helperText={validationErrors["description"]}
               variant="outlined"
               fullWidth
               value={formulaToUse.description}
@@ -159,8 +172,11 @@ const FormulaPage = ({
             <div style={{ display: "flex", gap: "20px", flexWrap: "wrap" }}>
               <div>
                 <FormControl className={classes.formControl}>
-                  <InputLabel id="formula-frequency">Frequency</InputLabel>
-                  <Select
+                  <TextField
+                    select
+                    error={validationErrors["frequency"]}
+                    helperText={validationErrors["frequency"]}
+                    label="Frequency"
                     labelId="formula-frequency-label"
                     id="frequency"
                     value={formulaToUse.frequency}
@@ -170,14 +186,17 @@ const FormulaPage = ({
                   >
                     <MenuItem value={"monthly"}>Monthly</MenuItem>
                     <MenuItem value={"quarterly"}>Quarterly</MenuItem>
-                  </Select>
+                  </TextField>
                 </FormControl>
               </div>
 
               <div>
                 <FormControl className={classes.formControl}>
-                  <InputLabel id="formula-frequency">Exportable if</InputLabel>
-                  <Select
+                  <TextField
+                    select
+                    error={validationErrors["exportableFormulaCode"]}
+                    helperText={validationErrors["exportableFormulaCode"]}
+                    label="Exportable if"
                     labelId="formula-frequency-label"
                     id="frequency"
                     value={formulaToUse.exportableFormulaCode}
@@ -194,7 +213,7 @@ const FormulaPage = ({
                         {ifcode}
                       </MenuItem>
                     ))}
-                  </Select>
+                  </TextField>
                 </FormControl>
               </div>
             </div>
@@ -206,9 +225,12 @@ const FormulaPage = ({
               availableVariables={availableVariables}
               handleAttributeChange={handleAttributeChange}
             />
+            <br></br>
+            <span className={classes.errorText}>
+              {validationErrors["expression"] || ""}
+            </span>
           </Grid>
         </Grid>
-        <br></br>
         <br></br>
         {userCanEdit && (
           <Button
@@ -219,8 +241,17 @@ const FormulaPage = ({
             Save
           </Button>
         )}
-        {userCanEdit && handleUpdateMutation?.isSuccess && <CheckIcon />}
-        {userCanEdit && handleUpdateMutation?.isError && <ErrorIcon />}
+        {userCanEdit && handleUpdateMutation?.isSuccess && (
+          <span className={classes.iconPadding}>
+            {" "}
+            <CheckIcon />{" "}
+          </span>
+        )}
+        {userCanEdit && handleUpdateMutation?.isError && (
+          <span className={classes.iconPadding}>
+            <ErrorIcon />
+          </span>
+        )}
       </Grid>
 
       <Grid item xs={4}>
