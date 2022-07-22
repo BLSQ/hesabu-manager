@@ -73,12 +73,7 @@ const FormulaPage = ({
   const classes = useStyles();
 
   const [formulaToUse, setFormulaToUse] = useState(formula);
-  const [attributesToUpdate, setAttributesToUpdate] = useState({
-    shortName: formulaToUse.shortName,
-    description: formulaToUse.description,
-    expression: formulaToUse.expression,
-  });
-  const [editingAttributes, setEditingAttributes] = useState(false);
+  const [isDirty, setIsDirty] = useState(false);
   const [validationErrors, setValidationErrors] = useState({});
 
   const userCanEdit = canEdit();
@@ -92,7 +87,7 @@ const FormulaPage = ({
       const payload = {
         data: {
           id: formula.id,
-          attributes: attributesToUpdate,
+          attributes: formulaToUse,
         },
       };
 
@@ -121,11 +116,10 @@ const FormulaPage = ({
   );
 
   const handleAttributeChange = (value, attribute) => {
-    attributesToUpdate[attribute] = value;
-    formulaToUse[attribute] = value;
-    setAttributesToUpdate({ ...attributesToUpdate });
-    setFormulaToUse({ ...formulaToUse });
-    setEditingAttributes(true);
+    const new_formula = { ...formulaToUse };
+    new_formula[attribute] = value;
+    setFormulaToUse(new_formula);
+    setIsDirty(true);
   };
 
   return (
@@ -235,7 +229,7 @@ const FormulaPage = ({
         {userCanEdit && (
           <Button
             variant="outlined"
-            disabled={!editingAttributes}
+            disabled={!isDirty}
             onClick={() => handleUpdateMutation.mutate()}
           >
             Save
