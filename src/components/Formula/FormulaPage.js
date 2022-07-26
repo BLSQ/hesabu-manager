@@ -69,6 +69,7 @@ const FormulaPage = ({
   mockValues,
   availableVariables,
   match,
+  modeCreate,
 }) => {
   const classes = useStyles();
 
@@ -107,13 +108,53 @@ const FormulaPage = ({
       onError: error => {
         let resp = error.json;
         resp = resp.errors[0];
-        const attribute = Object.keys(resp.details)[0];
-        const message = resp.message;
-        validationErrors[attribute] = message;
+        const errorDetails = resp.details;
+        for (let attribute in errorDetails) {
+          validationErrors[attribute] = errorDetails[attribute];
+        }
         setValidationErrors({ ...validationErrors });
       },
     },
   );
+
+  const handleCreateMutation = useMutation(
+    async () => {
+      const payload = {
+        data: {
+          attributes: formulaToUse,
+        },
+      };
+
+      let resp = await externalApi()
+        .url(`/${parent}/${parentId}/${formulaType}`)
+        .post(payload)
+        .json();
+
+      resp = await deserialize(resp);
+      return resp;
+    },
+    {
+      onSuccess: resp => {
+        setValidationErrors({});
+        window.location.replace(
+          `/#/${parent}/${parentId}/${formulaType}/${resp.id}`,
+        );
+      },
+      onError: error => {
+        let resp = error.json;
+        resp = resp.errors[0];
+        const errorDetails = resp.details;
+        for (let attribute in errorDetails) {
+          validationErrors[attribute] = errorDetails[attribute];
+        }
+        setValidationErrors({ ...validationErrors });
+      },
+    },
+  );
+
+  const handleMutation = () => {
+    modeCreate ? handleCreateMutation.mutate() : handleUpdateMutation.mutate();
+  };
 
   const handleAttributeChange = (value, attribute) => {
     const new_formula = { ...formulaToUse };
@@ -122,19 +163,24 @@ const FormulaPage = ({
     setIsDirty(true);
   };
 
+  const inputProps = modeCreate ? { readOnly: false } : { readOnly: true };
+
   return (
     <Grid container spacing={4} wrap="wrap">
       <Grid item xs={8} sm={6}>
         <Grid container spacing={4} direction="column">
           <Grid item>
             <TextField
+              error={validationErrors["code"]}
               label={"Code"}
+              helperText={validationErrors["code"]}
               variant="outlined"
               fullWidth
-              value={formula.code}
-              InputProps={{
-                readOnly: true,
-              }}
+              value={formulaToUse.code}
+              disabled={!modeCreate}
+              onChange={event =>
+                handleAttributeChange(event.target.value, "code")
+              }
             />
           </Grid>
           <Grid item>
@@ -230,7 +276,7 @@ const FormulaPage = ({
           <Button
             variant="outlined"
             disabled={!isDirty}
-            onClick={() => handleUpdateMutation.mutate()}
+            onClick={() => handleMutation()}
           >
             Save
           </Button>

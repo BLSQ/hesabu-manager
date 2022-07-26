@@ -219,6 +219,11 @@ class App extends Component {
                               />
                               <Route
                                 exact
+                                path="/sets/:setId/topic_formulas/new"
+                                component={LoadableFormulaContainer}
+                              />
+                              <Route
+                                exact
                                 path="/compounds"
                                 component={LoadableCompoundsContainer}
                               />
