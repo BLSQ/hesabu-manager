@@ -178,7 +178,6 @@ const FormulaPage = ({
               variant="outlined"
               fullWidth
               value={formulaToUse.code}
-              disabled={!modeCreate}
               onChange={event =>
                 handleAttributeChange(event.target.value, "code")
               }
