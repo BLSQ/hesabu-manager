@@ -249,9 +249,22 @@ const TopicBasedFormulas = props => {
           );
         },
       })),
+      {
+        value: "ADD",
+        valueViewer: v => (
+          <>
+            <Button href={"./#/sets/" + set.id + "/topic_formulas/new"}>
+              <AddIcon></AddIcon>
+            </Button>
+          </>
+        ),
+
+        readOnly: true,
+      },
       ...fakeColumGenerator(10, true),
     ],
   ];
+
   const grid = [
     ...defaultGrid,
     ...safeTopics.map(topic => [
@@ -318,6 +331,7 @@ const TopicBasedFormulas = props => {
           dataEditor: FormulaMappingDialogEditor,
         };
       }),
+
       ...fakeColumGenerator(10),
     ]),
     [
