@@ -139,6 +139,7 @@ const FormulaPage = ({
         window.location.replace(
           `/#/${parent}/${parentId}/${formulaType}/${resp.id}`,
         );
+        window.location.reload();
       },
       onError: error => {
         let resp = error.json;
