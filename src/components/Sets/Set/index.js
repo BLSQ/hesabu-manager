@@ -52,6 +52,7 @@ const Set = props => {
         backLinkPath="/sets"
         tabs={Tabs}
         activeTab={currentTab}
+        set={set}
       >
         <Typography
           variant="h6"
@@ -95,21 +96,27 @@ const Set = props => {
               )}
             />
             <Route
-              path={`${match.url}/children`}
+              path={`${match.url}/children_formulas`}
               component={() => (
                 <SetChildrenContainer set={set} loading={loading} />
               )}
             />
-            <Route
-              path={`${match.url}/zone_topic`}
-              component={() => (
-                <SetZoneTopicContainer set={set} loading={loading} />
-              )}
-            />
-            <Route
-              path={`${match.url}/zone_formulas`}
-              component={() => <SetZoneContainer set={set} loading={loading} />}
-            />
+            {set.kind == "zone" && (
+              <>
+                <Route
+                  path={`${match.url}/zone_topic_formulas`}
+                  component={() => (
+                    <SetZoneTopicContainer set={set} loading={loading} />
+                  )}
+                />
+                <Route
+                  path={`${match.url}/zone_formulas`}
+                  component={() => (
+                    <SetZoneContainer set={set} loading={loading} />
+                  )}
+                />
+              </>
+            )}
             <Route
               path={`${match.url}/set_formulas`}
               component={() => (

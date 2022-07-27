@@ -14,7 +14,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 function SetTabs(props) {
-  const { activeTab, match } = props;
+  const { activeTab, match, set } = props;
   const classes = useStyles();
   const { t } = useTranslation();
 
@@ -38,24 +38,31 @@ function SetTabs(props) {
         component={Link}
         to={`${match.url}/set_formulas`}
       />
-      <Tab
-        label={t("set.tabs.childrenFormulas.label")}
-        title={t("set.tabs.childrenFormulas.tooltip")}
-        component={Link}
-        to={`${match.url}/children_formulas`}
-      />
-      <Tab
-        label={t("set.tabs.zoneTopicFormulas.label")}
-        title={t("set.tabs.zoneTopicFormulas.tooltip")}
-        component={Link}
-        to={`${match.url}/zone_topic_formulas`}
-      />
-      <Tab
-        label={t("set.tabs.zoneFormulas.label")}
-        title={t("set.tabs.zoneFormulas.tooltip")}
-        component={Link}
-        to={`${match.url}/zone_formulas`}
-      />
+      {set && set.kind == "multi-groupset" && (
+        <Tab
+          label={t("set.tabs.childrenFormulas.label")}
+          title={t("set.tabs.childrenFormulas.tooltip")}
+          component={Link}
+          to={`${match.url}/children_formulas`}
+        />
+      )}
+
+      {set && set.kind == "zone" && (
+        <Tab
+          label={t("set.tabs.zoneTopicFormulas.label")}
+          title={t("set.tabs.zoneTopicFormulas.tooltip")}
+          component={Link}
+          to={`${match.url}/zone_topic_formulas`}
+        />
+      )}
+      {set && set.kind == "zone" && (
+        <Tab
+          label={t("set.tabs.zoneFormulas.label")}
+          title={t("set.tabs.zoneFormulas.tooltip")}
+          component={Link}
+          to={`${match.url}/zone_formulas`}
+        />
+      )}
     </Tabs>
   );
 }
