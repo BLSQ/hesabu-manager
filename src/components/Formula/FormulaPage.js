@@ -175,13 +175,20 @@ const FormulaPage = ({
               {formulaToUse?.errors &&
                 Object.keys(formulaToUse.errors).length > 0 &&
                 Object.values(formulaToUse.errors).join("\n")}
+              {validationErrors &&
+                Object.keys(validationErrors).length > 0 &&
+                Object.values(validationErrors).join("\n")}
             </b>
           </div>
           <Grid item>
             <TextField
+              required
               error={validationErrors["code"]}
               label={"Code"}
-              helperText={validationErrors["code"]}
+              helperText={
+                validationErrors["code"] ||
+                "not starting with a number, lowercase, no spaces, _ are ok"
+              }
               variant="outlined"
               fullWidth
               value={formulaToUse.code}
@@ -199,14 +206,22 @@ const FormulaPage = ({
               onChange={event =>
                 handleAttributeChange(event.target.value, "shortName")
               }
+              helperText={
+                validationErrors["shortName"] ||
+                "short name, can used to create data elements for mappings"
+              }
             />
           </Grid>
 
           <Grid item>
             <TextField
+              required
               error={validationErrors["description"]}
               label={"Description"}
-              helperText={validationErrors["description"]}
+              helperText={
+                validationErrors["description"] ||
+                "for self documentation, tracking TODOs, don't be afraid to put links to jira or documents"
+              }
               variant="outlined"
               fullWidth
               value={formulaToUse.description}

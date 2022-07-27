@@ -16,6 +16,7 @@ import SidebarBlock from "../../Shared/SidebarBlock";
 import { formattedName } from "../../../utils/textUtils";
 import FiltersToggleBtn from "../../FiltersToggleBtn";
 import Formulas from "../../Formula/Formulas";
+import ActionFab from "../../Shared/ActionFab";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -28,6 +29,10 @@ const useStyles = makeStyles(theme => ({
     "& > div": {
       margin: theme.spacing(0, 2, 2, 0),
     },
+  },
+  simulationBtn: {
+    right: theme.spacing(4) + 450,
+    transition: "all .1s 100ms ease-in-out",
   },
 }));
 
@@ -71,6 +76,13 @@ const Compound = props => {
           {loading && <CircularProgress />}
           {errorMessage && <p>{errorMessage}</p>}
           <Formulas formulas={formulas} parent={compound} />
+
+          <ActionFab
+            to={{ pathname: `${window.location.href.split("#")[1]}/new` }}
+            text="Formula"
+            extended
+            className={classes.simulationBtn}
+          />
         </PageContent>
         <SideSheet
           variant="big"

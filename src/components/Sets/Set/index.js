@@ -35,6 +35,7 @@ const Set = props => {
   const history = useHistory();
   const classes = useStyles(!loading && sideSheetOpen);
   const { t } = useTranslation();
+
   return (
     <Dialog
       fullScreen
@@ -69,12 +70,8 @@ const Set = props => {
       {!!set.id && (
         <Fragment>
           <ActionFab
-            to={{
-              pathname: `/simulation`,
-              search: `?${simulationParams}`,
-              state: { referrer: location.pathname },
-            }}
-            text="Simulation"
+            to={{ pathname: `${window.location.href.split("#")[1]}/new` }}
+            text="Formula"
             extended
             className={classes.simulationBtn}
           />
