@@ -4,11 +4,13 @@ import { dependencies, formulasToMermaid } from "./utils";
 
 describe("formula utils", () => {
   const formula = {
+    id: "1",
     code: "quantity",
     expression: "IF (ABS(difference_percentage) <= 10, verified , 0.0)",
   };
 
   const formula2 = {
+    id: "2",
     code: "difference_percentage",
     expression: "safe_div (claimed - verified , verified ) * 100.0",
   };
@@ -99,7 +101,9 @@ describe("formula utils", () => {
   });
 
   it("formulasToMermaid", () => {
-    expect(formulasToMermaid(formulas, undefined)).toEqual(
+    expect(
+      formulasToMermaid(formulas, "url_prefix/parent/id/formulas"),
+    ).toEqual(
       `
 graph TD
 difference_percentage --> quantity
@@ -108,8 +112,10 @@ claimed --> difference_percentage
 verified --> difference_percentage
 class quantity current
 quantity("quantity <br> IF (ABS(difference_percentage) <= 10, verified , 0.0)")
+click quantity "url_prefix/parent/id/formulas/1"
 class difference_percentage current
 difference_percentage("difference_percentage <br> safe_div (claimed - verified , verified ) * 100.0")
+click difference_percentage "url_prefix/parent/id/formulas/2"
 classDef current fill:#f96;
 `.trim(),
     );

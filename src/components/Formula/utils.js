@@ -61,7 +61,7 @@ export const escapeQuotes = str => {
   return str.split('"').join("&bdquo;");
 };
 
-export const formulasToMermaid = (formulas, parent) => {
+export const formulasToMermaid = (formulas, prefix_url) => {
   const graph = ["graph TD"];
   for (const formula of formulas) {
     for (const dependency of dependencies(formula.expression)) {
@@ -76,6 +76,7 @@ export const formulasToMermaid = (formulas, parent) => {
         formula.expression.split("\n").join("<br>"),
       )}"${shape[1]}`,
     );
+    graph.push(`click ${formula.code} "${prefix_url}/${formula.id}"`);
   }
   graph.push("classDef current fill:#f96;");
   const content = graph.join("\n");

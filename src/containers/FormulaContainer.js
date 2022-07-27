@@ -9,32 +9,31 @@ import { formattedName } from "../utils/textUtils";
 import { externalApi } from "../actions/api";
 import { deserialize } from "../utils/jsonApiUtils";
 
-const emptyFormula = {
-  code: "new_formula",
-  shortName: "",
-  description: "",
-  expression: "1",
-  availableVariables: [],
-  mockValues: {},
-  exportableIfs: [],
-  usedFormulas: [],
-  usedByFormulas: [],
-};
-
 const FormulaContainer = props => {
   const { t } = useTranslation();
-  const [formula, setFormula] = useState(null);
-  const [modeCreate, setModeCreate] = useState(false);
   const { match } = props;
+  const formulaId = match.params.formulaId;
+
+  const modeCreate = formulaId == "new";
   const formulaType = match.path.split("/")[3];
   const parent = match.path.split("/")[1];
   const parentId =
     parent === "sets" ? match.params.setId : match.params.compoundId;
-  const formulaId = match.params.formulaId;
 
-  const loadFormulaQuery = useQuery(
-    ["loadFormula", match.params.formulaId],
-    async () => {
+  const loadFormulaQuery = useQuery(["loadFormula", formulaId], async () => {
+    if (formulaId == "new") {
+      return {
+        code: "new_formula",
+        shortName: "",
+        description: "",
+        expression: "1",
+        availableVariables: [],
+        mockValues: {},
+        exportableIfs: [],
+        usedFormulas: [],
+        usedByFormulas: [],
+      };
+    } else {
       const response = await externalApi()
         .errorType("json")
         .url(`/${parent}/${parentId}/${formulaType}/${formulaId}`)
@@ -42,17 +41,9 @@ const FormulaContainer = props => {
         .json();
       const formula = await deserialize(response);
       return formula;
-    },
-    {
-      onSuccess: resp => {
-        setFormula(resp);
-      },
-      onError: error => {
-        setFormula(emptyFormula);
-        setModeCreate(true);
-      },
-    },
-  );
+    }
+  });
+  const formula = loadFormulaQuery?.data;
 
   const backLinkPath = `/${parent}/${parentId}/${formulaType}`;
   return (

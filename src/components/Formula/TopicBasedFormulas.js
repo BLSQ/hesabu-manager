@@ -253,9 +253,11 @@ const TopicBasedFormulas = props => {
         value: "ADD",
         valueViewer: v => (
           <>
-            <Button href={"./#/sets/" + set.id + "/topic_formulas/new"}>
-              <AddIcon></AddIcon>
-            </Button>
+            {set && (
+              <Button href={"./#/sets/" + set.id + "/topic_formulas/new"}>
+                <AddIcon></AddIcon>
+              </Button>
+            )}
           </>
         ),
 
@@ -378,7 +380,10 @@ const TopicBasedFormulas = props => {
             {showGraph && (
               <Mermaid
                 id="graph1"
-                content={formulasToMermaid(formulas, undefined)}
+                content={formulasToMermaid(
+                  formulas,
+                  "./index.html#/sets/" + set.id + "/topic_formulas",
+                )}
               />
             )}
             {!showGraph && (
