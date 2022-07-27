@@ -170,6 +170,13 @@ const FormulaPage = ({
     <Grid container spacing={4} wrap="wrap">
       <Grid item xs={8} sm={6}>
         <Grid container spacing={4} direction="column">
+          <div style={{ color: "red" }}>
+            <b>
+              {formulaToUse?.errors &&
+                Object.keys(formulaToUse.errors).length > 0 &&
+                Object.values(formulaToUse.errors).join("\n")}
+            </b>
+          </div>
           <Grid item>
             <TextField
               error={validationErrors["code"]}
@@ -208,6 +215,7 @@ const FormulaPage = ({
               }
             />
           </Grid>
+
           <Grid item>
             <div style={{ display: "flex", gap: "20px", flexWrap: "wrap" }}>
               <div>
