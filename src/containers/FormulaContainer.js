@@ -57,6 +57,7 @@ const FormulaContainer = props => {
           </TopBar>
           <PageContent>
             <FormulaPage
+              key={formulaId}
               formula={formula}
               exportableIfs={formula.exportableIfs}
               availableVariables={formula.availableVariables}
