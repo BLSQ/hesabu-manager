@@ -42,13 +42,13 @@ function SetTabs(props) {
         label={t("set.tabs.childrenFormulas.label")}
         title={t("set.tabs.childrenFormulas.tooltip")}
         component={Link}
-        to={`${match.url}/children`}
+        to={`${match.url}/children_formulas`}
       />
       <Tab
         label={t("set.tabs.zoneTopicFormulas.label")}
         title={t("set.tabs.zoneTopicFormulas.tooltip")}
         component={Link}
-        to={`${match.url}/zone_topic`}
+        to={`${match.url}/zone_topic_formulas`}
       />
       <Tab
         label={t("set.tabs.zoneFormulas.label")}
