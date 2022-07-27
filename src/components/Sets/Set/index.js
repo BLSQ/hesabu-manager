@@ -88,7 +88,7 @@ const Set = props => {
         tabs={Tabs}
         location={location}
         set={set}
-        tabConfigs={tabConfigs}
+        tabsProps={{ tabConfigs }}
       >
         <Typography
           variant="h6"

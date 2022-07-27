@@ -36,7 +36,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 function TopBar(props) {
-  const { project, activeTab } = props;
+  const { project, tabsProps } = props;
   const classes = useStyles(props);
   const SectionTabs = props.tabs;
   const { t } = useTranslation();
@@ -67,7 +67,7 @@ function TopBar(props) {
         )}
         <div className={classes.branding}>{props.children || project.name}</div>
       </Toolbar>
-      {props.tabs && <SectionTabs activeTab={activeTab} {...props} />}
+      {props.tabs && <SectionTabs {...tabsProps} />}
     </AppBar>
   );
 }
