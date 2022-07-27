@@ -76,6 +76,7 @@ const FormulaPage = ({
   const [formulaToUse, setFormulaToUse] = useState(formula);
   const [isDirty, setIsDirty] = useState(false);
   const [validationErrors, setValidationErrors] = useState({});
+  const [deletionError, setDeletionError] = useState(null);
 
   const userCanEdit = canEdit();
   const formulaType = match.path.split("/")[3];
@@ -153,6 +154,27 @@ const FormulaPage = ({
     },
   );
 
+  const handleDeleteMutation = useMutation(
+    async () => {
+      let resp = await externalApi()
+        .url(`/${parent}/${parentId}/${formulaType}/${match.params.formulaId}`)
+        .delete()
+        .json();
+
+      resp = await deserialize(resp);
+      return resp;
+    },
+    {
+      onSuccess: resp => {
+        window.location.replace(`/#/${parent}/${parentId}/${formulaType}`);
+        window.location.reload();
+      },
+      onError: error => {
+        setDeletionError(`Something went wrong: ${error.message}`);
+      },
+    },
+  );
+
   const handleMutation = () => {
     modeCreate ? handleCreateMutation.mutate() : handleUpdateMutation.mutate();
   };
@@ -178,6 +200,7 @@ const FormulaPage = ({
               {validationErrors &&
                 Object.keys(validationErrors).length > 0 &&
                 Object.values(validationErrors).join("\n")}
+              {deletionError && { deletionError }}
             </b>
           </div>
           <Grid item>
@@ -296,13 +319,26 @@ const FormulaPage = ({
         </Grid>
         <br></br>
         {userCanEdit && (
-          <Button
-            variant="outlined"
-            disabled={!isDirty}
-            onClick={() => handleMutation()}
-          >
-            Save
-          </Button>
+          <Grid container spacing={4} wrap="wrap">
+            <Grid item xs={10} sm={9}>
+              <Button
+                variant="outlined"
+                disabled={!isDirty}
+                onClick={() => handleMutation()}
+              >
+                Save
+              </Button>
+            </Grid>
+            <Grid item>
+              <Button
+                variant="outlined"
+                disabled={formulaToUse.usedByFormulas.length !== 0}
+                onClick={() => handleDeleteMutation.mutate()}
+              >
+                Delete
+              </Button>
+            </Grid>
+          </Grid>
         )}
         {userCanEdit && handleUpdateMutation?.isSuccess && (
           <span className={classes.iconPadding}>
