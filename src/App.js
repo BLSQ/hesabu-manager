@@ -224,6 +224,11 @@ class App extends Component {
                               />
                               <Route
                                 exact
+                                path="/sets/:setId/topic/import"
+                                component={LoadableSetsContainer}
+                              />
+                              <Route
+                                exact
                                 path="/compounds"
                                 component={LoadableCompoundsContainer}
                               />

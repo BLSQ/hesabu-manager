@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useLocation, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import snakeCase from "lodash/snakeCase";
-import { activeTab } from "../../lib/setHelpers";
+
 import { externalApi } from "../../actions/api";
 import { deserialize } from "../../utils/jsonApiUtils";
 import Set from "../../components/Sets/Set";
@@ -60,13 +60,11 @@ const SetContainer = props => {
     }
   }, [props.setId, open]);
 
-  const currentTab = activeTab(setId, location.pathname);
   const handleToggleSideSheet = () => setSideSheetOpen(!sideSheetOpen);
 
   return (
     <Dhis2DataElementsProvider>
       <Set
-        currentTab={currentTab}
         open={open}
         set={set}
         loading={loading}

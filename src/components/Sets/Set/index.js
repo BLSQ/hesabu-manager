@@ -24,7 +24,6 @@ const Set = props => {
     match,
     sideSheetOpen,
     open,
-    currentTab,
     loading,
     set,
     handleToggleSideSheet,
@@ -35,6 +34,42 @@ const Set = props => {
   const history = useHistory();
   const classes = useStyles(!loading && sideSheetOpen);
   const { t } = useTranslation();
+
+  const tabConfigs = [
+    {
+      label: t("set.tabs.topicFormulas.label"),
+      title: t("set.tabs.topicFormulas.tooltip"),
+      to: `${match.url}/topic_formulas`,
+      routeComponent: SetCurrentLevelContainer,
+    },
+    {
+      label: t("set.tabs.setFormulas.label"),
+      title: t("set.tabs.setFormulas.tooltip"),
+      to: `${match.url}/set_formulas`,
+      routeComponent: SetFormulasContainer,
+    },
+    {
+      label: t("set.tabs.childrenFormulas.label"),
+      title: t("set.tabs.childrenFormulas.tooltip"),
+      to: `${match.url}/children_formulas`,
+      kinds: ["multi-groupset"],
+      routeComponent: SetChildrenContainer,
+    },
+    {
+      label: t("set.tabs.zoneTopicFormulas.label"),
+      title: t("set.tabs.zoneTopicFormulas.tooltip"),
+      to: `${match.url}/zone_topic_formulas`,
+      kinds: ["zone"],
+      routeComponent: SetZoneTopicContainer,
+    },
+    {
+      label: t("set.tabs.zoneFormulas.label"),
+      title: t("set.tabs.zoneFormulas.tooltip"),
+      to: `${match.url}/zone_formulas`,
+      kinds: ["zone"],
+      routeComponent: SetZoneContainer,
+    },
+  ].filter(c => c.kinds == undefined || c.kinds.includes(set.kind));
 
   return (
     <Dialog
@@ -51,8 +86,9 @@ const Set = props => {
         fullscreen
         backLinkPath="/sets"
         tabs={Tabs}
-        activeTab={currentTab}
+        location={location}
         set={set}
+        tabConfigs={tabConfigs}
       >
         <Typography
           variant="h6"
@@ -79,14 +115,9 @@ const Set = props => {
 
           <Switch>
             <Route
-              path={`${match.url}/topic_formulas`}
+              key="import"
+              path={`${match.url}/topic/import`}
               exact={true}
-              component={() => (
-                <SetCurrentLevelContainer set={set} loading={loading} />
-              )}
-            />
-            <Route
-              path={`${match.url}/topic_formulas/import`}
               component={() => (
                 <ImportTopicsContainer
                   set={set}
@@ -95,34 +126,18 @@ const Set = props => {
                 />
               )}
             />
-            <Route
-              path={`${match.url}/children_formulas`}
-              component={() => (
-                <SetChildrenContainer set={set} loading={loading} />
-              )}
-            />
-            {set.kind == "zone" && (
-              <>
-                <Route
-                  path={`${match.url}/zone_topic_formulas`}
-                  component={() => (
-                    <SetZoneTopicContainer set={set} loading={loading} />
-                  )}
-                />
-                <Route
-                  path={`${match.url}/zone_formulas`}
-                  component={() => (
-                    <SetZoneContainer set={set} loading={loading} />
-                  )}
-                />
-              </>
-            )}
-            <Route
-              path={`${match.url}/set_formulas`}
-              component={() => (
-                <SetFormulasContainer set={set} loading={loading} />
-              )}
-            />
+
+            {tabConfigs.map(tab => (
+              <Route
+                key={tab.to}
+                path={tab.to}
+                exact={true}
+                component={() => {
+                  const Comp = tab.routeComponent;
+                  return <Comp set={set} loading={loading} />;
+                }}
+              />
+            ))}
           </Switch>
           {!props.loading && (
             <SideSheet
