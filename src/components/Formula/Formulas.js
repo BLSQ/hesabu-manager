@@ -22,6 +22,7 @@ const Formulas = ({ formulas, parent }) => {
     setShowGraph(event.target.checked);
   };
   const classes = useStyles();
+
   return (
     <div className={classes.formulaWrapper}>
       <Switch
@@ -58,8 +59,20 @@ const Formulas = ({ formulas, parent }) => {
           ))}
         </Grid>
       )}
+
       {showGraph && (
-        <Mermaid id="graph1" content={formulasToMermaid(formulas, parent)} />
+        <Mermaid
+          id="graph1"
+          content={formulasToMermaid(
+            formulas,
+            "./index.html#/" +
+              (parent.sets ? "compounds" : "sets") +
+              "/" +
+              parent.id +
+              "/" +
+              (parent.sets ? "compound_formulas" : "set_formulas"),
+          )}
+        />
       )}
     </div>
   );

@@ -7,6 +7,8 @@ export default {
         deCoc: "Choose a data element",
       },
       buttons: {
+        cancel: "Cancel",
+        agree: "Confirm",
         autoreload: "Auto reload",
         search: "Search",
         back: "Back",

@@ -249,9 +249,24 @@ const TopicBasedFormulas = props => {
           );
         },
       })),
+      {
+        value: "ADD",
+        valueViewer: v => (
+          <>
+            {set && (
+              <Button href={"./#/sets/" + set.id + "/topic_formulas/new"}>
+                <AddIcon></AddIcon>
+              </Button>
+            )}
+          </>
+        ),
+
+        readOnly: true,
+      },
       ...fakeColumGenerator(10, true),
     ],
   ];
+
   const grid = [
     ...defaultGrid,
     ...safeTopics.map(topic => [
@@ -318,6 +333,7 @@ const TopicBasedFormulas = props => {
           dataEditor: FormulaMappingDialogEditor,
         };
       }),
+
       ...fakeColumGenerator(10),
     ]),
     [
@@ -326,9 +342,7 @@ const TopicBasedFormulas = props => {
         valueViewer: v => (
           <>
             {set && (
-              <Button
-                href={"./index.html#/sets/" + set.id + "/topic_formulas/import"}
-              >
+              <Button href={"./index.html#/sets/" + set.id + "/topic/import"}>
                 <AddIcon></AddIcon>
               </Button>
             )}
@@ -364,7 +378,10 @@ const TopicBasedFormulas = props => {
             {showGraph && (
               <Mermaid
                 id="graph1"
-                content={formulasToMermaid(formulas, undefined)}
+                content={formulasToMermaid(
+                  formulas,
+                  "./index.html#/sets/" + set.id + "/topic_formulas",
+                )}
               />
             )}
             {!showGraph && (
