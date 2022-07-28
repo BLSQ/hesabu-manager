@@ -137,6 +137,11 @@ class App extends Component {
             ...attrs,
           });
           this.setState({ visible: true });
+        })
+        .catch(exception => {
+          // strangely the exception, is not always the same "shape"
+          // unauthorized vs can't connect is a different beast
+          this.setState({ error: exception });
         });
     }
   }
@@ -162,6 +167,28 @@ class App extends Component {
                     horizontal: "center",
                   }}
                 >
+                  {this.state.error && (
+                    <div
+                      style={{
+                        width: "500px",
+                        margin: "auto",
+                        marginTop: "100px",
+                      }}
+                    >
+                      <b>Sorry something went wrong can't connect to hesabu</b>
+                      <p style={{ color: "red" }}>
+                        {this.state.error.message} {this.state.error?.status}
+                      </p>
+                      <p>
+                        Check what's running at{" "}
+                        <a href={externalApi()._url}>{externalApi()._url}</a>
+                      </p>
+                      <pre>
+                        {JSON.stringify(this.state.error, undefined, 2)}
+                      </pre>
+                      <pre>{this.state.error.stack}</pre>
+                    </div>
+                  )}
                   <Shortcuts
                     name="APP"
                     global
