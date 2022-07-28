@@ -6,6 +6,8 @@ export default {
         deCoc: "Choisissez un élément de donnée",
       },
       buttons: {
+        cancel: "Cancel",
+        agree: "Confirmer",
         autoreload: "Rafraichissement auto",
         search: "Rechercher",
         back: "Retour",

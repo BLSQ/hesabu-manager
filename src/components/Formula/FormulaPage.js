@@ -14,7 +14,7 @@ import React, { useEffect, useState } from "react";
 import { useMutation } from "react-query";
 import { makeStyles } from "@material-ui/core/styles";
 import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 import "./editor.css";
 import FormulaTester from "./FormulaTester";
@@ -23,6 +23,7 @@ import FormulaEditor from "./FormulaEditor";
 
 import { externalApi, canEdit } from "../../actions/api";
 import { deserialize } from "../../utils/jsonApiUtils";
+import ConfirmBox from "../Shared/ConfirmBox";
 
 const Formulas = ({ label, formulas }) => {
   return (
@@ -73,10 +74,12 @@ const FormulaPage = ({
 }) => {
   const classes = useStyles();
 
+  const history = useHistory();
   const [formulaToUse, setFormulaToUse] = useState(formula);
   const [isDirty, setIsDirty] = useState(false);
   const [validationErrors, setValidationErrors] = useState({});
   const [deletionError, setDeletionError] = useState(null);
+  const [confirmOpen, setConfirmOpen] = useState(false);
 
   const userCanEdit = canEdit();
   const formulaType = match.path.split("/")[3];
@@ -137,10 +140,7 @@ const FormulaPage = ({
     {
       onSuccess: resp => {
         setValidationErrors({});
-        window.location.replace(
-          `/#/${parent}/${parentId}/${formulaType}/${resp.id}`,
-        );
-        window.location.reload();
+        history.push(`/${parent}/${parentId}/${formulaType}/${resp.id}`);
       },
       onError: error => {
         let resp = error.json;
@@ -166,8 +166,7 @@ const FormulaPage = ({
     },
     {
       onSuccess: resp => {
-        window.location.replace(`/#/${parent}/${parentId}/${formulaType}`);
-        window.location.reload();
+        history.push(`/${parent}/${parentId}/${formulaType}`);
       },
       onError: error => {
         setDeletionError(`Something went wrong: ${error.message}`);
@@ -329,15 +328,24 @@ const FormulaPage = ({
                 Save
               </Button>
             </Grid>
-            <Grid item>
-              <Button
-                variant="outlined"
-                disabled={formulaToUse.usedByFormulas.length !== 0}
-                onClick={() => handleDeleteMutation.mutate()}
-              >
-                Delete
-              </Button>
-            </Grid>
+            <ConfirmBox
+              open={confirmOpen}
+              title="Delete formula"
+              content="Sure you want to delete ?"
+              onConfirm={() => handleDeleteMutation.mutate()}
+              onClose={() => setConfirmOpen(false)}
+            />
+            {match.params.formulaId !== "new" && (
+              <Grid item>
+                <Button
+                  variant="outlined"
+                  disabled={formulaToUse.usedByFormulas.length !== 0}
+                  onClick={() => setConfirmOpen(true)}
+                >
+                  Delete
+                </Button>
+              </Grid>
+            )}
           </Grid>
         )}
         {userCanEdit && handleUpdateMutation?.isSuccess && (
