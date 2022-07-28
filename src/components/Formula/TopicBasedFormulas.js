@@ -254,7 +254,9 @@ const TopicBasedFormulas = props => {
         valueViewer: v => (
           <>
             {set && (
-              <Button href={"./#/sets/" + set.id + "/topic_formulas/new"}>
+              <Button
+                href={"./index.html#/sets/" + set.id + "/topic_formulas/new"}
+              >
                 <AddIcon></AddIcon>
               </Button>
             )}
