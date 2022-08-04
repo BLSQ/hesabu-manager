@@ -87,13 +87,11 @@ const NewSet = () => {
 
   const handleAttributeChange = (value, attribute) => {
     const newSet = { ...setToUse };
-    debugger;
     if (Array.isArray(newSet[attribute])) {
       newSet[attribute].push(value);
     } else {
       newSet[attribute] = value;
     }
-    console.log(newSet.ogsReference);
     setSetToUse(newSet);
     setIsDirty(true);
   };
@@ -112,8 +110,6 @@ const NewSet = () => {
           attributes: setToUse,
         },
       };
-
-      console.log(setToUse.kind);
 
       let resp = await externalApi()
         .url(`/sets`)
@@ -161,6 +157,16 @@ const NewSet = () => {
             <Grid container spacing={4} wrap="wrap">
               <Grid item xs={8} sm={6}>
                 <Grid container spacing={4} direction="column">
+                  <div style={{ color: "red" }}>
+                    <b>
+                      {setToUse?.errors &&
+                        Object.keys(setToUse.errors).length > 0 &&
+                        Object.values(setToUse.errors).join("\n")}
+                      {validationErrors &&
+                        Object.keys(validationErrors).length > 0 &&
+                        Object.values(validationErrors).join("\n")}
+                    </b>
+                  </div>
                   <Grid item>
                     <TextField
                       required
