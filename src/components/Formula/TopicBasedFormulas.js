@@ -25,6 +25,8 @@ import {
   Link,
   Typography,
   Tooltip,
+  Menu,
+  MenuItem,
 } from "@material-ui/core";
 import CloudDownload from "@material-ui/icons/CloudDownload";
 import CheckCircle from "@material-ui/icons/CheckCircle";
@@ -36,6 +38,7 @@ import { dhis2LookupElement } from "../../lib/dhis2Lookups";
 import Dhis2ElementDetails from "./Dhis2ElementDetails";
 import FormulaMappingDialogEditor from "./FormulaMappingDialogEditor";
 import FormulaViewer from "./FormulaViewer";
+import StateMenu from "./StateMenu";
 
 const useStyles = makeStyles(theme => ({
   root: props => ({
@@ -251,17 +254,7 @@ const TopicBasedFormulas = props => {
       })),
       {
         value: "ADD",
-        valueViewer: v => (
-          <>
-            {set && (
-              <Button
-                href={"./index.html#/sets/" + set.id + "/topic_formulas/new"}
-              >
-                <AddIcon></AddIcon>
-              </Button>
-            )}
-          </>
-        ),
+        valueViewer: v => <>{set && <StateMenu set={set} />}</>,
 
         readOnly: true,
       },
