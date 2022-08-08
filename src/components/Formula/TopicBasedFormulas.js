@@ -39,6 +39,7 @@ import Dhis2ElementDetails from "./Dhis2ElementDetails";
 import FormulaMappingDialogEditor from "./FormulaMappingDialogEditor";
 import FormulaViewer from "./FormulaViewer";
 import StateMenu from "./StateMenu";
+import TopicMenu from "./TopicMenu";
 
 const useStyles = makeStyles(theme => ({
   root: props => ({
@@ -334,15 +335,7 @@ const TopicBasedFormulas = props => {
     [
       {
         value: "ADD",
-        valueViewer: v => (
-          <>
-            {set && (
-              <Button href={"./index.html#/sets/" + set.id + "/topic/import"}>
-                <AddIcon></AddIcon>
-              </Button>
-            )}
-          </>
-        ),
+        valueViewer: v => <>{set && <>{set && <TopicMenu set={set} />}</>}</>,
 
         readOnly: true,
       },
