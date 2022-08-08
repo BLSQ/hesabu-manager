@@ -78,17 +78,41 @@ const StateMenu = ({ set }) => {
     setIsDirty(true);
   };
 
-  const updateInputMutation = useMutation(async () => {
-    const payload = {
-      data: {
-        attributes: {
-          stateIds: stateIds,
+  const updateInputMutation = useMutation(
+    async () => {
+      const payload = {
+        data: {
+          attributes: {
+            stateIds: stateIds,
+          },
         },
-      },
-    };
+      };
 
-    console.log("in here");
-  });
+      let resp = await externalApi()
+        .url(`/sets/${set.id}`)
+        .put(payload)
+        .json();
+
+      resp = await deserialize(resp);
+      return resp;
+    },
+    {
+      onSuccess: resp => {
+        setValidationErrors({});
+        closeAddInput();
+        window.location.reload();
+      },
+      onError: error => {
+        let resp = error.json;
+        resp = resp.errors[0];
+        const errorDetails = resp.details;
+        for (let attribute in errorDetails) {
+          validationErrors[attribute] = errorDetails[attribute];
+        }
+        setValidationErrors({ ...validationErrors });
+      },
+    },
+  );
 
   const createInputMutation = useMutation(
     async () => {
