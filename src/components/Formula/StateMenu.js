@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useMutation } from "react-query";
-import { useTheme } from "@material-ui/styles";
 import {
   Button,
   Grid,
@@ -37,7 +36,6 @@ const input = {
 };
 
 const StateMenu = ({ set }) => {
-  const theme = useTheme();
   const [anchorEl, setAnchorEl] = useState(null);
   const [newOpen, setNewOpen] = useState(false);
   const [addOpen, setAddOpen] = useState(false);
