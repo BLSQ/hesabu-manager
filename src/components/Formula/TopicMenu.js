@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useMutation } from "react-query";
-import { useTheme } from "@material-ui/styles";
 import {
   Button,
   Grid,
@@ -35,10 +34,10 @@ const topic = {
   name: "",
   shortName: "",
   code: "",
+  setId: "",
 };
 
 const TopicMenu = ({ set }) => {
-  const theme = useTheme();
   const [anchorEl, setAnchorEl] = useState(null);
   const [newTopic, setNewTopic] = useState(false);
   const [addTopic, setAddTopic] = useState(false);
@@ -46,9 +45,9 @@ const TopicMenu = ({ set }) => {
   const [validationErrors, setValidationErrors] = useState({});
   const [isDirty, setIsDirty] = useState(false);
   const [topicIds, setTopicIds] = useState([]);
-  // const unusedStates = set.unusedProjectInputs;
+  const unusedTopics = set.projectActivities;
   const dict = {};
-  // unusedStates.map(state => (dict[state.name] = false));
+  unusedTopics.map(topic => (dict[topic.name] = false));
   const [topicsChecked, setTopicsChecked] = useState(dict);
   const open = Boolean(anchorEl);
 
@@ -90,7 +89,7 @@ const TopicMenu = ({ set }) => {
       };
 
       let resp = await externalApi()
-        .url(``)
+        .url(`/sets/${set.id}`)
         .put(payload)
         .json();
 
@@ -117,14 +116,17 @@ const TopicMenu = ({ set }) => {
 
   const createTopicMutation = useMutation(
     async () => {
+      const topicPayload = { ...topicToUse };
+      topicPayload["setId"] = set.id;
+
       const payload = {
         data: {
-          attributes: topicToUse,
+          attributes: topicPayload,
         },
       };
 
       let resp = await externalApi()
-        .url(``)
+        .url(`/topics`)
         .post(payload)
         .json();
 
@@ -293,20 +295,20 @@ const TopicMenu = ({ set }) => {
                   </div>
                   <Grid item>
                     <FormControl sx={{ m: 1, width: 300 }}>
-                      {/* {set.unusedProjectInputs.map(input => (
+                      {set.projectActivities.map(topic => (
                         <FormControlLabel
                           control={
                             <Checkbox
-                              checked={statesChecked[input.name]}
-                              name={input.name}
+                              checked={topicsChecked[topic.name]}
+                              name={topic.name}
                               onChange={event => {
-                                handleStateIds(event.target.name, input.id);
+                                handleTopicIds(event.target.name, topic.id);
                               }}
                             />
                           }
-                          label={input.name}
+                          label={topic.name}
                         />
-                      ))} */}
+                      ))}
                     </FormControl>
                   </Grid>
                   <Grid item xs={10} sm={9}>
