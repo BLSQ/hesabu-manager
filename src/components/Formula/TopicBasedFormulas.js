@@ -38,7 +38,7 @@ import { dhis2LookupElement } from "../../lib/dhis2Lookups";
 import Dhis2ElementDetails from "./Dhis2ElementDetails";
 import FormulaMappingDialogEditor from "./FormulaMappingDialogEditor";
 import FormulaViewer from "./FormulaViewer";
-import StateMenu from "./StateMenu";
+import InputsMenu from "./InputsMenu";
 import TopicMenu from "./TopicMenu";
 
 const useStyles = makeStyles(theme => ({
@@ -255,7 +255,7 @@ const TopicBasedFormulas = props => {
       })),
       {
         value: "ADD",
-        valueViewer: v => <>{set && <StateMenu set={set} />}</>,
+        valueViewer: v => <>{set && <InputsMenu set={set} />}</>,
 
         readOnly: true,
       },
