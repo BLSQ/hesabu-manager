@@ -17,6 +17,8 @@ import {
 import AddIcon from "@material-ui/icons/Add";
 import { deserialize } from "../../utils/jsonApiUtils";
 import { externalApi } from "../../actions/api";
+import TopicForm from "./TopicForm";
+import ExistingTopicsForm from "./ExistingTopicsForm";
 
 const style = {
   position: "absolute",
@@ -30,25 +32,10 @@ const style = {
   p: 4,
 };
 
-const topic = {
-  name: "",
-  shortName: "",
-  code: "",
-  setId: "",
-};
-
 const TopicMenu = ({ set }) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [newTopic, setNewTopic] = useState(false);
   const [addTopic, setAddTopic] = useState(false);
-  const [topicToUse, setTopicToUse] = useState(topic);
-  const [validationErrors, setValidationErrors] = useState({});
-  const [isDirty, setIsDirty] = useState(false);
-  const [topicIds, setTopicIds] = useState([]);
-  const unusedTopics = set.projectActivities;
-  const dict = {};
-  unusedTopics.map(topic => (dict[topic.name] = false));
-  const [topicsChecked, setTopicsChecked] = useState(dict);
   const open = Boolean(anchorEl);
 
   const handleClick = event => {
@@ -70,95 +57,6 @@ const TopicMenu = ({ set }) => {
   };
 
   const closeAddTopic = () => setAddTopic(false);
-
-  const handleAttributeChange = (value, attribute) => {
-    const newTopic = { ...topicToUse };
-    newTopic[attribute] = value;
-    setTopicToUse(newTopic);
-    setIsDirty(true);
-  };
-
-  const updateTopicMutation = useMutation(
-    async () => {
-      const payload = {
-        data: {
-          attributes: {
-            topicIds: topicIds,
-          },
-        },
-      };
-
-      let resp = await externalApi()
-        .url(`/sets/${set.id}`)
-        .put(payload)
-        .json();
-
-      resp = await deserialize(resp);
-      return resp;
-    },
-    {
-      onSuccess: resp => {
-        setValidationErrors({});
-        closeAddTopic();
-        window.location.reload();
-      },
-      onError: error => {
-        let resp = error.json;
-        resp = resp.errors[0];
-        const errorDetails = resp.details;
-        for (let attribute in errorDetails) {
-          validationErrors[attribute] = errorDetails[attribute];
-        }
-        setValidationErrors({ ...validationErrors });
-      },
-    },
-  );
-
-  const createTopicMutation = useMutation(
-    async () => {
-      const topicPayload = { ...topicToUse };
-      topicPayload["setId"] = set.id;
-
-      const payload = {
-        data: {
-          attributes: topicPayload,
-        },
-      };
-
-      let resp = await externalApi()
-        .url(`/topics`)
-        .post(payload)
-        .json();
-
-      resp = await deserialize(resp);
-      return resp;
-    },
-    {
-      onSuccess: resp => {
-        setValidationErrors({});
-        closeNewTopic();
-        window.location.reload();
-      },
-      onError: error => {
-        let resp = error.json;
-        resp = resp.errors[0];
-        const errorDetails = resp.details;
-        for (let attribute in errorDetails) {
-          validationErrors[attribute] = errorDetails[attribute];
-        }
-        setValidationErrors({ ...validationErrors });
-      },
-    },
-  );
-
-  const handleTopicIds = (value, id) => {
-    topicIds.push(id);
-    const newTopicsChecked = { ...topicsChecked };
-    newTopicsChecked[value] = true;
-    setTopicsChecked(newTopicsChecked);
-    setTopicIds(topicIds);
-    setIsDirty(true);
-  };
 
   return (
     <>
@@ -195,85 +93,7 @@ const TopicMenu = ({ set }) => {
           aria-labelledby="modal-modal-title"
           aria-describedby="modal-modal-description"
         >
-          <Box sx={style}>
-            <Grid container>
-              <Grid item>
-                <Grid container spacing={4} direction="column">
-                  <Grid item>
-                    <Typography
-                      id="modal-modal-title"
-                      variant="h6"
-                      component="h2"
-                    >
-                      Create new topic
-                    </Typography>
-                  </Grid>
-                  <div style={{ color: "red" }}>
-                    <b>
-                      {topicToUse?.errors &&
-                        Object.keys(topicToUse.errors).length > 0 &&
-                        Object.values(topicToUse.errors).join("\n")}
-                      {validationErrors &&
-                        Object.keys(validationErrors).length > 0 &&
-                        Object.values(validationErrors).join("\n")}
-                    </b>
-                  </div>
-                  <Grid item>
-                    <TextField
-                      required
-                      id="name"
-                      error={validationErrors.name}
-                      helperText={validationErrors.name}
-                      label={"Name"}
-                      variant="outlined"
-                      fullWidth
-                      value={topicToUse.name}
-                      onChange={event =>
-                        handleAttributeChange(event.target.value, "name")
-                      }
-                    />
-                  </Grid>
-                  <Grid item>
-                    <TextField
-                      label={"Short name"}
-                      id="shortName"
-                      error={validationErrors.short_name}
-                      helperText={validationErrors.short_name}
-                      variant="outlined"
-                      fullWidth
-                      value={topicToUse.shortName}
-                      onChange={event =>
-                        handleAttributeChange(event.target.value, "shortName")
-                      }
-                    />
-                  </Grid>
-                  <Grid item>
-                    <TextField
-                      label={"Code"}
-                      id="code"
-                      error={validationErrors.code}
-                      helperText={validationErrors.code}
-                      variant="outlined"
-                      fullWidth
-                      value={topicToUse.code}
-                      onChange={event =>
-                        handleAttributeChange(event.target.value, "code")
-                      }
-                    />
-                  </Grid>
-                  <Grid item xs={10} sm={9}>
-                    <Button
-                      variant="outlined"
-                      disabled={!isDirty}
-                      onClick={() => createTopicMutation.mutate()}
-                    >
-                      Create
-                    </Button>
-                  </Grid>
-                </Grid>
-              </Grid>
-            </Grid>
-          </Box>
+          <TopicForm set={set} style={style} closeNewTopic={closeNewTopic} />
         </Modal>
         <MenuItem onClick={openAddTopic}>Add existing topic</MenuItem>
         <Modal
@@ -282,48 +102,11 @@ const TopicMenu = ({ set }) => {
           aria-labelledby="modal-modal-title"
           aria-describedby="modal-modal-description"
         >
-          <Box sx={style}>
-            <Grid container>
-              <Grid item>
-                <Grid container spacing={4} direction="column">
-                  <div style={{ color: "red" }}>
-                    <b>
-                      {validationErrors &&
-                        Object.keys(validationErrors).length > 0 &&
-                        Object.values(validationErrors).join("\n")}
-                    </b>
-                  </div>
-                  <Grid item>
-                    <FormControl sx={{ m: 1, width: 300 }}>
-                      {set.projectActivities.map(topic => (
-                        <FormControlLabel
-                          control={
-                            <Checkbox
-                              checked={topicsChecked[topic.name]}
-                              name={topic.name}
-                              onChange={event => {
-                                handleTopicIds(event.target.name, topic.id);
-                              }}
-                            />
-                          }
-                          label={topic.name}
-                        />
-                      ))}
-                    </FormControl>
-                  </Grid>
-                  <Grid item xs={10} sm={9}>
-                    <Button
-                      variant="outlined"
-                      disabled={!isDirty}
-                      onClick={() => updateTopicMutation.mutate()}
-                    >
-                      Update
-                    </Button>
-                  </Grid>
-                </Grid>
-              </Grid>
-            </Grid>
-          </Box>
+          <ExistingTopicsForm
+            set={set}
+            style={style}
+            closeAddTopic={closeAddTopic}
+          />
         </Modal>
       </Menu>
     </>
