@@ -22,11 +22,7 @@ import {
   DialogContentText,
   Chip,
   Grid,
-  Link,
-  Typography,
   Tooltip,
-  Menu,
-  MenuItem,
 } from "@material-ui/core";
 import CloudDownload from "@material-ui/icons/CloudDownload";
 import CheckCircle from "@material-ui/icons/CheckCircle";
