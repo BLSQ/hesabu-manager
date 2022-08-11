@@ -13,6 +13,7 @@ import SetCurrentLevelContainer from "../../../containers/SetCurrentLevelContain
 import SetFormulasContainer from "../../../containers/SetFormulasContainer";
 import SetZoneTopicContainer from "../../../containers/SetZoneTopicContainer";
 import SetZoneContainer from "../../../containers/SetZoneContainer";
+import EditSetContainer from "../../../containers/EditSetContainer";
 import { formattedName } from "../../../utils/textUtils";
 import SidebarBlock from "../../Shared/SidebarBlock";
 import ActionFab from "../../Shared/ActionFab";
@@ -69,6 +70,12 @@ const Set = props => {
       kinds: ["zone"],
       routeComponent: SetZoneContainer,
     },
+    {
+      label: t("set.tabs.editSet.label"),
+      title: t("set.tabs.editSet.tooltip"),
+      to: `${match.url}`,
+      routeComponent: EditSetContainer,
+    },
   ].filter(c => c.kinds == undefined || c.kinds.includes(set.kind));
 
   return (
@@ -124,6 +131,15 @@ const Set = props => {
                   loading={loading}
                   onSave={onSave}
                 />
+              )}
+            />
+
+            <Route
+              key="edit"
+              path={`${match.url}`}
+              exact={true}
+              component={() => (
+                <EditSetContainer set={set} loading={loading} onSave={onSave} />
               )}
             />
 
