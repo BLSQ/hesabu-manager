@@ -107,6 +107,10 @@ export default {
             tooltip:
               "Aggregation per topic at main orgunit/zone level of target entities topic formulas",
           },
+          editSet: {
+            label: "Edit",
+            tooltip: "Edit set",
+          },
         },
         sidesheet: {
           title: "Information",
