@@ -25,6 +25,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const SetForm = ({ set, modeCreate }) => {
+  console.log(set);
   const classes = useStyles();
   const history = useHistory();
   const [isDirty, setIsDirty] = useState(false);
@@ -116,6 +117,7 @@ const SetForm = ({ set, modeCreate }) => {
 
   const handleUpdateMutation = useMutation(
     async () => {
+      console.log(setToUse);
       const payload = {
         data: {
           attributes: setToUse,
@@ -134,6 +136,7 @@ const SetForm = ({ set, modeCreate }) => {
       onSuccess: resp => {
         setValidationErrors({});
         history.push(`/sets/${set.id}/topic_formulas`);
+        window.location.reload();
       },
       onError: error => {
         let resp = error.json;
@@ -209,7 +212,7 @@ const SetForm = ({ set, modeCreate }) => {
                     />
                   </Grid>
                   <Grid item>
-                    {/* ogsReference */}
+                    {/* orgUnitGroups */}
                     <Autocomplete
                       multiple
                       id="tags-outlined"
@@ -234,7 +237,7 @@ const SetForm = ({ set, modeCreate }) => {
                     />
                   </Grid>
                   <Grid item>
-                    {/* groupSetsExtRefs */}
+                    {/* orgUnitGrouSets */}
                     <Autocomplete
                       multiple
                       id="tags-outlined"

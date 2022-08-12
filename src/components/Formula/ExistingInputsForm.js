@@ -25,7 +25,7 @@ const ExistingInputsForm = ({ set, style, closeAddInput }) => {
       const payload = {
         data: {
           attributes: {
-            stateIds: inputIds,
+            inputs: inputIds,
           },
         },
       };
@@ -56,7 +56,7 @@ const ExistingInputsForm = ({ set, style, closeAddInput }) => {
     },
   );
 
-  const handleStateIds = (value, id) => {
+  const handleInputIds = (value, id) => {
     inputIds.push(id);
     const newInputsChecked = { ...inputsChecked };
     newInputsChecked[value] = true;
@@ -86,7 +86,7 @@ const ExistingInputsForm = ({ set, style, closeAddInput }) => {
                         checked={inputsChecked[input.name]}
                         name={input.name}
                         onChange={event => {
-                          handleStateIds(event.target.name, input.id);
+                          handleInputIds(event.target.name, input.id);
                         }}
                       />
                     }

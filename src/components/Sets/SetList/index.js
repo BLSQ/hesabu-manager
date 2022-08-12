@@ -14,6 +14,7 @@ const SetList = props => {
       {props.sets.map((set, index) => (
         <SetListItem key={index} {...set} />
       ))}
+      <a href="./#/sets/new">new set</a>
     </div>
   );
 };

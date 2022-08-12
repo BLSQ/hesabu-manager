@@ -34,7 +34,7 @@ const ExistingTopicsForm = ({ set, style, closeAddTopic }) => {
       const payload = {
         data: {
           attributes: {
-            topicIds: topicIds,
+            topics: topicIds,
           },
         },
       };
