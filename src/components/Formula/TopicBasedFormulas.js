@@ -165,6 +165,9 @@ const CellRenderer = props => {
 const TopicBasedFormulas = props => {
   const classes = useStyles(props);
   const { topics, inputs, formulas, decisionTables, set } = props;
+  const setToUse = { ...set };
+  setToUse.topics = setToUse.topics.map(topic => topic.id);
+  setToUse.inputs = setToUse.inputs.map(input => input.id);
   const safeTopics = topics || [];
   const safeInputs = inputs;
   const safeTopicFormulas = formulas || [];
@@ -251,7 +254,7 @@ const TopicBasedFormulas = props => {
       })),
       {
         value: "ADD",
-        valueViewer: v => <>{set && <InputsMenu set={set} />}</>,
+        valueViewer: v => <>{setToUse && <InputsMenu set={setToUse} />}</>,
 
         readOnly: true,
       },
@@ -331,7 +334,7 @@ const TopicBasedFormulas = props => {
     [
       {
         value: "ADD",
-        valueViewer: v => <>{set && <>{set && <TopicMenu set={set} />}</>}</>,
+        valueViewer: v => <>{setToUse && <TopicMenu set={setToUse} />}</>,
 
         readOnly: true,
       },
@@ -364,7 +367,7 @@ const TopicBasedFormulas = props => {
                 id="graph1"
                 content={formulasToMermaid(
                   formulas,
-                  "./index.html#/sets/" + set.id + "/topic_formulas",
+                  "./index.html#/sets/" + setToUse.id + "/topic_formulas",
                 )}
               />
             )}

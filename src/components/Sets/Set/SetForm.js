@@ -17,6 +17,7 @@ import { makeStyles } from "@material-ui/styles";
 import { deserialize } from "../../../utils/jsonApiUtils";
 import { externalApi } from "../../../actions/api";
 import { useHistory } from "react-router-dom";
+import { LocalActivity } from "@material-ui/icons";
 
 const useStyles = makeStyles(theme => ({
   textField: {
@@ -25,7 +26,6 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const SetForm = ({ set, modeCreate }) => {
-  console.log(set);
   const classes = useStyles();
   const history = useHistory();
   const [isDirty, setIsDirty] = useState(false);
@@ -117,7 +117,6 @@ const SetForm = ({ set, modeCreate }) => {
 
   const handleUpdateMutation = useMutation(
     async () => {
-      console.log(setToUse);
       const payload = {
         data: {
           attributes: setToUse,
