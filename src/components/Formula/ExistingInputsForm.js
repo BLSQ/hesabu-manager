@@ -10,23 +10,23 @@ import {
 } from "@material-ui/core";
 import { deserialize } from "../../utils/jsonApiUtils";
 import { externalApi } from "../../actions/api";
+import { indexOf } from "lodash";
 
 const ExistingInputsForm = ({ set, style, closeAddInput }) => {
   const [validationErrors, setValidationErrors] = useState({});
   const [isDirty, setIsDirty] = useState(false);
-  const [inputIds, setInputIds] = useState([]);
-  const unusedInputs = set.unusedProjectInputs;
+  const [setToUse, setSetToUse] = useState(set);
   const dict = {};
-  unusedInputs.map(input => (dict[input.name] = false));
+  setToUse.projectInputs.map(
+    input => (dict[input.name] = setToUse.inputs.includes(input.id)),
+  );
   const [inputsChecked, setInputsChecked] = useState(dict);
 
   const updateInputMutation = useMutation(
     async () => {
       const payload = {
         data: {
-          attributes: {
-            inputs: inputIds,
-          },
+          attributes: setToUse,
         },
       };
 
@@ -57,11 +57,19 @@ const ExistingInputsForm = ({ set, style, closeAddInput }) => {
   );
 
   const handleInputIds = (value, id) => {
-    inputIds.push(id);
+    const updatedSet = { ...setToUse };
+    const inputIds = updatedSet.inputs;
     const newInputsChecked = { ...inputsChecked };
-    newInputsChecked[value] = true;
+    newInputsChecked[value] = !newInputsChecked[value];
+    if (!newInputsChecked[value]) {
+      const index = inputIds.indexOf(id);
+      inputIds.splice(index, 1);
+    } else {
+      inputIds.push(id);
+    }
+    updatedSet.inputs = inputIds;
     setInputsChecked(newInputsChecked);
-    setInputIds(inputIds);
+    setSetToUse(updatedSet);
     setIsDirty(true);
   };
 
@@ -79,7 +87,7 @@ const ExistingInputsForm = ({ set, style, closeAddInput }) => {
             </div>
             <Grid item>
               <FormControl sx={{ m: 1, width: 300 }}>
-                {set.unusedProjectInputs.map(input => (
+                {set.projectInputs.map(input => (
                   <FormControlLabel
                     control={
                       <Checkbox
