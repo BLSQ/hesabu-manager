@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useMutation } from "react-query";
-import { Button, Grid, Typography, Box, TextField } from "@material-ui/core";
+import { Button, Grid, Box, TextField } from "@material-ui/core";
 import { deserialize } from "../../utils/jsonApiUtils";
 import { externalApi } from "../../actions/api";
 
@@ -11,7 +11,7 @@ const topic = {
   setId: "",
 };
 
-const TopicForm = ({ set, style, closeNewTopic }) => {
+const TopicForm = ({ set, closeNewTopic }) => {
   const [topicToUse, setTopicToUse] = useState(topic);
   const [validationErrors, setValidationErrors] = useState({});
   const [isDirty, setIsDirty] = useState(false);
@@ -61,15 +61,10 @@ const TopicForm = ({ set, style, closeNewTopic }) => {
   );
 
   return (
-    <Box sx={style}>
+    <Box>
       <Grid container>
         <Grid item>
           <Grid container spacing={4} direction="column">
-            <Grid item>
-              <Typography id="modal-modal-title" variant="h6" component="h2">
-                Create new topic
-              </Typography>
-            </Grid>
             <div style={{ color: "red" }}>
               <b>
                 {topicToUse?.errors &&

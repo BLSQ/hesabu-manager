@@ -11,7 +11,7 @@ import {
 import { deserialize } from "../../utils/jsonApiUtils";
 import { externalApi } from "../../actions/api";
 
-const ExistingTopicsForm = ({ set, style, closeAddTopic }) => {
+const ExistingTopicsForm = ({ set, closeAddTopic }) => {
   const [isDirty, setIsDirty] = useState(false);
   const [validationErrors, setValidationErrors] = useState({});
   const [setToUse, setSetToUse] = useState(set);
@@ -73,7 +73,7 @@ const ExistingTopicsForm = ({ set, style, closeAddTopic }) => {
   );
 
   return (
-    <Box sx={style}>
+    <Box>
       <Grid container>
         <Grid item>
           <Grid container spacing={4} direction="column">

@@ -1,20 +1,16 @@
 import React, { useState } from "react";
-import { Button, Link, Menu, MenuItem, Modal } from "@material-ui/core";
+import {
+  Button,
+  Link,
+  Menu,
+  MenuItem,
+  Dialog,
+  DialogContent,
+  DialogTitle,
+} from "@material-ui/core";
 import AddIcon from "@material-ui/icons/Add";
 import InputForm from "./InputForm";
 import ExistingInputsForm from "./ExistingInputsForm";
-
-const style = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: 400,
-  bgcolor: "background.paper",
-  border: "2px solid #000",
-  boxShadow: 24,
-  p: 4,
-};
 
 const InputsMenu = ({ set }) => {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -71,27 +67,33 @@ const InputsMenu = ({ set }) => {
           </Link>
         </MenuItem>
         <MenuItem onClick={openNewInput}>New input</MenuItem>
-        <Modal
+        <Dialog
           open={newOpen}
           onClose={closeNewInput}
+          fullWidth
+          maxWidth="md"
           aria-labelledby="modal-modal-title"
           aria-describedby="modal-modal-description"
         >
-          <InputForm set={set} style={style} closeNewInput={closeNewInput} />
-        </Modal>
+          <DialogTitle>Create new Input</DialogTitle>
+          <DialogContent style={{ height: "300px" }}>
+            <InputForm set={set} closeNewInput={closeNewInput} />
+          </DialogContent>
+        </Dialog>
         <MenuItem onClick={openAddInput}>Add existing input</MenuItem>
-        <Modal
+        <Dialog
           open={addOpen}
           onClose={closeAddInput}
+          fullWidth
+          maxWidth="md"
           aria-labelledby="modal-modal-title"
           aria-describedby="modal-modal-description"
         >
-          <ExistingInputsForm
-            set={set}
-            style={style}
-            closeAddInput={closeAddInput}
-          />
-        </Modal>
+          <DialogTitle>Create new Input</DialogTitle>
+          <DialogContent style={{ height: "300px" }}>
+            <ExistingInputsForm set={set} closeAddInput={closeAddInput} />
+          </DialogContent>
+        </Dialog>
       </Menu>
     </>
   );

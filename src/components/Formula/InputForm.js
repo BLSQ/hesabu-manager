@@ -9,7 +9,7 @@ const input = {
   shortName: "",
 };
 
-const InputForm = ({ set, style, closeNewInput }) => {
+const InputForm = ({ set, closeNewInput }) => {
   const [inputToUse, setInputToUse] = useState(input);
   const [validationErrors, setValidationErrors] = useState({});
   const [isDirty, setIsDirty] = useState(false);
@@ -56,15 +56,10 @@ const InputForm = ({ set, style, closeNewInput }) => {
   );
 
   return (
-    <Box sx={style}>
+    <Box>
       <Grid container>
         <Grid item>
-          <Grid container spacing={4} direction="column">
-            <Grid item>
-              <Typography id="modal-modal-title" variant="h6" component="h2">
-                Create new input
-              </Typography>
-            </Grid>
+          <Grid container spacing={2} direction="column">
             <div style={{ color: "red" }}>
               <b>
                 {inputToUse?.errors &&
