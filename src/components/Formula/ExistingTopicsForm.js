@@ -14,18 +14,27 @@ import { externalApi } from "../../actions/api";
 const ExistingTopicsForm = ({ set, style, closeAddTopic }) => {
   const [isDirty, setIsDirty] = useState(false);
   const [validationErrors, setValidationErrors] = useState({});
-  const [topicIds, setTopicIds] = useState([]);
-  const unusedTopics = set.projectActivities;
+  const [setToUse, setSetToUse] = useState(set);
   const dict = {};
-  unusedTopics.map(topic => (dict[topic.name] = false));
+  setToUse.projectActivities.map(
+    topic => (dict[topic.name] = setToUse.topics.includes(topic.id)),
+  );
   const [topicsChecked, setTopicsChecked] = useState(dict);
 
   const handleTopicIds = (value, id) => {
-    topicIds.push(id);
+    const updatedSet = { ...setToUse };
+    const topicIds = updatedSet.topics;
     const newTopicsChecked = { ...topicsChecked };
-    newTopicsChecked[value] = true;
+    newTopicsChecked[value] = !newTopicsChecked[value];
+    if (!newTopicsChecked[value]) {
+      const index = topicIds.indexOf(id);
+      topicIds.splice(index, 1);
+    } else {
+      topicIds.push(id);
+    }
+    updatedSet.topics = topicIds;
     setTopicsChecked(newTopicsChecked);
-    setTopicIds(topicIds);
+    setSetToUse(updatedSet);
     setIsDirty(true);
   };
 
@@ -33,9 +42,7 @@ const ExistingTopicsForm = ({ set, style, closeAddTopic }) => {
     async () => {
       const payload = {
         data: {
-          attributes: {
-            topics: topicIds,
-          },
+          attributes: setToUse,
         },
       };
 
