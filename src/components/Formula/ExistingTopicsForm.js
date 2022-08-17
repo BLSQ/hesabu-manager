@@ -7,33 +7,36 @@ import {
   FormControl,
   FormControlLabel,
   Checkbox,
+  TextField,
 } from "@material-ui/core";
+import { Autocomplete } from "@material-ui/lab";
 import { deserialize } from "../../utils/jsonApiUtils";
 import { externalApi } from "../../actions/api";
+import { makeStyles } from "@material-ui/styles";
+
+const useStyles = makeStyles(theme => ({
+  textField: {
+    width: "400px",
+  },
+}));
 
 const ExistingTopicsForm = ({ set, closeAddTopic }) => {
+  const classes = useStyles();
   const [isDirty, setIsDirty] = useState(false);
   const [validationErrors, setValidationErrors] = useState({});
   const [setToUse, setSetToUse] = useState(set);
-  const dict = {};
-  setToUse.projectActivities.map(
-    topic => (dict[topic.name] = setToUse.topics.includes(topic.id)),
-  );
-  const [topicsChecked, setTopicsChecked] = useState(dict);
-
-  const handleTopicIds = (value, id) => {
-    const updatedSet = { ...setToUse };
-    const topicIds = updatedSet.topics;
-    const newTopicsChecked = { ...topicsChecked };
-    newTopicsChecked[value] = !newTopicsChecked[value];
-    if (!newTopicsChecked[value]) {
-      const index = topicIds.indexOf(id);
-      topicIds.splice(index, 1);
-    } else {
-      topicIds.push(id);
+  const topicsSelected = [];
+  setToUse.projectActivities.map(topic => {
+    if (setToUse.topics.includes(topic.id)) {
+      topicsSelected.push({ id: topic.id, name: topic.name });
     }
+  });
+  // const [topicsSelected, setTopicsSelected] = useState(list);
+
+  const handleTopicIds = options => {
+    const updatedSet = { ...setToUse };
+    const topicIds = options.map(topic => topic.id);
     updatedSet.topics = topicIds;
-    setTopicsChecked(newTopicsChecked);
     setSetToUse(updatedSet);
     setIsDirty(true);
   };
@@ -86,20 +89,25 @@ const ExistingTopicsForm = ({ set, closeAddTopic }) => {
             </div>
             <Grid item>
               <FormControl sx={{ m: 1, width: 300 }}>
-                {set.projectActivities.map(topic => (
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        checked={topicsChecked[topic.name]}
-                        name={topic.name}
-                        onChange={event => {
-                          handleTopicIds(event.target.name, topic.id);
-                        }}
-                      />
-                    }
-                    label={topic.name}
-                  />
-                ))}
+                <Autocomplete
+                  multiple
+                  id="tags-outlined"
+                  options={set.projectActivities}
+                  getOptionLabel={option => option.name}
+                  onChange={(event, option) => {
+                    handleTopicIds(option);
+                  }}
+                  defaultValue={topicsSelected}
+                  filterSelectedOptions
+                  renderInput={params => (
+                    <TextField
+                      {...params}
+                      label="Filter and select topics"
+                      className={classes.textField}
+                      placeholder="Topics"
+                    />
+                  )}
+                />
               </FormControl>
             </Grid>
             <Grid item xs={10} sm={9}>
