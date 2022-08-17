@@ -64,6 +64,15 @@ const SetForm = ({ set, modeCreate }) => {
     },
   );
 
+  const handleGroupsChange = (value, attribute) => {
+    const newSet = { ...setToUse };
+    const ids = value.map(v => v.id);
+    newSet[attribute] = ids;
+    console.log(newSet);
+    setSetToUse(newSet);
+    setIsDirty(true);
+  };
+
   const handleAttributeChange = (value, attribute) => {
     const newSet = { ...setToUse };
     if (Array.isArray(newSet[attribute])) {
@@ -211,7 +220,7 @@ const SetForm = ({ set, modeCreate }) => {
                     />
                   </Grid>
                   <Grid item>
-                    {/* orgUnitGroups */}
+                    {/* mainEntityGroups */}
                     <Autocomplete
                       multiple
                       id="tags-outlined"
@@ -219,11 +228,8 @@ const SetForm = ({ set, modeCreate }) => {
                       getOptionLabel={option => option.name}
                       defaultValue={null}
                       filterSelectedOptions
-                      onChange={event =>
-                        handleAttributeChange(
-                          event.target.value,
-                          "ogsReference",
-                        )
+                      onChange={(event, option) =>
+                        handleGroupsChange(option, "mainEntityGroups")
                       }
                       renderInput={params => (
                         <TextField
@@ -236,16 +242,17 @@ const SetForm = ({ set, modeCreate }) => {
                     />
                   </Grid>
                   <Grid item>
-                    {/* orgUnitGrouSets */}
+                    {/*groupSetsExtRefs */}
                     <Autocomplete
                       multiple
                       id="tags-outlined"
-                      // error={validationErrors["groupSetsExtRefs"]}
-                      // helperText={validationErrors["groupSetsExtRefs"]}
                       options={dhis2Objects.orgUnitGroupSets}
                       getOptionLabel={option => option.name}
                       defaultValue={null}
                       filterSelectedOptions
+                      onChange={(event, option) =>
+                        handleGroupsChange(option, "groupSetsExtRefs")
+                      }
                       renderInput={params => (
                         <TextField
                           {...params}
@@ -327,35 +334,41 @@ const SetForm = ({ set, modeCreate }) => {
                         <Autocomplete
                           multiple
                           id="tags-outlined"
-                          options={dhis2Objects.orgUnitGroups}
-                          getOptionLabel={option => option.name}
-                          defaultValue={null}
-                          filterSelectedOptions
-                          renderInput={params => (
-                            <TextField
-                              {...params}
-                              label="Zone entities by group"
-                              className={classes.textField}
-                              placeholder="Organisation unit groups"
-                            />
-                          )}
-                        />
-                      </Grid>
-                      <Grid item>
-                        {/* groupSetsExtRefs */}
-                        <Autocomplete
-                          multiple
-                          id="tags-outlined"
                           options={dhis2Objects.orgUnitGroupSets}
                           getOptionLabel={option => option.name}
                           defaultValue={null}
                           filterSelectedOptions
+                          onChange={(event, option) =>
+                            handleGroupsChange(option, "ogsReference")
+                          }
                           renderInput={params => (
                             <TextField
                               {...params}
                               label="Entities by contract group belonging to groupset"
                               className={classes.textField}
-                              placeholder="Organisation unit group sets"
+                              placeholder="Org unit group sets"
+                            />
+                          )}
+                        />
+                      </Grid>
+                      <Grid item>
+                        {/* targetEntityGroups */}
+                        <Autocomplete
+                          multiple
+                          id="tags-outlined"
+                          options={dhis2Objects.orgUnitGroups}
+                          getOptionLabel={option => option.name}
+                          defaultValue={null}
+                          filterSelectedOptions
+                          onChange={(event, option) =>
+                            handleGroupsChange(option, "targetEntityGroups")
+                          }
+                          renderInput={params => (
+                            <TextField
+                              {...params}
+                              label="Zone entities by group"
+                              className={classes.textField}
+                              placeholder="Org unit groups"
                             />
                           )}
                         />
