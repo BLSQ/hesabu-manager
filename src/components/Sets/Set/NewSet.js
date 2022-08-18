@@ -10,6 +10,8 @@ const NewSet = () => {
     description: "",
     frequency: "",
     kind: "",
+    orgUnitGroups: [],
+    orgUnitGroupSets: [],
     groupSetsExtRefs: [],
     loopOverComboExtId: "",
     inputs: [],
@@ -17,6 +19,7 @@ const NewSet = () => {
     includeMainOrgunit: false,
     mainEntityGroups: [],
     targetEntityGroups: [],
+    ogsReference: "",
   };
 
   const backLinkPath = `/sets`;

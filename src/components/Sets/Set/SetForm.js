@@ -35,6 +35,8 @@ const SetForm = ({ set, modeCreate }) => {
   );
   const [validationErrors, setValidationErrors] = useState({});
 
+  console.log(setToUse);
+
   const retrieveDhis2ObjectsQuery = useQuery(
     "retrieveDhis2Objects",
     async () => {
@@ -68,7 +70,13 @@ const SetForm = ({ set, modeCreate }) => {
     const newSet = { ...setToUse };
     const ids = value.map(v => v.id);
     newSet[attribute] = ids;
-    console.log(newSet);
+    setSetToUse(newSet);
+    setIsDirty(true);
+  };
+
+  const handleOgsReferenceChange = value => {
+    const newSet = { ...setToUse };
+    newSet.ogsReference = value[0].id;
     setSetToUse(newSet);
     setIsDirty(true);
   };
@@ -86,7 +94,7 @@ const SetForm = ({ set, modeCreate }) => {
 
   const handleIncludeOrgUnitChange = value => {
     const newSet = { ...setToUse };
-    newSet["includeMainOrgUnit"] = value;
+    newSet.includeMainOrgUnit = value;
     setSetToUse(newSet);
     setIncludeMainOrgUnit(value);
   };
@@ -164,7 +172,21 @@ const SetForm = ({ set, modeCreate }) => {
 
   const zoneOrChildren =
     setToUse.kind === "zone" || setToUse.kind === "multi-groupset";
+
   const dhis2Objects = retrieveDhis2ObjectsQuery?.data;
+
+  console.log(dhis2Objects);
+
+  const orgUnitGroupSetsIds = setToUse.orgUnitGroupSets.length
+    ? setToUse.orgUnitGroupSets.map(obj => obj.id)
+    : [];
+
+  const groupSetsExtRefsDefault =
+    orgUnitGroupSetsIds.length && dhis2Objects
+      ? dhis2Objects.orgUnitGroupSets.filter(obj =>
+          orgUnitGroupSetsIds.includes(obj.id),
+        )
+      : [];
 
   return (
     <Fragment>
@@ -226,7 +248,7 @@ const SetForm = ({ set, modeCreate }) => {
                       id="tags-outlined"
                       options={dhis2Objects.orgUnitGroups}
                       getOptionLabel={option => option.name}
-                      defaultValue={null}
+                      defaultValue={setToUse.orgUnitGroups}
                       filterSelectedOptions
                       onChange={(event, option) =>
                         handleGroupsChange(option, "mainEntityGroups")
@@ -248,7 +270,7 @@ const SetForm = ({ set, modeCreate }) => {
                       id="tags-outlined"
                       options={dhis2Objects.orgUnitGroupSets}
                       getOptionLabel={option => option.name}
-                      defaultValue={null}
+                      defaultValue={groupSetsExtRefsDefault}
                       filterSelectedOptions
                       onChange={(event, option) =>
                         handleGroupsChange(option, "groupSetsExtRefs")
@@ -336,10 +358,10 @@ const SetForm = ({ set, modeCreate }) => {
                           id="tags-outlined"
                           options={dhis2Objects.orgUnitGroupSets}
                           getOptionLabel={option => option.name}
-                          defaultValue={null}
+                          defaultValue={setToUse.ogsReference}
                           filterSelectedOptions
                           onChange={(event, option) =>
-                            handleGroupsChange(option, "ogsReference")
+                            handleOgsReferenceChange(option)
                           }
                           renderInput={params => (
                             <TextField
@@ -358,7 +380,7 @@ const SetForm = ({ set, modeCreate }) => {
                           id="tags-outlined"
                           options={dhis2Objects.orgUnitGroups}
                           getOptionLabel={option => option.name}
-                          defaultValue={null}
+                          defaultValue={setToUse.targetEntityGroups}
                           filterSelectedOptions
                           onChange={(event, option) =>
                             handleGroupsChange(option, "targetEntityGroups")
