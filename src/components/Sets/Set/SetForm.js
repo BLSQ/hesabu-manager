@@ -29,6 +29,25 @@ const SetForm = ({ set, modeCreate }) => {
   const classes = useStyles();
   const history = useHistory();
   const [isDirty, setIsDirty] = useState(false);
+
+  if (set) {
+    // since they the widget expext a array of objects as default options but the state is array of string (dhis2 id)
+    if (
+      set.targetEntityGroups &&
+      set.targetEntityGroups[0] &&
+      set.targetEntityGroups[0].id
+    ) {
+      set.targetEntityGroupsBackup = set.targetEntityGroups;
+      set.targetEntityGroups = set.targetEntityGroups
+        .filter(v => v)
+        .map(g => g.id);
+    }
+    if (set.orgUnitGroups) {
+      set.mainEntityGroups = set.orgUnitGroups.map(g => g.id);
+    }
+  }
+  const defaultTargetEntityGroups = set?.targetEntityGroupsBackup || [];
+
   const [setToUse, setSetToUse] = useState(set);
   const [includeMainOrgUnit, setIncludeMainOrgUnit] = useState(
     setToUse.includeMainOrgUnit,
@@ -68,7 +87,7 @@ const SetForm = ({ set, modeCreate }) => {
 
   const handleGroupsChange = (value, attribute) => {
     const newSet = { ...setToUse };
-    const ids = value.map(v => v.id);
+    const ids = value.filter(v => v).map(v => v.id);
     newSet[attribute] = ids;
     setSetToUse(newSet);
     setIsDirty(true);
@@ -76,7 +95,7 @@ const SetForm = ({ set, modeCreate }) => {
 
   const handleOgsReferenceChange = value => {
     const newSet = { ...setToUse };
-    newSet.ogsReference = value[0].id;
+    newSet.ogsReference = value ? value.id : null;
     setSetToUse(newSet);
     setIsDirty(true);
   };
@@ -353,25 +372,31 @@ const SetForm = ({ set, modeCreate }) => {
                     <>
                       <Grid item>
                         {/* ogsReference */}
-                        <Autocomplete
-                          multiple
-                          id="tags-outlined"
-                          options={dhis2Objects.orgUnitGroupSets}
-                          getOptionLabel={option => option.name}
-                          defaultValue={setToUse.ogsReference}
-                          filterSelectedOptions
-                          onChange={(event, option) =>
-                            handleOgsReferenceChange(option)
-                          }
-                          renderInput={params => (
-                            <TextField
-                              {...params}
-                              label="Entities by contract group belonging to groupset"
-                              className={classes.textField}
-                              placeholder="Org unit group sets"
-                            />
-                          )}
-                        />
+                        {dhis2Objects.orgUnitGroupSets && (
+                          <Autocomplete
+                            id="tags-outlined"
+                            options={dhis2Objects.orgUnitGroupSets}
+                            getOptionLabel={option => option.name}
+                            defaultValue={{
+                              id: setToUse.ogsReference,
+                              name: dhis2Objects.orgUnitGroupSets.find(
+                                gs => gs.id === setToUse.ogsReference,
+                              )?.name,
+                            }}
+                            filterSelectedOptions
+                            onChange={(event, option) =>
+                              handleOgsReferenceChange(option)
+                            }
+                            renderInput={params => (
+                              <TextField
+                                {...params}
+                                label="Entities by contract group belonging to groupset"
+                                className={classes.textField}
+                                placeholder="Org unit group sets"
+                              />
+                            )}
+                          />
+                        )}
                       </Grid>
                       <Grid item>
                         {/* targetEntityGroups */}
@@ -379,8 +404,8 @@ const SetForm = ({ set, modeCreate }) => {
                           multiple
                           id="tags-outlined"
                           options={dhis2Objects.orgUnitGroups}
-                          getOptionLabel={option => option.name}
-                          defaultValue={setToUse.targetEntityGroups}
+                          getOptionLabel={option => option?.name || "-"}
+                          defaultValue={defaultTargetEntityGroups}
                           filterSelectedOptions
                           onChange={(event, option) =>
                             handleGroupsChange(option, "targetEntityGroups")
