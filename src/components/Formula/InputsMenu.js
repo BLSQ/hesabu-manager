@@ -11,8 +11,10 @@ import {
 import AddIcon from "@material-ui/icons/Add";
 import InputForm from "./InputForm";
 import ExistingInputsForm from "./ExistingInputsForm";
+import { canEdit } from "../../actions/api";
 
 const InputsMenu = ({ set }) => {
+  const userCanEdit = canEdit();
   const [anchorEl, setAnchorEl] = useState(null);
   const [newOpen, setNewOpen] = useState(false);
   const [addOpen, setAddOpen] = useState(false);
@@ -66,34 +68,38 @@ const InputsMenu = ({ set }) => {
             New formula
           </Link>
         </MenuItem>
-        <MenuItem onClick={openNewInput}>New input</MenuItem>
-        <Dialog
-          open={newOpen}
-          onClose={closeNewInput}
-          fullWidth
-          maxWidth="md"
-          aria-labelledby="modal-modal-title"
-          aria-describedby="modal-modal-description"
-        >
-          <DialogTitle>Create new Input</DialogTitle>
-          <DialogContent style={{ height: "300px" }}>
-            <InputForm set={set} closeNewInput={closeNewInput} />
-          </DialogContent>
-        </Dialog>
-        <MenuItem onClick={openAddInput}>Add existing input</MenuItem>
-        <Dialog
-          open={addOpen}
-          onClose={closeAddInput}
-          fullWidth
-          maxWidth="md"
-          aria-labelledby="modal-modal-title"
-          aria-describedby="modal-modal-description"
-        >
-          <DialogTitle>Create new Input</DialogTitle>
-          <DialogContent style={{ height: "300px" }}>
-            <ExistingInputsForm set={set} closeAddInput={closeAddInput} />
-          </DialogContent>
-        </Dialog>
+        {userCanEdit && (
+          <>
+            <MenuItem onClick={openNewInput}>New input</MenuItem>
+            <Dialog
+              open={newOpen}
+              onClose={closeNewInput}
+              fullWidth
+              maxWidth="md"
+              aria-labelledby="modal-modal-title"
+              aria-describedby="modal-modal-description"
+            >
+              <DialogTitle>Create new Input</DialogTitle>
+              <DialogContent style={{ height: "300px" }}>
+                <InputForm set={set} closeNewInput={closeNewInput} />
+              </DialogContent>
+            </Dialog>
+            <MenuItem onClick={openAddInput}>Add existing input</MenuItem>
+            <Dialog
+              open={addOpen}
+              onClose={closeAddInput}
+              fullWidth
+              maxWidth="md"
+              aria-labelledby="modal-modal-title"
+              aria-describedby="modal-modal-description"
+            >
+              <DialogTitle>Create new Input</DialogTitle>
+              <DialogContent style={{ height: "300px" }}>
+                <ExistingInputsForm set={set} closeAddInput={closeAddInput} />
+              </DialogContent>
+            </Dialog>
+          </>
+        )}
       </Menu>
     </>
   );

@@ -11,8 +11,10 @@ import {
 import AddIcon from "@material-ui/icons/Add";
 import TopicForm from "./TopicForm";
 import ExistingTopicsForm from "./ExistingTopicsForm";
+import { canEdit } from "../../actions/api";
 
 const TopicMenu = ({ set }) => {
+  const userCanEdit = canEdit();
   const [anchorEl, setAnchorEl] = useState(null);
   const [newTopic, setNewTopic] = useState(false);
   const [addTopic, setAddTopic] = useState(false);
@@ -66,34 +68,38 @@ const TopicMenu = ({ set }) => {
             Import CSV
           </Link>
         </MenuItem>
-        <MenuItem onClick={openNewTopic}>New topic</MenuItem>
-        <Dialog
-          open={newTopic}
-          onClose={closeNewTopic}
-          fullWidth
-          maxWidth="md"
-          aria-labelledby="modal-modal-title"
-          aria-describedby="modal-modal-description"
-        >
-          <DialogTitle>Create new topic</DialogTitle>
-          <DialogContent style={{ height: "300px" }}>
-            <TopicForm set={set} closeNewTopic={closeNewTopic} />
-          </DialogContent>
-        </Dialog>
-        <MenuItem onClick={openAddTopic}>Add existing topic</MenuItem>
-        <Dialog
-          open={addTopic}
-          onClose={closeAddTopic}
-          fullWidth
-          maxWidth="md"
-          aria-labelledby="modal-modal-title"
-          aria-describedby="modal-modal-description"
-        >
-          <DialogTitle>Add existing topic</DialogTitle>
-          <DialogContent style={{ height: "300px" }}>
-            <ExistingTopicsForm set={set} closeAddTopic={closeAddTopic} />
-          </DialogContent>
-        </Dialog>
+        {userCanEdit && (
+          <>
+            <MenuItem onClick={openNewTopic}>New topic</MenuItem>
+            <Dialog
+              open={newTopic}
+              onClose={closeNewTopic}
+              fullWidth
+              maxWidth="md"
+              aria-labelledby="modal-modal-title"
+              aria-describedby="modal-modal-description"
+            >
+              <DialogTitle>Create new topic</DialogTitle>
+              <DialogContent style={{ height: "300px" }}>
+                <TopicForm set={set} closeNewTopic={closeNewTopic} />
+              </DialogContent>
+            </Dialog>
+            <MenuItem onClick={openAddTopic}>Add existing topic</MenuItem>
+            <Dialog
+              open={addTopic}
+              onClose={closeAddTopic}
+              fullWidth
+              maxWidth="md"
+              aria-labelledby="modal-modal-title"
+              aria-describedby="modal-modal-description"
+            >
+              <DialogTitle>Add existing topic</DialogTitle>
+              <DialogContent style={{ height: "300px" }}>
+                <ExistingTopicsForm set={set} closeAddTopic={closeAddTopic} />
+              </DialogContent>
+            </Dialog>
+          </>
+        )}
       </Menu>
     </>
   );
