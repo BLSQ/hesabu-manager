@@ -49,12 +49,8 @@ const SetForm = ({ set, modeCreate }) => {
   const defaultTargetEntityGroups = set?.targetEntityGroupsBackup || [];
 
   const [setToUse, setSetToUse] = useState(set);
-  const [includeMainOrgUnit, setIncludeMainOrgUnit] = useState(
-    setToUse.includeMainOrgUnit,
-  );
-  const [validationErrors, setValidationErrors] = useState({});
 
-  console.log(setToUse);
+  const [validationErrors, setValidationErrors] = useState({});
 
   const retrieveDhis2ObjectsQuery = useQuery(
     "retrieveDhis2Objects",
@@ -85,6 +81,31 @@ const SetForm = ({ set, modeCreate }) => {
     },
   );
 
+  const retrieveDhis2CatOptionCombosQuery = useQuery(
+    "retrieveDhis2CatOptionCombos",
+    async () => {
+      const api = await Api.instance();
+      const response = await api.get("categoryCombos", {
+        fields: "id,name",
+        paging: false,
+      });
+
+      return response;
+    },
+    {
+      onError: error => {
+        console.log(error);
+      },
+    },
+  );
+
+  const handleCatOptionComboChange = (value, attribute) => {
+    const newSet = { ...setToUse };
+    newSet[attribute] = value.id;
+    setSetToUse(newSet);
+    setIsDirty(true);
+  };
+
   const handleGroupsChange = (value, attribute) => {
     const newSet = { ...setToUse };
     const ids = value.filter(v => v).map(v => v.id);
@@ -113,12 +134,12 @@ const SetForm = ({ set, modeCreate }) => {
 
   const handleIncludeOrgUnitChange = value => {
     const newSet = { ...setToUse };
-    newSet.includeMainOrgUnit = value;
+    newSet["includeMainOrgunit"] = value;
     setSetToUse(newSet);
-    setIncludeMainOrgUnit(value);
+    setIsDirty(true);
   };
 
-  const handleCreateMutation = useMutation(
+  const handleMutation = useMutation(
     async () => {
       const payload = {
         data: {
@@ -126,10 +147,19 @@ const SetForm = ({ set, modeCreate }) => {
         },
       };
 
-      let resp = await externalApi()
-        .url(`/sets`)
-        .post(payload)
-        .json();
+      let resp;
+
+      if (modeCreate) {
+        resp = await externalApi()
+          .url(`/sets`)
+          .post(payload)
+          .json();
+      } else {
+        resp = await externalApi()
+          .url(`/sets/${set.id}`)
+          .put(payload)
+          .json();
+      }
 
       resp = await deserialize(resp);
       return resp;
@@ -137,40 +167,8 @@ const SetForm = ({ set, modeCreate }) => {
     {
       onSuccess: resp => {
         setValidationErrors({});
-        history.push(`/sets`);
-      },
-      onError: error => {
-        let resp = error.json;
-        resp = resp.errors[0];
-        const errorDetails = resp.details;
-        for (let attribute in errorDetails) {
-          validationErrors[attribute] = errorDetails[attribute];
-        }
-        setValidationErrors({ ...validationErrors });
-      },
-    },
-  );
-
-  const handleUpdateMutation = useMutation(
-    async () => {
-      const payload = {
-        data: {
-          attributes: setToUse,
-        },
-      };
-
-      let resp = await externalApi()
-        .url(`/sets/${set.id}`)
-        .put(payload)
-        .json();
-
-      resp = await deserialize(resp);
-      return resp;
-    },
-    {
-      onSuccess: resp => {
-        setValidationErrors({});
-        history.push(`/sets/${set.id}/topic_formulas`);
+        const path = modeCreate ? `/sets` : `/sets/${set.id}/topic_formulas`;
+        history.push(path);
         window.location.reload();
       },
       onError: error => {
@@ -185,16 +183,10 @@ const SetForm = ({ set, modeCreate }) => {
     },
   );
 
-  const handleMutation = () => {
-    modeCreate ? handleCreateMutation.mutate() : handleUpdateMutation.mutate();
-  };
-
   const zoneOrChildren =
     setToUse.kind === "zone" || setToUse.kind === "multi-groupset";
 
   const dhis2Objects = retrieveDhis2ObjectsQuery?.data;
-
-  console.log(dhis2Objects);
 
   const orgUnitGroupSetsIds = setToUse.orgUnitGroupSets.length
     ? setToUse.orgUnitGroupSets.map(obj => obj.id)
@@ -206,6 +198,14 @@ const SetForm = ({ set, modeCreate }) => {
           orgUnitGroupSetsIds.includes(obj.id),
         )
       : [];
+
+  const catOptionCombos =
+    retrieveDhis2CatOptionCombosQuery?.data?.categoryCombos;
+
+  const loopOverComboExtId =
+    setToUse.loopOverComboExtId && catOptionCombos
+      ? catOptionCombos.filter(coc => coc.id === setToUse.loopOverComboExtId)[0]
+      : setToUse.loopOverComboExtId;
 
   return (
     <Fragment>
@@ -329,21 +329,24 @@ const SetForm = ({ set, modeCreate }) => {
                     </FormControl>
                   </Grid>
                   <Grid item>
-                    <FormControl>
-                      <TextField
-                        select
-                        error={validationErrors["loopOver"]}
-                        helperText={validationErrors["loopOver"]}
-                        label="Loop over category combo"
-                        labelId="loop-over-category-combo"
-                        id="kind"
-                        className={classes.textField}
-                        value={setToUse.loopOver}
-                        onChange={event =>
-                          handleAttributeChange(event.target.value, "loopOver")
-                        }
-                      ></TextField>
-                    </FormControl>
+                    <Autocomplete
+                      id="tags-outlined"
+                      options={catOptionCombos}
+                      getOptionLabel={option => option.name}
+                      defaultValue={loopOverComboExtId}
+                      filterSelectedOptions
+                      onChange={(event, option) =>
+                        handleCatOptionComboChange(option, "loopOverComboExtId")
+                      }
+                      renderInput={params => (
+                        <TextField
+                          {...params}
+                          label="Loop over category combo"
+                          className={classes.textField}
+                          placeholder="category combo groups"
+                        />
+                      )}
+                    />
                   </Grid>
 
                   <Grid item>
@@ -426,10 +429,10 @@ const SetForm = ({ set, modeCreate }) => {
                             <FormControlLabel
                               control={
                                 <Checkbox
-                                  checked={includeMainOrgUnit}
+                                  checked={setToUse.includeMainOrgunit}
                                   onChange={() =>
                                     handleIncludeOrgUnitChange(
-                                      !includeMainOrgUnit,
+                                      !setToUse.includeMainOrgunit,
                                     )
                                   }
                                 />
@@ -446,7 +449,7 @@ const SetForm = ({ set, modeCreate }) => {
                     <Button
                       variant="outlined"
                       disabled={!isDirty}
-                      onClick={() => handleMutation()}
+                      onClick={() => handleMutation.mutate()}
                     >
                       Save
                     </Button>
