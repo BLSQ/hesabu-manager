@@ -9,10 +9,10 @@ import {
   Checkbox,
 } from "@material-ui/core";
 import { deserialize } from "../../utils/jsonApiUtils";
-import { externalApi } from "../../actions/api";
-import { indexOf } from "lodash";
+import { externalApi, canEdit } from "../../actions/api";
 
 const ExistingInputsForm = ({ set, style, closeAddInput }) => {
+  const userCanEdit = canEdit();
   const [validationErrors, setValidationErrors] = useState({});
   const [isDirty, setIsDirty] = useState(false);
   const [setToUse, setSetToUse] = useState(set);
@@ -106,7 +106,7 @@ const ExistingInputsForm = ({ set, style, closeAddInput }) => {
             <Grid item xs={10} sm={9}>
               <Button
                 variant="outlined"
-                disabled={!isDirty}
+                disabled={!isDirty || !userCanEdit}
                 onClick={() => updateInputMutation.mutate()}
               >
                 Update

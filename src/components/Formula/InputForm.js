@@ -3,6 +3,7 @@ import { useMutation } from "react-query";
 import { Button, Grid, Typography, Box, TextField } from "@material-ui/core";
 import { deserialize } from "../../utils/jsonApiUtils";
 import { externalApi } from "../../actions/api";
+import { canEdit } from "../../actions/api";
 
 const input = {
   name: "",
@@ -10,6 +11,7 @@ const input = {
 };
 
 const InputForm = ({ set, closeNewInput }) => {
+  const userCanEdit = canEdit();
   const [inputToUse, setInputToUse] = useState(input);
   const [validationErrors, setValidationErrors] = useState({});
   const [isDirty, setIsDirty] = useState(false);
@@ -102,7 +104,7 @@ const InputForm = ({ set, closeNewInput }) => {
             <Grid item xs={10} sm={9}>
               <Button
                 variant="outlined"
-                disabled={!isDirty}
+                disabled={!isDirty || !userCanEdit}
                 onClick={() => createInputMutation.mutate()}
               >
                 Create

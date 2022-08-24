@@ -13,6 +13,7 @@ import { Autocomplete } from "@material-ui/lab";
 import { deserialize } from "../../utils/jsonApiUtils";
 import { externalApi } from "../../actions/api";
 import { makeStyles } from "@material-ui/styles";
+import { canEdit } from "../../actions/api";
 
 const useStyles = makeStyles(theme => ({
   textField: {
@@ -22,6 +23,7 @@ const useStyles = makeStyles(theme => ({
 
 const ExistingTopicsForm = ({ set, closeAddTopic }) => {
   const classes = useStyles();
+  const userCanEdit = canEdit();
   const [isDirty, setIsDirty] = useState(false);
   const [validationErrors, setValidationErrors] = useState({});
   const [setToUse, setSetToUse] = useState(set);
@@ -113,7 +115,7 @@ const ExistingTopicsForm = ({ set, closeAddTopic }) => {
             <Grid item xs={10} sm={9}>
               <Button
                 variant="outlined"
-                disabled={!isDirty}
+                disabled={!isDirty || !userCanEdit}
                 onClick={() => updateTopicMutation.mutate()}
               >
                 Update

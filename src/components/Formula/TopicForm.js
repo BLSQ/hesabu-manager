@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useMutation } from "react-query";
 import { Button, Grid, Box, TextField } from "@material-ui/core";
 import { deserialize } from "../../utils/jsonApiUtils";
-import { externalApi } from "../../actions/api";
+import { externalApi, canEdit } from "../../actions/api";
 
 const topic = {
   name: "",
@@ -12,6 +12,7 @@ const topic = {
 };
 
 const TopicForm = ({ set, closeNewTopic }) => {
+  const userCanEdit = canEdit();
   const [topicToUse, setTopicToUse] = useState(topic);
   const [validationErrors, setValidationErrors] = useState({});
   const [isDirty, setIsDirty] = useState(false);
@@ -121,7 +122,7 @@ const TopicForm = ({ set, closeNewTopic }) => {
             <Grid item xs={10} sm={9}>
               <Button
                 variant="outlined"
-                disabled={!isDirty}
+                disabled={!isDirty || !userCanEdit}
                 onClick={() => createTopicMutation.mutate()}
               >
                 Create
