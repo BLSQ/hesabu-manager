@@ -47,6 +47,7 @@ const InputsMenu = ({ set }) => {
         aria-controls={open ? "basic-menu" : undefined}
         aria-haspopup="true"
         aria-expanded={open ? "true" : undefined}
+        disabled={!userCanEdit}
         onClick={handleClick}
       >
         <AddIcon></AddIcon>

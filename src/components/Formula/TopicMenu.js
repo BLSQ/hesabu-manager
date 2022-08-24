@@ -46,6 +46,7 @@ const TopicMenu = ({ set }) => {
         id="basic-button"
         aria-controls={open ? "basic-menu" : undefined}
         aria-haspopup="true"
+        disabled={!userCanEdit}
         aria-expanded={open ? "true" : undefined}
         onClick={handleClick}
       >
