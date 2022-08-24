@@ -101,7 +101,7 @@ const SetForm = ({ set, modeCreate }) => {
 
   const handleCatOptionComboChange = (value, attribute) => {
     const newSet = { ...setToUse };
-    newSet[attribute] = value.id;
+    newSet[attribute] = value ? value.id : value;
     setSetToUse(newSet);
     setIsDirty(true);
   };
