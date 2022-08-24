@@ -11,7 +11,7 @@ const topic = {
   setId: "",
 };
 
-const TopicForm = ({ set, closeNewTopic }) => {
+const TopicForm = ({ set, closeNewTopic, queryClient }) => {
   const userCanEdit = canEdit();
   const [topicToUse, setTopicToUse] = useState(topic);
   const [validationErrors, setValidationErrors] = useState({});
@@ -47,7 +47,7 @@ const TopicForm = ({ set, closeNewTopic }) => {
       onSuccess: resp => {
         setValidationErrors({});
         closeNewTopic();
-        window.location.reload();
+        queryClient.invalidateQueries("loadSet");
       },
       onError: error => {
         let resp = error.json;

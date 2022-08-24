@@ -11,7 +11,7 @@ import {
 import { deserialize } from "../../utils/jsonApiUtils";
 import { externalApi, canEdit } from "../../actions/api";
 
-const ExistingInputsForm = ({ set, style, closeAddInput }) => {
+const ExistingInputsForm = ({ set, style, closeAddInput, queryClient }) => {
   const userCanEdit = canEdit();
   const [validationErrors, setValidationErrors] = useState({});
   const [isDirty, setIsDirty] = useState(false);
@@ -42,7 +42,7 @@ const ExistingInputsForm = ({ set, style, closeAddInput }) => {
       onSuccess: resp => {
         setValidationErrors({});
         closeAddInput();
-        window.location.reload();
+        queryClient.invalidateQueries("loadSet");
       },
       onError: error => {
         let resp = error.json;

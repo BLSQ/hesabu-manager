@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useQueryClient } from "react-query";
 import {
   Button,
   Link,
@@ -15,6 +16,7 @@ import { canEdit } from "../../actions/api";
 
 const InputsMenu = ({ set }) => {
   const userCanEdit = canEdit();
+  const queryClient = useQueryClient();
   const [anchorEl, setAnchorEl] = useState(null);
   const [newOpen, setNewOpen] = useState(false);
   const [addOpen, setAddOpen] = useState(false);
@@ -82,7 +84,11 @@ const InputsMenu = ({ set }) => {
             >
               <DialogTitle>Create new Input</DialogTitle>
               <DialogContent style={{ height: "300px" }}>
-                <InputForm set={set} closeNewInput={closeNewInput} />
+                <InputForm
+                  set={set}
+                  queryClient={queryClient}
+                  closeNewInput={closeNewInput}
+                />
               </DialogContent>
             </Dialog>
             <MenuItem onClick={openAddInput}>Add existing input</MenuItem>
@@ -96,7 +102,11 @@ const InputsMenu = ({ set }) => {
             >
               <DialogTitle>Create new Input</DialogTitle>
               <DialogContent style={{ height: "300px" }}>
-                <ExistingInputsForm set={set} closeAddInput={closeAddInput} />
+                <ExistingInputsForm
+                  set={set}
+                  closeAddInput={closeAddInput}
+                  queryClient={queryClient}
+                />
               </DialogContent>
             </Dialog>
           </>

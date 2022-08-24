@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useQueryClient } from "react-query";
 import {
   Button,
   Link,
@@ -15,6 +16,7 @@ import { canEdit } from "../../actions/api";
 
 const TopicMenu = ({ set }) => {
   const userCanEdit = canEdit();
+  const queryClient = useQueryClient();
   const [anchorEl, setAnchorEl] = useState(null);
   const [newTopic, setNewTopic] = useState(false);
   const [addTopic, setAddTopic] = useState(false);
@@ -82,7 +84,11 @@ const TopicMenu = ({ set }) => {
             >
               <DialogTitle>Create new topic</DialogTitle>
               <DialogContent style={{ height: "300px" }}>
-                <TopicForm set={set} closeNewTopic={closeNewTopic} />
+                <TopicForm
+                  set={set}
+                  closeNewTopic={closeNewTopic}
+                  queryClient={queryClient}
+                />
               </DialogContent>
             </Dialog>
             <MenuItem onClick={openAddTopic}>Add existing topic</MenuItem>
@@ -96,7 +102,11 @@ const TopicMenu = ({ set }) => {
             >
               <DialogTitle>Add existing topic</DialogTitle>
               <DialogContent style={{ height: "300px" }}>
-                <ExistingTopicsForm set={set} closeAddTopic={closeAddTopic} />
+                <ExistingTopicsForm
+                  set={set}
+                  closeAddTopic={closeAddTopic}
+                  queryClient={queryClient}
+                />
               </DialogContent>
             </Dialog>
           </>

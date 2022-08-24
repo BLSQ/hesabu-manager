@@ -1,5 +1,5 @@
 import React, { Fragment, useState } from "react";
-import { useQuery, useMutation } from "react-query";
+import { useQuery, useMutation, useQueryClient } from "react-query";
 import Api from "../../../lib/Api";
 import { Autocomplete } from "@material-ui/lab";
 import {
@@ -14,9 +14,9 @@ import {
 } from "@material-ui/core";
 import PageContent from "../../Shared/PageContent.js";
 import { makeStyles } from "@material-ui/styles";
-import { deserialize } from "../../../utils/jsonApiUtils";
 import { externalApi, canEdit } from "../../../actions/api";
 import { useHistory } from "react-router-dom";
+import { deserialize } from "../../../utils/jsonApiUtils";
 
 const useStyles = makeStyles(theme => ({
   textField: {
@@ -26,6 +26,7 @@ const useStyles = makeStyles(theme => ({
 
 const SetForm = ({ set, modeCreate }) => {
   const userCanEdit = canEdit();
+  const queryClient = useQueryClient();
   const classes = useStyles();
   const history = useHistory();
   const [isDirty, setIsDirty] = useState(false);
@@ -169,7 +170,8 @@ const SetForm = ({ set, modeCreate }) => {
         setValidationErrors({});
         const path = modeCreate ? `/sets` : `/sets/${set.id}/topic_formulas`;
         history.push(path);
-        window.location.reload();
+        queryClient.invalidateQueries("loadSet");
+        queryClient.invalidateQueries("loadSets");
       },
       onError: error => {
         let resp = error.json;

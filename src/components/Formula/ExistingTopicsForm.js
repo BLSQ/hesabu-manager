@@ -21,7 +21,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const ExistingTopicsForm = ({ set, closeAddTopic }) => {
+const ExistingTopicsForm = ({ set, closeAddTopic, queryClient }) => {
   const classes = useStyles();
   const userCanEdit = canEdit();
   const [isDirty, setIsDirty] = useState(false);
@@ -63,7 +63,7 @@ const ExistingTopicsForm = ({ set, closeAddTopic }) => {
       onSuccess: resp => {
         setValidationErrors({});
         closeAddTopic();
-        window.location.reload();
+        queryClient.invalidateQueries("loadSet");
       },
       onError: error => {
         let resp = error.json;

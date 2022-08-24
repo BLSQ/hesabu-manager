@@ -10,7 +10,7 @@ const input = {
   shortName: "",
 };
 
-const InputForm = ({ set, closeNewInput }) => {
+const InputForm = ({ set, closeNewInput, queryClient }) => {
   const userCanEdit = canEdit();
   const [inputToUse, setInputToUse] = useState(input);
   const [validationErrors, setValidationErrors] = useState({});
@@ -43,7 +43,7 @@ const InputForm = ({ set, closeNewInput }) => {
       onSuccess: resp => {
         setValidationErrors({});
         closeNewInput();
-        window.location.reload();
+        queryClient.invalidateQueries("loadSet");
       },
       onError: error => {
         let resp = error.json;
