@@ -12,6 +12,7 @@ const SetChildrenContainer = props => {
       topics={topics}
       inputs={[]}
       formulas={zoneTopicFormulas}
+      kind="zone_topic_formulas"
     ></TopicBasedFormulas>
   );
 };

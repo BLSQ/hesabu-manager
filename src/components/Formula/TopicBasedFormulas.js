@@ -172,7 +172,7 @@ const CellRenderer = props => {
 
 const TopicBasedFormulas = props => {
   const classes = useStyles(props);
-  const { topics, inputs, formulas, decisionTables, set } = props;
+  const { topics, inputs, formulas, decisionTables, set, kind } = props;
   const setToUse = { ...set };
   setToUse.topics = setToUse.topics.map(topic => topic.id);
   setToUse.inputs = setToUse.inputs.map(input => input.id);
@@ -262,7 +262,9 @@ const TopicBasedFormulas = props => {
       })),
       {
         value: "ADD",
-        valueViewer: v => <>{setToUse && <InputsMenu set={setToUse} />}</>,
+        valueViewer: v => (
+          <>{setToUse && <InputsMenu set={setToUse} kind={kind} />}</>
+        ),
 
         readOnly: true,
       },

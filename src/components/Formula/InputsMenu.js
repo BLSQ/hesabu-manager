@@ -14,7 +14,7 @@ import InputForm from "./InputForm";
 import ExistingInputsForm from "./ExistingInputsForm";
 import { canEdit } from "../../actions/api";
 
-const InputsMenu = ({ set }) => {
+const InputsMenu = ({ set, kind }) => {
   const userCanEdit = canEdit();
   const queryClient = useQueryClient();
   const [anchorEl, setAnchorEl] = useState(null);
@@ -65,13 +65,13 @@ const InputsMenu = ({ set }) => {
       >
         <MenuItem onClick={handleClose}>
           <Link
-            href={`./index.html#/sets/${set.id}/topic_formulas/new`}
+            href={`./index.html#/sets/${set.id}/${kind}/new`}
             underline="none"
           >
             New formula
           </Link>
         </MenuItem>
-        {userCanEdit && (
+        {userCanEdit && kind === "topic_formulas" && (
           <>
             <MenuItem onClick={openNewInput}>New input</MenuItem>
             <Dialog

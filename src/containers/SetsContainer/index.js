@@ -22,7 +22,6 @@ const SetsContainer = () => {
         .get()
         .json();
       response = deserialize(response);
-      debugger;
       return response;
     },
     {

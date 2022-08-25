@@ -19,6 +19,7 @@ import SidebarBlock from "../../Shared/SidebarBlock";
 import ActionFab from "../../Shared/ActionFab";
 import useStyles from "./styles";
 import Transition from "../../Shared/Transition";
+import { canEdit } from "../../../actions/api";
 
 const Set = props => {
   const {
@@ -34,6 +35,7 @@ const Set = props => {
   } = props;
   const history = useHistory();
   const classes = useStyles(!loading && sideSheetOpen);
+  const userCanEdit = canEdit();
   const { t } = useTranslation();
 
   const tabConfigs = [
@@ -114,6 +116,7 @@ const Set = props => {
       {!!set.id && (
         <Fragment>
           <ActionFab
+            disabled={!userCanEdit}
             to={{ pathname: `${window.location.href.split("#")[1]}/new` }}
             text="Formula"
             extended

@@ -17,10 +17,11 @@ const styles = theme => ({
 });
 
 const ActionFab = props => {
-  const { classes, match, extended } = props;
+  const { classes, match, extended, disabled } = props;
 
   return (
     <Fab
+      disabled={disabled}
       variant={extended ? "extended" : "round"}
       aria-label="Delete"
       color="secondary"

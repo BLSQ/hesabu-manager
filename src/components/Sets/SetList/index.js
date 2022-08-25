@@ -5,6 +5,7 @@ import { makeStyles } from "@material-ui/core";
 import SetListItem from "../SetListItem";
 import EmptySection from "../../EmptySection";
 import ActionFab from "../../Shared/ActionFab";
+import { canEdit } from "../../../actions/api";
 
 const useStyles = makeStyles(theme => ({
   simulationBtn: {
@@ -16,16 +17,19 @@ const useStyles = makeStyles(theme => ({
 const SetList = props => {
   const { t } = useTranslation();
   const classes = useStyles();
+  const userCanEdit = canEdit();
 
   if (!props.loading && props.noItems)
     return <EmptySection resourceName={t("resources.set")} />;
   if (!props.loading && !props.sets.length) return <p>No sets found</p>;
+
   return (
     <div>
       {props.sets.map((set, index) => (
         <SetListItem key={index} {...set} />
       ))}
       <ActionFab
+        disabled={!userCanEdit}
         to={{ pathname: `${window.location.href.split("#")[1]}/new` }}
         text="Set"
         className={classes.simulationBtn}
