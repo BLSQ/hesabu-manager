@@ -63,7 +63,9 @@ const InputMappingDialogEditor = ({ cell }) => {
     setOpen(!open);
   };
 
-  let dhis2Object = dhis2LookupElement(inputMapping.externalReference);
+  let dhis2Object = inputMapping
+    ? dhis2LookupElement(inputMapping.externalReference)
+    : undefined;
 
   return (
     <div>
@@ -75,24 +77,30 @@ const InputMappingDialogEditor = ({ cell }) => {
         classes={{ paper: classes.paper }}
       >
         <DialogTitle id="form-dialog-title">
-          {cell.inputMapping.name}
+          {inputMapping && inputMapping.name}
         </DialogTitle>
         <DialogContent>
           <DialogContentText>
             <Grid container spacing={2}>
-              <Grid item>
-                <Chip label={cell.inputMapping.kind} />
-              </Grid>
-              <Grid item>
-                <Chip label={cell.inputMapping.origin} />
-              </Grid>
-              {cell.inputMapping.externalReference && (
-                <Grid item>
-                  <Chip label={cell.inputMapping.externalReference} />
-                </Grid>
+              {inputMapping == undefined && <span>No input mapping yet</span>}
+              {inputMapping && (
+                <>
+                  <Grid item>
+                    <Chip label={inputMapping.kind} />
+                  </Grid>
+                  <Grid item>
+                    <Chip label={inputMapping.origin} />
+                  </Grid>
+                  {inputMapping.externalReference && (
+                    <Grid item>
+                      <Chip label={inputMapping.externalReference} />
+                    </Grid>
+                  )}
+
+                  <Dhis2ElementDetails dhis2Object={dhis2Object} />
+                </>
               )}
             </Grid>
-            <Dhis2ElementDetails dhis2Object={dhis2Object} />
           </DialogContentText>
         </DialogContent>
         <DialogActions>
