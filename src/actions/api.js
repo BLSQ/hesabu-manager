@@ -46,5 +46,5 @@ export const externalApi = () => {
 export const canEdit = () => {
   const state = store.getState();
   const { user } = state.api;
-  return false; // user.canEdit;
+  return user.canEdit;
 };
