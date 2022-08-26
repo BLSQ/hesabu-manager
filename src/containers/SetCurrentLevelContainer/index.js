@@ -12,6 +12,7 @@ const SetCurrentLevelContainer = props => {
       inputs={inputs}
       formulas={topicFormulas}
       decisionTables={topicDecisionTables}
+      kind="topic_formulas"
     ></TopicBasedFormulas>
   );
 };

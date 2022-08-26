@@ -11,6 +11,7 @@ const SetChildrenContainer = props => {
       topics={topics}
       inputs={[]}
       formulas={multiEntitiesFormulas}
+      kind="children_formulas"
     ></TopicBasedFormulas>
   );
 };

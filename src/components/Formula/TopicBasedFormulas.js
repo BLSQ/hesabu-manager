@@ -22,8 +22,6 @@ import {
   DialogContentText,
   Chip,
   Grid,
-  Link,
-  Typography,
   Tooltip,
 } from "@material-ui/core";
 import CloudDownload from "@material-ui/icons/CloudDownload";
@@ -36,6 +34,8 @@ import { dhis2LookupElement } from "../../lib/dhis2Lookups";
 import Dhis2ElementDetails from "./Dhis2ElementDetails";
 import FormulaMappingDialogEditor from "./FormulaMappingDialogEditor";
 import FormulaViewer from "./FormulaViewer";
+import InputsMenu from "./InputsMenu";
+import TopicMenu from "./TopicMenu";
 
 const useStyles = makeStyles(theme => ({
   root: props => ({
@@ -63,7 +63,9 @@ const InputMappingDialogEditor = ({ cell }) => {
     setOpen(!open);
   };
 
-  let dhis2Object = dhis2LookupElement(inputMapping.externalReference);
+  let dhis2Object = inputMapping
+    ? dhis2LookupElement(inputMapping.externalReference)
+    : undefined;
 
   return (
     <div>
@@ -75,24 +77,30 @@ const InputMappingDialogEditor = ({ cell }) => {
         classes={{ paper: classes.paper }}
       >
         <DialogTitle id="form-dialog-title">
-          {cell.inputMapping.name}
+          {inputMapping && inputMapping.name}
         </DialogTitle>
         <DialogContent>
           <DialogContentText>
             <Grid container spacing={2}>
-              <Grid item>
-                <Chip label={cell.inputMapping.kind} />
-              </Grid>
-              <Grid item>
-                <Chip label={cell.inputMapping.origin} />
-              </Grid>
-              {cell.inputMapping.externalReference && (
-                <Grid item>
-                  <Chip label={cell.inputMapping.externalReference} />
-                </Grid>
+              {inputMapping == undefined && <span>No input mapping yet</span>}
+              {inputMapping && (
+                <>
+                  <Grid item>
+                    <Chip label={inputMapping.kind} />
+                  </Grid>
+                  <Grid item>
+                    <Chip label={inputMapping.origin} />
+                  </Grid>
+                  {inputMapping.externalReference && (
+                    <Grid item>
+                      <Chip label={inputMapping.externalReference} />
+                    </Grid>
+                  )}
+
+                  <Dhis2ElementDetails dhis2Object={dhis2Object} />
+                </>
               )}
             </Grid>
-            <Dhis2ElementDetails dhis2Object={dhis2Object} />
           </DialogContentText>
         </DialogContent>
         <DialogActions>
@@ -164,7 +172,10 @@ const CellRenderer = props => {
 
 const TopicBasedFormulas = props => {
   const classes = useStyles(props);
-  const { topics, inputs, formulas, decisionTables, set } = props;
+  const { topics, inputs, formulas, decisionTables, set, kind } = props;
+  const setToUse = { ...set };
+  setToUse.topics = setToUse.topics.map(topic => topic.id);
+  setToUse.inputs = setToUse.inputs.map(input => input.id);
   const safeTopics = topics || [];
   const safeInputs = inputs;
   const safeTopicFormulas = formulas || [];
@@ -252,15 +263,7 @@ const TopicBasedFormulas = props => {
       {
         value: "ADD",
         valueViewer: v => (
-          <>
-            {set && (
-              <Button
-                href={"./index.html#/sets/" + set.id + "/topic_formulas/new"}
-              >
-                <AddIcon></AddIcon>
-              </Button>
-            )}
-          </>
+          <>{setToUse && <InputsMenu set={setToUse} kind={kind} />}</>
         ),
 
         readOnly: true,
@@ -341,15 +344,7 @@ const TopicBasedFormulas = props => {
     [
       {
         value: "ADD",
-        valueViewer: v => (
-          <>
-            {set && (
-              <Button href={"./index.html#/sets/" + set.id + "/topic/import"}>
-                <AddIcon></AddIcon>
-              </Button>
-            )}
-          </>
-        ),
+        valueViewer: v => <>{setToUse && <TopicMenu set={setToUse} />}</>,
 
         readOnly: true,
       },
@@ -382,7 +377,7 @@ const TopicBasedFormulas = props => {
                 id="graph1"
                 content={formulasToMermaid(
                   formulas,
-                  "./index.html#/sets/" + set.id + "/topic_formulas",
+                  "./index.html#/sets/" + setToUse.id + "/topic_formulas",
                 )}
               />
             )}

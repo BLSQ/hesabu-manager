@@ -104,6 +104,10 @@ export default {
             tooltip:
               "Aggrégation par topic au niveau de l'entité principale/zone par topic sur les entités cibles",
           },
+          editSet: {
+            label: "Éditer",
+            tooltip: "Modifier le set",
+          },
         },
         sidesheet: {
           title: "Information",

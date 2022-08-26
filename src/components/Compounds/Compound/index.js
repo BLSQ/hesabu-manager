@@ -17,6 +17,7 @@ import { formattedName } from "../../../utils/textUtils";
 import FiltersToggleBtn from "../../FiltersToggleBtn";
 import Formulas from "../../Formula/Formulas";
 import ActionFab from "../../Shared/ActionFab";
+import { canEdit } from "../../../actions/api";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -53,7 +54,7 @@ const Compound = props => {
     sets,
   } = props;
   const { t } = useTranslation();
-
+  const userCanEdit = canEdit();
   return (
     <Dialog
       fullScreen
@@ -78,6 +79,7 @@ const Compound = props => {
           <Formulas formulas={formulas} parent={compound} />
 
           <ActionFab
+            disabled={!userCanEdit}
             to={{ pathname: `${window.location.href.split("#")[1]}/new` }}
             text="Formula"
             extended

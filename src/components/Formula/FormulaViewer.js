@@ -4,7 +4,7 @@ import humanize from "string-humanize";
 
 const FormulaViewer = ({ formula, index, classes }) => {
   const { value } = formula;
-  console.log(value);
+
   return (
     <Tooltip
       title={

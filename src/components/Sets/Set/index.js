@@ -13,11 +13,13 @@ import SetCurrentLevelContainer from "../../../containers/SetCurrentLevelContain
 import SetFormulasContainer from "../../../containers/SetFormulasContainer";
 import SetZoneTopicContainer from "../../../containers/SetZoneTopicContainer";
 import SetZoneContainer from "../../../containers/SetZoneContainer";
+import EditSetContainer from "../../../containers/EditSetContainer";
 import { formattedName } from "../../../utils/textUtils";
 import SidebarBlock from "../../Shared/SidebarBlock";
 import ActionFab from "../../Shared/ActionFab";
 import useStyles from "./styles";
 import Transition from "../../Shared/Transition";
+import { canEdit } from "../../../actions/api";
 
 const Set = props => {
   const {
@@ -33,6 +35,7 @@ const Set = props => {
   } = props;
   const history = useHistory();
   const classes = useStyles(!loading && sideSheetOpen);
+  const userCanEdit = canEdit();
   const { t } = useTranslation();
 
   const tabConfigs = [
@@ -68,6 +71,12 @@ const Set = props => {
       to: `${match.url}/zone_formulas`,
       kinds: ["zone"],
       routeComponent: SetZoneContainer,
+    },
+    {
+      label: t("set.tabs.editSet.label"),
+      title: t("set.tabs.editSet.tooltip"),
+      to: `${match.url}`,
+      routeComponent: EditSetContainer,
     },
   ].filter(c => c.kinds == undefined || c.kinds.includes(set.kind));
 
@@ -107,6 +116,7 @@ const Set = props => {
       {!!set.id && (
         <Fragment>
           <ActionFab
+            disabled={!userCanEdit}
             to={{ pathname: `${window.location.href.split("#")[1]}/new` }}
             text="Formula"
             extended
@@ -124,6 +134,15 @@ const Set = props => {
                   loading={loading}
                   onSave={onSave}
                 />
+              )}
+            />
+
+            <Route
+              key="edit"
+              path={`${match.url}`}
+              exact={true}
+              component={() => (
+                <EditSetContainer set={set} loading={loading} onSave={onSave} />
               )}
             />
 

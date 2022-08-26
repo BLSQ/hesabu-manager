@@ -23,6 +23,7 @@ import { CookiesProvider } from "react-cookie";
 import keymap from "./lib/shortcuts";
 import { ShortcutManager, Shortcuts } from "react-shortcuts";
 import HomeTour from "./components/HomeTour";
+import NewSet from "./components/Sets/Set/NewSet";
 import {
   useQuery,
   useMutation,
@@ -30,7 +31,6 @@ import {
   QueryClient,
   QueryClientProvider,
 } from "react-query";
-
 const shortcutManager = new ShortcutManager(keymap);
 
 const LoadableSetsContainer = Loadable({
@@ -65,6 +65,11 @@ const LoadableFormulaContainer = Loadable({
 
 const LoadableFirstSetupContainer = Loadable({
   loader: () => import("./containers/FirstSetupContainer"),
+  loading: RouteLoading,
+});
+
+const LoadableNewSetContainer = Loadable({
+  loader: () => import("./components/Sets/Set/NewSet"),
   loading: RouteLoading,
 });
 
@@ -234,6 +239,11 @@ class App extends Component {
                                 exact
                                 path="/sets/:setId/set_formulas/:formulaId"
                                 component={LoadableFormulaContainer}
+                              />
+                              <Route
+                                exact
+                                path="/sets/new"
+                                component={LoadableNewSetContainer}
                               />
                               <Route
                                 exact

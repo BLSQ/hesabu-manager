@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
+import { useQuery } from "react-query";
 import { useLocation, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import snakeCase from "lodash/snakeCase";
@@ -10,11 +11,7 @@ import Dhis2DataElementsProvider from "../Dhis2DataElementsProvider";
 
 const SetContainer = props => {
   const location = useLocation();
-
   const [sideSheetOpen, setSideSheetOpen] = useState(false);
-
-  const [loading, setLoading] = useState(false);
-  const [set, setSet] = useState({});
   const { setId, open } = props;
 
   function simulationParams() {
@@ -26,55 +23,54 @@ const SetContainer = props => {
     return prms.toString();
   }
 
-  const reloadData = () => {
-    setLoading(true);
-    externalApi()
-      .errorType("json")
-      .url(`/sets/${props.setId}`)
-      .get()
-      .json(response => {
-        setLoading(false);
-        deserialize(response, {
-          simulationOrgUnit: {
-            valueForRelationship(relationship) {
-              return {
-                id: relationship.id,
-                type: relationship.type,
-              };
-            },
+  const loadSetQuery = useQuery(
+    ["loadSet", setId],
+    async () => {
+      let response = await externalApi()
+        .errorType("json")
+        .url(`/sets/${setId}`)
+        .get()
+        .json();
+      response = await deserialize(response, {
+        simulationOrgUnit: {
+          valueForRelationship(relationship) {
+            return {
+              id: relationship.id,
+              type: relationship.type,
+            };
           },
-        }).then(data => {
-          setSet(data);
-        });
-      })
-      .catch(e => {
-        setLoading(false);
-        setSet({});
-        console.log(e);
+        },
       });
-  };
+      return response;
+    },
+    {
+      onError: error => {
+        console.log(error);
+      },
+    },
+  );
 
-  useEffect(() => {
-    if (open) {
-      reloadData();
-    }
-  }, [props.setId, open]);
+  const set = loadSetQuery?.data;
+  const loading = loadSetQuery?.isLoading;
 
   const handleToggleSideSheet = () => setSideSheetOpen(!sideSheetOpen);
 
   return (
-    <Dhis2DataElementsProvider>
-      <Set
-        open={open}
-        set={set}
-        loading={loading}
-        sideSheetOpen={sideSheetOpen}
-        handleToggleSideSheet={handleToggleSideSheet}
-        simulationParams={simulationParams()}
-        location={location}
-        onSave={reloadData}
-      />
-    </Dhis2DataElementsProvider>
+    <>
+      {set && (
+        <Dhis2DataElementsProvider>
+          <Set
+            open={open}
+            set={set}
+            loading={loading}
+            sideSheetOpen={sideSheetOpen}
+            handleToggleSideSheet={handleToggleSideSheet}
+            simulationParams={simulationParams()}
+            location={location}
+          />
+        </Dhis2DataElementsProvider>
+      )}
+    </>
   );
 };
 

@@ -128,7 +128,6 @@ const FormulaPage = ({
           attributes: formulaToUse,
         },
       };
-
       let resp = await externalApi()
         .url(`/${parent}/${parentId}/${formulaType}`)
         .post(payload)

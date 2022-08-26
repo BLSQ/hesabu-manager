@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
+import { useQuery } from "react-query";
 import matchSorter from "match-sorter";
 import queryString from "query-string";
 import { useLocation } from "react-router-dom";
@@ -10,30 +11,31 @@ const SetsContainer = () => {
   const [sideSheetOpen, setSideSheetOpen] = useState(true);
   const [searchOpen, setSearchOpen] = useState(false);
   const [query, setQuery] = useState("");
-  const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
-  const [sets, setSets] = useState([]);
 
-  useEffect(() => {
-    setLoading(true);
-    externalApi()
-      .errorType("json")
-      .url(`/sets`)
-      .get()
-      .json(response => {
-        setLoading(false);
-        deserialize(response).then(data => {
-          setSets(data);
-        });
-
+  const loadSetsQuery = useQuery(
+    "loadSets",
+    async () => {
+      let response = await externalApi()
+        .errorType("json")
+        .url(`/sets`)
+        .get()
+        .json();
+      response = deserialize(response);
+      return response;
+    },
+    {
+      onSuccess: () => {
         setErrorMessage(null);
-      })
-      .catch(e => {
-        setErrorMessage(e.message);
-        setLoading(false);
-        setSets(null);
-      });
-  }, []);
+      },
+      onError: error => {
+        setErrorMessage(error.message);
+      },
+    },
+  );
+
+  const sets = loadSetsQuery?.data;
+  const loading = loadSetsQuery?.isLoading;
 
   const handleToggleSideSheet = () => setSideSheetOpen(!sideSheetOpen);
   const handleToggleSearch = () => setSearchOpen(!searchOpen);
@@ -45,30 +47,37 @@ const SetsContainer = () => {
     .split(",")
     .filter(i => i);
 
-  const filteredSets = matchSorter(sets, query, {
-    keys: ["name", "displayName"],
-  }).filter(
-    set =>
-      !ougIdsFromParams.length ||
-      intersectionBy(
-        set.orgUnitGroups.map(g => g.id),
-        ougIdsFromParams,
-      ).length,
-  );
+  let filteredSets;
+  if (sets) {
+    filteredSets = matchSorter(sets, query, {
+      keys: ["name", "displayName"],
+    }).filter(
+      set =>
+        !ougIdsFromParams.length ||
+        intersectionBy(
+          set.orgUnitGroups.map(g => g.id),
+          ougIdsFromParams,
+        ).length,
+    );
+  }
 
   return (
-    <Sets
-      filteredSets={filteredSets}
-      sets={sets}
-      loading={loading}
-      query={query}
-      setQuery={setQuery}
-      searchOpen={searchOpen}
-      errorMessage={errorMessage}
-      handleToggleSearch={handleToggleSearch}
-      sideSheetOpen={sideSheetOpen}
-      handleToggleSideSheet={handleToggleSideSheet}
-    />
+    <>
+      {sets && (
+        <Sets
+          filteredSets={filteredSets}
+          sets={sets}
+          loading={loading}
+          query={query}
+          setQuery={setQuery}
+          searchOpen={searchOpen}
+          errorMessage={errorMessage}
+          handleToggleSearch={handleToggleSearch}
+          sideSheetOpen={sideSheetOpen}
+          handleToggleSideSheet={handleToggleSideSheet}
+        />
+      )}
+    </>
   );
 };
 
