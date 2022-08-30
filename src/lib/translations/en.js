@@ -81,6 +81,7 @@ export default {
         period_plural: "periods",
         formula: "formula",
         formula_plural: "formulas",
+        decisionTable: "Decision table",
       },
       set: {
         frequency: "Frequency",
