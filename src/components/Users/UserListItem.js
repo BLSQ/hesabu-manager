@@ -32,7 +32,6 @@ const useStyles = makeStyles(theme => ({
 const UserListItem = ({ user }) => {
   const classes = useStyles();
   const [editUser, setEditUser] = useState(false);
-  const queryClient = useQueryClient();
   const openEditUser = () => setEditUser(true);
   const closeEditUser = () => setEditUser(false);
   return (
@@ -59,8 +58,7 @@ const UserListItem = ({ user }) => {
             <DialogContent style={{ height: "300px" }}>
               <UserForm
                 user={user}
-                queryClient={queryClient}
-                closeEditUser={closeEditUser}
+                afterMutate={closeEditUser}
                 modeCreate={false}
               />
             </DialogContent>
