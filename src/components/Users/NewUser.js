@@ -27,7 +27,7 @@ const NewUser = () => {
           </Typography>
         </TopBar>
         <PageContent>
-          <UserForm user={user} modeCreate={true} afterMutate={afterMutate} />
+          <UserForm user={user} afterMutate={afterMutate} modeCreate={true} />
         </PageContent>
       </>
     </Fragment>
