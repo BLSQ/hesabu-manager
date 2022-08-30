@@ -99,35 +99,36 @@ const UserForm = ({ user, afterMutate, modeCreate }) => {
 
   return (
     <Box>
-      <Grid container>
-        <Grid item>
-          <Grid container spacing={2} direction="column">
-            <div style={{ color: "red" }}>
-              <b>
-                {userToUse?.errors &&
-                  Object.keys(userToUse.errors).length > 0 &&
-                  Object.values(userToUse.errors).join("\n")}
-                {validationErrors &&
-                  Object.keys(validationErrors).length > 0 &&
-                  Object.values(validationErrors).join("\n")}
-              </b>
-            </div>
-            <Grid item>
-              <TextField
-                required
-                id="email"
-                error={validationErrors.name}
-                helperText={validationErrors.name}
-                label={"Email"}
-                variant="outlined"
-                fullWidth
-                value={userToUse.email}
-                onChange={event =>
-                  handleAttributeChange(event.target.value, "email")
-                }
-              />
-            </Grid>
-            {defaultDhis2User && (
+      {usersForSelect && (
+        <Grid container>
+          <Grid item>
+            <Grid container spacing={2} direction="column">
+              <div style={{ color: "red" }}>
+                <b>
+                  {userToUse?.errors &&
+                    Object.keys(userToUse.errors).length > 0 &&
+                    Object.values(userToUse.errors).join("\n")}
+                  {validationErrors &&
+                    Object.keys(validationErrors).length > 0 &&
+                    Object.values(validationErrors).join("\n")}
+                </b>
+              </div>
+              <Grid item>
+                <TextField
+                  required
+                  id="email"
+                  error={validationErrors.name}
+                  helperText={validationErrors.name}
+                  label={"Email"}
+                  variant="outlined"
+                  fullWidth
+                  value={userToUse.email}
+                  onChange={event =>
+                    handleAttributeChange(event.target.value, "email")
+                  }
+                />
+              </Grid>
+
               <Grid item>
                 <Autocomplete
                   id="tags-outlined"
@@ -151,19 +152,20 @@ const UserForm = ({ user, afterMutate, modeCreate }) => {
                   )}
                 />
               </Grid>
-            )}
-            <Grid item xs={10} sm={9}>
-              <Button
-                variant="outlined"
-                disabled={!isDirty || !userCanEdit}
-                onClick={() => userMutation.mutate()}
-              >
-                Save
-              </Button>
+
+              <Grid item xs={10} sm={9}>
+                <Button
+                  variant="outlined"
+                  disabled={!isDirty || !userCanEdit}
+                  onClick={() => userMutation.mutate()}
+                >
+                  Save
+                </Button>
+              </Grid>
             </Grid>
           </Grid>
         </Grid>
-      </Grid>
+      )}
     </Box>
   );
 };
