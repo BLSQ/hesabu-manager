@@ -1,11 +1,21 @@
 import React, { useState } from "react";
-import { useMutation, useQueryClient } from "react-query";
+import { makeStyles } from "@material-ui/styles";
+import { useMutation, useQuery, useQueryClient } from "react-query";
+import { Autocomplete } from "@material-ui/lab";
 import { Button, Grid, Typography, Box, TextField } from "@material-ui/core";
 import { deserialize } from "../../utils/jsonApiUtils";
 import { externalApi } from "../../actions/api";
 import { canEdit } from "../../actions/api";
+import Api from "../../lib/Api";
+
+const useStyles = makeStyles(theme => ({
+  textField: {
+    width: "400px",
+  },
+}));
 
 const UserForm = ({ user, afterMutate, modeCreate }) => {
+  const classes = useStyles();
   const queryClient = useQueryClient();
   const userCanEdit = canEdit();
   const [userToUse, setUserToUse] = useState(user);
@@ -18,6 +28,32 @@ const UserForm = ({ user, afterMutate, modeCreate }) => {
     setUserToUse(newUser);
     setIsDirty(true);
   };
+
+  const fetchDhis2UsersQuery = useQuery(
+    "fetchDhis2Users",
+    async () => {
+      const api = await Api.instance();
+      const response = await api.get("users", {
+        fields: "id,name,email",
+        paging: false,
+      });
+      return response.users;
+    },
+    {
+      onError: error => {
+        console.log(error);
+      },
+    },
+  );
+
+  const usersForSelect = fetchDhis2UsersQuery?.data;
+
+  const defaultDhis2User =
+    usersForSelect && !modeCreate
+      ? usersForSelect.filter(
+          dhis2User => dhis2User.id === user.dhis2UserRef,
+        )[0]
+      : null;
 
   const userMutation = useMutation(
     async () => {
@@ -92,17 +128,23 @@ const UserForm = ({ user, afterMutate, modeCreate }) => {
               />
             </Grid>
             <Grid item>
-              <TextField
-                label={"DHIS2 reference ID"}
-                id="dhis2"
-                error={validationErrors.dhis2_user_ref}
-                helperText={validationErrors.dhis2_user_ref}
-                variant="outlined"
-                fullWidth
-                value={userToUse.dhis2UserRef}
-                onChange={event =>
-                  handleAttributeChange(event.target.value, "dhis2UserRef")
+              <Autocomplete
+                id="tags-outlined"
+                options={usersForSelect}
+                getOptionLabel={option => option.id}
+                defaultValue={defaultDhis2User}
+                filterSelectedOptions
+                onChange={(event, option) =>
+                  handleAttributeChange(option.id, "dhis2UserRef")
                 }
+                renderInput={params => (
+                  <TextField
+                    {...params}
+                    label="DHIS2 user references"
+                    className={classes.textField}
+                    placeholder="Search by name or email"
+                  />
+                )}
               />
             </Grid>
             <Grid item xs={10} sm={9}>
