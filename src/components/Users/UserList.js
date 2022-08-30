@@ -6,7 +6,7 @@ import { canEdit } from "../../actions/api";
 
 const useStyles = makeStyles(theme => ({
   simulationBtn: {
-    right: theme.spacing(4) + 350,
+    right: theme.spacing(4) + 100,
     transition: "all .1s 100ms ease-in-out",
   },
 }));
