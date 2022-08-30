@@ -1,11 +1,12 @@
 import React, { useState } from "react";
-import { useMutation } from "react-query";
+import { useMutation, useQueryClient } from "react-query";
 import { Button, Grid, Typography, Box, TextField } from "@material-ui/core";
 import { deserialize } from "../../utils/jsonApiUtils";
 import { externalApi } from "../../actions/api";
 import { canEdit } from "../../actions/api";
 
-const UserForm = ({ user, queryClient, closeEditUser, modeCreate }) => {
+const UserForm = ({ user, afterMutate, modeCreate }) => {
+  const queryClient = useQueryClient();
   const userCanEdit = canEdit();
   const [userToUse, setUserToUse] = useState(user);
   const [validationErrors, setValidationErrors] = useState({});
@@ -45,7 +46,7 @@ const UserForm = ({ user, queryClient, closeEditUser, modeCreate }) => {
     {
       onSuccess: resp => {
         setValidationErrors({});
-        closeEditUser();
+        afterMutate();
         queryClient.invalidateQueries("fetchUsers");
       },
       onError: error => {
