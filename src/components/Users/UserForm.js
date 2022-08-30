@@ -48,13 +48,6 @@ const UserForm = ({ user, afterMutate, modeCreate }) => {
 
   const usersForSelect = fetchDhis2UsersQuery?.data;
 
-  const defaultDhis2User =
-    usersForSelect && !modeCreate
-      ? usersForSelect.filter(
-          dhis2User => dhis2User.id === user.dhis2UserRef,
-        )[0]
-      : null;
-
   const userMutation = useMutation(
     async () => {
       const payload = {
@@ -97,6 +90,13 @@ const UserForm = ({ user, afterMutate, modeCreate }) => {
     },
   );
 
+  const defaultDhis2User =
+    usersForSelect && !modeCreate
+      ? usersForSelect.filter(
+          dhis2User => dhis2User.id === user.dhis2UserRef,
+        )[0]
+      : null;
+
   return (
     <Box>
       <Grid container>
@@ -127,26 +127,31 @@ const UserForm = ({ user, afterMutate, modeCreate }) => {
                 }
               />
             </Grid>
-            <Grid item>
-              <Autocomplete
-                id="tags-outlined"
-                options={usersForSelect}
-                getOptionLabel={option => option.id}
-                defaultValue={defaultDhis2User}
-                filterSelectedOptions
-                onChange={(event, option) =>
-                  handleAttributeChange(option.id, "dhis2UserRef")
-                }
-                renderInput={params => (
-                  <TextField
-                    {...params}
-                    label="DHIS2 user references"
-                    className={classes.textField}
-                    placeholder="Search by name or email"
-                  />
-                )}
-              />
-            </Grid>
+            {defaultDhis2User && (
+              <Grid item>
+                <Autocomplete
+                  id="tags-outlined"
+                  options={usersForSelect}
+                  getOptionLabel={option => option.id}
+                  defaultValue={defaultDhis2User}
+                  filterSelectedOptions
+                  onChange={(event, option) =>
+                    handleAttributeChange(
+                      option ? option.id : option,
+                      "dhis2UserRef",
+                    )
+                  }
+                  renderInput={params => (
+                    <TextField
+                      {...params}
+                      label="DHIS2 user references"
+                      className={classes.textField}
+                      placeholder="Search by name or email"
+                    />
+                  )}
+                />
+              </Grid>
+            )}
             <Grid item xs={10} sm={9}>
               <Button
                 variant="outlined"
