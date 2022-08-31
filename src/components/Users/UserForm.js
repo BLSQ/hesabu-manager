@@ -133,9 +133,12 @@ const UserForm = ({ user, afterMutate, modeCreate }) => {
                 <Autocomplete
                   id="tags-outlined"
                   options={usersForSelect}
-                  getOptionLabel={option => option.id}
+                  getOptionLabel={option =>
+                    option.name + " / " + option.email + " (" + option.id + ")"
+                  }
                   defaultValue={defaultDhis2User}
                   filterSelectedOptions
+                  fullWidth
                   onChange={(event, option) =>
                     handleAttributeChange(
                       option ? option.id : option,
@@ -145,7 +148,9 @@ const UserForm = ({ user, afterMutate, modeCreate }) => {
                   renderInput={params => (
                     <TextField
                       {...params}
+                      style={{ width: "700px" }}
                       label="DHIS2 user references"
+                      fullWidth
                       className={classes.textField}
                       placeholder="Search by name or email"
                     />
