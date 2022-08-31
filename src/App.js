@@ -82,6 +82,11 @@ const LoadableDecisionTableContainer = Loadable({
   loading: RouteLoading,
 });
 
+const LoadableDecisionTableListContainer = Loadable({
+  loader: () => import("./components/DecisionTables/DecisionTableList"),
+  loading: RouteLoading,
+});
+
 const styles = () => ({
   root: {
     flexGrow: 1,
@@ -263,6 +268,11 @@ class App extends Component {
                                 exact
                                 path="/sets/:setId/topic/decisions/:decisionTableId"
                                 component={LoadableDecisionTableContainer}
+                              />
+                              <Route
+                                exact
+                                path="/sets/:setId/topic/decisions"
+                                component={LoadableDecisionTableListContainer}
                               />
                               <Route
                                 path="/sets/:setId"

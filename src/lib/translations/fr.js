@@ -110,6 +110,10 @@ export default {
             label: "Éditer",
             tooltip: "Modifier le set",
           },
+          decisionTables: {
+            label: "Decision tables",
+            tooltip: "Inspecter les decision tables pour cet set",
+          },
         },
         sidesheet: {
           title: "Information",
