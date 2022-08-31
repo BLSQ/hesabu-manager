@@ -13,12 +13,14 @@ import ExitIcon from "@material-ui/icons/ExitToApp";
 import HelpIcon from "@material-ui/icons/HelpOutline";
 import SyncIcon from "@material-ui/icons/Sync";
 import ReceiptIcon from "@material-ui/icons/Receipt";
+import SupervisorAccountIcon from "@material-ui/icons/SupervisorAccount";
 import { useTranslation } from "react-i18next";
 import { HesabuLogo, NestedAccordionMenu } from "@blsq/manager-ui";
 import { Link, withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
 import Api from "../../lib/Api";
 import { formattedName } from "../../utils/textUtils";
+import { canEdit } from "../../actions/api";
 
 const useStyles = makeStyles(theme => ({
   logo: {
@@ -36,6 +38,7 @@ const useStyles = makeStyles(theme => ({
 function DrawerItems(props) {
   const classes = useStyles();
   const { t } = useTranslation();
+  const userCanEdit = canEdit();
   // TODO: Move this to separate file, and use them into the props here.
   const items = [
     {
@@ -69,6 +72,14 @@ function DrawerItems(props) {
       ],
     },
   ];
+
+  if (userCanEdit) {
+    items.push({
+      name: formattedName(t("resources.user_plural")),
+      to: "/users",
+      Icon: SupervisorAccountIcon,
+    });
+  }
   const apiConfig = useSelector(state => state.api);
   const linkToInvoiceApp = `/../../..${apiConfig.invoiceAppPath}`;
   return (

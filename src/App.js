@@ -24,13 +24,7 @@ import keymap from "./lib/shortcuts";
 import { ShortcutManager, Shortcuts } from "react-shortcuts";
 import HomeTour from "./components/HomeTour";
 import NewSet from "./components/Sets/Set/NewSet";
-import {
-  useQuery,
-  useMutation,
-  useQueryClient,
-  QueryClient,
-  QueryClientProvider,
-} from "react-query";
+import { QueryClient, QueryClientProvider } from "react-query";
 const shortcutManager = new ShortcutManager(keymap);
 
 const LoadableSetsContainer = Loadable({
@@ -70,6 +64,16 @@ const LoadableFirstSetupContainer = Loadable({
 
 const LoadableNewSetContainer = Loadable({
   loader: () => import("./components/Sets/Set/NewSet"),
+  loading: RouteLoading,
+});
+
+const LoadableUsersContainer = Loadable({
+  loader: () => import("./containers/UsersContainer"),
+  loading: RouteLoading,
+});
+
+const LoadableNewUserContainer = Loadable({
+  loader: () => import("./components/Users/NewUser"),
   loading: RouteLoading,
 });
 
@@ -285,6 +289,14 @@ class App extends Component {
                               <Route
                                 path="/simulation"
                                 component={LoadableSimulationContainer}
+                              />
+                              <Route
+                                path="/users/new"
+                                component={LoadableNewUserContainer}
+                              />
+                              <Route
+                                path="/users"
+                                component={LoadableUsersContainer}
                               />
                               <Route
                                 path="/first-setup"

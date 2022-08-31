@@ -79,6 +79,7 @@ export default {
         orgUnit_plural: "organisation units",
         period: "period",
         period_plural: "periods",
+        user_plural: "users",
         formula: "formula",
         formula_plural: "formulas",
       },
