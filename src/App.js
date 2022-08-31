@@ -77,6 +77,11 @@ const LoadableNewUserContainer = Loadable({
   loading: RouteLoading,
 });
 
+const LoadableDecisionTableContainer = Loadable({
+  loader: () => import("./containers/DecisionTableContainer/index.js"),
+  loading: RouteLoading,
+});
+
 const styles = () => ({
   root: {
     flexGrow: 1,
@@ -253,6 +258,11 @@ class App extends Component {
                                 exact
                                 path="/sets"
                                 component={LoadableSetsContainer}
+                              />
+                              <Route
+                                exact
+                                path="/sets/:setId/topic/decisions/:decisionTableId"
+                                component={LoadableDecisionTableContainer}
                               />
                               <Route
                                 path="/sets/:setId"

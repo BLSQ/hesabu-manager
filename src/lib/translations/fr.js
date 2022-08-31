@@ -78,6 +78,7 @@ export default {
         user_plural: "utilisateurs",
         formula: "formule",
         formula_plural: "formules",
+        decisionTable: "Table de décision",
       },
       set: {
         frequency: "Fréquence",
