@@ -256,13 +256,8 @@ class App extends Component {
                               />
                               <Route
                                 exact
-                                path="/sets/new"
-                                component={LoadableNewSetContainer}
-                              />
-                              <Route
-                                exact
-                                path="/sets"
-                                component={LoadableSetsContainer}
+                                path="/sets/:setId/topic/decisions"
+                                component={LoadableDecisionTableListContainer}
                               />
                               <Route
                                 exact
@@ -271,8 +266,13 @@ class App extends Component {
                               />
                               <Route
                                 exact
-                                path="/sets/:setId/topic/decisions"
-                                component={LoadableDecisionTableListContainer}
+                                path="/sets/new"
+                                component={LoadableNewSetContainer}
+                              />
+                              <Route
+                                exact
+                                path="/sets"
+                                component={LoadableSetsContainer}
                               />
                               <Route
                                 path="/sets/:setId"

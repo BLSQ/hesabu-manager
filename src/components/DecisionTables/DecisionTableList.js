@@ -1,13 +1,21 @@
 import React from "react";
 import { useQuery } from "react-query";
-import { Typography } from "@material-ui/core";
 import { externalApi } from "../../actions/api";
-import TopBar from "../Shared/TopBar";
 import PageContent from "../Shared/PageContent";
 import { deserialize } from "../../utils/jsonApiUtils";
 import DecisionTableListItem from "./DecisionTableListItem";
+import { makeStyles } from "@material-ui/core";
+
+const useStyles = makeStyles(theme => ({
+  listHolder: {
+    width: "100%",
+    marginTop: "4rem",
+    marginRight: "10rem",
+  },
+}));
 
 const DecisionTableList = ({ set }) => {
+  const classes = useStyles();
   const setId = set.id;
   const fetchDecisionTablesQuery = useQuery(
     ["fetchDecisionTables", setId],
@@ -26,10 +34,17 @@ const DecisionTableList = ({ set }) => {
     },
   );
 
-  const decisions = fetchDecisionTablesQuery?.data;
+  let decisions = fetchDecisionTablesQuery?.data;
+  if (decisions) {
+    decisions = decisions.sort((a, b) =>
+      a.startPeriod === b.startPeriod
+        ? a.name - b.name
+        : b.startPeriod - a.startPeriod,
+    );
+  }
 
   return (
-    <div>
+    <div className={classes.listHolder}>
       {decisions && (
         <PageContent>
           {decisions.map((decision, index) => (
