@@ -14,6 +14,7 @@ import SetFormulasContainer from "../../../containers/SetFormulasContainer";
 import SetZoneTopicContainer from "../../../containers/SetZoneTopicContainer";
 import SetZoneContainer from "../../../containers/SetZoneContainer";
 import EditSetContainer from "../../../containers/EditSetContainer";
+import DecisionTableList from "../../DecisionTables/DecisionTableList";
 import { formattedName } from "../../../utils/textUtils";
 import SidebarBlock from "../../Shared/SidebarBlock";
 import ActionFab from "../../Shared/ActionFab";
@@ -71,6 +72,12 @@ const Set = props => {
       to: `${match.url}/zone_formulas`,
       kinds: ["zone"],
       routeComponent: SetZoneContainer,
+    },
+    {
+      label: t("set.tabs.decisionTables.label"),
+      title: t("set.tabs.decisionTables.tooltip"),
+      to: `${match.url}/decisions`,
+      routeComponent: DecisionTableList,
     },
     {
       label: t("set.tabs.editSet.label"),

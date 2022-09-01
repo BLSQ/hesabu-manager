@@ -23,6 +23,7 @@ import {
   Chip,
   Grid,
   Tooltip,
+  Link,
 } from "@material-ui/core";
 import CloudDownload from "@material-ui/icons/CloudDownload";
 import CheckCircle from "@material-ui/icons/CheckCircle";
@@ -183,9 +184,11 @@ const TopicBasedFormulas = props => {
 
   safeDecisionTables.forEach(
     decisionTable =>
-      (decisionTable.parsedContent = PapaParse.parse(decisionTable.content, {
-        header: true,
-      })),
+      (decisionTable.parsedContent = decisionTable.content
+        ? PapaParse.parse(decisionTable.content, {
+            header: true,
+          })
+        : { data: [], meta: { fields: [] } }),
   );
 
   const [showGraph, setShowGraph] = React.useState(false);
@@ -221,6 +224,7 @@ const TopicBasedFormulas = props => {
                 classes={{ tooltip: classes.customWidth }}
                 title={
                   <div>
+                    {decisionTable.name || ""} <br></br>
                     {decisionTable.startPeriod || "?"} {" -> "}
                     {decisionTable.endPeriod || "?"}
                     <br></br>
@@ -239,7 +243,15 @@ const TopicBasedFormulas = props => {
                 }
               >
                 <span style={{ fontStyle: "italic" }}>
-                  {humanize(v.cell.value.header)}*
+                  <Link
+                    href={`./index.html#/sets/${set.id}/${kind.replace(
+                      "_formulas",
+                      "",
+                    )}/decisions/${decisionTable.id}`}
+                    underline="none"
+                  >
+                    {humanize(v.cell.value.header)}*
+                  </Link>
                 </span>
               </Tooltip>
             );

@@ -1,6 +1,6 @@
-import { createMuiTheme, fade } from "@material-ui/core";
+import { createTheme, fade } from "@material-ui/core";
 
-const theme = createMuiTheme({
+const theme = createTheme({
   typography: {
     useNextVariants: true,
     fontFamily: ["Roboto", '"Helvetica Neue"', "sans-serif"].join(","),

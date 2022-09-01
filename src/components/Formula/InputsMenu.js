@@ -109,6 +109,15 @@ const InputsMenu = ({ set, kind }) => {
                 />
               </DialogContent>
             </Dialog>
+            <MenuItem onClick={handleClose}>
+              <Link
+                href={`./index.html#/sets/${set.id}/topic/decisions/new`}
+                style={{ color: "black" }}
+                underline="none"
+              >
+                New Decision Table
+              </Link>
+            </MenuItem>
           </>
         )}
       </Menu>

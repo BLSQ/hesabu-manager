@@ -78,6 +78,7 @@ export default {
         user_plural: "utilisateurs",
         formula: "formule",
         formula_plural: "formules",
+        decisionTable: "Table de décision",
       },
       set: {
         frequency: "Fréquence",
@@ -108,6 +109,10 @@ export default {
           editSet: {
             label: "Éditer",
             tooltip: "Modifier le set",
+          },
+          decisionTables: {
+            label: "Decision tables",
+            tooltip: "Inspecter les decision tables pour cet set",
           },
         },
         sidesheet: {
