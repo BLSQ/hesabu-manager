@@ -1,8 +1,5 @@
 import React from "react";
-import { useQuery } from "react-query";
-import { externalApi } from "../../actions/api";
 import PageContent from "../Shared/PageContent";
-import { deserialize } from "../../utils/jsonApiUtils";
 import DecisionTableListItem from "./DecisionTableListItem";
 import { makeStyles } from "@material-ui/core";
 
@@ -17,24 +14,9 @@ const useStyles = makeStyles(theme => ({
 const DecisionTableList = props => {
   const classes = useStyles();
   const setId = props.set.id;
-  const fetchDecisionTablesQuery = useQuery(
-    ["fetchDecisionTables", setId],
-    async () => {
-      let response = await externalApi()
-        .errorType("json")
-        .url(`/sets/${setId}/topic_decision_tables`)
-        .get()
-        .json();
 
-      response = await deserialize(response);
-      return response;
-    },
-    {
-      onError: error => console.log(error.message),
-    },
-  );
+  let decisions = props.set.topicDecisionTables;
 
-  let decisions = fetchDecisionTablesQuery?.data;
   if (decisions) {
     decisions = decisions.sort((a, b) =>
       a.startPeriod === b.startPeriod
