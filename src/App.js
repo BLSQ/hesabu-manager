@@ -256,11 +256,6 @@ class App extends Component {
                               />
                               <Route
                                 exact
-                                path="/sets/:setId/topic/decisions"
-                                component={LoadableDecisionTableListContainer}
-                              />
-                              <Route
-                                exact
                                 path="/sets/:setId/topic/decisions/:decisionTableId"
                                 component={LoadableDecisionTableContainer}
                               />

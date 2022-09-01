@@ -14,9 +14,9 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const DecisionTableList = ({ set }) => {
+const DecisionTableList = props => {
   const classes = useStyles();
-  const setId = set.id;
+  const setId = props.set.id;
   const fetchDecisionTablesQuery = useQuery(
     ["fetchDecisionTables", setId],
     async () => {
@@ -48,7 +48,11 @@ const DecisionTableList = ({ set }) => {
       {decisions && (
         <PageContent>
           {decisions.map((decision, index) => (
-            <DecisionTableListItem key={index} decision={decision} />
+            <DecisionTableListItem
+              key={index}
+              setId={setId}
+              decision={decision}
+            />
           ))}
         </PageContent>
       )}

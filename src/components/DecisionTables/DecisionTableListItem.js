@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Typography, Link, Grid } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
 import EditIcon from "@material-ui/icons/Edit";
@@ -25,8 +25,9 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const DecisionTableListItem = ({ decision }) => {
+const DecisionTableListItem = ({ setId, decision }) => {
   const classes = useStyles();
+  const editPath = `./index.html#/sets/${setId}/topic/decisions/${decision.id}`;
   return (
     <div className={classes.root}>
       <div className={classes.header}>
@@ -57,7 +58,7 @@ const DecisionTableListItem = ({ decision }) => {
             </Grid>
           </Grid>
           <Grid item>
-            <Link href={`${window.location}/${decision.id}`}>
+            <Link href={editPath}>
               <EditIcon fontSize="small" />
             </Link>
           </Grid>
