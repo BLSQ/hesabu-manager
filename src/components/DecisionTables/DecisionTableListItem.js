@@ -2,6 +2,8 @@ import React from "react";
 import { Typography, Link, Grid } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
 import EditIcon from "@material-ui/icons/Edit";
+import { useHistory } from "react-router-dom";
+import ArrowForwardIcon from "@material-ui/icons/ArrowForward";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -27,38 +29,48 @@ const useStyles = makeStyles(theme => ({
 
 const DecisionTableListItem = ({ setId, decision }) => {
   const classes = useStyles();
-  const editPath = `./index.html#/sets/${setId}/topic/decisions/${decision.id}`;
+  const editPath = `/sets/${setId}/topic/decisions/${decision.id}`;
+  const history = useHistory();
   return (
     <div className={classes.root}>
       <div className={classes.header}>
         <Grid container justifyContent="space-between">
           <Grid item>
-            <Typography className={classes.sectionTitle}>
+            <Typography
+              className={classes.sectionTitle}
+              onClick={() => history.replace(editPath)}
+            >
               {decision.name}
             </Typography>
-            <Grid container>
-              <Grid className={classes.gridItemPadding} item>
-                Starts: {decision.startPeriod}
-              </Grid>
-              <Grid className={classes.gridItemPadding} item>
-                Ends: {decision.endPeriod}
-              </Grid>
-            </Grid>
-            <Grid container>
-              {decision.inHeaders.length !== 0 && (
-                <Grid className={classes.gridItemPadding} item>
-                  In: {decision.inHeaders.join(", ")}
+
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                marginLeft: "20px",
+              }}
+            >
+              <div style={{ display: "flex", alignItems: "center" }}>
+                <Grid item>{decision.startPeriod || "?"}</Grid>
+                <Grid item>
+                  <ArrowForwardIcon fontSize="small" />
                 </Grid>
+                <Grid item>{decision.endPeriod || "?"}</Grid>
+              </div>
+              {decision.inHeaders.length !== 0 && (
+                <div>
+                  <i>In:</i> {decision.inHeaders.join(", ")}
+                </div>
               )}
               {decision.outHeaders.length !== 0 && (
-                <Grid className={classes.gridItemPadding} item>
-                  Out: {decision.outHeaders.join(", ")}
-                </Grid>
+                <div>
+                  <i>Out:</i> {decision.outHeaders.join(", ")}
+                </div>
               )}
-            </Grid>
+            </div>
           </Grid>
-          <Grid item>
-            <Link href={editPath}>
+          <Grid item onClick={() => history.replace(editPath)}>
+            <Link>
               <EditIcon fontSize="small" />
             </Link>
           </Grid>
