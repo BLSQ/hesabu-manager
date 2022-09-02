@@ -1,7 +1,8 @@
 import React from "react";
+import { makeStyles } from "@material-ui/core";
+import sortBy from "lodash/sortBy";
 import PageContent from "../Shared/PageContent";
 import DecisionTableListItem from "./DecisionTableListItem";
-import { makeStyles } from "@material-ui/core";
 
 const useStyles = makeStyles(theme => ({
   listHolder: {
@@ -18,11 +19,7 @@ const DecisionTableList = props => {
   let decisions = props.set.topicDecisionTables;
 
   if (decisions) {
-    decisions = decisions.sort((a, b) =>
-      a.startPeriod === b.startPeriod
-        ? a.name - b.name
-        : b.startPeriod - a.startPeriod,
-    );
+    decisions = sortBy(decisions, ["name", "startDate"]);
   }
 
   return (
