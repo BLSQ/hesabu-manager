@@ -1,0 +1,71 @@
+{
+  "IF": [
+    "IF(expression, true_value, false_value)",
+    "If <code>expression</code> evaluates to true, returns <code>true_value</code> otherwise <code>false_value</code>"
+  ],
+  "MIN": [
+    "MIN(value1, value2)",
+    "Returns the minum of the two values (can also take an <code>ARRAY</code>)"
+  ],
+  "MAX": [
+    "MAX(value1, value2)",
+    "Returns the maximum of the two values (can also take an <code>ARRAY</code>)"
+  ],
+  "ROUND": [
+    "ROUND(value(, decimals))",
+    "Rounds to nearest integer, when <code>decimals</code> supplied, round to decimals after the comma)"
+  ],
+  "TRUNC": [
+    "TRUNC(value(, decimals))",
+    "Truncs to nearest integer, when <code>decimals</code> supplied, Truncs to decimals after the comma.\",\nTRUNC(1.23456)    => 1.0\nTRUNC(-1.23456)   => 1.0\nTRUNC(1.23456, 2) => 1.23\n"
+  ],
+  "CEILING": [
+    "CEILING(value(, significance))",
+    "Returns number rounded up, away from zero, to the nearest multiple of significance.  <code>significance</code> : the multiple to which you want to round.\"\nCEILING(1.23456)      => 2.0\nCEILING(-1.23456)     => 1.0\nCEILING(12.23456, 10) => 20\n"
+  ],
+  "FLOOR": [
+    "FLOOR(value(, significance))",
+    "Rounds number down, toward zero, to the nearest multiple of significance. <code>significance</code> : the multiple to which you want to round.\nFLOOR(1.23456)    => 1.0\nFLOOR(-1.23456)    => -2.0\nFLOOR(12.23456, 10) => 10\n"
+  ],
+  "ABS": ["ABS(value)", "Returns the absolute value of <code>value</code>"],
+  "RANDBETWEEN": [
+    "RANDBETWEEN(a, b)",
+    "Generates a random number between <code>a</code> and <code>b</code>"
+  ],
+  "SUM": [
+    "SUM(a,b,c,...)",
+    "Sums a, b and c. (can also take an <code>ARRAY</code>)"
+  ],
+  "AVG": [
+    "AVG(a,b,c,...)",
+    "Returns the average of a,b and c (can also take an <code>ARRAY</code>)"
+  ],
+  "STDEVP": [
+    "STDEVP(a,b,c,...)",
+    "      Return the standard deviation based on the entire population given as arguments.\n      The standard deviation is a measure of how widely values are dispersed from the average value (the mean).\n      (can also take an <code>ARRAY</code>)\n"
+  ],
+  "EVAL_ARRAY": [
+    "EVAL_ARRAY(key1, arr1, key2, arr2, meta_formula)",
+    "Allows you to perform a function on two arrays which will return an array.\n    key1 - Key to use in meta_formula for arr1\n    arr1 - An array\n    key2 - Key to use in meta_formula for arr2\n    meta_formula - Formula which gets applied for each element\nEVAL_ARRAY('a', (1,2), 'b', (3,4), 'a + b')\nWould return [4, 6] (1+3 and 2+4)\n"
+  ],
+  "ARRAY": [
+    "ARRAY(a,b,c,...)",
+    "Takes a variable number of arguments and returns an <code>ARRAY</code> which can be used in other formulas.\nYou could make a formula ('a') which returns <code>ARRAY(1,2,3)</code> and then reuse this in another formula to get the sum of 'a' <code>SUM(a)</code>\n"
+  ],
+  "SCORE_TABLE": [
+    "SCORE_TABLE(range_a, range_b, then_c,range_b, range_d, then_f,range_d, range_h, then_i,else_z)",
+    "SCORE_TABLE(\n      range_a, range_b, then_c,\n      range_b, range_d, then_f,\n      range_d, range_h, then_i,\n      else_z\n    )\nAllow compact if else ranges check\n"
+  ],
+  "SAVE_DIV": [
+    "SAFE_DIV(numerator, denominator)",
+    "Returns numerator divided by denominator, but will return 0 when denominator is 0"
+  ],
+  "SQRT": [
+    "SQRT(number)",
+    "Returns a positive square root. If the the number is negative this will fails. "
+  ],
+  "CAL_DAYS_IN_MONTH": [
+    "CAL_DAYS_IN_MONTH(year, month_of_year)",
+    "Returns the number days in gregorian calendar for that month. month_of_year is from 1 to 12, year should be > 1900"
+  ]
+}
