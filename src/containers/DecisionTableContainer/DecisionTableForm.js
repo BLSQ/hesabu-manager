@@ -1,5 +1,14 @@
-import { Button, Grid, Input, TextField, Typography } from "@material-ui/core";
+import {
+  Button,
+  Grid,
+  Input,
+  TextField,
+  Typography,
+  Link,
+  makeStyles,
+} from "@material-ui/core";
 import HelpIcon from "@material-ui/icons/Help";
+import OpenInNewIcon from "@material-ui/icons/OpenInNew";
 import MUIDataTable from "mui-datatables";
 import React, { useState } from "react";
 import PapaParse from "papaparse";
@@ -9,7 +18,15 @@ import { deserialize } from "../../utils/jsonApiUtils";
 import { useHistory } from "react-router-dom";
 import ConfirmBox from "../../components/Shared/ConfirmBox";
 
+const useStyles = makeStyles(theme => ({
+  linkMargin: {
+    marginTop: "1rem",
+    marginLeft: "1rem",
+  },
+}));
+
 const DecisionTableForm = ({ decisionTable, set }) => {
+  const classes = useStyles();
   const userCanEdit = canEdit();
   if (decisionTable) {
     decisionTable.parsedContent = PapaParse.parse(decisionTable.content, {
@@ -188,6 +205,8 @@ const DecisionTableForm = ({ decisionTable, set }) => {
         <Grid item>
           <TextField
             id="comment"
+            multiline
+            rows={4}
             error={validationErrors["comment"]}
             helperText={
               validationErrors["comment"] ||
@@ -203,21 +222,34 @@ const DecisionTableForm = ({ decisionTable, set }) => {
           />
         </Grid>
         <Grid item>
-          <TextField
-            id="sourceUrl"
-            error={validationErrors["sourceUrl"]}
-            helperText={
-              validationErrors["sourceUrl"] ||
-              "Add link to the google sheet you used to fill in this decision table"
-            }
-            label={"sourceUrl"}
-            variant="outlined"
-            fullWidth
-            value={decisionTableToUse.sourceUrl}
-            onChange={event =>
-              handleAttributeChange(event.target.value, "sourceUrl")
-            }
-          />
+          <Grid container>
+            <Grid item>
+              <TextField
+                id="sourceUrl"
+                error={validationErrors["sourceUrl"]}
+                helperText={
+                  validationErrors["sourceUrl"] ||
+                  "Add link to the google sheet you used to fill in this decision table"
+                }
+                label={"sourceUrl"}
+                variant="outlined"
+                fullWidth
+                value={decisionTableToUse.sourceUrl}
+                onChange={event =>
+                  handleAttributeChange(event.target.value, "sourceUrl")
+                }
+              />
+            </Grid>
+            <Grid item>
+              <Link
+                href={decisionTableToUse.sourceUrl}
+                target="_blank"
+                rel="noreferrer"
+              >
+                <OpenInNewIcon className={classes.linkMargin} />
+              </Link>
+            </Grid>
+          </Grid>
         </Grid>
 
         {decisionTableToUse.parsedContent && (
