@@ -3,6 +3,10 @@
     "IF(expression, true_value, false_value)",
     "If <code>expression</code> evaluates to true, returns <code>true_value</code> otherwise <code>false_value</code>"
   ],
+  "ACCESS": [
+    "ACCESS(values1...valueN, index)",
+    "Returns element at <code>index</code>, starting at zero. Example : ACCESS(1,2,3, 0) => 1"
+  ],
   "MIN": [
     "MIN(value1, value2)",
     "Returns the minum of the two values (can also take an <code>ARRAY</code>)"
