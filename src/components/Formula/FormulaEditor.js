@@ -7,6 +7,7 @@ import languageTools, {
   setCompleters,
   addCompleter,
 } from "ace-builds/src-noconflict/ext-language_tools";
+import functions from "./functions.json";
 
 const FormulaEditor = ({
   value,
@@ -25,9 +26,20 @@ const FormulaEditor = ({
           return {
             caption: availableVariable,
             value: availableVariable,
+            snippet: availableVariable,
             meta: "available variable",
           };
         });
+        for (const func of Object.keys(functions)) {
+          const funcInfo = functions[func];
+          results.push({
+            caption: funcInfo[0],
+            value: func,
+            snippet: `${func}(`,
+            meta: "function",
+            docHTML: `${funcInfo[0]} <br> ${funcInfo[1]}`,
+          });
+        }
         callback(null, results);
       },
     });

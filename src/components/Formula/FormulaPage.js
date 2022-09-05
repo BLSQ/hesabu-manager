@@ -10,7 +10,8 @@ import {
 } from "@material-ui/core";
 import CheckIcon from "@material-ui/icons/Check";
 import ErrorIcon from "@material-ui/icons/Error";
-import React, { useEffect, useState } from "react";
+import HelpIcon from "@material-ui/icons/Help";
+import React, { useState } from "react";
 import { useMutation } from "react-query";
 import { makeStyles } from "@material-ui/core/styles";
 import PropTypes from "prop-types";
@@ -24,6 +25,7 @@ import FormulaEditor from "./FormulaEditor";
 import { externalApi, canEdit } from "../../actions/api";
 import { deserialize } from "../../utils/jsonApiUtils";
 import ConfirmBox from "../Shared/ConfirmBox";
+import FormulaHelp from "./FormulaHelp";
 
 const Formulas = ({ label, formulas }) => {
   return (
@@ -80,6 +82,7 @@ const FormulaPage = ({
   const [validationErrors, setValidationErrors] = useState({});
   const [deletionError, setDeletionError] = useState(null);
   const [confirmOpen, setConfirmOpen] = useState(false);
+  const [showHelp, setShowHelp] = useState(false);
 
   const userCanEdit = canEdit();
   const formulaType = match.path.split("/")[3];
@@ -326,6 +329,12 @@ const FormulaPage = ({
               >
                 Save
               </Button>
+              <Button
+                style={{ color: "lightblue" }}
+                onClick={() => setShowHelp(!showHelp)}
+              >
+                <HelpIcon></HelpIcon>
+              </Button>
             </Grid>
             <ConfirmBox
               open={confirmOpen}
@@ -358,6 +367,7 @@ const FormulaPage = ({
             <ErrorIcon />
           </span>
         )}
+        {showHelp && <FormulaHelp />}
       </Grid>
 
       <Grid item xs={4}>
