@@ -37,6 +37,11 @@ const LoadableCompoundsContainer = Loadable({
   loading: RouteLoading,
 });
 
+const LoadableNewCompoundContainer = Loadable({
+  loader: () => import("./components/Compounds/Compound/NewCompound"),
+  loading: RouteLoading,
+});
+
 const LoadableSimulationContainer = Loadable({
   loader: () => import("./containers/SimulationContainer"),
   loading: RouteLoading,
@@ -79,11 +84,6 @@ const LoadableNewUserContainer = Loadable({
 
 const LoadableDecisionTableContainer = Loadable({
   loader: () => import("./containers/DecisionTableContainer/index.js"),
-  loading: RouteLoading,
-});
-
-const LoadableDecisionTableListContainer = Loadable({
-  loader: () => import("./components/DecisionTables/DecisionTableList"),
   loading: RouteLoading,
 });
 
@@ -282,6 +282,11 @@ class App extends Component {
                                 exact
                                 path="/sets/:setId/topic/import"
                                 component={LoadableSetsContainer}
+                              />
+                              <Route
+                                exact
+                                path="/compounds/new"
+                                component={LoadableNewCompoundContainer}
                               />
                               <Route
                                 exact
