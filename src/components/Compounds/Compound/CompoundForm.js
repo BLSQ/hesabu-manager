@@ -29,6 +29,10 @@ const CompoundForm = ({ compound, modeCreate }) => {
   const [isDirty, setIsDirty] = useState(false);
 
   const [compoundToUse, setCompoundToUse] = useState(compound);
+  if (!compoundToUse.setIds) {
+    compoundToUse.setIds = compoundToUse.sets.map(set => set.id);
+  }
+
   const [validationErrors, setValidationErrors] = useState({});
 
   const handleMutation = useMutation(
@@ -48,7 +52,7 @@ const CompoundForm = ({ compound, modeCreate }) => {
           .json();
       } else {
         resp = await externalApi()
-          .url(`/compound/${compound.id}`)
+          .url(`/compounds/${compound.id}`)
           .put(payload)
           .json();
       }
@@ -59,10 +63,12 @@ const CompoundForm = ({ compound, modeCreate }) => {
     {
       onSuccess: resp => {
         setValidationErrors({});
-        const path = modeCreate ? `/compounds` : `/compound/${compound.id}`;
+        const path = modeCreate
+          ? `/compounds`
+          : `/compounds/${compound.id}/compound_formulas`;
         history.push(path);
-        // queryClient.invalidateQueries("fetchCompound");
-        // queryClient.invalidateQueries("fetchCompounds");
+        queryClient.invalidateQueries("fetchCompound");
+        queryClient.invalidateQueries("fetchCompounds");
       },
       onError: error => {
         let resp = error.json;
@@ -86,7 +92,7 @@ const CompoundForm = ({ compound, modeCreate }) => {
   const handleSetsChange = options => {
     const newCompound = { ...compoundToUse };
     const setIds = options.map(set => set.id);
-    newCompound.sets = setIds;
+    newCompound.setIds = setIds;
     setCompoundToUse(newCompound);
     setIsDirty(true);
   };
