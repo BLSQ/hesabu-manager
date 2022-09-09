@@ -294,10 +294,17 @@ class App extends Component {
                                 component={LoadableCompoundsContainer}
                               />
                               <Route
+                                exact
+                                path="/compounds/:compoundId"
+                                component={LoadableCompoundsContainer}
+                              />
+                              <Route
+                                exact
                                 path="/compounds/:compoundId/compound_formulas/:formulaId"
                                 component={LoadableFormulaContainer}
                               />
                               <Route
+                                exact
                                 path="/compounds/:compoundId/compound_formulas"
                                 component={LoadableCompoundsContainer}
                               />
