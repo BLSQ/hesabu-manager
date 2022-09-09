@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import {
   Typography,
   Dialog,
@@ -6,7 +6,7 @@ import {
   makeStyles,
   CircularProgress,
 } from "@material-ui/core";
-import { useHistory, withRouter, Link } from "react-router-dom";
+import { useHistory, withRouter, Link, Switch, Route } from "react-router-dom";
 import PropTypes from "prop-types";
 import { useTranslation } from "react-i18next";
 import TopBar from "../../Shared/TopBar";
@@ -18,6 +18,9 @@ import FiltersToggleBtn from "../../FiltersToggleBtn";
 import Formulas from "../../Formula/Formulas";
 import ActionFab from "../../Shared/ActionFab";
 import { canEdit } from "../../../actions/api";
+import CompoundContainer from "../../../containers/CompoundContainer";
+import EditCompound from "./EditCompound";
+import Tabs from "./Tabs";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -52,9 +55,24 @@ const Compound = props => {
     onSideSheetClose,
     onToggleSideSheet,
     sets,
+    match,
   } = props;
   const { t } = useTranslation();
   const userCanEdit = canEdit();
+  const tabConfigs = [
+    {
+      label: t("compound.tabs.compoundFormulas.label"),
+      title: t("compound.tabs.compoundFormulas.tooltip"),
+      to: `/compounds/${match.params.compoundId}/compound_formulas`,
+      routeComponent: CompoundContainer,
+    },
+    {
+      label: t("compound.tabs.editCompound.label"),
+      title: t("compound.tabs.editCompound.tooltip"),
+      to: `/compounds/${match.params.compoundId}`,
+      routeComponent: EditCompound,
+    },
+  ];
   return (
     <Dialog
       fullScreen
@@ -62,7 +80,13 @@ const Compound = props => {
       onClose={() => history.push("/compounds")}
       TransitionComponent={Transition}
     >
-      <TopBar fullscreen backLinkPath="/compounds">
+      <TopBar
+        fullscreen
+        backLinkPath="/compounds"
+        tabs={Tabs}
+        tabsProps={{ tabConfigs }}
+        compound={compound}
+      >
         <Typography variant="h6" color="inherit">
           {loading ? "…" : name}
         </Typography>
@@ -72,7 +96,32 @@ const Compound = props => {
           onClick={onToggleSideSheet}
         />
       </TopBar>
-      <div style={{ display: "flex" }}>
+
+      {!!compound.id && (
+        <Fragment>
+          <Switch>
+            <Route
+              key="edit"
+              path={`/compounds/${match.params.compoundId}`}
+              exact={true}
+              component={() => <EditCompound compound={compound} />}
+            />
+
+            {tabConfigs.map(tab => (
+              <Route
+                key={tab.to}
+                path={tab.to}
+                exact={true}
+                component={() => {
+                  const Comp = tab.routeComponent;
+                  return <Comp compound={compound} loading={loading} />;
+                }}
+              />
+            ))}
+          </Switch>
+        </Fragment>
+      )}
+      <div style={{ marginTop: "2.5rem", display: "flex" }}>
         <PageContent fullscreen>
           {loading && <CircularProgress />}
           {errorMessage && <p>{errorMessage}</p>}
