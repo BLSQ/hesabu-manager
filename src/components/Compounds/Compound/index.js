@@ -7,7 +7,7 @@ import TopBar from "../../Shared/TopBar";
 import PageContent from "../../Shared/PageContent";
 import FiltersToggleBtn from "../../FiltersToggleBtn";
 import EditCompound from "./EditCompound";
-import Tabs from "./Tabs";
+import Tabs from "../../Shared/Tabs";
 import CompoundFormulas from "./CompoundFormulas";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
