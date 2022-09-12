@@ -1,16 +1,12 @@
-import React, { Fragment } from "react";
+import React from "react";
 import PageContent from "../../Shared/PageContent";
 import CompoundForm from "./CompoundForm";
 
 const EditCompound = ({ compound }) => {
   return (
-    <Fragment>
-      <>
-        <PageContent>
-          <CompoundForm compound={compound} modeCreate={false} />
-        </PageContent>
-      </>
-    </Fragment>
+    <PageContent>
+      <CompoundForm compound={compound} modeCreate={false} />
+    </PageContent>
   );
 };
 

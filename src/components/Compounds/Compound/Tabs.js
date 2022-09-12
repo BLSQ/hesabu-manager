@@ -15,7 +15,6 @@ const useStyles = makeStyles(theme => ({
 const CompoundTabs = ({ match, set, location, tabConfigs }) => {
   const classes = useStyles();
   let activeTab = tabConfigs.findIndex(tab => tab.to === location.pathname);
-  debugger;
   if (activeTab === -1) {
     activeTab = 0;
   }
