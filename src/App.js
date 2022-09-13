@@ -23,7 +23,6 @@ import { CookiesProvider } from "react-cookie";
 import keymap from "./lib/shortcuts";
 import { ShortcutManager, Shortcuts } from "react-shortcuts";
 import HomeTour from "./components/HomeTour";
-import NewSet from "./components/Sets/Set/NewSet";
 import { QueryClient, QueryClientProvider } from "react-query";
 const shortcutManager = new ShortcutManager(keymap);
 
@@ -87,6 +86,11 @@ const LoadableDecisionTableContainer = Loadable({
   loading: RouteLoading,
 });
 
+const LoadableChangesContainer = Loadable({
+  loader: () => import("./containers/ChangesContainer.js"),
+  loading: RouteLoading,
+});
+
 const styles = () => ({
   root: {
     flexGrow: 1,
@@ -124,6 +128,9 @@ class App extends Component {
     const { history } = this.props;
 
     switch (action) {
+      case "GO_TO_CHANGES":
+        history.push("/changes");
+        break;
       case "GO_TO_SETS":
         history.push("/sets");
         break;
@@ -307,6 +314,11 @@ class App extends Component {
                                 exact
                                 path="/compounds/:compoundId/compound_formulas"
                                 component={LoadableCompoundsContainer}
+                              />
+                              <Route
+                                exact
+                                path="/changes"
+                                component={LoadableChangesContainer}
                               />
                               <Route
                                 exact
