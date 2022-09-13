@@ -33,7 +33,8 @@ const ChangesContainer = () => {
 
   const changes = loadChangesQuery?.data;
   const loading = loadChangesQuery?.isLoading;
-
+  //TODO initialize this with react query
+  const usersById = {};
   return (
     <>
       {changes && (
@@ -44,7 +45,7 @@ const ChangesContainer = () => {
             </Typography>
           </TopBar>
           <PageContent>
-            <ChangesList changes={changes} />
+            <ChangesList changes={changes} usersById={usersById} />
           </PageContent>
         </>
       )}
