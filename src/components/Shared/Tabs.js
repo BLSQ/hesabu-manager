@@ -1,8 +1,7 @@
+import React from "react";
+import { makeStyles } from "@material-ui/styles";
 import { Link, withRouter } from "react-router-dom";
 import { Tab, Tabs } from "@material-ui/core";
-import React from "react";
-import { useTranslation } from "react-i18next";
-import { makeStyles } from "@material-ui/styles";
 
 const useStyles = makeStyles(theme => ({
   tabsRoot: {
@@ -13,17 +12,12 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-function SetTabs(props) {
-  const { match, set, location, tabConfigs } = props;
+const SharedTabs = ({ match, set, location, tabConfigs }) => {
   const classes = useStyles();
-  const { t } = useTranslation();
-
-  let activeTab = tabConfigs.findIndex(tab => tab.to == location.pathname);
-
-  if (activeTab == -1) {
+  let activeTab = tabConfigs.findIndex(tab => tab.to === location.pathname);
+  if (activeTab === -1) {
     activeTab = 0;
   }
-
   return (
     <Tabs
       value={activeTab}
@@ -37,6 +31,6 @@ function SetTabs(props) {
       ))}
     </Tabs>
   );
-}
+};
 
-export default withRouter(SetTabs);
+export default withRouter(SharedTabs);

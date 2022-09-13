@@ -6,7 +6,7 @@ import { useTranslation } from "react-i18next";
 import FiltersToggleBtn from "../../FiltersToggleBtn";
 import TopBar from "../../Shared/TopBar";
 import SideSheet from "../../SideSheet";
-import Tabs from "./Tabs";
+import Tabs from "../../Shared/Tabs";
 import ImportTopicsContainer from "./ImportTopicsContainer";
 import SetChildrenContainer from "../../../containers/SetChildrenContainer";
 import SetCurrentLevelContainer from "../../../containers/SetCurrentLevelContainer";

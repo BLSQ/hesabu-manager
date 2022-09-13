@@ -33,6 +33,16 @@ export default {
           title: "Compound info",
         },
         sets: "Sets",
+        tabs: {
+          compoundFormulas: {
+            label: "Compound formulas",
+            tooltip: "Formulas",
+          },
+          editCompound: {
+            label: "Edit",
+            tooltip: "Edit",
+          },
+        },
       },
       noData: "N/A",
       emptySection: {

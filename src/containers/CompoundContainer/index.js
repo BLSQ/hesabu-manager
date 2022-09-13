@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { withRouter } from "react-router-dom";
+import { useQuery } from "react-query";
 import PropTypes from "prop-types";
 import Compound from "../../components/Compounds/Compound";
 import { deserialize } from "../../utils/jsonApiUtils";
@@ -9,47 +10,49 @@ import Dhis2DataElementsProvider from "../Dhis2DataElementsProvider";
 const CompoundContainer = props => {
   const { open } = props;
   const [sideSheetOpen, setSideSheetOpen] = useState(true);
-
-  const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
-  const [compound, setCompound] = useState({});
 
-  useEffect(() => {
-    if (open) {
-      setLoading(true);
-      externalApi()
+  const fetchCompoundQuery = useQuery(
+    ["fetchCompound", props.compoundId],
+    async () => {
+      let response = await externalApi()
         .errorType("json")
         .url(`/compounds/${props.compoundId}`)
         .get()
-        .json(response => {
-          setLoading(false);
-          deserialize(response).then(data => {
-            setCompound(data);
-          });
+        .json();
+      response = deserialize(response);
+      return response;
+    },
+    {
+      onSuccess: () => {
+        setErrorMessage(null);
+      },
+      onError: error => {
+        setErrorMessage(error.message);
+      },
+    },
+  );
 
-          setErrorMessage(null);
-        })
-        .catch(e => {
-          setErrorMessage(e.message);
-          setLoading(false);
-          setCompound({});
-        });
-    }
-  }, [props.compoundId, open]);
+  const compound = fetchCompoundQuery?.data;
+  const loading = fetchCompoundQuery?.isLoading;
 
   return (
-    <Dhis2DataElementsProvider>
-      <Compound
-        open={open}
-        loading={loading}
-        errorMessage={errorMessage}
-        compound={compound}
-        {...compound}
-        sideSheetOpen={sideSheetOpen}
-        onSideSheetClose={() => setSideSheetOpen(false)}
-        onToggleSideSheet={() => setSideSheetOpen(!sideSheetOpen)}
-      />
-    </Dhis2DataElementsProvider>
+    <>
+      {compound && (
+        <Dhis2DataElementsProvider>
+          <Compound
+            open={open}
+            loading={loading}
+            errorMessage={errorMessage}
+            compound={compound}
+            {...compound}
+            sideSheetOpen={sideSheetOpen}
+            onSideSheetClose={() => setSideSheetOpen(false)}
+            onToggleSideSheet={() => setSideSheetOpen(!sideSheetOpen)}
+          />
+        </Dhis2DataElementsProvider>
+      )}
+    </>
   );
 };
 
