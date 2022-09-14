@@ -24,12 +24,28 @@ const useStyles = makeStyles(theme => ({
 
 const ChangesListItem = ({ change, translateToUser }) => {
   const classes = useStyles();
+  const Diff = require("diff");
+
+  const determineStyle = changeType => {
+    switch (changeType) {
+      case "update":
+        return "inherit";
+      case "create":
+        return "green";
+      case "destroy":
+        return "red";
+    }
+  };
+
   return (
     <div className={classes.root}>
       <div className={classes.header}>
         <div>
           <Typography className={classes.sectionTitle}>
-            {change.event} : {change.itemType} - {change.itemId}
+            <span style={{ color: determineStyle(change.event) }}>
+              {change.event}
+            </span>{" "}
+            : {change.itemType} - {change.itemId}
           </Typography>
         </div>
 
@@ -43,8 +59,23 @@ const ChangesListItem = ({ change, translateToUser }) => {
         >
           {change.diffs.map(details => (
             <div style={{ gap: "20px", display: "flex" }}>
-              <div style={{ minWidth: "300px" }}>{details.diff[0]}</div>
-              <div dangerouslySetInnerHTML={{ __html: details.html }} />
+              <div style={{ minWidth: "300px" }}>{details.field}</div>
+              {details.before && details.after && (
+                <>
+                  <div>
+                    {Diff.diffSentences(details.before, details.after).map(
+                      part => {
+                        const color = part.added
+                          ? "green"
+                          : part.removed
+                          ? "red"
+                          : "grey";
+                        return <span style={{ color }}>{part.value}</span>;
+                      },
+                    )}
+                  </div>
+                </>
+              )}
             </div>
           ))}
         </div>
