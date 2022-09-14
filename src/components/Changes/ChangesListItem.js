@@ -24,13 +24,8 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const diffModes = ["diffSentences", "diffChars", "diffWords", "diffLines"];
-
 const ChangesListItem = ({ change, translateToUser }) => {
   const classes = useStyles();
-  const Diff = require("diff");
-
-  const [diffModeIndex, setDiffModeIndex] = useState(0);
 
   const determineStyle = changeType => {
     switch (changeType) {
@@ -68,10 +63,7 @@ const ChangesListItem = ({ change, translateToUser }) => {
               <div style={{ minWidth: "300px" }}>{details.field}</div>
               <Grid justifyContent={"space-between"} spacing={2} container>
                 <ErrorBoundary>
-                  <VisualDiff
-                    details={details}
-                    diffMode={diffModes[diffModeIndex]}
-                  />
+                  <VisualDiff details={details} />
                 </ErrorBoundary>
               </Grid>
             </div>
@@ -93,23 +85,6 @@ const ChangesListItem = ({ change, translateToUser }) => {
               <i>{change.createdAt}</i>
             </>
           )}
-        </div>
-        <div style={{ width: "100%", marginLeft: "50rem" }}>
-          <Button
-            variant={"outlined"}
-            onClick={() =>
-              setDiffModeIndex((diffModeIndex + 1) % diffModes.length)
-            }
-          >
-            {" "}
-            Change diff view{" "}
-          </Button>
-          <div style={{ marginTop: "0.5rem", marginLeft: "0.5rem" }}>
-            <small>
-              {" "}
-              <b>Current:</b> {diffModes[diffModeIndex]}
-            </small>
-          </div>
         </div>
       </div>
     </div>
