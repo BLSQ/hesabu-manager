@@ -7,6 +7,7 @@ import {
 } from "@material-ui/core";
 import React, { Fragment } from "react";
 import ListIcon from "@material-ui/icons/List";
+import ChangeHistoryIcon from "@material-ui/icons/ChangeHistory";
 import FunctionsIcon from "@material-ui/icons/Functions";
 import { useSelector } from "react-redux";
 import ExitIcon from "@material-ui/icons/ExitToApp";
@@ -41,6 +42,11 @@ function DrawerItems(props) {
   const userCanEdit = canEdit();
   // TODO: Move this to separate file, and use them into the props here.
   const items = [
+    {
+      name: formattedName(t("resources.change_plural")),
+      to: "/changes",
+      Icon: ChangeHistoryIcon,
+    },
     {
       name: formattedName(t("resources.set_plural")),
       to: "/sets",

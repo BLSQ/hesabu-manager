@@ -5,7 +5,7 @@ const ChangesList = ({ changes, usersById }) => {
   const translateToUser = dhis2UserId => {
     const user = usersById[dhis2UserId];
     if (user) {
-      return user.name;
+      return user.displayName;
     }
     return dhis2UserId || "System";
   };

@@ -93,6 +93,7 @@ export default {
         formula: "formula",
         formula_plural: "formulas",
         decisionTable: "Decision table",
+        change_plural: "Changes",
       },
       set: {
         frequency: "Frequency",

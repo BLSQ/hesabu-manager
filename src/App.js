@@ -233,7 +233,7 @@ class App extends Component {
                               }
                               open={this.props.drawerOpen}
                             />
-                            {pathname === "/" && <Redirect to="/sets" />}
+                            {pathname === "/" && <Redirect to="/changes" />}
                             {/* AB: Make this relate to drawer items? */}
                             <Switch>
                               <Route

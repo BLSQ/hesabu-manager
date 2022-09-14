@@ -1,6 +1,8 @@
-import React from "react";
-import { Typography, Grid } from "@material-ui/core";
+import React, { useState } from "react";
+import { Typography, Grid, Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
+import ErrorBoundary from "../Shared/ErrorBoundary";
+import VisualDiff from "./Diff";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -22,9 +24,13 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
+const diffModes = ["diffSentences", "diffChars", "diffWords", "diffLines"];
+
 const ChangesListItem = ({ change, translateToUser }) => {
   const classes = useStyles();
   const Diff = require("diff");
+
+  const [diffModeIndex, setDiffModeIndex] = useState(0);
 
   const determineStyle = changeType => {
     switch (changeType) {
@@ -60,22 +66,14 @@ const ChangesListItem = ({ change, translateToUser }) => {
           {change.diffs.map(details => (
             <div style={{ gap: "20px", display: "flex" }}>
               <div style={{ minWidth: "300px" }}>{details.field}</div>
-              {details.before && details.after && (
-                <>
-                  <div>
-                    {Diff.diffSentences(details.before, details.after).map(
-                      part => {
-                        const color = part.added
-                          ? "green"
-                          : part.removed
-                          ? "red"
-                          : "grey";
-                        return <span style={{ color }}>{part.value}</span>;
-                      },
-                    )}
-                  </div>
-                </>
-              )}
+              <Grid justifyContent={"space-between"} spacing={2} container>
+                <ErrorBoundary>
+                  <VisualDiff
+                    details={details}
+                    diffMode={diffModes[diffModeIndex]}
+                  />
+                </ErrorBoundary>
+              </Grid>
             </div>
           ))}
         </div>
@@ -95,6 +93,23 @@ const ChangesListItem = ({ change, translateToUser }) => {
               <i>{change.createdAt}</i>
             </>
           )}
+        </div>
+        <div style={{ width: "100%", marginLeft: "50rem" }}>
+          <Button
+            variant={"outlined"}
+            onClick={() =>
+              setDiffModeIndex((diffModeIndex + 1) % diffModes.length)
+            }
+          >
+            {" "}
+            Change diff view{" "}
+          </Button>
+          <div style={{ marginTop: "0.5rem", marginLeft: "0.5rem" }}>
+            <small>
+              {" "}
+              <b>Current:</b> {diffModes[diffModeIndex]}
+            </small>
+          </div>
         </div>
       </div>
     </div>

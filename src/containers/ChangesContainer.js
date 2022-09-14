@@ -6,10 +6,10 @@ import ChangesList from "../components/Changes/ChangesList";
 import PageContent from "../components/Shared/PageContent";
 import TopBar from "../components/Shared/TopBar";
 import { Typography } from "@material-ui/core";
+import Api from "../lib/Api";
+import _ from "lodash";
 
 const ChangesContainer = () => {
-  const [errorMessage, setErrorMessage] = useState(null);
-
   const loadChangesQuery = useQuery(
     "loadChanges",
     async () => {
@@ -22,22 +22,31 @@ const ChangesContainer = () => {
       return response;
     },
     {
-      onSuccess: () => {
-        setErrorMessage(null);
-      },
-      onError: error => {
-        setErrorMessage(error.message);
-      },
+      onError: error => console.log(error.message),
     },
   );
 
   const changes = loadChangesQuery?.data;
-  const loading = loadChangesQuery?.isLoading;
-  //TODO initialize this with react query
-  const usersById = {};
+
+  const loadUsersQuery = useQuery(
+    "loadUsers",
+    async () => {
+      const api = await Api.instance();
+      const usersResponse = await api.get("users", {
+        fields: "id,displayName,username",
+        paging: false,
+      });
+      return _.keyBy(usersResponse.users, u => u.id);
+    },
+    {
+      onError: error => console.log(error.message),
+    },
+  );
+
+  const usersById = loadUsersQuery?.data;
   return (
     <>
-      {changes && (
+      {changes && usersById && (
         <>
           <TopBar>
             <Typography variant="h6" color="inherit">
