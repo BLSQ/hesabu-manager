@@ -3,6 +3,7 @@ import { Typography, Grid, Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
 import ErrorBoundary from "../Shared/ErrorBoundary";
 import VisualDiff from "./Diff";
+import { Link, useHistory } from "react-router-dom";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -43,10 +44,29 @@ const ChangesListItem = ({ change, translateToUser }) => {
       <div className={classes.header}>
         <div>
           <Typography className={classes.sectionTitle}>
-            <span style={{ color: determineStyle(change.event) }}>
-              {change.event}
-            </span>{" "}
-            : {change.itemType} - {change.itemId}
+            {change.path === null && (
+              <>
+                <span style={{ color: determineStyle(change.event) }}>
+                  {change.event}
+                </span>{" "}
+                : {change.itemType} - {change.itemId}
+              </>
+            )}
+            {change.itemType === "Formula" && change.path !== null && (
+              <>
+                <span style={{ color: determineStyle(change.event) }}>
+                  {change.event}
+                </span>{" "}
+                :{" "}
+                <Link
+                  to={`/${change?.path.parentKind}/${change?.path.parentId}/${change?.path.kind}/${change?.path.formulaId}`}
+                  style={{ "text-decoration": "none" }}
+                  title="View formula"
+                >
+                  {change.itemType} - {change.itemId}
+                </Link>
+              </>
+            )}
           </Typography>
         </div>
 
