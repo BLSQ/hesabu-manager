@@ -1,12 +1,8 @@
 .magicButton {
-  animation: 1s fadeIn;
+  animation: 2s fadeIn;
   animation-fill-mode: forwards;
 
   visibility: hidden;
-}
-
-.magicButton:hover {
-  --background-color: #123;
 }
 
 @keyframes fadeIn {

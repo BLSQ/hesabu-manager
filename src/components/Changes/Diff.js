@@ -38,9 +38,9 @@ const VisualDiff = ({ details }) => {
     >
       {showButton && (
         <Button
-          style={{ display: "float" }}
-          class="magicButton"
-          variant={"outlined"}
+          style={{ display: "float", marginBottom: "5px" }}
+          className="magicButton"
+          variant="outlined"
           onClick={() =>
             setDiffModeIndex((diffModeIndex + 1) % diffModes.length)
           }

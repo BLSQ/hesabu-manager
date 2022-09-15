@@ -49,27 +49,32 @@ const ChangesListItem = ({ change, translateToUser }) => {
                 <span style={{ color: determineStyle(change.event) }}>
                   {change.event}
                 </span>{" "}
-                : {change.itemType} - {change.itemId}
+                : {change.name}
               </>
             )}
-            {change.itemType === "Formula" && change.path !== null && (
+            {change.path && (
               <>
                 <span style={{ color: determineStyle(change.event) }}>
                   {change.event}
                 </span>{" "}
                 :{" "}
                 <Link
-                  to={`/${change?.path.parentKind}/${change?.path.parentId}/${change?.path.kind}/${change?.path.formulaId}`}
-                  style={{ "text-decoration": "none" }}
-                  title="View formula"
+                  to={[
+                    change.path.parentKind,
+                    change.path.parentId,
+                    change?.path.kind,
+                    change.path.itemId,
+                  ]
+                    .filter(r => r)
+                    .join("/")}
+                  title="View Details"
                 >
-                  {change.itemType} - {change.itemId}
+                  {change.name}
                 </Link>
               </>
             )}
           </Typography>
         </div>
-
         <div
           style={{
             marginLeft: "20px",
