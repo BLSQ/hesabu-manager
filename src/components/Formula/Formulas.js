@@ -1,5 +1,5 @@
 import React from "react";
-import { makeStyles, Grid } from "@material-ui/core";
+import { makeStyles, Grid, Button } from "@material-ui/core";
 import Switch from "@material-ui/core/Switch";
 import FormulaCard from "./FormulaCard";
 import Mermaid from "../Shared/Mermaid";
@@ -17,7 +17,7 @@ const useStyles = makeStyles(theme => ({
 
 const Formulas = ({ formulas, parent }) => {
   const [showGraph, setShowGraph] = React.useState(false);
-
+  const [graphDirection, setGraphDirection] = React.useState("TD");
   const handleChange = event => {
     setShowGraph(event.target.checked);
   };
@@ -25,14 +25,27 @@ const Formulas = ({ formulas, parent }) => {
 
   return (
     <div className={classes.formulaWrapper}>
-      <Switch
-        color="primary"
-        name="show graph"
-        title="show graph"
-        checked={showGraph}
-        onChange={handleChange}
-        inputProps={{ "aria-label": "primary checkbox" }}
-      />
+      <div>
+        <Switch
+          color="primary"
+          name="show graph"
+          title="show graph"
+          checked={showGraph}
+          onChange={handleChange}
+          inputProps={{ "aria-label": "primary checkbox" }}
+        />
+        {showGraph && (
+          <Button
+            name="Toggle direction"
+            title="Toggle direction"
+            onClick={() =>
+              setGraphDirection(graphDirection === "TD" ? "LR" : "TD")
+            }
+          >
+            Toggle Direction
+          </Button>
+        )}
+      </div>
       {!showGraph && (
         <Grid
           container
@@ -62,7 +75,8 @@ const Formulas = ({ formulas, parent }) => {
 
       {showGraph && (
         <Mermaid
-          id="graph1"
+          id={"graph1" + graphDirection}
+          key={graphDirection}
           content={formulasToMermaid(
             formulas,
             "./index.html#/" +
@@ -71,6 +85,7 @@ const Formulas = ({ formulas, parent }) => {
               parent.id +
               "/" +
               (parent.sets ? "compound_formulas" : "set_formulas"),
+            graphDirection,
           )}
         />
       )}
