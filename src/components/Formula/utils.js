@@ -61,8 +61,9 @@ export const escapeQuotes = str => {
   return str.split('"').join("&bdquo;");
 };
 
-export const formulasToMermaid = (formulas, prefix_url) => {
-  const graph = ["graph TD"];
+export const formulasToMermaid = (formulas, prefix_url, mode) => {
+  const actualMode = mode || "TD";
+  const graph = [`graph ${actualMode}`];
   for (const formula of formulas) {
     for (const dependency of dependencies(formula.expression)) {
       graph.push(`${dependency} --> ${formula.code}`);

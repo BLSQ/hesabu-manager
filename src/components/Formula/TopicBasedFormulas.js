@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/styles";
 import Mermaid from "../Shared/Mermaid";
 import { formulasToMermaid } from "./utils";
@@ -181,6 +181,8 @@ const TopicBasedFormulas = props => {
   const safeInputs = inputs;
   const safeTopicFormulas = formulas || [];
   const safeDecisionTables = decisionTables || [];
+
+  const [graphDirection, setGraphDirection] = useState("TD");
 
   safeDecisionTables.forEach(
     decisionTable =>
@@ -376,20 +378,35 @@ const TopicBasedFormulas = props => {
           <SectionLoading />
         ) : (
           <div>
-            <Switch
-              color="primary"
-              name="show graph"
-              title="show graph"
-              checked={showGraph}
-              onChange={handleChange}
-              inputProps={{ "aria-label": "primary checkbox" }}
-            />
+            <div>
+              <Switch
+                color="primary"
+                name="show graph"
+                title="show graph"
+                checked={showGraph}
+                onChange={handleChange}
+                inputProps={{ "aria-label": "primary checkbox" }}
+              />
+              {showGraph && (
+                <Button
+                  name="Toggle direction"
+                  title="Toggle direction"
+                  onClick={() =>
+                    setGraphDirection(graphDirection === "TD" ? "LR" : "TD")
+                  }
+                >
+                  Toggle Direction
+                </Button>
+              )}
+            </div>
             {showGraph && (
               <Mermaid
-                id="graph1"
+                id={"graph1" + graphDirection}
+                key={"graph1" + graphDirection}
                 content={formulasToMermaid(
                   formulas,
                   "./index.html#/sets/" + setToUse.id + "/topic_formulas",
+                  graphDirection,
                 )}
               />
             )}
