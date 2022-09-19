@@ -52,6 +52,7 @@ const ChangesListItem = ({ change, translateToUser }) => {
                 : {change.name}
               </>
             )}
+
             {change.path && (
               <>
                 <span style={{ color: determineStyle(change.event) }}>
@@ -75,6 +76,24 @@ const ChangesListItem = ({ change, translateToUser }) => {
             )}
           </Typography>
         </div>
+        <div style={{ marginLeft: "70px", marginTop: "-20px" }}>
+          {change.author && (
+            <div>
+              {change.author.email && (
+                <>
+                  by <b>{change.author.email}</b> <br></br>at{" "}
+                  <i>{change.createdAt}</i>
+                </>
+              )}
+            </div>
+          )}
+          {!change.author && (
+            <>
+              by <b>{translateToUser(change.whodunnit)}</b> <br></br>at{" "}
+              <i>{change.createdAt}</i>
+            </>
+          )}
+        </div>
         <div
           style={{
             marginLeft: "20px",
@@ -94,23 +113,7 @@ const ChangesListItem = ({ change, translateToUser }) => {
             </div>
           ))}
         </div>
-        <div style={{ marginLeft: "40px", marginTop: "40px" }}>
-          {change.author && (
-            <div>
-              {change.author.email && (
-                <>
-                  by <b>{change.author.email}</b> at <i>{change.createdAt}</i>
-                </>
-              )}
-            </div>
-          )}
-          {!change.author && (
-            <>
-              by <b>{translateToUser(change.whodunnit)}</b> at{" "}
-              <i>{change.createdAt}</i>
-            </>
-          )}
-        </div>
+        <div style={{ marginBottom: "5px" }}></div>
       </div>
     </div>
   );

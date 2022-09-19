@@ -21,7 +21,7 @@ const diffModes = [
 ];
 
 const VisualDiff = ({ details }) => {
-  const [diffModeIndex, setDiffModeIndex] = useState(0);
+  const [diffModeIndex, setDiffModeIndex] = useState(4);
   const [showButton, setShowButton] = useState(false);
   const diffMode = diffModes[diffModeIndex];
 
@@ -37,7 +37,7 @@ const VisualDiff = ({ details }) => {
     lineBreaksAfter = formatDiff(details.after).match(/\n/g) || [];
     if (lineBreaksBefore.length || lineBreaksAfter.length) {
       useSplitView = true;
-    } else {
+    } else if (diffMode !== "sideBySide") {
       diffParts = Diff[diffMode](
         formatDiff(details.before),
         formatDiff(details.after),
@@ -68,7 +68,12 @@ const VisualDiff = ({ details }) => {
         <pre>
           {diffParts.map(part => {
             const color = part.added ? "green" : part.removed ? "red" : "grey";
-            return <span style={{ color }}>{part.value}</span>;
+            const backgroundColor = part.added
+              ? "lightgreen"
+              : part.removed
+              ? "#FFCCCB"
+              : undefined;
+            return <span style={{ color, backgroundColor }}>{part.value}</span>;
           })}
         </pre>
       )}
@@ -86,11 +91,11 @@ const VisualDiff = ({ details }) => {
         <div style={{ display: "flex", flexDirection: "row", gap: "30px" }}>
           <div>
             Before:
-            <pre>{details.before}</pre>
+            <pre>{formatDiff(details.before)}</pre>
           </div>
           <div>
             After:
-            <pre>{details.after}</pre>
+            <pre>{formatDiff(details.after)}</pre>
           </div>
         </div>
       )}
