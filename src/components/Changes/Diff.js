@@ -1,6 +1,9 @@
 import { Button } from "@material-ui/core";
-import React, { useState } from "react";
+import { DetailsRounded } from "@material-ui/icons";
+import React, { useEffect, useState } from "react";
+import ReactDiffViewer from "react-diff-viewer";
 import "./Button.css";
+import SplitView from "./SplitView";
 const formatDiff = string => {
   if (string === null || string === undefined) {
     return "";
@@ -18,19 +21,39 @@ const diffModes = [
 ];
 
 const VisualDiff = ({ details }) => {
-  const [diffModeIndex, setDiffModeIndex] = useState(0);
+  const [diffModeIndex, setDiffModeIndex] = useState(4);
   const [showButton, setShowButton] = useState(false);
   const diffMode = diffModes[diffModeIndex];
-  const Diff = require("diff");
-  let diffParts = [];
-  try {
-    diffParts = Diff[diffMode](
-      formatDiff(details.before),
-      formatDiff(details.after),
-    );
-  } catch (error) {
-    debugger;
-  }
+
+  const [diffParts, setDiffParts] = useState([]);
+  const [useSplitView, setUseSplitView] = useState(false);
+
+  useEffect(() => {
+    let parts = [];
+    let lineBreaksBefore;
+    let lineBreaksAfter;
+    let useSplitView = false;
+
+    lineBreaksBefore = formatDiff(details.before).match(/\n/g) || [];
+    lineBreaksAfter = formatDiff(details.after).match(/\n/g) || [];
+    if (lineBreaksBefore.length || lineBreaksAfter.length) {
+      setUseSplitView(true);
+      useSplitView = true;
+    }
+
+    if (diffMode != "sideBySide") {
+      const Diff = require("diff");
+
+      debugger;
+      parts = Diff[diffMode](
+        formatDiff(details.before),
+        formatDiff(details.after),
+      );
+    }
+
+    setDiffParts(parts);
+  }, [diffModeIndex, diffMode]);
+
   return (
     <div
       onMouseEnter={() => setShowButton(true)}
@@ -52,20 +75,32 @@ const VisualDiff = ({ details }) => {
         <pre>
           {diffParts.map(part => {
             const color = part.added ? "green" : part.removed ? "red" : "grey";
-            return <span style={{ color }}>{part.value}</span>;
+            const backgroundColor = part.added
+              ? "lightgreen"
+              : part.removed
+              ? "#FFCCCB"
+              : undefined;
+            return <span style={{ color, backgroundColor }}>{part.value}</span>;
           })}
         </pre>
       )}
-
-      {diffMode === "sideBySide" && (
+      {diffMode === "sideBySide" && useSplitView && (
+        <div style={{ display: "flex", flexDirection: "row", gap: "30px" }}>
+          <SplitView
+            before={formatDiff(details.before)}
+            after={formatDiff(details.after)}
+          />
+        </div>
+      )}
+      {diffMode === "sideBySide" && !useSplitView && (
         <div style={{ display: "flex", flexDirection: "row", gap: "30px" }}>
           <div>
             Before:
-            <pre>{details.before}</pre>
+            <pre>{formatDiff(details.before)}</pre>
           </div>
           <div>
             After:
-            <pre>{details.after}</pre>
+            <pre>{formatDiff(details.after)}</pre>
           </div>
         </div>
       )}

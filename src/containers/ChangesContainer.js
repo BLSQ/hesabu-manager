@@ -5,7 +5,7 @@ import { deserialize } from "../utils/jsonApiUtils";
 import ChangesList from "../components/Changes/ChangesList";
 import PageContent from "../components/Shared/PageContent";
 import TopBar from "../components/Shared/TopBar";
-import { Typography } from "@material-ui/core";
+import { Switch, Typography } from "@material-ui/core";
 import Api from "../lib/Api";
 import _ from "lodash";
 
@@ -44,6 +44,8 @@ const ChangesContainer = () => {
   );
 
   const usersById = loadUsersQuery?.data;
+
+  const [showUsers, setShowUsers] = React.useState(false);
   return (
     <>
       {changes && usersById && (
@@ -52,9 +54,22 @@ const ChangesContainer = () => {
             <Typography variant="h6" color="inherit">
               Changes
             </Typography>
+            <Switch
+              color="primary"
+              name="show users related changes"
+              title="show users related changes"
+              checked={showUsers}
+              onChange={() => setShowUsers(!showUsers)}
+              inputProps={{ "aria-label": "primary checkbox" }}
+            />
           </TopBar>
           <PageContent>
-            <ChangesList changes={changes} usersById={usersById} />
+            <ChangesList
+              changes={changes.filter(change =>
+                showUsers ? true : change.itemType !== "User",
+              )}
+              usersById={usersById}
+            />
           </PageContent>
         </>
       )}
