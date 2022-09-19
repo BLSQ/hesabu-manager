@@ -59,7 +59,6 @@ const VisualDiff = ({ details }) => {
       onMouseEnter={() => setShowButton(true)}
       onMouseLeave={() => setShowButton(false)}
     >
-      {diffMode} {diffParts.length}
       {showButton && (
         <Button
           style={{ display: "float", marginBottom: "5px" }}
