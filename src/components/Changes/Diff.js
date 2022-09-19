@@ -1,6 +1,9 @@
 import { Button } from "@material-ui/core";
+import { DetailsRounded } from "@material-ui/icons";
 import React, { useState } from "react";
+import ReactDiffViewer from "react-diff-viewer";
 import "./Button.css";
+import SplitView from "./SplitView";
 const formatDiff = string => {
   if (string === null || string === undefined) {
     return "";
@@ -21,16 +24,29 @@ const VisualDiff = ({ details }) => {
   const [diffModeIndex, setDiffModeIndex] = useState(0);
   const [showButton, setShowButton] = useState(false);
   const diffMode = diffModes[diffModeIndex];
+
   const Diff = require("diff");
   let diffParts = [];
+  let lineBreaksBefore;
+  let lineBreaksAfter;
+
+  let useSplitView = false;
+
   try {
-    diffParts = Diff[diffMode](
-      formatDiff(details.before),
-      formatDiff(details.after),
-    );
+    lineBreaksBefore = formatDiff(details.before).match(/\n/g) || [];
+    lineBreaksAfter = formatDiff(details.after).match(/\n/g) || [];
+    if (lineBreaksBefore.length || lineBreaksAfter.length) {
+      useSplitView = true;
+    } else {
+      diffParts = Diff[diffMode](
+        formatDiff(details.before),
+        formatDiff(details.after),
+      );
+    }
   } catch (error) {
     debugger;
   }
+
   return (
     <div
       onMouseEnter={() => setShowButton(true)}
@@ -57,7 +73,16 @@ const VisualDiff = ({ details }) => {
         </pre>
       )}
 
-      {diffMode === "sideBySide" && (
+      {diffMode === "sideBySide" && useSplitView && (
+        <div style={{ display: "flex", flexDirection: "row", gap: "30px" }}>
+          <SplitView
+            before={formatDiff(details.before)}
+            after={formatDiff(details.after)}
+          />
+        </div>
+      )}
+
+      {diffMode === "sideBySide" && !useSplitView && (
         <div style={{ display: "flex", flexDirection: "row", gap: "30px" }}>
           <div>
             Before:
