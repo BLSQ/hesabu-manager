@@ -1,6 +1,6 @@
 import { Button } from "@material-ui/core";
 import { DetailsRounded } from "@material-ui/icons";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ReactDiffViewer from "react-diff-viewer";
 import "./Button.css";
 import SplitView from "./SplitView";
@@ -25,33 +25,41 @@ const VisualDiff = ({ details }) => {
   const [showButton, setShowButton] = useState(false);
   const diffMode = diffModes[diffModeIndex];
 
-  const Diff = require("diff");
-  let diffParts = [];
-  let lineBreaksBefore;
-  let lineBreaksAfter;
+  const [diffParts, setDiffParts] = useState([]);
+  const [useSplitView, setUseSplitView] = useState(false);
 
-  let useSplitView = false;
+  useEffect(() => {
+    let parts = [];
+    let lineBreaksBefore;
+    let lineBreaksAfter;
+    let useSplitView = false;
 
-  try {
     lineBreaksBefore = formatDiff(details.before).match(/\n/g) || [];
     lineBreaksAfter = formatDiff(details.after).match(/\n/g) || [];
     if (lineBreaksBefore.length || lineBreaksAfter.length) {
+      setUseSplitView(true);
       useSplitView = true;
-    } else if (diffMode !== "sideBySide") {
-      diffParts = Diff[diffMode](
+    }
+
+    if (diffMode != "sideBySide") {
+      const Diff = require("diff");
+
+      debugger;
+      parts = Diff[diffMode](
         formatDiff(details.before),
         formatDiff(details.after),
       );
     }
-  } catch (error) {
-    debugger;
-  }
+
+    setDiffParts(parts);
+  }, [diffModeIndex, diffMode]);
 
   return (
     <div
       onMouseEnter={() => setShowButton(true)}
       onMouseLeave={() => setShowButton(false)}
     >
+      {diffMode} {diffParts.length}
       {showButton && (
         <Button
           style={{ display: "float", marginBottom: "5px" }}
@@ -77,7 +85,6 @@ const VisualDiff = ({ details }) => {
           })}
         </pre>
       )}
-
       {diffMode === "sideBySide" && useSplitView && (
         <div style={{ display: "flex", flexDirection: "row", gap: "30px" }}>
           <SplitView
@@ -86,7 +93,6 @@ const VisualDiff = ({ details }) => {
           />
         </div>
       )}
-
       {diffMode === "sideBySide" && !useSplitView && (
         <div style={{ display: "flex", flexDirection: "row", gap: "30px" }}>
           <div>
