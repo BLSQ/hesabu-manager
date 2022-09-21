@@ -22,6 +22,7 @@ const Dhis2IndicatorAutocomplete = props => {
   const [inputValue, setInputValue] = useState("");
   const [options, setOptions] = useState([]);
   const { t } = useTranslation();
+
   const handleChange = event => {
     setInputValue(event.target.value);
   };
@@ -32,31 +33,20 @@ const Dhis2IndicatorAutocomplete = props => {
     }
   }, [props.defaultInputValue]);
 
-  const searchDataElements = async () => {
+  const searchIndicators = async () => {
     const api = await Api.instance();
-    const dataElementsResponse = await api.get("dataElements", {
-      fields: "id,name,categoryCombo[id,name,categoryOptionCombos[id,name]]",
+    const indicatorsResponse = await api.get("indicators", {
+      fields: "id,name",
       filter: "name:ilike:" + inputValue,
     });
     const newOptions = [];
-    for (let dataElement of dataElementsResponse.dataElements) {
-      if (dataElement.categoryCombo.name === "default") {
-        newOptions.push({
-          id: dataElement.id,
-          name: dataElement.name,
-          kind: "data_element",
-          dataElement,
-        });
-      } else {
-        for (let coc of dataElement.categoryCombo.categoryOptionCombos) {
-          newOptions.push({
-            id: dataElement.id + "." + coc.id,
-            name: dataElement.name + " - " + coc.name,
-            kind: "data_element_coc",
-            dataElement,
-          });
-        }
-      }
+    for (let indicator of indicatorsResponse.indicators) {
+      newOptions.push({
+        id: indicator.id,
+        name: indicator.name,
+        kind: "indicator",
+        indicator,
+      });
     }
     setOptions(newOptions);
   };
@@ -69,7 +59,7 @@ const Dhis2IndicatorAutocomplete = props => {
       return undefined;
     }
 
-    searchDataElements();
+    searchIndicators();
 
     return () => {
       active = false;
@@ -95,7 +85,7 @@ const Dhis2IndicatorAutocomplete = props => {
           <TextField
             {...params}
             className={classes.textWidth}
-            label={t("autocomplete.deCoc")}
+            label={t("autocomplete.indicator")}
             variant="outlined"
             fullWidth
             onChange={handleChange}
