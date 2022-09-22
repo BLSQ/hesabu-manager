@@ -45,8 +45,6 @@ const FormulaContainer = props => {
     }
   });
   const formula = loadFormulaQuery?.data;
-  console.log(formula);
-
   const backLinkPath = `/${parent}/${parentId}/${formulaType}`;
   return (
     <Fragment>
@@ -55,14 +53,14 @@ const FormulaContainer = props => {
           <TopBar backLinkPath={backLinkPath}>
             <Typography variant="h6" color="inherit">
               {formattedName(t("resources.formula"))} {": " + formula.code}{" "}
-              {" - Set : " + formula.setName}
+              {formula.setName && " - Set : " + formula.setName}
             </Typography>
           </TopBar>
           <PageContent>
             <FormulaPage
               key={formulaId}
               formula={formula}
-              exportableIfs={formula.exportableIfs}
+              exportableIfs={formula.exportableIfs.sort()}
               availableVariables={formula.availableVariables}
               mockValues={formula.mockValues}
               match={match}
