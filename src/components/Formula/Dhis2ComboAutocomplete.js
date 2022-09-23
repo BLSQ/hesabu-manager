@@ -37,7 +37,7 @@ const Dhis2ComboAutocomplete = props => {
     const api = await Api.instance();
     const dataElementsResponse = await api.get("dataElements", {
       fields: "id,name,categoryCombo[id,name,categoryOptionCombos[id,name]]",
-      filter: "name:ilike:" + inputValue,
+      filter: ["name:ilike:" + inputValue, "domainType:eq:AGGREGATE"],
     });
     const newOptions = [];
     for (let dataElement of dataElementsResponse.dataElements) {
