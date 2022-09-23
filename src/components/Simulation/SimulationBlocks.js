@@ -49,11 +49,16 @@ const SimulationBlocks = props => {
   const setsByCode = groupBy(setsForOrgUnit, "code");
 
   const scroll = setName => {
-    const section = document.querySelector("#" + setName);
+    setTimeout(() => {
+      const section = document.querySelector("#" + setName);
+      const displayableOrgUnitsDiv = document.querySelector(
+        "#displayableOrgUnits",
+      );
 
-    if (section) {
-      section.scrollIntoView({ behavior: "smooth", block: "start" });
-    }
+      if (section && displayableOrgUnitsDiv) {
+        section.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    }, 1000);
   };
 
   const classes = useStyles();
@@ -127,6 +132,7 @@ const SimulationBlocks = props => {
     <div>
       {displayableOrgUnits && displayableOrgUnits.length > 1 && (
         <Grid
+          id="displayableOrgUnits"
           container
           className={classes.displayableOrgUnits}
           direction="row"
