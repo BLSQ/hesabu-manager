@@ -48,6 +48,20 @@ const SimulationBlocks = props => {
 
   const setsByCode = groupBy(setsForOrgUnit, "code");
 
+  const scroll = setName => {
+    const section = document.querySelector("#" + setName);
+
+    if (section) {
+      const position = section.style.position;
+      const top = section.style.top;
+      section.style.position = "relative";
+      section.style.top = "300px";
+      section.scrollIntoView({ behavior: "smooth", block: "start" });
+      section.style.top = top;
+      section.style.position = position;
+    }
+  };
+
   const classes = useStyles();
   const { t } = useTranslation();
   useEffect(() => {
@@ -60,7 +74,15 @@ const SimulationBlocks = props => {
       });
       setDisplayableOrgUnits(uniqBy(orgunits, "id"));
     }
-  }, [props.simulationResults]);
+
+    if (props.searchQuery.displaySet) {
+      scroll(props.searchQuery.displaySet);
+    }
+  }, [
+    props.simulationResults,
+    props.searchQuery.displaySet,
+    props.searchQuery.displayPeriod,
+  ]);
 
   // Placeholder before future split async fetch of Periodviews
   // At least now the list can be filtered by code from url params
@@ -85,6 +107,10 @@ const SimulationBlocks = props => {
       }).length;
     });
   }, [setCodes, displayedSetCodes, props.simulationResults]);
+
+  const formatKey = string => {
+    return string.replace("__", "_");
+  };
 
   if (!filteredSets.length && props.simulationResults) {
     return (
@@ -138,7 +164,15 @@ const SimulationBlocks = props => {
         </Grid>
       )}
       {filteredSets.map(key => (
-        <SimulationBlock key={key} title={key} periodViews={setsByCode[key]} />
+        <div id={formatKey(key)}>
+          <SimulationBlock
+            key={key}
+            title={key}
+            displaySet={props.searchQuery.displaySet}
+            displayPeriod={props.searchQuery.displayPeriod}
+            periodViews={setsByCode[key]}
+          />
+        </div>
       ))}
     </div>
   );

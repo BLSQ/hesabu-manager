@@ -7,6 +7,7 @@ import Header from "../Header";
 import useStyles from "./styles";
 import PeriodView from "./PeriodView";
 import { dhis2LookupCategoryOptionCombo } from "../../../lib/dhis2Lookups";
+import { anchorQueryParams, urlWith } from "../../Shared/urlParams";
 
 function a11yProps(index, title) {
   const tag = kebabCase(title);
@@ -27,11 +28,24 @@ function generateLabel(periodView) {
 }
 
 const SimulationBlock = props => {
-  const { title, periodViews } = props;
-  const [value, setValue] = React.useState(0);
+  const { title, periodViews, displaySet, displayPeriod } = props;
+  const formattedTitle = title && title.replace("__", "_");
+  const tabIndex =
+    displaySet && displaySet === title.replace("__", "_") && displayPeriod
+      ? periodViews.map(obj => obj.period).indexOf(displayPeriod)
+      : 0;
+  const [value, setValue] = React.useState(tabIndex);
   const classes = useStyles();
 
   const handleChange = (event, newValue) => {
+    const queryParams = anchorQueryParams();
+    queryParams.set("displayPeriod", periodViews[newValue].period);
+    queryParams.set("displaySet", formattedTitle);
+    const newUrl = urlWith(queryParams);
+    if (newUrl !== window.location.toString()) {
+      window.history.replaceState({}, "", urlWith(queryParams));
+    }
+
     setValue(newValue);
   };
   return (
