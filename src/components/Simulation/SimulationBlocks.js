@@ -52,13 +52,7 @@ const SimulationBlocks = props => {
     const section = document.querySelector("#" + setName);
 
     if (section) {
-      const position = section.style.position;
-      const top = section.style.top;
-      section.style.position = "relative";
-      section.style.top = "-500px";
       section.scrollIntoView({ behavior: "smooth", block: "start" });
-      section.style.top = top;
-      section.style.position = position;
     }
   };
 

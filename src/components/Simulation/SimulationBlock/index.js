@@ -49,7 +49,7 @@ const SimulationBlock = props => {
     setValue(newValue);
   };
   return (
-    <div className={classes.root} id={id}>
+    <div className={classes.root} id={id} style={{ scrollMarginTop: "500px" }}>
       <Header title={title} />
       <Tabs
         value={value}
