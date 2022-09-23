@@ -55,7 +55,7 @@ const SimulationBlocks = props => {
       const position = section.style.position;
       const top = section.style.top;
       section.style.position = "relative";
-      section.style.top = "300px";
+      section.style.top = "-500px";
       section.scrollIntoView({ behavior: "smooth", block: "start" });
       section.style.top = top;
       section.style.position = position;
@@ -164,15 +164,16 @@ const SimulationBlocks = props => {
         </Grid>
       )}
       {filteredSets.map(key => (
-        <div id={formatKey(key)}>
+        <>
           <SimulationBlock
+            id={formatKey(key)}
             key={key}
             title={key}
             displaySet={props.searchQuery.displaySet}
             displayPeriod={props.searchQuery.displayPeriod}
             periodViews={setsByCode[key]}
           />
-        </div>
+        </>
       ))}
     </div>
   );

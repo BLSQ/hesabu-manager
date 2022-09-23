@@ -28,7 +28,7 @@ function generateLabel(periodView) {
 }
 
 const SimulationBlock = props => {
-  const { title, periodViews, displaySet, displayPeriod } = props;
+  const { id, title, periodViews, displaySet, displayPeriod } = props;
   const formattedTitle = title && title.replace("__", "_");
   const tabIndex =
     displaySet && displaySet === title.replace("__", "_") && displayPeriod
@@ -49,7 +49,7 @@ const SimulationBlock = props => {
     setValue(newValue);
   };
   return (
-    <div className={classes.root}>
+    <div className={classes.root} id={id}>
       <Header title={title} />
       <Tabs
         value={value}
