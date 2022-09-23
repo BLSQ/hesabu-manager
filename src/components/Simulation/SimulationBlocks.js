@@ -164,16 +164,14 @@ const SimulationBlocks = props => {
         </Grid>
       )}
       {filteredSets.map(key => (
-        <>
-          <SimulationBlock
-            id={formatKey(key)}
-            key={key}
-            title={key}
-            displaySet={props.searchQuery.displaySet}
-            displayPeriod={props.searchQuery.displayPeriod}
-            periodViews={setsByCode[key]}
-          />
-        </>
+        <SimulationBlock
+          id={formatKey(key)}
+          key={key}
+          title={key}
+          displaySet={props.searchQuery.displaySet}
+          displayPeriod={props.searchQuery.displayPeriod}
+          periodViews={setsByCode[key]}
+        />
       ))}
     </div>
   );
