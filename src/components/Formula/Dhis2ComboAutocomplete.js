@@ -15,6 +15,9 @@ const useStyles = makeStyles(theme => ({
     width: "400px",
     marginTop: "1rem",
   },
+  idStyle: {
+    fontWeight: "lighter",
+  },
 }));
 
 const Dhis2ComboAutocomplete = props => {
@@ -82,10 +85,23 @@ const Dhis2ComboAutocomplete = props => {
       <Autocomplete
         id="de-cocs-autocomplete"
         filterOptions={x => x}
+        options={options}
         getOptionLabel={option =>
           typeof option === "string" ? option : option.name
         }
-        options={options}
+        renderOption={option => (
+          <>
+            {typeof option === "string" && <>{option}</>}
+            {typeof option !== "string" && (
+              <div>
+                <div>{option.name}</div>
+                <div>
+                  <span className={classes.idStyle}>{option.id}</span>
+                </div>
+              </div>
+            )}
+          </>
+        )}
         autoComplete
         openOnFocus={options.length > 0}
         freeSolo={!options.length}

@@ -14,6 +14,9 @@ const useStyles = makeStyles(theme => ({
     width: "400px",
     marginTop: "1rem",
   },
+  idStyle: {
+    fontWeight: "lighter",
+  },
 }));
 
 const Dhis2IndicatorAutocomplete = props => {
@@ -74,6 +77,19 @@ const Dhis2IndicatorAutocomplete = props => {
         getOptionLabel={option =>
           typeof option === "string" ? option : option.name
         }
+        renderOption={option => (
+          <>
+            {typeof option === "string" && <>{option}</>}
+            {typeof option !== "string" && (
+              <div>
+                <div>{option.name}</div>
+                <div>
+                  <span className={classes.idStyle}>{option.id}</span>
+                </div>
+              </div>
+            )}
+          </>
+        )}
         options={options}
         autoComplete
         openOnFocus={options.length > 0}
