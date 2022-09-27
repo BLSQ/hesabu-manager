@@ -24,7 +24,7 @@ import Dhis2IndicatorAutocomplete from "./Dhis2IndicatorAutocomplete";
 
 const useStylesFormMapping = makeStyles(() => ({
   paper: { minWidth: "500px", minHeight: "500px" },
-  mappingTypeSelect: { marginLeft: "0.3rem", width: "3rem" },
+  mappingTypeSelect: { marginLeft: "0.3rem", marginTop: "1rem", width: "3rem" },
   comboAutocomplete: { marginTop: "1rem" },
   dhis2Details: {
     marginTop: "1rem",
@@ -33,6 +33,7 @@ const useStylesFormMapping = makeStyles(() => ({
   },
   editMappings: { marginTop: "1rem", marginLeft: "0.5rem" },
   buttonMargin: { marginLeft: "1rem" },
+  textField: { width: "400px" },
 }));
 
 const InputMappingDialogEditor = ({ cell }) => {
@@ -58,6 +59,7 @@ const InputMappingDialogEditor = ({ cell }) => {
   );
   const [selectedDataElement, setSelectedDataElement] = useState(null);
   const [mappingType, setMappingType] = useState("dataElement");
+  const [mappingOrigin, setMappingOrigin] = useState("dataValueSets");
   const modeCreate = inputMapping === undefined;
 
   const onClick = () => {
@@ -75,6 +77,10 @@ const InputMappingDialogEditor = ({ cell }) => {
 
   const handleMappingTypeChange = event => {
     setMappingType(event.target.value);
+  };
+
+  const handleMappingOriginChange = event => {
+    setMappingOrigin(event.target.value);
   };
 
   const handleMutation = useMutation(
@@ -185,10 +191,11 @@ const InputMappingDialogEditor = ({ cell }) => {
                         <TextField
                           select
                           label="Mapping type"
-                          labelId="formula-kind-label"
+                          labelId="mapping-type-label"
                           id="kind"
                           value={mappingType}
                           onChange={handleMappingTypeChange}
+                          className={classes.textField}
                         >
                           <MenuItem value={"dataElement"}>
                             Data element
@@ -196,6 +203,22 @@ const InputMappingDialogEditor = ({ cell }) => {
                           <MenuItem value={"indicator"}>Indicator</MenuItem>
                         </TextField>
                       </FormControl>
+                    </div>
+                    <div className={classes.mappingTypeSelect}>
+                      <TextField
+                        select
+                        label="Origin"
+                        labelId="mapping-origin-label"
+                        id="origin"
+                        value={mappingOrigin}
+                        onChange={handleMappingOriginChange}
+                        className={classes.textField}
+                      >
+                        <MenuItem value={"dataValueSets"}>
+                          Data value sets
+                        </MenuItem>
+                        <MenuItem value={"analytics"}>Analytics</MenuItem>
+                      </TextField>
                     </div>
                     {mappingType === "dataElement" && (
                       <div className={classes.comboAutocomplete}>
@@ -221,21 +244,30 @@ const InputMappingDialogEditor = ({ cell }) => {
         </DialogContent>
         <DialogActions>
           <Grid container justifyContent="space-between">
-            <Grid className={classes.buttonMargin} item>
-              {!confirmDelete && (
-                <Button color="primary" onClick={handleConfirmDelete}>
-                  Delete
-                </Button>
-              )}
-              {confirmDelete && (
-                <>
-                  <small>Are you sure?</small>
-                  <Button color="primary" onClick={() => handleDelete.mutate()}>
-                    Confirm delete
+            {userCanEdit && (
+              <Grid className={classes.buttonMargin} item>
+                {!confirmDelete && (
+                  <Button
+                    color="primary"
+                    disabled={modeCreate}
+                    onClick={handleConfirmDelete}
+                  >
+                    Delete
                   </Button>
-                </>
-              )}
-            </Grid>
+                )}
+                {confirmDelete && (
+                  <>
+                    <small>Are you sure?</small>
+                    <Button
+                      color="primary"
+                      onClick={() => handleDelete.mutate()}
+                    >
+                      Confirm delete
+                    </Button>
+                  </>
+                )}
+              </Grid>
+            )}
             <Grid item>
               <Button color="primary" onClick={onClick}>
                 Cancel
