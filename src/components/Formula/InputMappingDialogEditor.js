@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { makeStyles } from "@material-ui/styles";
-import { useMutation } from "react-query";
+import { useMutation, useQueryClient } from "react-query";
 import {
   Dialog,
   DialogTitle,
@@ -36,7 +36,7 @@ const useStylesFormMapping = makeStyles(() => ({
   textField: { width: "400px" },
 }));
 
-const InputMappingDialogEditor = ({ cell }) => {
+const InputMappingDialogEditor = ({ cell, match }) => {
   const classes = useStylesFormMapping();
   const userCanEdit = canEdit();
   const {
@@ -47,6 +47,9 @@ const InputMappingDialogEditor = ({ cell }) => {
   } = cell;
   const {
     value: { input },
+  } = cell;
+  const {
+    value: { set },
   } = cell;
   const [open, setOpen] = useState(true);
   const [confirmDelete, setConfirmDelete] = useState(false);
@@ -61,6 +64,7 @@ const InputMappingDialogEditor = ({ cell }) => {
   const [mappingType, setMappingType] = useState("dataElement");
   const [mappingOrigin, setMappingOrigin] = useState("dataValueSets");
   const modeCreate = inputMapping === undefined;
+  const queryClient = useQueryClient();
 
   const onClick = () => {
     setOpen(!open);
@@ -117,7 +121,7 @@ const InputMappingDialogEditor = ({ cell }) => {
     {
       onSuccess: () => {
         setOpen(!open);
-        window.location.reload();
+        queryClient.invalidateQueries(["loadSet", set.id]);
       },
       onError: error => console.log(error.message),
     },
@@ -136,7 +140,7 @@ const InputMappingDialogEditor = ({ cell }) => {
     {
       onSuccess: () => {
         setOpen(!open);
-        window.location.reload();
+        queryClient.invalidateQueries(["loadSet", set.id]);
       },
       onError: error => console.log(error.message),
     },

@@ -12,19 +12,7 @@ import {
   fakeColumGenerator,
   fakeRowGenerator,
 } from "../../utils/dataGridUtils";
-import {
-  Switch,
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogActions,
-  Button,
-  DialogContentText,
-  Chip,
-  Grid,
-  Tooltip,
-  Link,
-} from "@material-ui/core";
+import { Switch, Button, Tooltip, Link } from "@material-ui/core";
 import CloudDownload from "@material-ui/icons/CloudDownload";
 import CheckCircle from "@material-ui/icons/CheckCircle";
 import RemoveCircleOutlineIcon from "@material-ui/icons/RemoveCircleOutline";
@@ -242,6 +230,7 @@ const TopicBasedFormulas = props => {
             inputMapping: inputMapping,
             input: input,
             topic: topic,
+            set: setToUse,
           },
           valueViewer: InputMappingViewer,
           dataEditor: InputMappingDialogEditor,
