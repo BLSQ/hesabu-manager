@@ -63,6 +63,7 @@ const InputMappingDialogEditor = ({ cell, match }) => {
   const [selectedDataElement, setSelectedDataElement] = useState(null);
   const [mappingType, setMappingType] = useState("dataElement");
   const [mappingOrigin, setMappingOrigin] = useState("dataValueSets");
+  const [validationErrors, setValidationErrors] = useState({});
   const modeCreate = inputMapping === undefined;
   const queryClient = useQueryClient();
 
@@ -123,7 +124,20 @@ const InputMappingDialogEditor = ({ cell, match }) => {
         setOpen(!open);
         queryClient.invalidateQueries(["loadSet", set.id]);
       },
-      onError: error => console.log(error.message),
+      onError: error => {
+        let resp = error.json;
+        resp = resp.errors[0];
+        const errorDetails = resp.details;
+        for (let attribute in errorDetails) {
+          let message = attribute + " " + errorDetails[attribute];
+          if (attribute === "external_reference") {
+            message =
+              message + ", please choose a different data element or indicator";
+          }
+          validationErrors[attribute] = message;
+        }
+        setValidationErrors({ ...validationErrors });
+      },
     },
   );
 
@@ -169,6 +183,13 @@ const InputMappingDialogEditor = ({ cell, match }) => {
         <DialogContent>
           <DialogContentText>
             <Grid container spacing={2}>
+              <div style={{ color: "red" }}>
+                <b>
+                  {validationErrors &&
+                    Object.keys(validationErrors).length > 0 &&
+                    Object.values(validationErrors).join("\n")}
+                </b>
+              </div>
               {inputMapping && (
                 <>
                   <Grid item>
