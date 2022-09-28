@@ -52,8 +52,12 @@ const FormulaContainer = props => {
         <>
           <TopBar backLinkPath={backLinkPath}>
             <Typography variant="h6" color="inherit">
-              {formattedName(t("resources.formula"))} {": " + formula.code}{" "}
-              {formula.setName && " - Set : " + formula.setName}
+              {formattedName(t("resources.formula"))}
+              <b> {": " + formula.code}</b>
+              <br></br>
+              <small>
+                <i>{formula.parentName}</i>
+              </small>
             </Typography>
           </TopBar>
           <PageContent>
