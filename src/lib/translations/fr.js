@@ -4,6 +4,7 @@ export default {
       autocomplete: {
         orgUnits: "Choisissez une unité d’organisation",
         deCoc: "Choisissez un élément de donnée",
+        indicator: "Choisissez un indicateur",
       },
       buttons: {
         cancel: "Cancel",

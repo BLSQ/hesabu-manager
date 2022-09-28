@@ -12,19 +12,7 @@ import {
   fakeColumGenerator,
   fakeRowGenerator,
 } from "../../utils/dataGridUtils";
-import {
-  Switch,
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogActions,
-  Button,
-  DialogContentText,
-  Chip,
-  Grid,
-  Tooltip,
-  Link,
-} from "@material-ui/core";
+import { Switch, Button, Tooltip, Link } from "@material-ui/core";
 import CloudDownload from "@material-ui/icons/CloudDownload";
 import CheckCircle from "@material-ui/icons/CheckCircle";
 import RemoveCircleOutlineIcon from "@material-ui/icons/RemoveCircleOutline";
@@ -37,6 +25,7 @@ import FormulaMappingDialogEditor from "./FormulaMappingDialogEditor";
 import FormulaViewer from "./FormulaViewer";
 import InputsMenu from "./InputsMenu";
 import TopicMenu from "./TopicMenu";
+import InputMappingDialogEditor from "./InputMappingDialogEditor";
 
 const useStyles = makeStyles(theme => ({
   root: props => ({
@@ -50,72 +39,6 @@ const useStyles = makeStyles(theme => ({
     maxHeight: "100vh",
   },
 }));
-
-const useStylesFormMapping = makeStyles(() => ({
-  paper: { minWidth: "500px", minHeight: "500px" },
-}));
-
-const InputMappingDialogEditor = ({ cell }) => {
-  const classes = useStylesFormMapping();
-  const inputMapping = cell.inputMapping;
-  const [open, setOpen] = React.useState(true);
-
-  const onClick = () => {
-    setOpen(!open);
-  };
-
-  let dhis2Object = inputMapping
-    ? dhis2LookupElement(inputMapping.externalReference)
-    : undefined;
-
-  return (
-    <div>
-      <Dialog
-        open={open}
-        TransitionComponent={Transition}
-        disableEscapeKeyDown={true}
-        disableBackdropClick={true}
-        classes={{ paper: classes.paper }}
-      >
-        <DialogTitle id="form-dialog-title">
-          {inputMapping && inputMapping.name}
-        </DialogTitle>
-        <DialogContent>
-          <DialogContentText>
-            <Grid container spacing={2}>
-              {inputMapping == undefined && <span>No input mapping yet</span>}
-              {inputMapping && (
-                <>
-                  <Grid item>
-                    <Chip label={inputMapping.kind} />
-                  </Grid>
-                  <Grid item>
-                    <Chip label={inputMapping.origin} />
-                  </Grid>
-                  {inputMapping.externalReference && (
-                    <Grid item>
-                      <Chip label={inputMapping.externalReference} />
-                    </Grid>
-                  )}
-
-                  <Dhis2ElementDetails dhis2Object={dhis2Object} />
-                </>
-              )}
-            </Grid>
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button color="primary" onClick={onClick}>
-            Cancel
-          </Button>
-          <Button color="primary" onClick={onClick}>
-            Ok
-          </Button>
-        </DialogActions>
-      </Dialog>
-    </div>
-  );
-};
 
 const userFormulaViewerStyles = makeStyles(theme => ({
   tooltipCustomWidth: {
@@ -150,7 +73,7 @@ const FormulaMappingViewer = props => {
 };
 
 const InputMappingViewer = props => {
-  const inputMapping = props.value;
+  const inputMapping = props.value.inputMapping;
 
   return inputMapping ? (
     <Tooltip
@@ -303,8 +226,12 @@ const TopicBasedFormulas = props => {
         const inputMapping = findInputMapping(input, topic.inputMappings);
 
         return {
-          value: inputMapping,
-          inputMapping,
+          value: {
+            inputMapping: inputMapping,
+            input: input,
+            topic: topic,
+            set: setToUse,
+          },
           valueViewer: InputMappingViewer,
           dataEditor: InputMappingDialogEditor,
         };

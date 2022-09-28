@@ -43,8 +43,6 @@ const VisualDiff = ({ details }) => {
 
     if (diffMode != "sideBySide") {
       const Diff = require("diff");
-
-      debugger;
       parts = Diff[diffMode](
         formatDiff(details.before),
         formatDiff(details.after),

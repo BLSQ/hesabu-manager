@@ -11,6 +11,7 @@ import { deserialize } from "../utils/jsonApiUtils";
 
 const FormulaContainer = props => {
   const { t } = useTranslation();
+  console.log(props);
   const { match } = props;
   const formulaId = match.params.formulaId;
 
@@ -44,7 +45,6 @@ const FormulaContainer = props => {
     }
   });
   const formula = loadFormulaQuery?.data;
-
   const backLinkPath = `/${parent}/${parentId}/${formulaType}`;
   return (
     <Fragment>
@@ -52,14 +52,19 @@ const FormulaContainer = props => {
         <>
           <TopBar backLinkPath={backLinkPath}>
             <Typography variant="h6" color="inherit">
-              {formattedName(t("resources.formula"))} {": " + formula.code}
+              {formattedName(t("resources.formula"))}
+              <b> {": " + formula.code}</b>
+              <br></br>
+              <small>
+                <i>{formula.parentName}</i>
+              </small>
             </Typography>
           </TopBar>
           <PageContent>
             <FormulaPage
               key={formulaId}
               formula={formula}
-              exportableIfs={formula.exportableIfs}
+              exportableIfs={formula.exportableIfs.sort()}
               availableVariables={formula.availableVariables}
               mockValues={formula.mockValues}
               match={match}

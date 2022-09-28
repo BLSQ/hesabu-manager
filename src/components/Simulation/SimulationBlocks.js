@@ -48,6 +48,19 @@ const SimulationBlocks = props => {
 
   const setsByCode = groupBy(setsForOrgUnit, "code");
 
+  const scroll = setName => {
+    setTimeout(() => {
+      const section = document.querySelector("#" + setName);
+      const displayableOrgUnitsDiv = document.querySelector(
+        "#displayableOrgUnits",
+      );
+
+      if (section && displayableOrgUnitsDiv) {
+        section.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    }, 1000);
+  };
+
   const classes = useStyles();
   const { t } = useTranslation();
   useEffect(() => {
@@ -60,7 +73,15 @@ const SimulationBlocks = props => {
       });
       setDisplayableOrgUnits(uniqBy(orgunits, "id"));
     }
-  }, [props.simulationResults]);
+
+    if (props.searchQuery.displaySet) {
+      scroll(props.searchQuery.displaySet);
+    }
+  }, [
+    props.simulationResults,
+    props.searchQuery.displaySet,
+    props.searchQuery.displayPeriod,
+  ]);
 
   // Placeholder before future split async fetch of Periodviews
   // At least now the list can be filtered by code from url params
@@ -86,6 +107,10 @@ const SimulationBlocks = props => {
     });
   }, [setCodes, displayedSetCodes, props.simulationResults]);
 
+  const formatKey = string => {
+    return string.replace("__", "_");
+  };
+
   if (!filteredSets.length && props.simulationResults) {
     return (
       <EmptySection>
@@ -107,6 +132,7 @@ const SimulationBlocks = props => {
     <div>
       {displayableOrgUnits && displayableOrgUnits.length > 1 && (
         <Grid
+          id="displayableOrgUnits"
           container
           className={classes.displayableOrgUnits}
           direction="row"
@@ -138,7 +164,14 @@ const SimulationBlocks = props => {
         </Grid>
       )}
       {filteredSets.map(key => (
-        <SimulationBlock key={key} title={key} periodViews={setsByCode[key]} />
+        <SimulationBlock
+          id={formatKey(key)}
+          key={key}
+          title={key}
+          displaySet={props.searchQuery.displaySet}
+          displayPeriod={props.searchQuery.displayPeriod}
+          periodViews={setsByCode[key]}
+        />
       ))}
     </div>
   );

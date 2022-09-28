@@ -61,7 +61,7 @@ class SimulationContainer extends Component {
     if (this.state.forcePolling && !this.state.loading) {
       setTimeout(() => {
         this.fetchSimulation();
-      }, 2000);
+      }, 30000);
     }
 
     if (
@@ -72,7 +72,7 @@ class SimulationContainer extends Component {
     ) {
       setTimeout(() => {
         this.fetchSimulation();
-      }, 2000);
+      }, 30000);
     }
 
     const search = queryString.parse(this.props.location.search);
