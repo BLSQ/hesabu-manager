@@ -1,6 +1,7 @@
 import { Typography } from "@material-ui/core";
 
 import React, { Fragment, useState, useEffect } from "react";
+import { useQuery } from "react-query";
 import { withTranslation, useTranslation } from "react-i18next";
 import { InfoBox } from "@blsq/manager-ui";
 import PageContent from "../../components/Shared/PageContent";
@@ -19,30 +20,34 @@ const SimulationsContainer = () => {
   const classes = useStyles();
   const { t } = useTranslation();
   const [sideSheetOpen, setSideSheetOpen] = useState(false);
-  const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
   const [simulations, setSimulations] = useState([]);
   const handleToggleSideSheet = () => setSideSheetOpen(!sideSheetOpen);
 
-  useEffect(() => {
-    setLoading(true);
-    externalApi()
-      .errorType("json")
-      .url(`/simulations`)
-      .get()
-      .json(response => {
-        setLoading(false);
-        deserialize(response).then(data => {
-          setSimulations(data);
-        });
+  const loadSimulationsQuery = useQuery(
+    "loadSimulations",
+    async () => {
+      let response = await externalApi()
+        .errorType("json")
+        .url(`/simulations`)
+        .get()
+        .json();
+      response = await deserialize(response);
+      return response;
+    },
+    {
+      onSuccess: resp => {
+        setSimulations(resp);
         setErrorMessage(null);
-      })
-      .catch(e => {
-        setErrorMessage(e.message);
-        setLoading(false);
+      },
+      onError: error => {
         setSimulations([]);
-      });
-  }, []);
+        setErrorMessage(error.message);
+      },
+    },
+  );
+
+  const loading = loadSimulationsQuery?.isLoading;
 
   return (
     <Fragment>
