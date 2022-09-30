@@ -44,7 +44,6 @@ const SimulationContainer = props => {
   const [simulationResults, setSimulationResults] = useState(undefined);
   const [errorMessage, setErrorMessage] = useState(undefined);
   const [simulation, setSimulation] = useState(undefined);
-  const [polling, setPolling] = useState(true);
   const [status, setStatus] = useState(undefined);
   const [loading, setLoading] = useState(false);
   let params = new URLSearchParams(window.location.href.split("?")[1]);
@@ -56,6 +55,12 @@ const SimulationContainer = props => {
 
   const periods = result.periods;
   const orgUnit = result.orgUnit;
+
+  const [polling, setPolling] = useState(!!(orgUnit && periods));
+
+  useEffect(() => {
+    setPolling(!!(orgUnit && periods));
+  }, [orgUnit, periods]);
 
   useEffect(() => {
     if (simulation && simulation.resultUrl) {
@@ -107,6 +112,7 @@ const SimulationContainer = props => {
         }
       },
       onError: error => {
+        console.log("error", orgUnit, periods, error);
         setErrorMessage(error.message);
         setPolling(false);
         setLoading(false);

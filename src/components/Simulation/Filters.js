@@ -62,6 +62,7 @@ export const SimulationFilters = props => {
             <SimpleSelect
               name="periods"
               onChange={handleChange}
+              defaultValue="2022Q2"
               value={values.periods}
             >
               {props.availablePeriods.map(period => (
