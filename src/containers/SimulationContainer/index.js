@@ -47,9 +47,15 @@ const SimulationContainer = props => {
   const [polling, setPolling] = useState(true);
   const [status, setStatus] = useState(undefined);
   const [loading, setLoading] = useState(false);
-  const search = queryString.parse(props.location.search);
-  const periods = search.periods;
-  const orgUnit = search.orgUnit;
+  let params = new URLSearchParams(window.location.href.split("?")[1]);
+
+  const result = {};
+  for (var key of params.keys()) {
+    result[key] = params.get(key);
+  }
+
+  const periods = result.periods;
+  const orgUnit = result.orgUnit;
 
   useEffect(() => {
     if (simulation && simulation.resultUrl) {

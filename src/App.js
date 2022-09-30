@@ -1,4 +1,5 @@
 import { MuiThemeProvider, withStyles } from "@material-ui/core/styles";
+import { ReactQueryDevtools } from "react-query/devtools";
 import React, { Component, Fragment } from "react";
 import { Redirect, Route, Switch, withRouter } from "react-router";
 import { receiveProject, requestProject } from "./actions/project";
@@ -356,6 +357,7 @@ class App extends Component {
             </MuiPickersUtilsProvider>
           </CookiesProvider>
         </I18nextProvider>
+        <ReactQueryDevtools initialIsOpen={false} />
       </QueryClientProvider>
     );
   }
