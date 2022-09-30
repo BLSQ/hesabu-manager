@@ -8,8 +8,8 @@ import styles from "./styles";
 import Simulation from "../../components/Simulation";
 import { externalApi } from "../../actions/api";
 import { deserialize } from "../../utils/jsonApiUtils";
-import wretch from "wretch";
 import { dependencies } from "../../components/Formula/utils";
+import wretch from "wretch";
 
 const toLookups = simulationResults => {
   const indexedItems = {};
@@ -62,27 +62,38 @@ const SimulationContainer = props => {
     setPolling(!!(orgUnit && periods));
   }, [orgUnit, periods]);
 
-  useEffect(() => {
-    if (simulation && simulation.resultUrl) {
-      setLoading(true);
-      wretch()
-        .errorType("json")
-        .options({ encoding: "same-origin" }, false)
-        .url(simulation.resultUrl)
-        .get()
-        .json(response => {
-          response["lookups"] = toLookups(response);
-          setLoading(false);
-          setSimulationResults(response);
-        })
-        .catch(e => {
-          setLoading(false);
-          setPolling(false);
-          setErrorMessage(e.message);
-          setStatus(undefined);
-        });
-    }
-  }, [simulation]);
+  const fetchSimulationDetails = async () => {
+    setLoading(true);
+    let result = wretch()
+      .errorType("json")
+      .options({ encoding: "same-origin" }, false)
+      .url(simulation.resultUrl)
+      .get()
+      .json();
+    return result;
+  };
+
+  const fetchSimulationDetailsEnabled =
+    simulation !== undefined && simulation.resultUrl !== undefined;
+
+  const fetchSimulationDetailsQuery = useQuery(
+    "fetchSimulationDetails",
+    fetchSimulationDetails,
+    {
+      enabled: fetchSimulationDetailsEnabled,
+      onSuccess: response => {
+        response["lookups"] = toLookups(response);
+        setLoading(false);
+        setSimulationResults(response);
+      },
+      onError: error => {
+        setLoading(false);
+        setPolling(false);
+        setErrorMessage(error.message);
+        setStatus(undefined);
+      },
+    },
+  );
 
   const fetchSimulation = async () => {
     setLoading(true);
