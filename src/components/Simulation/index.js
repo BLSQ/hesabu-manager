@@ -179,7 +179,7 @@ export const Simulation = props => {
       </TopBar>
       <PageContent fullscreen className={classes.content}>
         {loading && <span>Loading...</span>}
-        {errorMessage}
+        {!loading && errorMessage && errorMessage}
         {simulation && simulation.status === "processed" && (
           <Dhis2DataElementsProvider>
             <SimulationBlocks
