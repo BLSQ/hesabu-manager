@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
+import { useQuery, useQueryClient } from "react-query";
 import PropTypes from "prop-types";
 import { Button, makeStyles } from "@material-ui/core";
 import { Dhis2Icon } from "@blsq/manager-ui";
@@ -17,28 +18,29 @@ const useStyles = makeStyles(theme => ({
 const ViewOnDhis2Btn = props => {
   const { cell } = props;
   const classes = useStyles(props);
-  const [identifiableObject, setIdentifiableObject] = useState(undefined);
-
   const isInput = !!cell.state && !!cell.state.ext_id;
   const isOutput = !!cell.dhis2_data_element;
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        setIdentifiableObject(undefined);
-        const dhis2Object = await fetchIdentifiableObject(
-          cell,
-          isInput,
-          isOutput,
-        );
-        setIdentifiableObject(dhis2Object);
-      } catch (error) {
-        console.log(error);
-      }
-    };
+  const queryClient = useQueryClient();
 
-    fetchData();
-  }, [cell, isInput, isOutput]);
+  const fetchObjectQuery = useQuery(
+    ["fetchObject", cell.key],
+    async () => {
+      const dhis2Object = await fetchIdentifiableObject(
+        cell,
+        isInput,
+        isOutput,
+      );
+      return dhis2Object;
+    },
+    {
+      enabled: cell.state !== undefined,
+      onSuccess: () => queryClient.invalidateQueries(["fetchObject", cell.key]),
+      onError: error => console.log(error.message),
+    },
+  );
+
+  const identifiableObject = fetchObjectQuery?.data;
 
   if (identifiableObject == undefined) {
     return null;
