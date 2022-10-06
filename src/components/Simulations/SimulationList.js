@@ -1,8 +1,7 @@
-import React, { Component, Fragment } from "react";
+import React, { Fragment } from "react";
 import { withTranslation } from "react-i18next";
 import { withStyles } from "@material-ui/core";
 import SimulationListItem from "./SimulationListItem";
-import { format } from "date-fns";
 
 const styles = theme => ({
   divider: {
