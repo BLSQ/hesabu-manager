@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useQuery } from "react-query";
 import TextField from "@material-ui/core/TextField";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import { makeStyles } from "@material-ui/core/styles";
@@ -12,7 +13,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function OrgUnitAsyncAutocomplete(props) {
+const OrgUnitAsyncAutocomplete = props => {
   const classes = useStyles();
   const [inputValue, setInputValue] = useState("");
   const [options, setOptions] = useState([]);
@@ -22,18 +23,22 @@ export default function OrgUnitAsyncAutocomplete(props) {
     setInputValue(event.target.value);
   };
 
-  useEffect(() => {
-    if (props.defaultValue) {
-      externalApi()
+  const fetchDefaultValueQuery = useQuery(
+    "fetchDefaultValue",
+    async () => {
+      const response = externalApi()
         .errorType("json")
-        .url(`/org_units`)
+        .url("/org_units")
         .query({ id: props.defaultValue })
         .get()
-        .json(response => {
-          setDefaultValue(response.data[0] || undefined);
-        });
-    }
-  }, [props.defaultValue]);
+        .json();
+      return response;
+    },
+    {
+      enabled: props.defaultValue !== undefined,
+      onSuccess: response => setDefaultValue(response.data[0] || undefined),
+    },
+  );
 
   useEffect(() => {
     let active = true;
@@ -84,7 +89,9 @@ export default function OrgUnitAsyncAutocomplete(props) {
       />
     </div>
   );
-}
+};
+
+export default OrgUnitAsyncAutocomplete;
 
 OrgUnitAsyncAutocomplete.propTypes = {
   defaultValue: PropTypes.object,

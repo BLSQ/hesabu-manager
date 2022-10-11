@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useQuery } from "react-query";
 import TextField from "@material-ui/core/TextField";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import { makeStyles } from "@material-ui/core/styles";
@@ -14,7 +15,6 @@ const useStyles = makeStyles(theme => ({
 
 export default function DataElementComboAutocomplete(props) {
   const classes = useStyles();
-
   const [inputValue, setInputValue] = useState("");
   const [options, setOptions] = useState([]);
   const [defaultValue, setDefaultValue] = useState(undefined);
@@ -23,18 +23,22 @@ export default function DataElementComboAutocomplete(props) {
     setInputValue(event.target.value);
   };
 
-  useEffect(() => {
-    if (props.defaultValue) {
-      externalApi()
+  const fetchDeCocsQuery = useQuery(
+    "fetchDeCocs",
+    async () => {
+      const response = await externalApi()
         .errorType("json")
-        .url(`/de_cocs`)
+        .url("/de_cocs")
         .query({ id: props.defaultValue })
         .get()
-        .json(response => {
-          setDefaultValue(response.data[0] || undefined);
-        });
-    }
-  }, [props.defaultValue]);
+        .json();
+      return response;
+    },
+    {
+      enabled: props.defaultValue === undefined,
+      onSuccess: response => setDefaultValue(response.data[0] || undefined),
+    },
+  );
 
   useEffect(() => {
     let active = true;

@@ -1,4 +1,5 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
+import { useQuery } from "react-query";
 import { withRouter } from "react-router-dom";
 import { withStyles } from "@material-ui/styles";
 import queryString from "query-string";
@@ -7,9 +8,8 @@ import styles from "./styles";
 import Simulation from "../../components/Simulation";
 import { externalApi } from "../../actions/api";
 import { deserialize } from "../../utils/jsonApiUtils";
-import wretch from "wretch";
-
 import { dependencies } from "../../components/Formula/utils";
+import wretch from "wretch";
 
 const toLookups = simulationResults => {
   const indexedItems = {};
@@ -40,143 +40,116 @@ const toLookups = simulationResults => {
   return { reverseDependencies, indexedItems };
 };
 
-class SimulationContainer extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      simulationResults: undefined,
-      loading: false,
-      forcePolling: false,
-      errorMessage: undefined,
-      simulation: undefined,
-      polling: false,
-    };
+const SimulationContainer = props => {
+  const [simulationResults, setSimulationResults] = useState(undefined);
+  const [errorMessage, setErrorMessage] = useState(undefined);
+  const [simulation, setSimulation] = useState(undefined);
+  const [status, setStatus] = useState(undefined);
+  const [loading, setLoading] = useState(false);
+  let params = new URLSearchParams(window.location.href.split("?")[1]);
+
+  const result = {};
+  for (var key of params.keys()) {
+    result[key] = params.get(key);
   }
 
-  componentDidMount() {
-    this.fetchSimulation();
-  }
+  const periods = result.periods;
+  const orgUnit = result.orgUnit;
 
-  componentDidUpdate(prevProps, prevState) {
-    if (this.state.forcePolling && !this.state.loading) {
-      setTimeout(() => {
-        this.fetchSimulation();
-      }, 30000);
-    }
+  const [polling, setPolling] = useState(!!(orgUnit && periods));
 
-    if (
-      !this.state.forcePolling &&
-      this.state.polling &&
-      !this.state.loading &&
-      this.state.loading !== prevState.loading
-    ) {
-      setTimeout(() => {
-        this.fetchSimulation();
-      }, 30000);
-    }
+  useEffect(() => {
+    setPolling(!!(orgUnit && periods));
+  }, [orgUnit, periods]);
 
-    const search = queryString.parse(this.props.location.search);
-    const previousSearch = queryString.parse(prevProps.location.search);
-
-    if (
-      previousSearch.periods !== search.periods ||
-      previousSearch.orgUnit !== search.orgUnit
-    ) {
-      this.fetchSimulation();
-    }
-  }
-
-  fetchSimulation() {
-    this.setState({ loading: true });
-    externalApi()
+  const fetchSimulationDetails = async () => {
+    setLoading(true);
+    let result = wretch()
       .errorType("json")
-      .url(`/simulation${this.props.location.search}`)
+      .options({ encoding: "same-origin" }, false)
+      .url(simulation.resultUrl)
       .get()
-      .json(response => {
-        const newstatus = response.data.attributes.status;
-        let newState = {
-          loading: false,
-          polling: newstatus === "enqueued",
-          errorMessage: undefined,
-          status: newstatus,
-        };
-        deserialize(response).then(data => {
-          if (newstatus !== this.state.status) {
-            newState["simulation"] = data;
-          }
-          this.setState(newState);
-          if (newState.simulation && newState.simulation.resultUrl) {
-            let loadingState = {
-              ...this.state,
-              loading: true,
-            };
-            this.setState(loadingState);
-            wretch()
-              .errorType("json")
-              .options({ encoding: "same-origin" }, false)
-              .url(newState.simulation.resultUrl)
-              .get()
-              .json(response => {
-                response["lookups"] = toLookups(response);
-
-                let newState = {
-                  ...this.state,
-                  loading: false,
-
-                  simulationResults: response,
-                };
-                this.setState(newState);
-              })
-              .catch(e => {
-                let newState = {
-                  loading: false,
-                  polling: false,
-                  errorMessage: e.message,
-                  status: undefined,
-                };
-                this.setState(newState);
-              });
-          }
-        });
-      })
-      .catch(e => {
-        this.setState({
-          loading: false,
-          simulation: undefined,
-          polling: false,
-          errorMessage: e.message,
-        });
-      });
-  }
-
-  handlePollingChange = () => {
-    this.setState({ forcePolling: !this.state.forcePolling });
+      .json();
+    return result;
   };
 
-  render() {
-    const {
-      loading,
-      simulation,
-      errorMessage,
-      forcePolling,
-      simulationResults,
-    } = this.state;
-    const valuesFromParams = queryString.parse(this.props.location.search);
+  const fetchSimulationDetailsEnabled =
+    simulation !== undefined && simulation.resultUrl !== undefined;
 
-    return (
-      <Simulation
-        errorMessage={errorMessage}
-        loading={loading}
-        simulation={simulation}
-        simulationResults={simulationResults}
-        valuesFromParams={valuesFromParams}
-        polling={this.state.polling || forcePolling}
-        onPollingChange={this.handlePollingChange}
-        open={true}
-      />
-    );
-  }
-}
+  const fetchSimulationDetailsQuery = useQuery(
+    "fetchSimulationDetails",
+    fetchSimulationDetails,
+    {
+      enabled: fetchSimulationDetailsEnabled,
+      onSuccess: response => {
+        response["lookups"] = toLookups(response);
+        setLoading(false);
+        setSimulationResults(response);
+      },
+      onError: error => {
+        setLoading(false);
+        setPolling(false);
+        setErrorMessage(error.message);
+        setStatus(undefined);
+      },
+    },
+  );
+
+  const fetchSimulation = async () => {
+    setLoading(true);
+    let result = await externalApi()
+      .errorType("json")
+      .url(`/simulation${props.location.search}`)
+      .get()
+      .json();
+    result = await deserialize(result);
+    return result;
+  };
+
+  const simulationPollingQuery = useQuery(
+    ["simulationPolling", periods, orgUnit],
+    fetchSimulation,
+    {
+      enabled: polling,
+      refetchInterval: 30000,
+      onSuccess: response => {
+        const newStatus = response.status;
+        setLoading(false);
+        setPolling(newStatus === "enqueued");
+        setErrorMessage(undefined);
+
+        if (newStatus !== status) {
+          setSimulation(response);
+        }
+      },
+      onError: error => {
+        console.log("error", orgUnit, periods, error);
+        setErrorMessage(error.message);
+        setPolling(false);
+        setLoading(false);
+      },
+    },
+  );
+
+  const handlePollingChange = () => {
+    setPolling(!polling);
+  };
+
+  const valuesFromParams = queryString.parse(props.location.search);
+
+  return (
+    <Simulation
+      errorMessage={errorMessage}
+      loading={loading}
+      simulation={simulation}
+      simulationResults={simulationResults}
+      valuesFromParams={valuesFromParams}
+      polling={polling}
+      onPollingChange={handlePollingChange}
+      open={true}
+    />
+  );
+};
 
 SimulationContainer.propTypes = {
   location: PropTypes.object,

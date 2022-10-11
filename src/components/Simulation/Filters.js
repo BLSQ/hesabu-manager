@@ -40,7 +40,8 @@ export const SimulationFilters = props => {
     <Formik
       initialValues={initialValues}
       onSubmit={values => {
-        history.push(`/simulation?${queryString.stringify(values)}`);
+        const queryParams = queryString.stringify(values);
+        history.push(`/simulation?${queryParams}`);
       }}
     >
       {({ values, handleChange, handleSubmit, setFieldValue }) => (
@@ -61,6 +62,7 @@ export const SimulationFilters = props => {
             <SimpleSelect
               name="periods"
               onChange={handleChange}
+              defaultValue="2022Q2"
               value={values.periods}
             >
               {props.availablePeriods.map(period => (
