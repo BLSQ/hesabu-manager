@@ -21,24 +21,10 @@ const ViewOnDhis2Btn = props => {
   const isInput = !!cell.state && !!cell.state.ext_id;
   const isOutput = !!cell.dhis2_data_element;
 
-  const queryClient = useQueryClient();
-
-  const fetchObjectQuery = useQuery(
-    ["fetchObject", cell.key],
-    async () => {
-      const dhis2Object = await fetchIdentifiableObject(
-        cell,
-        isInput,
-        isOutput,
-      );
-      return dhis2Object;
-    },
-    {
-      enabled: cell.state !== undefined,
-      onSuccess: () => queryClient.invalidateQueries(["fetchObject", cell.key]),
-      onError: error => console.log(error.message),
-    },
-  );
+  const fetchObjectQuery = useQuery(["fetchObject", cell.key], async () => {
+    const dhis2Object = await fetchIdentifiableObject(cell, isInput, isOutput);
+    return dhis2Object;
+  });
 
   const identifiableObject = fetchObjectQuery?.data;
 
