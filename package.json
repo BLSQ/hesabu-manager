@@ -134,7 +134,7 @@
     "prettier-eslint": "^9.0.0",
     "prettier-eslint-cli": "^5.0.0",
     "remark-slug": "^5.1.2",
-    "semantic-release": "^17.2.3"
+    "semantic-release": "^19.0.3"
   },
   "browserslist": [
     ">0.2%",
