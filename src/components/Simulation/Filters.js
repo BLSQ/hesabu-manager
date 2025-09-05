@@ -66,7 +66,10 @@ export const SimulationFilters = props => {
               value={values.periods}
             >
               {props.availablePeriods.map(period => (
-                <MenuItem key={`filers-item-${period}`} value={period}>
+                <MenuItem
+                  key={`filers-item-${period}`}
+                  value={period.replace("NovQ", "Q")}
+                >
                   {period}
                 </MenuItem>
               ))}

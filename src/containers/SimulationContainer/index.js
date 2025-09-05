@@ -114,6 +114,7 @@ const SimulationContainer = props => {
       refetchInterval: 30000,
       onSuccess: response => {
         const newStatus = response.status;
+        debugger;
         setLoading(false);
         setPolling(newStatus === "enqueued");
         setErrorMessage(undefined);
@@ -124,6 +125,7 @@ const SimulationContainer = props => {
       },
       onError: error => {
         console.log("error", orgUnit, periods, error);
+        debugger;
         setErrorMessage(error.message);
         setPolling(false);
         setLoading(false);
