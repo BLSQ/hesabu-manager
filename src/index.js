@@ -10,7 +10,10 @@ import App from "./App";
 import TokenProvider from "./lib/TokenProvider";
 import store from "./store";
 
-if (process.env.NODE_ENV === "production") {
+if (
+  process.env.NODE_ENV === "production" &&
+  process.env.REACT_APP_LOG_ROCKET_APP_ID
+) {
   LogRocket.init(process.env.REACT_APP_LOG_ROCKET_APP_ID);
 }
 const app = (
