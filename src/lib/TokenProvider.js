@@ -5,12 +5,15 @@ import { receiveToken, receiveTokenError } from "../actions/api";
 import SectionLoading from "../components/Shared/SectionLoading";
 import Api from "./Api";
 import { userRole } from "./InitialSetup";
+import { standaloneConfig, standaloneUser } from "./standalone";
 
 class TokenProvider extends Component {
   componentDidMount() {
     Api.projectTokenAndUrl()
       .then(async config => {
-        const user = await Api.currentUser();
+        const user = standaloneConfig()
+          ? standaloneUser(standaloneConfig(), userRole)
+          : await Api.currentUser();
         user.canEdit = user.userCredentials.userRoles.some(
           role => role.name == userRole.name,
         );

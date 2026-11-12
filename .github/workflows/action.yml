@@ -16,6 +16,8 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/develop'
+    permissions:
+      contents: write # github release
     steps:
       - uses: actions/checkout@master
       - name: Use Node.js 12.x
@@ -30,3 +32,12 @@ jobs:
         env:
           AWS_ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      # public, versioned download of the build for orbf2 (rake hesabu_manager:install)
+      - name: Publish the build as a github release
+        run: |
+          gh release create "build-${GITHUB_RUN_NUMBER}" Hesabu.zip \
+            --target "$GITHUB_SHA" \
+            --title "Hesabu manager build ${GITHUB_RUN_NUMBER}" \
+            --notes "Build of ${GITHUB_SHA}, served by orbf2 at /setup/manager"
+        env:
+          GH_TOKEN: ${{ github.token }}
