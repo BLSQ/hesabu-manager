@@ -70,11 +70,16 @@ bundle exec ruby app.rb
 
 ## Getting started
 
-Run the app. This a [CRA](https://github.com/facebook/create-react-app) app, so all standard commands works as expected.
+Run the app (node 20+). It is built with [Vite](https://vite.dev), tested with [Vitest](https://vitest.dev).
 
 ```bash
-yarn start
+yarn start          # dev server on http://localhost:3000
+yarn test           # tests (watch mode)
+yarn build          # production build in build/
+./script/release    # build/ zipped as Hesabu.zip (dhis2 app, orbf2 /setup/manager)
 ```
+
+`REACT_APP_*` variables are read from the environment or the `.env` files at build time, as before.
 
 ## Committing
 

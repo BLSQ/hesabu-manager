@@ -4,12 +4,10 @@ import React, { Component, Fragment } from "react";
 import { Redirect, Route, Switch, withRouter } from "react-router";
 import { receiveProject, requestProject } from "./actions/project";
 import PropTypes from "prop-types";
-import DateFnsUtils from "@date-io/date-fns";
 import Fade from "@material-ui/core/Fade";
 import { I18nextProvider } from "react-i18next";
 import Loadable from "react-loadable";
 import SnackBarContainer from "./components/SnackBar/SnackBarContainer";
-import { MuiPickersUtilsProvider } from "material-ui-pickers";
 import ResponsiveDrawers from "./components/Drawers/ResponsiveDrawers";
 import RouteLoading from "./components/Shared/RouteLoading";
 import { SnackbarProvider } from "notistack";
@@ -19,7 +17,6 @@ import i18n from "./lib/i18n";
 import theme from "./utils/theme";
 import { toggleDrawer } from "./actions/ui";
 import store from "./store";
-import registerServiceWorker from "./registerServiceWorker";
 import { CookiesProvider } from "react-cookie";
 import keymap from "./lib/shortcuts";
 import { ShortcutManager, Shortcuts } from "react-shortcuts";
@@ -28,67 +25,70 @@ import { QueryClient, QueryClientProvider } from "react-query";
 const shortcutManager = new ShortcutManager(keymap);
 
 const LoadableSetsContainer = Loadable({
-  loader: () => import("./containers/SetsContainer"),
+  loader: () => import("./containers/SetsContainer").then(m => m.default), // native es modules: no __esModule for react-loadable
   loading: RouteLoading,
 });
 
 const LoadableCompoundsContainer = Loadable({
-  loader: () => import("./containers/CompoundsContainer"),
+  loader: () => import("./containers/CompoundsContainer").then(m => m.default), // native es modules: no __esModule for react-loadable
   loading: RouteLoading,
 });
 
 const LoadableNewCompoundContainer = Loadable({
-  loader: () => import("./components/Compounds/Compound/NewCompound"),
+  loader: () =>
+    import("./components/Compounds/Compound/NewCompound").then(m => m.default), // native es modules: no __esModule for react-loadable
   loading: RouteLoading,
 });
 
 const LoadableSimulationContainer = Loadable({
-  loader: () => import("./containers/SimulationContainer"),
+  loader: () => import("./containers/SimulationContainer").then(m => m.default), // native es modules: no __esModule for react-loadable
   loading: RouteLoading,
 });
 
 const LoadableSimulationsContainer = Loadable({
-  loader: () => import("./containers/SimulationsContainer"),
+  loader: () =>
+    import("./containers/SimulationsContainer").then(m => m.default), // native es modules: no __esModule for react-loadable
   loading: RouteLoading,
 });
 
 const LoadableHelpContainer = Loadable({
-  loader: () => import("./containers/HelpContainer"),
+  loader: () => import("./containers/HelpContainer").then(m => m.default), // native es modules: no __esModule for react-loadable
   loading: RouteLoading,
 });
 
 const LoadableFormulaContainer = Loadable({
-  loader: () => import("./containers/FormulaContainer"),
+  loader: () => import("./containers/FormulaContainer").then(m => m.default), // native es modules: no __esModule for react-loadable
   loading: RouteLoading,
 });
 
 const LoadableFirstSetupContainer = Loadable({
-  loader: () => import("./containers/FirstSetupContainer"),
+  loader: () => import("./containers/FirstSetupContainer").then(m => m.default), // native es modules: no __esModule for react-loadable
   loading: RouteLoading,
 });
 
 const LoadableNewSetContainer = Loadable({
-  loader: () => import("./components/Sets/Set/NewSet"),
+  loader: () => import("./components/Sets/Set/NewSet").then(m => m.default), // native es modules: no __esModule for react-loadable
   loading: RouteLoading,
 });
 
 const LoadableUsersContainer = Loadable({
-  loader: () => import("./containers/UsersContainer"),
+  loader: () => import("./containers/UsersContainer").then(m => m.default), // native es modules: no __esModule for react-loadable
   loading: RouteLoading,
 });
 
 const LoadableNewUserContainer = Loadable({
-  loader: () => import("./components/Users/NewUser"),
+  loader: () => import("./components/Users/NewUser").then(m => m.default), // native es modules: no __esModule for react-loadable
   loading: RouteLoading,
 });
 
 const LoadableDecisionTableContainer = Loadable({
-  loader: () => import("./containers/DecisionTableContainer/index.js"),
+  loader: () =>
+    import("./containers/DecisionTableContainer/index.js").then(m => m.default), // native es modules: no __esModule for react-loadable
   loading: RouteLoading,
 });
 
 const LoadableChangesContainer = Loadable({
-  loader: () => import("./containers/ChangesContainer.js"),
+  loader: () => import("./containers/ChangesContainer.js").then(m => m.default), // native es modules: no __esModule for react-loadable
   loading: RouteLoading,
 });
 
@@ -115,7 +115,6 @@ const queryClient = new QueryClient({
 class App extends Component {
   constructor(props) {
     super(props);
-    registerServiceWorker(store);
     this.state = {
       visible: false,
     };
@@ -183,178 +182,172 @@ class App extends Component {
       <QueryClientProvider client={queryClient}>
         <I18nextProvider i18n={i18n}>
           <CookiesProvider>
-            <MuiPickersUtilsProvider utils={DateFnsUtils}>
-              <MuiThemeProvider theme={theme}>
-                <SnackbarProvider
-                  dense
-                  maxSnack={2}
-                  autoHideDuration={3000}
-                  anchorOrigin={{
-                    vertical: "bottom",
-                    horizontal: "center",
-                  }}
-                >
-                  {this.state.error && (
-                    <div
-                      style={{
-                        width: "500px",
-                        margin: "auto",
-                        marginTop: "100px",
-                      }}
-                    >
-                      <b>Sorry something went wrong can't connect to hesabu</b>
-                      <p style={{ color: "red" }}>
-                        {this.state.error.message} {this.state.error?.status}
-                      </p>
-                      <p>
-                        Check what's running at{" "}
-                        <a href={externalApi()._url}>{externalApi()._url}</a>
-                      </p>
-                      <pre>
-                        {JSON.stringify(this.state.error, undefined, 2)}
-                      </pre>
-                      <pre>{this.state.error.stack}</pre>
-                    </div>
-                  )}
-                  <Shortcuts
-                    name="APP"
-                    global
-                    handler={this.handleShortcuts}
-                    targetNodeSelector="body"
+            <MuiThemeProvider theme={theme}>
+              <SnackbarProvider
+                dense
+                maxSnack={2}
+                autoHideDuration={3000}
+                anchorOrigin={{
+                  vertical: "bottom",
+                  horizontal: "center",
+                }}
+              >
+                {this.state.error && (
+                  <div
+                    style={{
+                      width: "500px",
+                      margin: "auto",
+                      marginTop: "100px",
+                    }}
                   >
-                    {this.props.project.id && (
-                      <Fragment>
-                        <SnackBarContainer />
-                        <HomeTour />
-                        <Fade in={this.state.visible}>
-                          <div className={classes.root}>
-                            <ResponsiveDrawers
-                              handleDrawerToggle={() =>
-                                this.props.toggleDrawer()
-                              }
-                              open={this.props.drawerOpen}
+                    <b>Sorry something went wrong can't connect to hesabu</b>
+                    <p style={{ color: "red" }}>
+                      {this.state.error.message} {this.state.error?.status}
+                    </p>
+                    <p>
+                      Check what's running at{" "}
+                      <a href={externalApi()._url}>{externalApi()._url}</a>
+                    </p>
+                    <pre>{JSON.stringify(this.state.error, undefined, 2)}</pre>
+                    <pre>{this.state.error.stack}</pre>
+                  </div>
+                )}
+                <Shortcuts
+                  name="APP"
+                  global
+                  handler={this.handleShortcuts}
+                  targetNodeSelector="body"
+                >
+                  {this.props.project.id && (
+                    <Fragment>
+                      <SnackBarContainer />
+                      <HomeTour />
+                      <Fade in={this.state.visible}>
+                        <div className={classes.root}>
+                          <ResponsiveDrawers
+                            handleDrawerToggle={() => this.props.toggleDrawer()}
+                            open={this.props.drawerOpen}
+                          />
+                          {pathname === "/" && <Redirect to="/changes" />}
+                          {/* AB: Make this relate to drawer items? */}
+                          <Switch>
+                            <Route
+                              exact
+                              path="/sets/:setId/zone_topic_formulas/:formulaId"
+                              component={LoadableFormulaContainer}
                             />
-                            {pathname === "/" && <Redirect to="/changes" />}
-                            {/* AB: Make this relate to drawer items? */}
-                            <Switch>
-                              <Route
-                                exact
-                                path="/sets/:setId/zone_topic_formulas/:formulaId"
-                                component={LoadableFormulaContainer}
-                              />
-                              <Route
-                                exact
-                                path="/sets/:setId/children_formulas/:formulaId"
-                                component={LoadableFormulaContainer}
-                              />
-                              <Route
-                                exact
-                                path="/sets/:setId/topic_formulas/:formulaId"
-                                component={LoadableFormulaContainer}
-                              />
-                              <Route
-                                exact
-                                path="/sets/:setId/zone_formulas/:formulaId"
-                                component={LoadableFormulaContainer}
-                              />
-                              <Route
-                                exact
-                                path="/sets/:setId/set_formulas/:formulaId"
-                                component={LoadableFormulaContainer}
-                              />
-                              <Route
-                                exact
-                                path="/sets/:setId/topic/decisions/:decisionTableId"
-                                component={LoadableDecisionTableContainer}
-                              />
-                              <Route
-                                exact
-                                path="/sets/new"
-                                component={LoadableNewSetContainer}
-                              />
-                              <Route
-                                exact
-                                path="/sets"
-                                component={LoadableSetsContainer}
-                              />
-                              <Route
-                                path="/sets/:setId"
-                                component={LoadableSetsContainer}
-                              />
-                              <Route
-                                exact
-                                path="/sets/:setId/topic_formulas/new"
-                                component={LoadableFormulaContainer}
-                              />
-                              <Route
-                                exact
-                                path="/sets/:setId/topic/import"
-                                component={LoadableSetsContainer}
-                              />
-                              <Route
-                                exact
-                                path="/compounds/new"
-                                component={LoadableNewCompoundContainer}
-                              />
-                              <Route
-                                exact
-                                path="/compounds"
-                                component={LoadableCompoundsContainer}
-                              />
-                              <Route
-                                exact
-                                path="/compounds/:compoundId"
-                                component={LoadableCompoundsContainer}
-                              />
-                              <Route
-                                exact
-                                path="/compounds/:compoundId/compound_formulas/:formulaId"
-                                component={LoadableFormulaContainer}
-                              />
-                              <Route
-                                exact
-                                path="/compounds/:compoundId/compound_formulas"
-                                component={LoadableCompoundsContainer}
-                              />
-                              <Route
-                                exact
-                                path="/changes"
-                                component={LoadableChangesContainer}
-                              />
-                              <Route
-                                exact
-                                path="/simulations"
-                                component={LoadableSimulationsContainer}
-                              />
-                              <Route
-                                path="/simulation"
-                                component={LoadableSimulationContainer}
-                              />
-                              <Route
-                                path="/users/new"
-                                component={LoadableNewUserContainer}
-                              />
-                              <Route
-                                path="/users"
-                                component={LoadableUsersContainer}
-                              />
-                              <Route
-                                path="/first-setup"
-                                component={LoadableFirstSetupContainer}
-                              />
-                              <Route
-                                path="/help"
-                                component={LoadableHelpContainer}
-                              />
-                            </Switch>
-                          </div>
-                        </Fade>
-                      </Fragment>
-                    )}
-                  </Shortcuts>
-                </SnackbarProvider>
-              </MuiThemeProvider>
-            </MuiPickersUtilsProvider>
+                            <Route
+                              exact
+                              path="/sets/:setId/children_formulas/:formulaId"
+                              component={LoadableFormulaContainer}
+                            />
+                            <Route
+                              exact
+                              path="/sets/:setId/topic_formulas/:formulaId"
+                              component={LoadableFormulaContainer}
+                            />
+                            <Route
+                              exact
+                              path="/sets/:setId/zone_formulas/:formulaId"
+                              component={LoadableFormulaContainer}
+                            />
+                            <Route
+                              exact
+                              path="/sets/:setId/set_formulas/:formulaId"
+                              component={LoadableFormulaContainer}
+                            />
+                            <Route
+                              exact
+                              path="/sets/:setId/topic/decisions/:decisionTableId"
+                              component={LoadableDecisionTableContainer}
+                            />
+                            <Route
+                              exact
+                              path="/sets/new"
+                              component={LoadableNewSetContainer}
+                            />
+                            <Route
+                              exact
+                              path="/sets"
+                              component={LoadableSetsContainer}
+                            />
+                            <Route
+                              path="/sets/:setId"
+                              component={LoadableSetsContainer}
+                            />
+                            <Route
+                              exact
+                              path="/sets/:setId/topic_formulas/new"
+                              component={LoadableFormulaContainer}
+                            />
+                            <Route
+                              exact
+                              path="/sets/:setId/topic/import"
+                              component={LoadableSetsContainer}
+                            />
+                            <Route
+                              exact
+                              path="/compounds/new"
+                              component={LoadableNewCompoundContainer}
+                            />
+                            <Route
+                              exact
+                              path="/compounds"
+                              component={LoadableCompoundsContainer}
+                            />
+                            <Route
+                              exact
+                              path="/compounds/:compoundId"
+                              component={LoadableCompoundsContainer}
+                            />
+                            <Route
+                              exact
+                              path="/compounds/:compoundId/compound_formulas/:formulaId"
+                              component={LoadableFormulaContainer}
+                            />
+                            <Route
+                              exact
+                              path="/compounds/:compoundId/compound_formulas"
+                              component={LoadableCompoundsContainer}
+                            />
+                            <Route
+                              exact
+                              path="/changes"
+                              component={LoadableChangesContainer}
+                            />
+                            <Route
+                              exact
+                              path="/simulations"
+                              component={LoadableSimulationsContainer}
+                            />
+                            <Route
+                              path="/simulation"
+                              component={LoadableSimulationContainer}
+                            />
+                            <Route
+                              path="/users/new"
+                              component={LoadableNewUserContainer}
+                            />
+                            <Route
+                              path="/users"
+                              component={LoadableUsersContainer}
+                            />
+                            <Route
+                              path="/first-setup"
+                              component={LoadableFirstSetupContainer}
+                            />
+                            <Route
+                              path="/help"
+                              component={LoadableHelpContainer}
+                            />
+                          </Switch>
+                        </div>
+                      </Fade>
+                    </Fragment>
+                  )}
+                </Shortcuts>
+              </SnackbarProvider>
+            </MuiThemeProvider>
           </CookiesProvider>
         </I18nextProvider>
         <ReactQueryDevtools initialIsOpen={false} />

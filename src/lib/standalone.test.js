@@ -52,7 +52,7 @@ describe("toQueryString", () => {
 
 describe("standaloneDhis2Api", () => {
   it("reads dhis2 through orbf2 with the orbf2 session", async () => {
-    global.fetch = jest.fn(() =>
+    global.fetch = vi.fn(() =>
       Promise.resolve({ ok: true, json: () => ({ dataElements: [] }) }),
     );
     const api = standaloneDhis2Api(config);
@@ -70,7 +70,7 @@ describe("standaloneDhis2Api", () => {
 
   it("rejects on dhis2 errors like d2", async () => {
     const failed = { ok: false, status: 404 };
-    global.fetch = jest.fn(() => Promise.resolve(failed));
+    global.fetch = vi.fn(() => Promise.resolve(failed));
 
     await expect(
       standaloneDhis2Api(config).get("identifiableObjects/unknown"),

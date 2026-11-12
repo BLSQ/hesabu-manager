@@ -1,4 +1,4 @@
-const JSONAPIDeserializer = require("jsonapi-serializer").Deserializer;
+import { Deserializer as JSONAPIDeserializer } from "jsonapi-serializer";
 
 export const deserialize = (payload, options = {}) => {
   return new JSONAPIDeserializer({
