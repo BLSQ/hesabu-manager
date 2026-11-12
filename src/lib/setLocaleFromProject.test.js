@@ -1,11 +1,9 @@
-/* globals describe, it, expect, jest */
-
-jest.unmock("i18next");
+/* globals describe, it, expect, vi */
 import i18n from "i18next";
 import { project } from "../fixtures/projectFixtures";
 import { setLocaleFromProject } from "./setLocaleFromProject";
 
-i18n.changeLanguage = jest.fn();
+i18n.changeLanguage = vi.fn();
 
 describe("setLocaleFromProject", () => {
   it("should not change locale if project locale is the same", () => {

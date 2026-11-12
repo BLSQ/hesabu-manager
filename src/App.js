@@ -17,7 +17,6 @@ import i18n from "./lib/i18n";
 import theme from "./utils/theme";
 import { toggleDrawer } from "./actions/ui";
 import store from "./store";
-import registerServiceWorker from "./registerServiceWorker";
 import { CookiesProvider } from "react-cookie";
 import keymap from "./lib/shortcuts";
 import { ShortcutManager, Shortcuts } from "react-shortcuts";
@@ -26,67 +25,70 @@ import { QueryClient, QueryClientProvider } from "react-query";
 const shortcutManager = new ShortcutManager(keymap);
 
 const LoadableSetsContainer = Loadable({
-  loader: () => import("./containers/SetsContainer"),
+  loader: () => import("./containers/SetsContainer").then(m => m.default), // native es modules: no __esModule for react-loadable
   loading: RouteLoading,
 });
 
 const LoadableCompoundsContainer = Loadable({
-  loader: () => import("./containers/CompoundsContainer"),
+  loader: () => import("./containers/CompoundsContainer").then(m => m.default), // native es modules: no __esModule for react-loadable
   loading: RouteLoading,
 });
 
 const LoadableNewCompoundContainer = Loadable({
-  loader: () => import("./components/Compounds/Compound/NewCompound"),
+  loader: () =>
+    import("./components/Compounds/Compound/NewCompound").then(m => m.default), // native es modules: no __esModule for react-loadable
   loading: RouteLoading,
 });
 
 const LoadableSimulationContainer = Loadable({
-  loader: () => import("./containers/SimulationContainer"),
+  loader: () => import("./containers/SimulationContainer").then(m => m.default), // native es modules: no __esModule for react-loadable
   loading: RouteLoading,
 });
 
 const LoadableSimulationsContainer = Loadable({
-  loader: () => import("./containers/SimulationsContainer"),
+  loader: () =>
+    import("./containers/SimulationsContainer").then(m => m.default), // native es modules: no __esModule for react-loadable
   loading: RouteLoading,
 });
 
 const LoadableHelpContainer = Loadable({
-  loader: () => import("./containers/HelpContainer"),
+  loader: () => import("./containers/HelpContainer").then(m => m.default), // native es modules: no __esModule for react-loadable
   loading: RouteLoading,
 });
 
 const LoadableFormulaContainer = Loadable({
-  loader: () => import("./containers/FormulaContainer"),
+  loader: () => import("./containers/FormulaContainer").then(m => m.default), // native es modules: no __esModule for react-loadable
   loading: RouteLoading,
 });
 
 const LoadableFirstSetupContainer = Loadable({
-  loader: () => import("./containers/FirstSetupContainer"),
+  loader: () => import("./containers/FirstSetupContainer").then(m => m.default), // native es modules: no __esModule for react-loadable
   loading: RouteLoading,
 });
 
 const LoadableNewSetContainer = Loadable({
-  loader: () => import("./components/Sets/Set/NewSet"),
+  loader: () => import("./components/Sets/Set/NewSet").then(m => m.default), // native es modules: no __esModule for react-loadable
   loading: RouteLoading,
 });
 
 const LoadableUsersContainer = Loadable({
-  loader: () => import("./containers/UsersContainer"),
+  loader: () => import("./containers/UsersContainer").then(m => m.default), // native es modules: no __esModule for react-loadable
   loading: RouteLoading,
 });
 
 const LoadableNewUserContainer = Loadable({
-  loader: () => import("./components/Users/NewUser"),
+  loader: () => import("./components/Users/NewUser").then(m => m.default), // native es modules: no __esModule for react-loadable
   loading: RouteLoading,
 });
 
 const LoadableDecisionTableContainer = Loadable({
-  loader: () => import("./containers/DecisionTableContainer/index.js"),
+  loader: () =>
+    import("./containers/DecisionTableContainer/index.js").then(m => m.default), // native es modules: no __esModule for react-loadable
   loading: RouteLoading,
 });
 
 const LoadableChangesContainer = Loadable({
-  loader: () => import("./containers/ChangesContainer.js"),
+  loader: () => import("./containers/ChangesContainer.js").then(m => m.default), // native es modules: no __esModule for react-loadable
   loading: RouteLoading,
 });
 
@@ -113,7 +115,6 @@ const queryClient = new QueryClient({
 class App extends Component {
   constructor(props) {
     super(props);
-    registerServiceWorker(store);
     this.state = {
       visible: false,
     };

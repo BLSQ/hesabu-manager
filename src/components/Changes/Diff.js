@@ -1,6 +1,7 @@
 import { Button } from "@material-ui/core";
 import { DetailsRounded } from "@material-ui/icons";
 import React, { useEffect, useState } from "react";
+import * as Diff from "diff";
 import ReactDiffViewer from "react-diff-viewer";
 import "./Button.css";
 import SplitView from "./SplitView";
@@ -42,7 +43,6 @@ const VisualDiff = ({ details }) => {
     }
 
     if (diffMode != "sideBySide") {
-      const Diff = require("diff");
       parts = Diff[diffMode](
         formatDiff(details.before),
         formatDiff(details.after),
