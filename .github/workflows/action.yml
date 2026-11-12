@@ -38,6 +38,6 @@ jobs:
           gh release create "build-${GITHUB_RUN_NUMBER}" Hesabu.zip \
             --target "$GITHUB_SHA" \
             --title "Hesabu manager build ${GITHUB_RUN_NUMBER}" \
-            --notes "Build of ${GITHUB_SHA}, served by orbf2 at /setup/hesabu_manager"
+            --notes "Build of ${GITHUB_SHA}, served by orbf2 at /setup/manager"
         env:
           GH_TOKEN: ${{ github.token }}
