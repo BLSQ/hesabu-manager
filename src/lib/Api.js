@@ -1,4 +1,5 @@
 import { getInstance, getManifest, init } from "d2/d2";
+import { standaloneConfig, standaloneDhis2Api } from "./standalone";
 
 class Api {
   /**
@@ -12,7 +13,8 @@ class Api {
     this.user = process.env.REACT_APP_USER;
     this.password = process.env.REACT_APP_PASSWORD;
     this.ignoredStores = [""];
-    this.initialize();
+    // served by orbf2: no dhis2 session to initialize
+    if (!standaloneConfig()) this.initialize();
   }
 
   /**
@@ -50,7 +52,10 @@ class Api {
     return this;
   }
 
-  instance = () => getInstance().then(d2 => d2.Api.getApi());
+  instance = () =>
+    standaloneConfig()
+      ? Promise.resolve(standaloneDhis2Api(standaloneConfig()))
+      : getInstance().then(d2 => d2.Api.getApi());
 
   currentUser() {
     return getInstance().then(d2 => {
@@ -61,6 +66,10 @@ class Api {
   }
 
   projectTokenAndUrl = () => {
+    if (standaloneConfig()) {
+      const { token, url } = standaloneConfig();
+      return Promise.resolve({ token, url });
+    }
     return getInstance().then(d2 => {
       return d2.dataStore.get("hesabu").then(namespace => {
         return namespace.get("hesabu");
