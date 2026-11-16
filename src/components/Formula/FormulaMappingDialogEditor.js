@@ -15,7 +15,7 @@ import {
 } from "@material-ui/core";
 
 const useStylesFormMapping = makeStyles(() => ({
-  paper: { minWidth: "500px", minHeight: "500px" },
+  paper: { minHeight: "500px" },
 }));
 
 const FormulaMappingDialogEditor = props => {
@@ -90,6 +90,8 @@ const FormulaMappingDialogEditor = props => {
       disableBackdropClick
       open={open}
       TransitionComponent={Transition}
+      fullWidth
+      maxWidth="md"
       classes={{ paper: classes.paper }}
     >
       <DialogTitle id="form-dialog-title">

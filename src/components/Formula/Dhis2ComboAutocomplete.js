@@ -12,7 +12,7 @@ const useStyles = makeStyles(theme => ({
     marginBottom: theme.spacing(4),
   },
   textWidth: {
-    width: "400px",
+    width: "100%",
     marginTop: "1rem",
   },
   idStyle: {
