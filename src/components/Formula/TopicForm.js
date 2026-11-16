@@ -1,8 +1,18 @@
 import React, { useState } from "react";
 import { useMutation } from "react-query";
-import { Button, Grid, Box, TextField } from "@material-ui/core";
+import { Box, Button, Grid, TextField } from "@material-ui/core";
 import { deserialize } from "../../utils/jsonApiUtils";
 import { externalApi, canEdit } from "../../actions/api";
+
+// keep in sync with orbf2 app/models/activity.rb validations
+export const SHORT_NAME_MAX_LENGTH = 40;
+const CODE_FORMAT = /^[a-z_0-9]*$/;
+
+const FIELD_ERROR_KEYS = {
+  name: "name",
+  shortName: "short_name",
+  code: "code",
+};
 
 const topic = {
   name: "",
@@ -11,6 +21,23 @@ const topic = {
   setId: "",
 };
 
+export const shortNameHint = shortName => {
+  const length = shortName.length;
+  const tooMany = length - SHORT_NAME_MAX_LENGTH;
+  return {
+    error: tooMany > 0,
+    text: `${length}/${SHORT_NAME_MAX_LENGTH} characters${
+      tooMany > 0 ? ` (${tooMany} too many)` : ""
+    }`,
+  };
+};
+
+export const codeHint = code => ({
+  error: !CODE_FORMAT.test(code),
+  text:
+    "lowercase letters, digits and _ only, e.g. 'assisted_deliveries'. Generated from the name when left empty.",
+});
+
 const TopicForm = ({ set, closeNewTopic, queryClient }) => {
   const userCanEdit = canEdit();
   const [topicToUse, setTopicToUse] = useState(topic);
@@ -18,10 +45,14 @@ const TopicForm = ({ set, closeNewTopic, queryClient }) => {
   const [isDirty, setIsDirty] = useState(false);
 
   const handleAttributeChange = (value, attribute) => {
-    const newTopic = { ...topicToUse };
-    newTopic[attribute] = value;
-    setTopicToUse(newTopic);
+    setTopicToUse({ ...topicToUse, [attribute]: value });
     setIsDirty(true);
+    // the server error no longer applies once the field is edited
+    const errorKey = FIELD_ERROR_KEYS[attribute];
+    if (validationErrors[errorKey]) {
+      const { [errorKey]: _removed, ...otherErrors } = validationErrors;
+      setValidationErrors(otherErrors);
+    }
   };
 
   const createTopicMutation = useMutation(
@@ -44,91 +75,97 @@ const TopicForm = ({ set, closeNewTopic, queryClient }) => {
       return resp;
     },
     {
-      onSuccess: resp => {
+      onSuccess: () => {
         setValidationErrors({});
         closeNewTopic();
         queryClient.invalidateQueries("loadSet");
       },
       onError: error => {
-        let resp = error.json;
-        resp = resp.errors[0];
-        const errorDetails = resp.details;
-        for (let attribute in errorDetails) {
-          validationErrors[attribute] = errorDetails[attribute];
-        }
-        setValidationErrors({ ...validationErrors });
+        const errorDetails = error.json?.errors?.[0]?.details || {
+          base: error.message,
+        };
+        setValidationErrors({ ...errorDetails });
       },
     },
   );
 
+  const shortName = shortNameHint(topicToUse.shortName);
+  const code = codeHint(topicToUse.code);
+  // errors not attached to one of the fields below
+  const otherErrors = Object.entries(validationErrors)
+    .filter(([key]) => !Object.values(FIELD_ERROR_KEYS).includes(key))
+    .map(([, message]) => message);
+
   return (
-    <Box>
-      <Grid container>
-        <Grid item>
-          <Grid container spacing={4} direction="column">
-            <div style={{ color: "red" }}>
-              <b>
-                {topicToUse?.errors &&
-                  Object.keys(topicToUse.errors).length > 0 &&
-                  Object.values(topicToUse.errors).join("\n")}
-                {validationErrors &&
-                  Object.keys(validationErrors).length > 0 &&
-                  Object.values(validationErrors).join("\n")}
-              </b>
-            </div>
-            <Grid item>
-              <TextField
-                required
-                id="name"
-                error={validationErrors.name}
-                helperText={validationErrors.name}
-                label={"Name"}
-                variant="outlined"
-                fullWidth
-                value={topicToUse.name}
-                onChange={event =>
-                  handleAttributeChange(event.target.value, "name")
-                }
-              />
-            </Grid>
-            <Grid item>
-              <TextField
-                label={"Short name"}
-                id="shortName"
-                error={validationErrors.short_name}
-                helperText={validationErrors.short_name}
-                variant="outlined"
-                fullWidth
-                value={topicToUse.shortName}
-                onChange={event =>
-                  handleAttributeChange(event.target.value, "shortName")
-                }
-              />
-            </Grid>
-            <Grid item>
-              <TextField
-                label={"Code"}
-                id="code"
-                error={validationErrors.code}
-                helperText={validationErrors.code}
-                variant="outlined"
-                fullWidth
-                value={topicToUse.code}
-                onChange={event =>
-                  handleAttributeChange(event.target.value, "code")
-                }
-              />
-            </Grid>
-            <Grid item xs={10} sm={9}>
-              <Button
-                variant="outlined"
-                disabled={!isDirty || !userCanEdit}
-                onClick={() => createTopicMutation.mutate()}
-              >
-                Create
-              </Button>
-            </Grid>
+    <Box p={1.5}>
+      <Grid container spacing={3} direction="column">
+        {otherErrors.length > 0 && (
+          <Grid item style={{ color: "red" }}>
+            {otherErrors.join("\n")}
           </Grid>
+        )}
+        <Grid item>
+          <TextField
+            required
+            autoFocus
+            id="name"
+            error={Boolean(validationErrors.name)}
+            helperText={validationErrors.name}
+            label={"Name"}
+            variant="outlined"
+            fullWidth
+            value={topicToUse.name}
+            onChange={event =>
+              handleAttributeChange(event.target.value, "name")
+            }
+          />
+        </Grid>
+        <Grid item>
+          <TextField
+            label={"Short name"}
+            id="shortName"
+            error={Boolean(validationErrors.short_name) || shortName.error}
+            helperText={
+              validationErrors.short_name
+                ? `${validationErrors.short_name} - ${shortName.text}`
+                : shortName.text
+            }
+            variant="outlined"
+            fullWidth
+            value={topicToUse.shortName}
+            onChange={event =>
+              handleAttributeChange(event.target.value, "shortName")
+            }
+          />
+        </Grid>
+        <Grid item>
+          <TextField
+            label={"Code"}
+            id="code"
+            error={Boolean(validationErrors.code) || code.error}
+            helperText={validationErrors.code || code.text}
+            variant="outlined"
+            fullWidth
+            value={topicToUse.code}
+            onChange={event =>
+              handleAttributeChange(event.target.value, "code")
+            }
+          />
+        </Grid>
+        <Grid item>
+          <Button
+            variant="outlined"
+            disabled={
+              !isDirty ||
+              !userCanEdit ||
+              shortName.error ||
+              code.error ||
+              createTopicMutation.isLoading
+            }
+            onClick={() => createTopicMutation.mutate()}
+          >
+            Create
+          </Button>
         </Grid>
       </Grid>
     </Box>
