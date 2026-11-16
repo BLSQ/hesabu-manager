@@ -94,6 +94,15 @@ span.data-grid-container:focus {
   white-space: nowrap;
 }
 
+/* topic names can be selected for copy paste */
+.data-grid-container .data-grid .cell.topic-name {
+  user-select: text;
+  -moz-user-select: text;
+  -webkit-user-select: text;
+  -ms-user-select: text;
+  cursor: text;
+}
+
 .data-grid-container .data-grid .cell.selected {
   border: 1px double rgb(33, 133, 208);
   -webkit-transition: none;

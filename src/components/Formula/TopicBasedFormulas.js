@@ -34,6 +34,7 @@ import FormulaViewer from "./FormulaViewer";
 import InputsMenu from "./InputsMenu";
 import TopicMenu from "./TopicMenu";
 import useUrlFilter from "../Shared/useUrlFilter";
+import { handleDataSheetCopy } from "../Shared/dataSheetCopy";
 import InputMappingDialogEditor from "./InputMappingDialogEditor";
 
 const useStyles = makeStyles(theme => ({
@@ -228,6 +229,7 @@ const TopicBasedFormulas = props => {
         readOnly: true,
         disableEvents: true,
         noWrap: true,
+        className: "topic-name",
         style: { backgroundColor: "yellow" },
         valueViewer: topic => {
           return <span title={topic.value.code}>{topic.value.name}</span>;
@@ -373,6 +375,7 @@ const TopicBasedFormulas = props => {
             {!showGraph && (
               <ReactDataSheet
                 disablePageClick={true}
+                handleCopy={handleDataSheetCopy}
                 data={grid}
                 cellRenderer={CellRenderer}
                 valueRenderer={cell => cell.value}
