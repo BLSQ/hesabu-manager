@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import { makeStyles, TextField, InputAdornment } from "@material-ui/core";
 import SearchIcon from "@material-ui/icons/Search";
 import sortBy from "lodash/sortBy";
 import PageContent from "../Shared/PageContent";
 import DecisionTableListItem from "./DecisionTableListItem";
 import { filterDecisionTables } from "./utils";
+import useUrlFilter from "../Shared/useUrlFilter";
 
 const useStyles = makeStyles(theme => ({
   listHolder: {
@@ -22,7 +23,7 @@ const useStyles = makeStyles(theme => ({
 const DecisionTableList = props => {
   const classes = useStyles();
   const setId = props.set.id;
-  const [filter, setFilter] = useState("");
+  const [filter, setFilter] = useUrlFilter();
 
   let decisions = props.set.topicDecisionTables;
 
