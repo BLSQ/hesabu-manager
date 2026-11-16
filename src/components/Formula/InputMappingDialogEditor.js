@@ -23,17 +23,17 @@ import Dhis2ComboAutocomplete from "./Dhis2ComboAutocomplete";
 import Dhis2IndicatorAutocomplete from "./Dhis2IndicatorAutocomplete";
 
 const useStylesFormMapping = makeStyles(() => ({
-  paper: { minWidth: "500px", minHeight: "500px" },
-  mappingTypeSelect: { marginLeft: "0.3rem", marginTop: "1rem", width: "3rem" },
+  paper: { minHeight: "500px" },
+  mappingTypeSelect: { marginLeft: "0.3rem", marginTop: "1rem" },
   comboAutocomplete: { marginTop: "1rem" },
   dhis2Details: {
     marginTop: "1rem",
     marginBottom: "2rem",
     marginLeft: "0.5rem",
   },
-  editMappings: { marginTop: "1rem", marginLeft: "0.5rem" },
+  editMappings: { marginTop: "1rem", marginLeft: "0.5rem", width: "100%" },
   buttonMargin: { marginLeft: "1rem" },
-  textField: { width: "400px" },
+  textField: { width: "100%" },
 }));
 
 const InputMappingDialogEditor = ({ cell, match }) => {
@@ -173,6 +173,8 @@ const InputMappingDialogEditor = ({ cell, match }) => {
         TransitionComponent={Transition}
         disableEscapeKeyDown={true}
         disableBackdropClick={true}
+        fullWidth
+        maxWidth="md"
         classes={{ paper: classes.paper }}
       >
         <div>
@@ -210,9 +212,9 @@ const InputMappingDialogEditor = ({ cell, match }) => {
               )}
               {userCanEdit && (
                 <div className={classes.editMappings}>
-                  <FormControl>
+                  <FormControl fullWidth>
                     <div className={classes.mappingTypeSelect}>
-                      <FormControl>
+                      <FormControl fullWidth>
                         <TextField
                           select
                           label="Mapping type"
