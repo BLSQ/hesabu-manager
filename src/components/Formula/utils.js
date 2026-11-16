@@ -84,3 +84,26 @@ export const formulasToMermaid = (formulas, prefix_url, mode) => {
 
   return content;
 };
+
+const normalizeForSearch = str =>
+  (str || "")
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase();
+
+// keeps the topics whose name, short name or code contains every word of the filter
+// (case and accent insensitive)
+export const filterTopics = (topics, filter) => {
+  const words = normalizeForSearch(filter)
+    .split(/\s+/)
+    .filter(word => word.length > 0);
+  if (words.length === 0) {
+    return topics;
+  }
+  return topics.filter(topic => {
+    const haystack = normalizeForSearch(
+      [topic.name, topic.shortName, topic.code].join(" "),
+    );
+    return words.every(word => haystack.includes(word));
+  });
+};
