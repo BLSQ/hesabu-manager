@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { makeStyles } from "@material-ui/styles";
 import Mermaid from "../Shared/Mermaid";
-import { formulasToMermaid } from "./utils";
+import { filterTopics, formulasToMermaid } from "./utils";
 import ReactDataSheet from "react-datasheet";
 import PropTypes from "prop-types";
 import { APPBAR_WITH_TABS_HEIGHT } from "../../constants/ui";
@@ -12,7 +12,15 @@ import {
   fakeColumGenerator,
   fakeRowGenerator,
 } from "../../utils/dataGridUtils";
-import { Switch, Button, Tooltip, Link } from "@material-ui/core";
+import {
+  Switch,
+  Button,
+  Tooltip,
+  Link,
+  TextField,
+  InputAdornment,
+} from "@material-ui/core";
+import SearchIcon from "@material-ui/icons/Search";
 import CloudDownload from "@material-ui/icons/CloudDownload";
 import CheckCircle from "@material-ui/icons/CheckCircle";
 import RemoveCircleOutlineIcon from "@material-ui/icons/RemoveCircleOutline";
@@ -106,6 +114,8 @@ const TopicBasedFormulas = props => {
   const safeDecisionTables = decisionTables || [];
 
   const [graphDirection, setGraphDirection] = useState("TD");
+  const [topicFilter, setTopicFilter] = useState("");
+  const filteredTopics = filterTopics(safeTopics, topicFilter);
 
   safeDecisionTables.forEach(
     decisionTable =>
@@ -211,7 +221,7 @@ const TopicBasedFormulas = props => {
 
   const grid = [
     ...defaultGrid,
-    ...safeTopics.map(topic => [
+    ...filteredTopics.map(topic => [
       {
         value: topic,
         readOnly: true,
@@ -324,6 +334,28 @@ const TopicBasedFormulas = props => {
                 >
                   Toggle Direction
                 </Button>
+              )}
+              {!showGraph && (
+                <TextField
+                  size="small"
+                  variant="outlined"
+                  placeholder="Filter topics by name, short name or code"
+                  value={topicFilter}
+                  onChange={event => setTopicFilter(event.target.value)}
+                  style={{ marginLeft: 16, width: 400 }}
+                  helperText={
+                    topicFilter
+                      ? `${filteredTopics.length} / ${safeTopics.length} topics`
+                      : undefined
+                  }
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <SearchIcon fontSize="small" />
+                      </InputAdornment>
+                    ),
+                  }}
+                />
               )}
             </div>
             {showGraph && (

@@ -78,12 +78,12 @@ const TopicMenu = ({ set }) => {
               open={newTopic}
               onClose={closeNewTopic}
               fullWidth
-              maxWidth="md"
+              maxWidth="lg"
               aria-labelledby="modal-modal-title"
               aria-describedby="modal-modal-description"
             >
               <DialogTitle>Create new topic</DialogTitle>
-              <DialogContent style={{ height: "300px" }}>
+              <DialogContent>
                 <TopicForm
                   set={set}
                   closeNewTopic={closeNewTopic}

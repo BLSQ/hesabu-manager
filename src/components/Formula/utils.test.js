@@ -1,6 +1,6 @@
 /* globals describe, it, expect */
 
-import { dependencies, formulasToMermaid } from "./utils";
+import { dependencies, filterTopics, formulasToMermaid } from "./utils";
 
 describe("formula utils", () => {
   const formula = {
@@ -119,5 +119,60 @@ click difference_percentage "url_prefix/parent/id/formulas/2"
 classDef current fill:#f96;
 `.trim(),
     );
+  });
+});
+
+describe("filterTopics", () => {
+  const topics = [
+    {
+      name: "Consultation externe (nvx cas) - 0 à 1 mois",
+      shortName: "Consult ext 0-1m",
+      code: "quant01",
+    },
+    {
+      name: "Accouchement assisté",
+      shortName: "Accouchement",
+      code: "assisted_deliveries",
+    },
+    { name: "Vaccination", shortName: null, code: "vaccination_under_one" },
+  ];
+  const names = result => result.map(topic => topic.code);
+
+  it("returns all topics for an empty or blank filter", () => {
+    expect(filterTopics(topics, "")).toBe(topics);
+    expect(filterTopics(topics, "   ")).toBe(topics);
+    expect(filterTopics(topics, undefined)).toBe(topics);
+  });
+
+  it("matches the name case and accent insensitive", () => {
+    expect(names(filterTopics(topics, "ACCOUCHEMENT ASSISTE"))).toEqual([
+      "assisted_deliveries",
+    ]);
+    expect(names(filterTopics(topics, "assiste "))).toEqual([
+      "assisted_deliveries",
+    ]);
+    expect(names(filterTopics(topics, "a 1 mois"))).toEqual(["quant01"]);
+  });
+
+  it("matches the code and the short name", () => {
+    expect(names(filterTopics(topics, "under_one"))).toEqual([
+      "vaccination_under_one",
+    ]);
+    expect(names(filterTopics(topics, "0-1m"))).toEqual(["quant01"]);
+  });
+
+  it("requires every word to match, in any order", () => {
+    expect(names(filterTopics(topics, "externe consultation"))).toEqual([
+      "quant01",
+    ]);
+    expect(names(filterTopics(topics, "consultation vaccination"))).toEqual([]);
+  });
+});
+
+describe("filterTopics accents", () => {
+  it("matches an accented name without typing the accents", () => {
+    const topics = [{ name: "Référence évacuée", shortName: "", code: "ref" }];
+    expect(filterTopics(topics, "reference evacuee")).toEqual(topics);
+    expect(filterTopics(topics, "RÉFÉRENCE")).toEqual(topics);
   });
 });
