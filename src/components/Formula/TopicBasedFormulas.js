@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { makeStyles } from "@material-ui/styles";
 import Mermaid from "../Shared/Mermaid";
-import { filterTopics, formulasToMermaid } from "./utils";
+import { filterTopics, formulasToMermaid, onlyMapped } from "./utils";
 import ReactDataSheet from "react-datasheet";
 import PropTypes from "prop-types";
 import { APPBAR_WITH_TABS_HEIGHT } from "../../constants/ui";
@@ -14,6 +14,7 @@ import {
 } from "../../utils/dataGridUtils";
 import {
   Switch,
+  FormControlLabel,
   Button,
   Tooltip,
   Link,
@@ -111,13 +112,24 @@ const TopicBasedFormulas = props => {
   setToUse.topics = setToUse.topics.map(topic => topic.id);
   setToUse.inputs = setToUse.inputs.map(input => input.id);
   const safeTopics = topics || [];
-  const safeInputs = inputs;
-  const safeTopicFormulas = formulas || [];
   const safeDecisionTables = decisionTables || [];
 
   const [graphDirection, setGraphDirection] = useState("TD");
   const [topicFilter, setTopicFilter] = useUrlFilter();
-  const filteredTopics = filterTopics(safeTopics, topicFilter);
+  const [mappedOnly, setMappedOnly] = useUrlFilter("mapped");
+  const textFilteredTopics = filterTopics(safeTopics, topicFilter);
+  // rows with at least one mapping, columns mapped for at least one row
+  const {
+    topics: filteredTopics,
+    inputs: safeInputs,
+    formulas: safeTopicFormulas,
+  } = mappedOnly
+    ? onlyMapped(textFilteredTopics, inputs || [], formulas || [])
+    : {
+        topics: textFilteredTopics,
+        inputs: inputs || [],
+        formulas: formulas || [],
+      };
 
   safeDecisionTables.forEach(
     decisionTable =>
@@ -339,6 +351,23 @@ const TopicBasedFormulas = props => {
                 </Button>
               )}
               {!showGraph && (
+                <FormControlLabel
+                  style={{ marginLeft: 16 }}
+                  title="Only the topics with at least one mapping, and the states and formulas mapped for at least one of them"
+                  control={
+                    <Switch
+                      color="primary"
+                      name="only mapped"
+                      checked={!!mappedOnly}
+                      onChange={event =>
+                        setMappedOnly(event.target.checked ? "1" : "")
+                      }
+                    />
+                  }
+                  label="Only mapped"
+                />
+              )}
+              {!showGraph && (
                 <TextField
                   size="small"
                   variant="outlined"
@@ -347,7 +376,7 @@ const TopicBasedFormulas = props => {
                   onChange={event => setTopicFilter(event.target.value)}
                   style={{ marginLeft: 16, width: 400 }}
                   helperText={
-                    topicFilter
+                    topicFilter || mappedOnly
                       ? `${filteredTopics.length} / ${safeTopics.length} topics`
                       : undefined
                   }

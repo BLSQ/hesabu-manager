@@ -1,22 +1,26 @@
 import { useEffect } from "react";
 import { useHistory, useLocation } from "react-router-dom";
 
-const storageKey = pathname => `hesabu-filter:${pathname}`;
+// "filter" keeps its original key, other params get their own
+const storageKey = (pathname, param) =>
+  param === "filter"
+    ? `hesabu-filter:${pathname}`
+    : `hesabu-filter:${pathname}:${param}`;
 
-const readStored = pathname => {
+const readStored = (pathname, param) => {
   try {
-    return window.sessionStorage.getItem(storageKey(pathname)) || "";
+    return window.sessionStorage.getItem(storageKey(pathname, param)) || "";
   } catch (e) {
     return "";
   }
 };
 
-const writeStored = (pathname, value) => {
+const writeStored = (pathname, param, value) => {
   try {
     if (value) {
-      window.sessionStorage.setItem(storageKey(pathname), value);
+      window.sessionStorage.setItem(storageKey(pathname, param), value);
     } else {
-      window.sessionStorage.removeItem(storageKey(pathname));
+      window.sessionStorage.removeItem(storageKey(pathname, param));
     }
   } catch (e) {
     // storage unavailable (private mode,...), the url still keeps the filter
@@ -42,21 +46,23 @@ const useUrlFilter = (param = "filter") => {
   const location = useLocation();
   const value = new URLSearchParams(location.search).get(param) || "";
 
+  // history.location rather than location: several params of the same screen
+  // can be written in the same render, each must keep the others
   const setValue = newValue => {
-    writeStored(location.pathname, newValue);
+    writeStored(location.pathname, param, newValue);
     history.replace({
-      ...location,
-      search: searchWithParam(location.search, param, newValue),
+      ...history.location,
+      search: searchWithParam(history.location.search, param, newValue),
     });
   };
 
   useEffect(() => {
     if (!value) {
-      const stored = readStored(location.pathname);
+      const stored = readStored(location.pathname, param);
       if (stored) {
         history.replace({
-          ...location,
-          search: searchWithParam(location.search, param, stored),
+          ...history.location,
+          search: searchWithParam(history.location.search, param, stored),
         });
       }
     }

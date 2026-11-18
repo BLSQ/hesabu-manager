@@ -107,3 +107,30 @@ export const filterTopics = (topics, filter) => {
     return words.every(word => haystack.includes(word));
   });
 };
+
+const isInputMapped = (topic, input) =>
+  (topic.inputMappings || []).some(
+    mapping => mapping.input && mapping.input.id === input.id,
+  );
+
+const isFormulaMapped = (topic, formula) =>
+  (formula.formulaMappings || []).some(mapping => mapping.topicId === topic.id);
+
+// keeps the topics with at least one input or formula mapping, then the
+// inputs and formulas mapped for at least one of those topics
+export const onlyMapped = (topics, inputs, formulas) => {
+  const mappedTopics = topics.filter(
+    topic =>
+      inputs.some(input => isInputMapped(topic, input)) ||
+      formulas.some(formula => isFormulaMapped(topic, formula)),
+  );
+  return {
+    topics: mappedTopics,
+    inputs: inputs.filter(input =>
+      mappedTopics.some(topic => isInputMapped(topic, input)),
+    ),
+    formulas: formulas.filter(formula =>
+      mappedTopics.some(topic => isFormulaMapped(topic, formula)),
+    ),
+  };
+};
