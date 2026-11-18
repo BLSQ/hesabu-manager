@@ -1,7 +1,11 @@
 import React from "react";
 import { makeStyles } from "@material-ui/styles";
 import humanize from "string-humanize";
-import { Grid, Typography } from "@material-ui/core";
+import { Grid, Typography, Link } from "@material-ui/core";
+import OpenInNewIcon from "@material-ui/icons/OpenInNew";
+import Api from "../../lib/Api";
+import { standaloneConfig } from "../../lib/standalone";
+import { dhis2MaintenanceUrl } from "../../lib/dhis2Urls";
 
 const FieldValue = ({ field, value }) => {
   return (
@@ -18,11 +22,30 @@ const FieldValue = ({ field, value }) => {
     </Grid>
   );
 };
+// served by orbf2: the project dhis2, as a dhis2 app: the dhis2 it runs in
+const dhis2Url = () =>
+  standaloneConfig() ? standaloneConfig().dhis2Url : Api.baseUrl;
+
 const Dhis2ElementDetails = ({ dhis2Object }) => {
+  const maintenanceUrl = dhis2MaintenanceUrl(dhis2Object, dhis2Url());
   return (
     <Grid container spacing={2} direction="column">
       <Grid item>
         <b>{dhis2Object && dhis2Object.name}</b>
+        {maintenanceUrl && (
+          <Link
+            href={maintenanceUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{ marginLeft: 8, whiteSpace: "nowrap" }}
+          >
+            DHIS2 maintenance{" "}
+            <OpenInNewIcon
+              fontSize="inherit"
+              style={{ verticalAlign: "middle" }}
+            />
+          </Link>
+        )}
       </Grid>
       {dhis2Object &&
         dhis2Object.dimensionItemType === "DATA_ELEMENT" && [
