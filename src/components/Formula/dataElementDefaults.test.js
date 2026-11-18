@@ -1,5 +1,6 @@
 import { describe, it, expect } from "vitest";
 import {
+  outputDataElementDefaults,
   dataElementDefaults,
   dataElementErrors,
   fitWithSuffix,
@@ -179,5 +180,85 @@ describe("dataElementErrors", () => {
     ).toEqual({
       name: "a data element with this name already exists",
     });
+  });
+});
+
+describe("outputDataElementDefaults", () => {
+  const subsidies = {
+    id: "f1",
+    code: "subsides",
+    shortName: "subsides",
+    formulaMappings: [
+      { topicId: "t2", externalReference: "de1" },
+      { topicId: "t3", externalReference: "de2.coc1" },
+      { topicId: "t4", externalReference: "de3" },
+      { topicId: "t1", externalReference: "tv1" },
+      { topicId: "t5", externalReference: "unknown" },
+    ],
+  };
+
+  it("follows the data elements the formula is mapped to for the other topics", () => {
+    expect(
+      outputDataElementDefaults({ topic, formula: subsidies, lookup }),
+    ).toEqual({
+      name: "Consultation externe (nvx cas) - 0 à 1 mois - indigent - dec",
+      shortName: "Cons externe nvx cas - 0-1ms - indigent - dec",
+      code: "quant98_subsides",
+      valueType: "INTEGER_ZERO_OR_POSITIVE",
+      aggregationType: "SUM",
+    });
+  });
+
+  it("ignores the data element of the topic itself", () => {
+    const formula = {
+      id: "f4",
+      code: "subsides",
+      shortName: "subsides",
+      formulaMappings: [{ topicId: "t1", externalReference: "tv1" }],
+    };
+
+    expect(outputDataElementDefaults({ topic, formula, lookup })).toMatchObject(
+      {
+        name: `${topic.name} - subsides`,
+        valueType: "NUMBER",
+        aggregationType: "SUM",
+      },
+    );
+  });
+
+  it("uses the formula short name, or code, without mapped siblings", () => {
+    const formula = { id: "f2", code: "montant", shortName: null };
+
+    expect(outputDataElementDefaults({ topic, formula, lookup })).toMatchObject(
+      {
+        name: `${topic.name} - montant`,
+        code: "quant98_montant",
+        valueType: "NUMBER",
+        aggregationType: "SUM",
+      },
+    );
+  });
+
+  it("names a formula without topic after itself", () => {
+    const formula = {
+      id: "f3",
+      code: "taux_" + "x".repeat(50),
+      shortName: "Taux de performance " + "y".repeat(60),
+      formulaMappings: [],
+    };
+
+    const defaults = outputDataElementDefaults({ formula, lookup });
+
+    expect(defaults.name).toBe(formula.shortName);
+    expect(defaults.shortName).toBe(formula.shortName.slice(0, 50));
+    expect(defaults.code).toBe(formula.code.slice(0, 50));
+    expect(defaults.valueType).toBe("UNIT_INTERVAL");
+    expect(defaults.aggregationType).toBe("AVERAGE");
+  });
+
+  it("takes the siblings of all the topics for a formula without topic", () => {
+    const defaults = outputDataElementDefaults({ formula: subsidies, lookup });
+
+    expect(defaults.valueType).toBe("INTEGER_ZERO_OR_POSITIVE");
   });
 });
