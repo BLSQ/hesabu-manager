@@ -5,6 +5,7 @@ import {
   filterTopics,
   formulasToMermaid,
   onlyMapped,
+  otherSetsUsingTopic,
 } from "./utils";
 
 describe("formula utils", () => {
@@ -251,5 +252,39 @@ describe("onlyMapped", () => {
       formulas: [],
       decisionTables: [],
     });
+  });
+});
+
+describe("otherSetsUsingTopic", () => {
+  const sets = [
+    {
+      id: "1241",
+      name: "Quantité PMA PMNS",
+      topics: [{ id: "7791" }, { id: "3781" }],
+    },
+    { id: "1240", name: "Quantité PCA PMNS", topics: [{ id: "3781" }] },
+    { id: "999", name: "Qualité", topics: [] },
+    { id: "998", name: "Sans topics" },
+  ];
+  const names = result => result.map(set => set.name);
+
+  it("lists the other sets containing the topic", () => {
+    expect(names(otherSetsUsingTopic(sets, "3781", "1241"))).toEqual([
+      "Quantité PCA PMNS",
+    ]);
+  });
+
+  it("is empty for a topic only in the current set", () => {
+    expect(otherSetsUsingTopic(sets, "7791", "1241")).toEqual([]);
+  });
+
+  it("compares ids whatever their type", () => {
+    expect(names(otherSetsUsingTopic(sets, 3781, 1240))).toEqual([
+      "Quantité PMA PMNS",
+    ]);
+  });
+
+  it("tolerates sets not loaded yet", () => {
+    expect(otherSetsUsingTopic(undefined, "3781", "1241")).toEqual([]);
   });
 });

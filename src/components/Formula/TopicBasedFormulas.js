@@ -37,6 +37,9 @@ import TopicMenu from "./TopicMenu";
 import useUrlFilter from "../Shared/useUrlFilter";
 import { handleDataSheetCopy } from "../Shared/dataSheetCopy";
 import InputMappingDialogEditor from "./InputMappingDialogEditor";
+import EditTopicDialog from "./EditTopicDialog";
+import EditIcon from "@material-ui/icons/Edit";
+import { canEdit } from "../../actions/api";
 
 const useStyles = makeStyles(theme => ({
   root: props => ({
@@ -115,6 +118,8 @@ const TopicBasedFormulas = props => {
   const safeDecisionTables = decisionTables || [];
 
   const [graphDirection, setGraphDirection] = useState("TD");
+  const [editedTopic, setEditedTopic] = useState(null);
+  const userCanEdit = canEdit();
   const [topicFilter, setTopicFilter] = useUrlFilter();
   const [mappedOnly, setMappedOnly] = useUrlFilter("mapped");
   const textFilteredTopics = filterTopics(safeTopics, topicFilter);
@@ -246,7 +251,19 @@ const TopicBasedFormulas = props => {
         className: "topic-name",
         style: { backgroundColor: "yellow" },
         valueViewer: topic => {
-          return <span title={topic.value.code}>{topic.value.name}</span>;
+          return (
+            <>
+              <span title={topic.value.code}>{topic.value.name}</span>
+              {userCanEdit && (
+                <EditIcon
+                  titleAccess="Edit the topic name and short name"
+                  fontSize="inherit"
+                  style={{ cursor: "pointer", marginLeft: 4, color: "#666" }}
+                  onClick={() => setEditedTopic(topic.value)}
+                />
+              )}
+            </>
+          );
         },
       },
       ...safeInputs.map(input => {
@@ -394,6 +411,13 @@ const TopicBasedFormulas = props => {
                 />
               )}
             </div>
+            {editedTopic && (
+              <EditTopicDialog
+                topic={editedTopic}
+                set={set}
+                onClose={() => setEditedTopic(null)}
+              />
+            )}
             {showGraph && (
               <Mermaid
                 id={"graph1" + graphDirection}
