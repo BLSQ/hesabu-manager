@@ -40,96 +40,94 @@ const toLookups = simulationResults => {
   return { reverseDependencies, indexedItems };
 };
 
-const SimulationContainer = props => {
-  const [simulationResults, setSimulationResults] = useState(undefined);
-  const [errorMessage, setErrorMessage] = useState(undefined);
-  const [simulation, setSimulation] = useState(undefined);
-  const [status, setStatus] = useState(undefined);
-  const [loading, setLoading] = useState(false);
-  let params = new URLSearchParams(window.location.href.split("?")[1]);
+// the result file of a simulation job: a pre-signed url valid 5 minutes, the
+// content only changes with a new processing of the job
+export const simulationResultKey = simulation => [
+  "fetchSimulationDetails",
+  simulation && simulation.id,
+  simulation && simulation.processedAt,
+];
 
-  const result = {};
-  for (var key of params.keys()) {
-    result[key] = params.get(key);
+// url params only used to filter what is displayed, not sent to the api
+const DISPLAY_PARAMS = [
+  "sets",
+  "displayedOrgUnit",
+  "displaySet",
+  "displayPeriod",
+];
+
+// the query string of the simulation api: the url params minus the display ones
+export const apiSearch = search => {
+  const params = new URLSearchParams(search);
+  DISPLAY_PARAMS.forEach(param => params.delete(param));
+  const query = params.toString();
+  return query ? `?${query}` : "";
+};
+
+const isRunning = simulation =>
+  simulation && ["enqueued", "processing"].includes(simulation.status);
+
+// a non json error (expired s3 link answering xml,...) as a readable message
+const errorMessageOf = (what, error) => {
+  if (error && error.json && error.json.errors) {
+    return error.json.errors.map(e => e.detail || e.message).join(", ");
   }
+  if (error && error.status) {
+    const statusText = error.response && error.response.statusText;
+    return `${what} failed (${[error.status, statusText]
+      .filter(part => part)
+      .join(" ")})`;
+  }
+  return error ? error.message : undefined;
+};
 
-  const periods = result.periods;
-  const orgUnit = result.orgUnit;
+const SimulationContainer = props => {
+  const search = props.location.search;
+  const simulationSearch = apiSearch(search);
+  const { orgUnit, periods } = queryString.parse(search);
+  const requested = !!(orgUnit && periods);
 
-  const [polling, setPolling] = useState(!!(orgUnit && periods));
-
+  // polls while the job is enqueued, restarts at each new request (url)
+  const [polling, setPolling] = useState(requested);
   useEffect(() => {
-    setPolling(!!(orgUnit && periods));
-  }, [orgUnit, periods]);
+    setPolling(requested);
+  }, [simulationSearch, requested]);
 
-  const fetchSimulationDetails = async () => {
-    setLoading(true);
-    let result = wretch()
-      .errorType("json")
-      .options({ encoding: "same-origin" }, false)
-      .url(simulation.resultUrl)
-      .get()
-      .json();
-    return result;
-  };
-
-  const fetchSimulationDetailsEnabled =
-    simulation !== undefined && simulation.resultUrl !== undefined;
-
-  const fetchSimulationDetailsQuery = useQuery(
-    "fetchSimulationDetails",
-    fetchSimulationDetails,
+  const simulationQuery = useQuery(
+    ["simulationPolling", simulationSearch],
+    async () =>
+      deserialize(
+        await externalApi()
+          .errorType("json")
+          .url(`/simulation${simulationSearch}`)
+          .get()
+          .json(),
+      ),
     {
-      enabled: fetchSimulationDetailsEnabled,
-      onSuccess: response => {
-        response["lookups"] = toLookups(response);
-        setLoading(false);
-        setSimulationResults(response);
-      },
-      onError: error => {
-        setLoading(false);
-        setPolling(false);
-        setErrorMessage(error.message);
-        setStatus(undefined);
-      },
+      enabled: requested,
+      refetchInterval: polling ? 30000 : false,
+      onSuccess: response => setPolling(isRunning(response)),
+      onError: () => setPolling(false),
     },
   );
+  const simulation = simulationQuery.data;
 
-  const fetchSimulation = async () => {
-    setLoading(true);
-    let result = await externalApi()
-      .errorType("json")
-      .url(`/simulation${props.location.search}`)
-      .get()
-      .json();
-    result = await deserialize(result);
-    return result;
-  };
-
-  const simulationPollingQuery = useQuery(
-    ["simulationPolling", periods, orgUnit],
-    fetchSimulation,
+  // fetched once per processing of the job (id + processedAt) with the fresh
+  // resultUrl of the job: no refetch with an expired link when coming back
+  const resultQuery = useQuery(
+    simulationResultKey(simulation),
+    async () => {
+      const response = await wretch()
+        .url(simulation.resultUrl)
+        .get()
+        .json();
+      response["lookups"] = toLookups(response);
+      return response;
+    },
     {
-      enabled: polling,
-      refetchInterval: 30000,
-      onSuccess: response => {
-        const newStatus = response.status;
-        debugger;
-        setLoading(false);
-        setPolling(newStatus === "enqueued");
-        setErrorMessage(undefined);
-
-        if (newStatus !== status) {
-          setSimulation(response);
-        }
-      },
-      onError: error => {
-        console.log("error", orgUnit, periods, error);
-        debugger;
-        setErrorMessage(error.message);
-        setPolling(false);
-        setLoading(false);
-      },
+      enabled: !!(simulation && simulation.resultUrl),
+      staleTime: Infinity,
+      retry: false,
     },
   );
 
@@ -137,15 +135,17 @@ const SimulationContainer = props => {
     setPolling(!polling);
   };
 
-  const valuesFromParams = queryString.parse(props.location.search);
+  const errorMessage =
+    errorMessageOf("simulation", simulationQuery.error) ||
+    errorMessageOf("simulation result", resultQuery.error);
 
   return (
     <Simulation
       errorMessage={errorMessage}
-      loading={loading}
+      loading={simulationQuery.isFetching || resultQuery.isFetching}
       simulation={simulation}
-      simulationResults={simulationResults}
-      valuesFromParams={valuesFromParams}
+      simulationResults={resultQuery.data}
+      valuesFromParams={queryString.parse(search)}
       polling={polling}
       onPollingChange={handlePollingChange}
       open={true}
