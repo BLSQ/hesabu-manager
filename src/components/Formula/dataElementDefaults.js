@@ -72,15 +72,14 @@ const siblingDataElements = (topic, input, topics, lookup) =>
     .map(mapping => lookup(mapping.externalReference))
     .filter(dataElement => dataElement);
 
-const isRate = input => /taux|rate/i.test(`${input.code} ${input.name}`);
+const isRate = mapped => /taux|rate/i.test(`${mapped.code} ${mapped.name}`);
 
-// name, short name, code and types following what the other topics of the set
-// use for this state (naming suffix, value and aggregation types)
-export const dataElementDefaults = ({ topic, input, topics, lookup }) => {
-  const siblings = siblingDataElements(topic, input, topics || [], lookup);
+// "<topic> - <suffix>" names, "<topic code>_<mapped code>" code, types of the siblings
+// (or guessed from the mapped code: a rate is a unit interval averaged)
+const defaultsFor = (topic, mapped, siblings) => {
   const suffix =
     mostCommon(siblings.map(dataElement => nameSuffix(dataElement.name))) ||
-    input.name;
+    mapped.name;
   const max = DATA_ELEMENT_MAX_LENGTHS;
   return {
     name: fitWithSuffix(topic.name, suffix, max.name),
@@ -89,13 +88,47 @@ export const dataElementDefaults = ({ topic, input, topics, lookup }) => {
       suffix,
       max.shortName,
     ),
-    code: `${topic.code}_${input.code}`.slice(0, max.code),
+    code: `${topic.code}_${mapped.code}`.slice(0, max.code),
     valueType:
       mostCommon(siblings.map(dataElement => dataElement.valueType)) ||
-      (isRate(input) ? "UNIT_INTERVAL" : "NUMBER"),
+      (isRate(mapped) ? "UNIT_INTERVAL" : "NUMBER"),
     aggregationType:
       mostCommon(siblings.map(dataElement => dataElement.aggregationType)) ||
-      (isRate(input) ? "AVERAGE" : "SUM"),
+      (isRate(mapped) ? "AVERAGE" : "SUM"),
+  };
+};
+
+// name, short name, code and types following what the other topics of the set
+// use for this state (naming suffix, value and aggregation types)
+export const dataElementDefaults = ({ topic, input, topics, lookup }) =>
+  defaultsFor(
+    topic,
+    input,
+    siblingDataElements(topic, input, topics || [], lookup),
+  );
+
+// same for the output of a formula: following the data elements the formula is
+// mapped to for the other topics; a formula without topic (package, zone,...)
+// is named after itself
+export const outputDataElementDefaults = ({ topic, formula, lookup }) => {
+  const mapped = {
+    name: formula.shortName || formula.code,
+    code: formula.code,
+  };
+  const siblings = (formula.formulaMappings || [])
+    .filter(mapping => !topic || mapping.topicId !== topic.id)
+    // "de.coc" references: the data element
+    .map(mapping => lookup(String(mapping.externalReference).split(".")[0]))
+    .filter(dataElement => dataElement);
+  if (topic) {
+    return defaultsFor(topic, mapped, siblings);
+  }
+  const max = DATA_ELEMENT_MAX_LENGTHS;
+  return {
+    ...defaultsFor({ name: "", code: "" }, mapped, siblings),
+    name: mapped.name.slice(0, max.name),
+    shortName: mapped.name.slice(0, max.shortName),
+    code: formula.code.slice(0, max.code),
   };
 };
 
