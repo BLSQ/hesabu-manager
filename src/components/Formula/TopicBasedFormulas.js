@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import { makeStyles } from "@material-ui/styles";
 import Mermaid from "../Shared/Mermaid";
 import { filterTopics, formulasToMermaid, onlyMapped } from "./utils";
@@ -120,8 +120,8 @@ const TopicBasedFormulas = props => {
   const [graphDirection, setGraphDirection] = useState("TD");
   const [editedTopic, setEditedTopic] = useState(null);
   const userCanEdit = canEdit();
-  const [topicFilter, setTopicFilter] = useUrlFilter();
-  const [mappedOnly, setMappedOnly] = useUrlFilter("mapped");
+  const [topicFilterInput, setTopicFilter, topicFilter] = useUrlFilter();
+  const [mappedOnly, setMappedOnly] = useUrlFilter("mapped", { delay: 0 });
   const textFilteredTopics = filterTopics(safeTopics, topicFilter);
   // rows with at least one mapping, columns mapped for at least one row
   const {
@@ -138,13 +138,18 @@ const TopicBasedFormulas = props => {
         decisionTables: safeDecisionTables,
       };
 
-  safeDecisionTables.forEach(
-    decisionTable =>
-      (decisionTable.parsedContent = decisionTable.content
-        ? PapaParse.parse(decisionTable.content, {
-            header: true,
-          })
-        : { data: [], meta: { fields: [] } }),
+  // parsed once per loaded set, not at each render (typing in the filter,...)
+  useMemo(
+    () =>
+      (decisionTables || []).forEach(
+        decisionTable =>
+          (decisionTable.parsedContent = decisionTable.content
+            ? PapaParse.parse(decisionTable.content, {
+                header: true,
+              })
+            : { data: [], meta: { fields: [] } }),
+      ),
+    [decisionTables],
   );
 
   const [showGraph, setShowGraph] = React.useState(false);
@@ -393,7 +398,7 @@ const TopicBasedFormulas = props => {
                   size="small"
                   variant="outlined"
                   placeholder="Filter topics by name, short name or code"
-                  value={topicFilter}
+                  value={topicFilterInput}
                   onChange={event => setTopicFilter(event.target.value)}
                   style={{ marginLeft: 16, width: 400 }}
                   helperText={

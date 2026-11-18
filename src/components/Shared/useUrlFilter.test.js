@@ -1,10 +1,10 @@
-import { describe, it, expect, beforeEach, afterEach } from "vitest";
+import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
 import React from "react";
 import ReactDOM from "react-dom";
 import { act } from "react-dom/test-utils";
 import { Router } from "react-router-dom";
 import { createMemoryHistory } from "history";
-import useUrlFilter, { searchWithParam } from "./useUrlFilter";
+import useUrlFilter, { searchWithParam, FILTER_DELAY } from "./useUrlFilter";
 
 describe("searchWithParam", () => {
   it("sets, replaces and removes the param, keeping the others", () => {
@@ -26,8 +26,9 @@ describe("useUrlFilter", () => {
   let container;
   let hook;
 
+  // url logic, without the typing delay (see "while typing" below)
   const Probe = () => {
-    hook = useUrlFilter();
+    hook = useUrlFilter("filter", { delay: 0 });
     return null;
   };
 
@@ -123,8 +124,8 @@ describe("useUrlFilter with several params on one screen", () => {
   let mapped;
 
   const Probe = () => {
-    text = useUrlFilter();
-    mapped = useUrlFilter("mapped");
+    text = useUrlFilter("filter", { delay: 0 });
+    mapped = useUrlFilter("mapped", { delay: 0 });
     return null;
   };
 
@@ -182,5 +183,91 @@ describe("useUrlFilter with several params on one screen", () => {
       mapped[1]("1");
     });
     expect(history.location.search).toBe("?filter=consult&mapped=1");
+  });
+});
+
+describe("useUrlFilter while typing", () => {
+  let container;
+  let hook;
+  let history;
+
+  const Probe = () => {
+    hook = useUrlFilter();
+    return null;
+  };
+
+  beforeEach(() => {
+    vi.useFakeTimers();
+    window.sessionStorage.clear();
+    container = document.createElement("div");
+    history = createMemoryHistory({
+      initialEntries: ["/sets/1/topic_formulas"],
+    });
+    act(() => {
+      ReactDOM.render(
+        <Router history={history}>
+          <Probe />
+        </Router>,
+        container,
+      );
+    });
+  });
+
+  afterEach(() => {
+    ReactDOM.unmountComponentAtNode(container);
+    vi.useRealTimers();
+  });
+
+  const [input, , filter] = [0, 1, 2];
+  const type = text => act(() => hook[1](text));
+  const wait = ms => act(() => vi.advanceTimersByTime(ms));
+
+  it("shows the typing at once, filters and writes the url once it pauses", () => {
+    type("c");
+    type("co");
+    type("con");
+
+    expect(hook[input]).toBe("con");
+    expect(hook[filter]).toBe("");
+    expect(history.location.search).toBe("");
+
+    wait(FILTER_DELAY - 1);
+    expect(history.location.search).toBe("");
+
+    wait(1);
+    expect(history.location.search).toBe("?filter=con");
+    expect(hook[filter]).toBe("con");
+    expect(hook[input]).toBe("con");
+  });
+
+  it("restarts the delay at each key", () => {
+    type("co");
+    wait(FILTER_DELAY - 50);
+    type("con");
+    wait(FILTER_DELAY - 50);
+
+    expect(history.location.search).toBe("");
+
+    wait(50);
+    expect(history.location.search).toBe("?filter=con");
+  });
+
+  it("follows the url changed by something else, dropping the pending typing", () => {
+    type("con");
+    act(() => history.replace("/sets/1/topic_formulas?filter=prix"));
+
+    expect(hook[input]).toBe("prix");
+    expect(hook[filter]).toBe("prix");
+
+    wait(FILTER_DELAY);
+    expect(history.location.search).toBe("?filter=prix");
+  });
+
+  it("drops the pending typing when leaving the screen", () => {
+    type("con");
+    act(() => ReactDOM.unmountComponentAtNode(container));
+
+    wait(FILTER_DELAY);
+    expect(history.location.search).toBe("");
   });
 });
