@@ -38,9 +38,19 @@ export const codeHint = code => ({
     "lowercase letters, digits and _ only, e.g. 'assisted_deliveries'. Generated from the name when left empty.",
 });
 
-const TopicForm = ({ set, closeNewTopic, queryClient }) => {
+// creates a topic in the set, or edits existingTopic (name and short name: its
+// code is used by the formulas and decision tables, it stays as is)
+const TopicForm = ({ set, closeNewTopic, queryClient, existingTopic }) => {
   const userCanEdit = canEdit();
-  const [topicToUse, setTopicToUse] = useState(topic);
+  const [topicToUse, setTopicToUse] = useState(
+    existingTopic
+      ? {
+          name: existingTopic.name || "",
+          shortName: existingTopic.shortName || "",
+          code: existingTopic.code,
+        }
+      : topic,
+  );
   const [validationErrors, setValidationErrors] = useState({});
   const [isDirty, setIsDirty] = useState(false);
 
@@ -57,6 +67,22 @@ const TopicForm = ({ set, closeNewTopic, queryClient }) => {
 
   const createTopicMutation = useMutation(
     async () => {
+      if (existingTopic) {
+        // without the code orbf2 would generate a new one from the name
+        const updated = await externalApi()
+          .url(`/topics/${existingTopic.id}`)
+          .put({
+            data: {
+              attributes: {
+                name: topicToUse.name,
+                shortName: topicToUse.shortName,
+                code: existingTopic.code,
+              },
+            },
+          })
+          .json();
+        return deserialize(updated);
+      }
       const topicPayload = { ...topicToUse };
       topicPayload["setId"] = set.id;
 
@@ -79,6 +105,7 @@ const TopicForm = ({ set, closeNewTopic, queryClient }) => {
         setValidationErrors({});
         closeNewTopic();
         queryClient.invalidateQueries("loadSet");
+        queryClient.invalidateQueries("loadSets");
       },
       onError: error => {
         const errorDetails = error.json?.errors?.[0]?.details || {
@@ -142,8 +169,14 @@ const TopicForm = ({ set, closeNewTopic, queryClient }) => {
           <TextField
             label={"Code"}
             id="code"
+            disabled={Boolean(existingTopic)}
             error={Boolean(validationErrors.code) || code.error}
-            helperText={validationErrors.code || code.text}
+            helperText={
+              validationErrors.code ||
+              (existingTopic
+                ? "used by the formulas and decision tables, can't be changed here"
+                : code.text)
+            }
             variant="outlined"
             fullWidth
             value={topicToUse.code}
@@ -164,7 +197,7 @@ const TopicForm = ({ set, closeNewTopic, queryClient }) => {
             }
             onClick={() => createTopicMutation.mutate()}
           >
-            Create
+            {existingTopic ? "Save" : "Create"}
           </Button>
         </Grid>
       </Grid>

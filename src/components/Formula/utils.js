@@ -136,3 +136,11 @@ export const onlyMapped = (topics, inputs, formulas) => {
     decisionTables: [],
   };
 };
+
+// the sets other than currentSetId that contain the topic (deserialized /sets)
+export const otherSetsUsingTopic = (sets, topicId, currentSetId) =>
+  (sets || []).filter(
+    set =>
+      String(set.id) !== String(currentSetId) &&
+      (set.topics || []).some(topic => String(topic.id) === String(topicId)),
+  );
