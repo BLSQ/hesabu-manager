@@ -123,12 +123,14 @@ const TopicBasedFormulas = props => {
     topics: filteredTopics,
     inputs: safeInputs,
     formulas: safeTopicFormulas,
+    decisionTables: visibleDecisionTables,
   } = mappedOnly
     ? onlyMapped(textFilteredTopics, inputs || [], formulas || [])
     : {
         topics: textFilteredTopics,
         inputs: inputs || [],
         formulas: formulas || [],
+        decisionTables: safeDecisionTables,
       };
 
   safeDecisionTables.forEach(
@@ -162,7 +164,7 @@ const TopicBasedFormulas = props => {
           <span style={{ fontStyle: "italic" }}>{v.cell.value}</span>
         ),
       })),
-      ...safeDecisionTables.flatMap(decisionTable => {
+      ...visibleDecisionTables.flatMap(decisionTable => {
         return decisionTable.outHeaders.map(header => ({
           value: { header, decisionTable },
           disableEvents: true,
@@ -261,7 +263,7 @@ const TopicBasedFormulas = props => {
           dataEditor: InputMappingDialogEditor,
         };
       }),
-      ...safeDecisionTables.flatMap(decisionTable => {
+      ...visibleDecisionTables.flatMap(decisionTable => {
         return decisionTable.outHeaders.map(header => ({
           value: { header, decisionTable },
           disableEvents: true,
@@ -353,7 +355,7 @@ const TopicBasedFormulas = props => {
               {!showGraph && (
                 <FormControlLabel
                   style={{ marginLeft: 16 }}
-                  title="Only the topics with at least one mapping, and the states and formulas mapped for at least one of them"
+                  title="Only the topics with at least one mapping, and the states and formulas mapped for at least one of them (decision table columns hidden)"
                   control={
                     <Switch
                       color="primary"
