@@ -19,6 +19,11 @@ import useStyles from "./styles";
 import { connect } from "react-redux";
 import { setSelectedCell } from "../../../../actions/ui";
 import classNames from "classnames";
+import TopicColumnResizer from "./TopicColumnResizer";
+import { topicCellStyle, useTopicColumnWidth } from "./topicColumnWidth";
+
+// the column of the activity (topic) names
+const TOPIC_COLUMN = "meta";
 
 const prepareHeaders = (collection, t) => {
   return collection
@@ -86,7 +91,7 @@ const cellTooltip = (cell, t) => {
   return t("tooltips.cell.default");
 };
 
-const Table = props => {
+export const Table = props => {
   const {
     periodView: { activity_items },
     setSelectedCell,
@@ -95,6 +100,7 @@ const Table = props => {
   const classes = useStyles(props);
   const { t } = useTranslation();
   const [showAll, setShowAll] = useState(false);
+  const [topicWidth, setTopicWidth] = useTopicColumnWidth();
 
   const columns = useMemo(() => prepareHeaders(activity_items, t), [
     activity_items,
@@ -163,11 +169,28 @@ const Table = props => {
               key={`headerGroup${index}`}
               {...headerGroup.getHeaderGroupProps()}
             >
-              {headerGroup.headers.map(column => (
-                <TableCell key={column} {...column.getHeaderProps()}>
-                  {column.render("Header")}
-                </TableCell>
-              ))}
+              {headerGroup.headers.map(column =>
+                column.id === TOPIC_COLUMN ? (
+                  <TableCell
+                    key={column.id}
+                    {...column.getHeaderProps()}
+                    style={{
+                      position: "relative",
+                      ...topicCellStyle(topicWidth),
+                    }}
+                  >
+                    {column.render("Header")}
+                    <TopicColumnResizer
+                      width={topicWidth}
+                      onResize={setTopicWidth}
+                    />
+                  </TableCell>
+                ) : (
+                  <TableCell key={column.id} {...column.getHeaderProps()}>
+                    {column.render("Header")}
+                  </TableCell>
+                ),
+              )}
             </TableRow>
           ))}
         </TableHead>
@@ -186,6 +209,11 @@ const Table = props => {
                     >
                       <TableCell
                         {...cellProps}
+                        style={
+                          cell.column.id === TOPIC_COLUMN
+                            ? topicCellStyle(topicWidth)
+                            : undefined
+                        }
                         tabIndex={isTopic(cell.value) ? undefined : "0"}
                         onClick={() => {
                           if (!isTopic(cell.value)) {

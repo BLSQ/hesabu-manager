@@ -38,6 +38,13 @@ describe("InvoiceSelector", () => {
     expect(chips()).toEqual(["quantite_pma_pmns", "not_here"]);
   });
 
+  it("has its own width, not the one of its shrink-to-fit container", () => {
+    render({ selected: [] });
+
+    const root = container.querySelector(".MuiAutocomplete-root");
+    expect(root.style.width).toBe("800px");
+  });
+
   it("shows 'all' when nothing is selected", () => {
     render({ selected: [] });
 
