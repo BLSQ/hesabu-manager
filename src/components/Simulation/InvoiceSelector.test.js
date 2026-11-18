@@ -43,6 +43,9 @@ describe("InvoiceSelector", () => {
 
     const root = container.querySelector(".MuiAutocomplete-root");
     expect(root.style.width).toBe("800px");
+    // a flex container would shrink it below its width when empty
+    expect(root.style.minWidth).toBe("500px");
+    expect(root.style.flexShrink).toBe("0");
   });
 
   it("shows 'all' when nothing is selected", () => {
