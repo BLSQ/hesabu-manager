@@ -9,6 +9,9 @@ import { InfoBox } from "@blsq/manager-ui";
 import { useTranslation } from "react-i18next";
 import matchSorter from "match-sorter";
 import SimulationBlock from "./SimulationBlock";
+import InvoiceSelector from "./InvoiceSelector";
+import { invoiceOptions, parseSetsParam } from "./invoiceFilters";
+import { searchWithParam } from "../Shared/useUrlFilter";
 import EmptySection from "../EmptySection";
 import { fade } from "@material-ui/core/styles/colorManipulator";
 import yellow from "@material-ui/core/colors/yellow";
@@ -92,9 +95,25 @@ const SimulationBlocks = props => {
     return setKey.split("__")[setKey.split("__").length - 1];
   }
 
-  const displayedSetCodes = (props.searchQuery.sets || "")
-    .split(",")
-    .filter(i => i);
+  const displayedSetCodes = parseSetsParam(props.searchQuery.sets);
+
+  // display filter only: the url keeps it, the simulation isn't asked again
+  const selectInvoices = codes =>
+    history.replace({
+      ...history.location,
+      search: searchWithParam(history.location.search, "sets", codes.join(",")),
+    });
+
+  const invoiceSelector = props.simulationResults && (
+    <InvoiceSelector
+      options={invoiceOptions(
+        props.simulationResults.invoices,
+        displayedOrgUnit,
+      )}
+      selected={displayedSetCodes}
+      onChange={selectInvoices}
+    />
+  );
 
   const setCodes = Object.keys(setsByCode);
 
@@ -114,6 +133,7 @@ const SimulationBlocks = props => {
   if (!filteredSets.length && props.simulationResults) {
     return (
       <EmptySection>
+        {invoiceSelector}
         <Typography variant="h6">{t("simulation.ohNo")}</Typography>
         <InfoBox
           name="simulation-noSimulationForOrgUnit-warning"
@@ -130,6 +150,7 @@ const SimulationBlocks = props => {
   }
   return (
     <div>
+      {invoiceSelector}
       {displayableOrgUnits && displayableOrgUnits.length > 1 && (
         <Grid
           id="displayableOrgUnits"
@@ -150,7 +171,7 @@ const SimulationBlocks = props => {
                 onClick={() => {
                   setDisplayedOrgUnit(ou.id);
                   let searchParams = new URLSearchParams(location.search);
-                  searchParams.set("displayedOrgUnit", displayedOrgUnit);
+                  searchParams.set("displayedOrgUnit", ou.id);
                   history.push({
                     search: searchParams.toString(),
                     location: location.location,
