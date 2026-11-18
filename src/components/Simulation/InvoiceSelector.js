@@ -33,8 +33,15 @@ const InvoiceSelector = ({ options, selected, onChange }) => {
           placeholder={value.length ? "" : "all"}
         />
       )}
-      // explicit width: the simulation page lays it out in a shrink-to-fit box
-      style={{ width: 800, maxWidth: "calc(100vw - 64px)", marginBottom: 16 }}
+      // the simulation page lays it out in a flex box that shrinks it to its
+      // content (squished when empty): a width alone isn't kept, a min width is
+      style={{
+        width: 800,
+        minWidth: 500,
+        flexShrink: 0,
+        maxWidth: "calc(100vw - 64px)",
+        marginBottom: 16,
+      }}
     />
   );
 };
