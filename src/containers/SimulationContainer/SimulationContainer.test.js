@@ -199,6 +199,48 @@ describe("SimulationContainer", () => {
     ]);
   });
 
+  it("recalculates on demand, once, then shows the new result", async () => {
+    await render("/simulation?orgUnit=ZP1txmy7Cik&periods=2026Q4");
+    expect(rendered.recalculating).toBe(false);
+    job = { ...job, status: "enqueued" };
+
+    await act(async () => rendered.onRecalculate());
+    await flush();
+
+    expect(apiRequests).toEqual([
+      "/simulation?orgUnit=ZP1txmy7Cik&periods=2026Q4",
+      "/simulation?orgUnit=ZP1txmy7Cik&periods=2026Q4&force=strong",
+    ]);
+    expect(rendered.recalculating).toBe(true);
+    expect(rendered.polling).toBe(true);
+    expect(history.location.search).not.toContain("force");
+
+    job = {
+      ...job,
+      status: "processed",
+      processedAt: "2026-11-18T16:30:00Z",
+      resultUrl: "https://s3/result-4",
+    };
+    results["https://s3/result-4"] = { invoices: ["recalculated"] };
+    act(() => focusManager.setFocused(false));
+    act(() => focusManager.setFocused(true));
+    await flush();
+    await flush();
+
+    expect(apiRequests[2]).toBe(
+      "/simulation?orgUnit=ZP1txmy7Cik&periods=2026Q4",
+    );
+    expect(rendered.polling).toBe(false);
+    expect(rendered.recalculating).toBe(false);
+    expect(rendered.simulationResults.invoices).toEqual(["recalculated"]);
+  });
+
+  it("can't recalculate without org unit and period", async () => {
+    await render("/simulation?periods=2026Q4");
+
+    expect(rendered.onRecalculate).toBeUndefined();
+  });
+
   it("explains a failed result download instead of a json parse error", async () => {
     job = { ...job, resultUrl: "https://s3/expired" };
 
