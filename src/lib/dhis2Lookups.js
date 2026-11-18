@@ -37,3 +37,13 @@ export const dhis2LookupElement = externalReference => {
     dhis2LookupIndicator(externalReference)
   );
 };
+
+// names of the cached (aggregate) data elements
+export const dhis2DataElementNames = () => {
+  const cache = store.getState().dhis2;
+  return new Set(
+    Object.values((cache && cache.dataElements) || {}).map(
+      dataElement => dataElement.name,
+    ),
+  );
+};
