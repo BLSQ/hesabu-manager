@@ -13,7 +13,6 @@ const InvoiceSelector = ({ options, selected, onChange }) => {
   return (
     <Autocomplete
       multiple
-      fullWidth
       size="small"
       options={options}
       value={value}
@@ -34,7 +33,8 @@ const InvoiceSelector = ({ options, selected, onChange }) => {
           placeholder={value.length ? "" : "all"}
         />
       )}
-      style={{ marginBottom: 16 }}
+      // explicit width: the simulation page lays it out in a shrink-to-fit box
+      style={{ width: 800, maxWidth: "calc(100vw - 64px)", marginBottom: 16 }}
     />
   );
 };
