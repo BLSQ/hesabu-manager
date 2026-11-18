@@ -225,6 +225,10 @@ describe("onlyMapped", () => {
     expect(codes(result.formulas)).toEqual(["amount"]);
   });
 
+  it("drops the decision table columns, they have no mapping", () => {
+    expect(onlyMapped(topics, inputs, formulas).decisionTables).toEqual([]);
+  });
+
   it("only counts the mappings of the given topics", () => {
     const result = onlyMapped([viaFormula, unmapped], inputs, formulas);
     expect(codes(result.topics)).toEqual(["via_formula"]);
@@ -241,6 +245,11 @@ describe("onlyMapped", () => {
   it("tolerates topics and formulas without mapping lists", () => {
     const bare = { id: "t5", code: "bare" };
     const result = onlyMapped([bare], inputs, [{ id: "f3", code: "bare_f" }]);
-    expect(result).toEqual({ topics: [], inputs: [], formulas: [] });
+    expect(result).toEqual({
+      topics: [],
+      inputs: [],
+      formulas: [],
+      decisionTables: [],
+    });
   });
 });

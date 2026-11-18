@@ -117,7 +117,8 @@ const isFormulaMapped = (topic, formula) =>
   (formula.formulaMappings || []).some(mapping => mapping.topicId === topic.id);
 
 // keeps the topics with at least one input or formula mapping, then the
-// inputs and formulas mapped for at least one of those topics
+// inputs and formulas mapped for at least one of those topics ; decision
+// tables have no mapping, their columns are dropped
 export const onlyMapped = (topics, inputs, formulas) => {
   const mappedTopics = topics.filter(
     topic =>
@@ -132,5 +133,6 @@ export const onlyMapped = (topics, inputs, formulas) => {
     formulas: formulas.filter(formula =>
       mappedTopics.some(topic => isFormulaMapped(topic, formula)),
     ),
+    decisionTables: [],
   };
 };
