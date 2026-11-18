@@ -116,3 +116,71 @@ describe("useUrlFilter", () => {
     expect(hook[0]).toBe("shared");
   });
 });
+
+describe("useUrlFilter with several params on one screen", () => {
+  let container;
+  let text;
+  let mapped;
+
+  const Probe = () => {
+    text = useUrlFilter();
+    mapped = useUrlFilter("mapped");
+    return null;
+  };
+
+  beforeEach(() => {
+    window.sessionStorage.clear();
+    container = document.createElement("div");
+  });
+
+  afterEach(() => {
+    ReactDOM.unmountComponentAtNode(container);
+  });
+
+  it("keeps each param separately, in the url and when coming back", () => {
+    const history = createMemoryHistory({
+      initialEntries: ["/sets/1/topic_formulas"],
+    });
+    act(() => {
+      ReactDOM.render(
+        <Router history={history}>
+          <Probe />
+        </Router>,
+        container,
+      );
+    });
+    act(() => text[1]("consult"));
+    act(() => mapped[1]("1"));
+    expect(new URLSearchParams(history.location.search).get("filter")).toBe(
+      "consult",
+    );
+    expect(new URLSearchParams(history.location.search).get("mapped")).toBe(
+      "1",
+    );
+
+    act(() => history.push("/sets/1/decisions"));
+    act(() => history.push("/sets/1/topic_formulas"));
+
+    expect(text[0]).toBe("consult");
+    expect(mapped[0]).toBe("1");
+  });
+
+  it("keeps both params when set in the same render", () => {
+    const history = createMemoryHistory({
+      initialEntries: ["/sets/1/topic_formulas"],
+    });
+    act(() => {
+      ReactDOM.render(
+        <Router history={history}>
+          <Probe />
+        </Router>,
+        container,
+      );
+    });
+    act(() => {
+      text[1]("consult");
+      mapped[1]("1");
+    });
+    expect(history.location.search).toBe("?filter=consult&mapped=1");
+  });
+});
