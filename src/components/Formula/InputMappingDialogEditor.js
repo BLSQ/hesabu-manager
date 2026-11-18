@@ -15,12 +15,20 @@ import {
 } from "@material-ui/core";
 import Dhis2ElementDetails from "./Dhis2ElementDetails";
 import Transition from "../../components/Shared/Transition";
-import { dhis2LookupElement } from "../../lib/dhis2Lookups";
+import {
+  dhis2LookupElement,
+  dhis2LookupDataElement,
+  dhis2DataElementNames,
+} from "../../lib/dhis2Lookups";
 import { externalApi, canEdit } from "../../actions/api";
 import { deserialize } from "../../utils/jsonApiUtils";
 import Dhis2ComboAutocomplete from "./Dhis2ComboAutocomplete";
 import Dhis2IndicatorAutocomplete from "./Dhis2IndicatorAutocomplete";
 import MappingDialogTitle from "./MappingDialogTitle";
+import CreateDataElementForm from "./CreateDataElementForm";
+import { dataElementDefaults, dataElementErrors } from "./dataElementDefaults";
+
+const NEW_DATA_ELEMENT = "newDataElement";
 
 const useStylesFormMapping = makeStyles(() => ({
   paper: { minHeight: "500px" },
@@ -49,7 +57,7 @@ const InputMappingDialogEditor = ({ cell, match }) => {
     value: { input },
   } = cell;
   const {
-    value: { set },
+    value: { set, topics },
   } = cell;
   const [open, setOpen] = useState(true);
   const [confirmDelete, setConfirmDelete] = useState(false);
@@ -66,6 +74,21 @@ const InputMappingDialogEditor = ({ cell, match }) => {
   const [validationErrors, setValidationErrors] = useState({});
   const modeCreate = inputMapping === undefined;
   const queryClient = useQueryClient();
+  const [newDataElement, setNewDataElement] = useState(() =>
+    topic && input
+      ? dataElementDefaults({
+          topic,
+          input,
+          topics,
+          lookup: dhis2LookupDataElement,
+        })
+      : undefined,
+  );
+  const creatingDataElement = mappingType === NEW_DATA_ELEMENT;
+  const newDataElementErrors =
+    creatingDataElement && newDataElement
+      ? dataElementErrors(newDataElement, dhis2DataElementNames())
+      : {};
 
   const onClick = () => {
     setOpen(!open);
@@ -90,6 +113,17 @@ const InputMappingDialogEditor = ({ cell, match }) => {
 
   const handleMutation = useMutation(
     async () => {
+      if (creatingDataElement) {
+        const created = await externalApi()
+          .url(`/topics/${topic.id}/input_mappings/create_data_element`)
+          .post({
+            data: {
+              attributes: { code: input.code, dataElement: newDataElement },
+            },
+          })
+          .json();
+        return deserialize(created);
+      }
       const payload = {
         data: {
           attributes: {
@@ -127,6 +161,11 @@ const InputMappingDialogEditor = ({ cell, match }) => {
       onError: error => {
         let resp = error.json;
         resp = resp.errors[0];
+        if (resp.detail) {
+          // bad_request of the api (dhis2 refusal,...)
+          setValidationErrors({ request: resp.detail });
+          return;
+        }
         const errorDetails = resp.details;
         for (let attribute in errorDetails) {
           let message = attribute + " " + errorDetails[attribute];
@@ -226,25 +265,41 @@ const InputMappingDialogEditor = ({ cell, match }) => {
                             Data element
                           </MenuItem>
                           <MenuItem value={"indicator"}>Indicator</MenuItem>
+                          {modeCreate && newDataElement && (
+                            <MenuItem value={NEW_DATA_ELEMENT}>
+                              New data element (created in DHIS2)
+                            </MenuItem>
+                          )}
                         </TextField>
                       </FormControl>
                     </div>
-                    <div className={classes.mappingTypeSelect}>
-                      <TextField
-                        select
-                        label="Origin"
-                        labelId="mapping-origin-label"
-                        id="origin"
-                        value={mappingOrigin}
-                        onChange={handleMappingOriginChange}
-                        className={classes.textField}
-                      >
-                        <MenuItem value={"dataValueSets"}>
-                          Data value sets
-                        </MenuItem>
-                        <MenuItem value={"analytics"}>Analytics</MenuItem>
-                      </TextField>
-                    </div>
+                    {!creatingDataElement && (
+                      <div className={classes.mappingTypeSelect}>
+                        <TextField
+                          select
+                          label="Origin"
+                          labelId="mapping-origin-label"
+                          id="origin"
+                          value={mappingOrigin}
+                          onChange={handleMappingOriginChange}
+                          className={classes.textField}
+                        >
+                          <MenuItem value={"dataValueSets"}>
+                            Data value sets
+                          </MenuItem>
+                          <MenuItem value={"analytics"}>Analytics</MenuItem>
+                        </TextField>
+                      </div>
+                    )}
+                    {creatingDataElement && (
+                      <div className={classes.comboAutocomplete}>
+                        <CreateDataElementForm
+                          dataElement={newDataElement}
+                          errors={newDataElementErrors}
+                          onChange={setNewDataElement}
+                        />
+                      </div>
+                    )}
                     {mappingType === "dataElement" && (
                       <div className={classes.comboAutocomplete}>
                         <Dhis2ComboAutocomplete
@@ -299,10 +354,15 @@ const InputMappingDialogEditor = ({ cell, match }) => {
               </Button>
               <Button
                 color="primary"
-                disabled={!isDirty}
+                disabled={
+                  creatingDataElement
+                    ? Object.keys(newDataElementErrors).length > 0 ||
+                      handleMutation.isLoading
+                    : !isDirty
+                }
                 onClick={() => handleMutation.mutate()}
               >
-                Save
+                {creatingDataElement ? "Create in DHIS2 and map" : "Save"}
               </Button>
             </Grid>
           </Grid>

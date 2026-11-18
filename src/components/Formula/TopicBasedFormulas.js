@@ -258,6 +258,8 @@ const TopicBasedFormulas = props => {
             input: input,
             topic: topic,
             set: setToUse,
+            // all the topics of the set, for the defaults of a new data element
+            topics: safeTopics,
           },
           valueViewer: InputMappingViewer,
           dataEditor: InputMappingDialogEditor,
