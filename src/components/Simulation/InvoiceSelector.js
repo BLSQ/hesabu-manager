@@ -13,6 +13,7 @@ const InvoiceSelector = ({ options, selected, onChange }) => {
   return (
     <Autocomplete
       multiple
+      fullWidth
       size="small"
       options={options}
       value={value}
@@ -33,7 +34,7 @@ const InvoiceSelector = ({ options, selected, onChange }) => {
           placeholder={value.length ? "" : "all"}
         />
       )}
-      style={{ maxWidth: 800, marginBottom: 16 }}
+      style={{ marginBottom: 16 }}
     />
   );
 };

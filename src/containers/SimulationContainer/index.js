@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useQuery } from "react-query";
+import { useMutation, useQuery, useQueryClient } from "react-query";
 import { withRouter } from "react-router-dom";
 import { withStyles } from "@material-ui/styles";
 import queryString from "query-string";
@@ -10,6 +10,10 @@ import { externalApi } from "../../actions/api";
 import { deserialize } from "../../utils/jsonApiUtils";
 import { dependencies } from "../../components/Formula/utils";
 import wretch from "wretch";
+import { searchWithParam } from "../../components/Shared/useUrlFilter";
+
+// status checks while the job is enqueued (a simulation takes a few seconds)
+export const POLLING_INTERVAL = 5000;
 
 const toLookups = simulationResults => {
   const indexedItems = {};
@@ -93,8 +97,10 @@ const SimulationContainer = props => {
     setPolling(requested);
   }, [simulationSearch, requested]);
 
+  const queryClient = useQueryClient();
+  const simulationQueryKey = ["simulationPolling", simulationSearch];
   const simulationQuery = useQuery(
-    ["simulationPolling", simulationSearch],
+    simulationQueryKey,
     async () =>
       deserialize(
         await externalApi()
@@ -105,7 +111,7 @@ const SimulationContainer = props => {
       ),
     {
       enabled: requested,
-      refetchInterval: polling ? 30000 : false,
+      refetchInterval: polling ? POLLING_INTERVAL : false,
       onSuccess: response => setPolling(isRunning(response)),
       onError: () => setPolling(false),
     },
@@ -131,11 +137,36 @@ const SimulationContainer = props => {
     },
   );
 
+  // runs the simulation again even if recently processed (force=strong, once:
+  // not kept in the url), then polls until the new result
+  const recalculate = useMutation(
+    async () =>
+      deserialize(
+        await externalApi()
+          .errorType("json")
+          .url(
+            `/simulation${searchWithParam(
+              simulationSearch,
+              "force",
+              "strong",
+            )}`,
+          )
+          .get()
+          .json(),
+      ),
+    {
+      // the status query's onSuccess restarts the polling
+      onSuccess: response =>
+        queryClient.setQueryData(simulationQueryKey, response),
+    },
+  );
+
   const handlePollingChange = () => {
     setPolling(!polling);
   };
 
   const errorMessage =
+    errorMessageOf("recalculation", recalculate.error) ||
     errorMessageOf("simulation", simulationQuery.error) ||
     errorMessageOf("simulation result", resultQuery.error);
 
@@ -148,6 +179,8 @@ const SimulationContainer = props => {
       valuesFromParams={queryString.parse(search)}
       polling={polling}
       onPollingChange={handlePollingChange}
+      onRecalculate={requested ? () => recalculate.mutate() : undefined}
+      recalculating={recalculate.isLoading || !!isRunning(simulation)}
       open={true}
     />
   );

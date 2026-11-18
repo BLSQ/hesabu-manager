@@ -161,6 +161,21 @@ export const Simulation = props => {
           </>
         )}
 
+        {props.onRecalculate && (
+          <Typography color="inherit" className={classes.appLinks}>
+            <Tooltip title="Run the simulation again, even if recently computed">
+              <span>
+                <Button
+                  color="inherit"
+                  disabled={props.recalculating}
+                  onClick={props.onRecalculate}
+                >
+                  {props.recalculating ? "Recalculating..." : "Recalculate"}
+                </Button>
+              </span>
+            </Tooltip>
+          </Typography>
+        )}
         <FormControlLabel
           control={
             <Switch
@@ -220,6 +235,8 @@ export const Simulation = props => {
 
 Simulation.propTypes = {
   errorMessage: PropTypes.string,
+  onRecalculate: PropTypes.func,
+  recalculating: PropTypes.bool,
   history: PropTypes.object,
   id: PropTypes.string,
   loading: PropTypes.bool,
