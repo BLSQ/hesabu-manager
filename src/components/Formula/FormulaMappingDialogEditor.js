@@ -4,10 +4,10 @@ import DataElementComboAutocomplete from "../Shared/DataElementComboAutocomplete
 import { dhis2LookupElement } from "../../lib/dhis2Lookups";
 import Transition from "../../components/Shared/Transition";
 import Dhis2ElementDetails from "./Dhis2ElementDetails";
+import MappingDialogTitle from "./MappingDialogTitle";
 import { externalApi, canEdit } from "../../actions/api";
 import {
   Dialog,
-  DialogTitle,
   DialogContent,
   DialogActions,
   Button,
@@ -94,10 +94,11 @@ const FormulaMappingDialogEditor = props => {
       maxWidth="md"
       classes={{ paper: classes.paper }}
     >
-      <DialogTitle id="form-dialog-title">
-        <b>Mapping output : </b> {formula.shortName}{" "}
-        {topic && " - " + topic.name}
-      </DialogTitle>
+      <MappingDialogTitle
+        kind="Output"
+        mapped={{ name: formula.shortName, code: formula.code }}
+        topic={topic}
+      />
       <DialogContent>
         <DialogContentText>
           {userCanEdit && (
