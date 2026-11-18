@@ -3,7 +3,6 @@ import { makeStyles } from "@material-ui/styles";
 import { useMutation, useQueryClient } from "react-query";
 import {
   Dialog,
-  DialogTitle,
   DialogContent,
   DialogContentText,
   Grid,
@@ -21,6 +20,7 @@ import { externalApi, canEdit } from "../../actions/api";
 import { deserialize } from "../../utils/jsonApiUtils";
 import Dhis2ComboAutocomplete from "./Dhis2ComboAutocomplete";
 import Dhis2IndicatorAutocomplete from "./Dhis2IndicatorAutocomplete";
+import MappingDialogTitle from "./MappingDialogTitle";
 
 const useStylesFormMapping = makeStyles(() => ({
   paper: { minHeight: "500px" },
@@ -178,9 +178,7 @@ const InputMappingDialogEditor = ({ cell, match }) => {
         classes={{ paper: classes.paper }}
       >
         <div>
-          <DialogTitle id="form-dialog-title">
-            {inputMapping && inputMapping.name}
-          </DialogTitle>
+          <MappingDialogTitle kind="State" mapped={input} topic={topic} />
         </div>
         <DialogContent>
           <DialogContentText>
