@@ -1,6 +1,11 @@
 /* globals describe, it, expect */
 
-import { dependencies, filterTopics, formulasToMermaid } from "./utils";
+import {
+  dependencies,
+  filterTopics,
+  formulasToMermaid,
+  onlyMapped,
+} from "./utils";
 
 describe("formula utils", () => {
   const formula = {
@@ -174,5 +179,68 @@ describe("filterTopics accents", () => {
     const topics = [{ name: "Référence évacuée", shortName: "", code: "ref" }];
     expect(filterTopics(topics, "reference evacuee")).toEqual(topics);
     expect(filterTopics(topics, "RÉFÉRENCE")).toEqual(topics);
+  });
+});
+
+describe("onlyMapped", () => {
+  const declared = { id: "i1", name: "declared" };
+  const verified = { id: "i2", name: "verified" };
+  const unusedInput = { id: "i3", name: "unused" };
+  const inputs = [declared, verified, unusedInput];
+
+  const viaInput = {
+    id: "t1",
+    code: "via_input",
+    inputMappings: [{ input: { id: "i1" } }, { input: { id: "i2" } }],
+  };
+  const viaFormula = { id: "t2", code: "via_formula", inputMappings: [] };
+  const unmapped = { id: "t3", code: "unmapped", inputMappings: [] };
+  const brokenMapping = {
+    id: "t4",
+    code: "broken_mapping",
+    inputMappings: [{ input: null }],
+  };
+  const topics = [viaInput, viaFormula, unmapped, brokenMapping];
+
+  const amount = {
+    id: "f1",
+    code: "amount",
+    formulaMappings: [{ topicId: "t2" }],
+  };
+  const unusedFormula = { id: "f2", code: "unused", formulaMappings: [] };
+  const formulas = [amount, unusedFormula];
+
+  const codes = items => items.map(item => item.code || item.name);
+
+  it("keeps topics with at least one input or formula mapping", () => {
+    expect(codes(onlyMapped(topics, inputs, formulas).topics)).toEqual([
+      "via_input",
+      "via_formula",
+    ]);
+  });
+
+  it("drops the inputs and formulas mapped for none of the topics", () => {
+    const result = onlyMapped(topics, inputs, formulas);
+    expect(codes(result.inputs)).toEqual(["declared", "verified"]);
+    expect(codes(result.formulas)).toEqual(["amount"]);
+  });
+
+  it("only counts the mappings of the given topics", () => {
+    const result = onlyMapped([viaFormula, unmapped], inputs, formulas);
+    expect(codes(result.topics)).toEqual(["via_formula"]);
+    expect(result.inputs).toEqual([]);
+    expect(codes(result.formulas)).toEqual(["amount"]);
+  });
+
+  it("ignores mappings to inputs that are not columns of the grid", () => {
+    const result = onlyMapped([viaInput], [unusedInput], []);
+    expect(result.topics).toEqual([]);
+    expect(result.inputs).toEqual([]);
+  });
+
+  it("tolerates topics and formulas without mapping lists", () => {
+    const bare = { id: "t5", code: "bare" };
+    const result = onlyMapped([bare], inputs, [{ id: "f3", code: "bare_f" }]);
+    expect(result).toEqual({ topics: [], inputs: [], formulas: [] });
   });
 });
