@@ -23,7 +23,7 @@ const useStyles = makeStyles(theme => ({
 const DecisionTableList = props => {
   const classes = useStyles();
   const setId = props.set.id;
-  const [filter, setFilter] = useUrlFilter();
+  const [filterInput, setFilter, filter] = useUrlFilter();
 
   let decisions = props.set.topicDecisionTables;
 
@@ -42,7 +42,7 @@ const DecisionTableList = props => {
             size="small"
             variant="outlined"
             placeholder="Filter by name or period (e.g. 202206, 2022Q2)"
-            value={filter}
+            value={filterInput}
             onChange={event => setFilter(event.target.value)}
             helperText={
               filter
